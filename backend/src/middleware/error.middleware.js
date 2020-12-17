@@ -24,3 +24,4 @@ module.exports = errorMiddleware;
     message: 'Not Found'
     data: {...} // optional
 }
+*/

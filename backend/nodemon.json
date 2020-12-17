@@ -1,4 +1,5 @@
-{   "watch": ["src"],
+{
+    "watch": ["src"],
     "ext": ".js",
     "ignore": []
   }
