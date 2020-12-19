@@ -25,10 +25,10 @@ class SupplierModel {
         return result[0];
 
     }
-    create = async ({code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active}) => {
-        const sql = `INSERT INTO ${this.tableName}code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active
+    create = async ({code,scode,title,person,contact,address,city,country,email,fax,ntn=null,stn=null,cnic,businesstitle,nature=null,active=0}) => {
+        const sql = `INSERT INTO ${this.tableName} 
         (code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
-
+        console.log(sql);
         const result = await query(sql, [code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active]);
         const affectedRows = result ? result.affectedRows : 0;
 

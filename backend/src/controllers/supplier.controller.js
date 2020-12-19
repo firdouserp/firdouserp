@@ -40,14 +40,11 @@ class SupplierController {
 
         res.send(supplierWithoutPassword);
     };
-
     
     createSupplier = async (req, res, next) => {
         this.checkValidation(req);
 
-        await this.hashPassword(req);
-
-        const result = await SupplierModel.create(req.body);
+         const result = await SupplierModel.create(req.body);
 
         if (!result) {
             throw new HttpException(500, 'Something went wrong');
@@ -59,9 +56,7 @@ class SupplierController {
     updateSupplier = async (req, res, next) => {
         this.checkValidation(req);
 
-        await this.hashPassword(req);
-
-        
+                
         // do the update query and get the result
         // it can be partial edit
         const result = await SupplierModel.update(restOfUpdates, req.params.id);
@@ -85,6 +80,13 @@ class SupplierController {
         }
         res.send('Supplier has been deleted');
     };
+
+    checkValidation = (req) => {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            throw new HttpException(400, 'Validation faild', errors);
+        }
+    }
 }
 
 

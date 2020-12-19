@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth.middleware');
 const Role = require('../utils/userRoles.utils');
-const supplierController = require('../controllers/supplier.controller');
+const supplierController =  require('../controllers/supplier.controller');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
 
 
