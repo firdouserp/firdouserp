@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 /******************************************************************************
- *                              User Controller
+ *                              Supplier Controller
  ******************************************************************************/
 class SupplierController {
     getAllSuppliers = async (req, res, next) => {
@@ -85,30 +85,6 @@ class SupplierController {
         }
         res.send('Supplier has been deleted');
     };
-
-    supplierLogin = async (req, res, next) => {
-        this.checkValidation(req);
-
-        const { code, scode: pass } = req.body;
-
-        const supplier = await SupplierModel.findOne({ code });
-
-        if (!supplier) {
-            throw new HttpException(401, 'Unable to login!');
-        }
-
-        
-
-
-    checkValidation = (req) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            throw new HttpException(400, 'Validation faild', errors);
-        }
-    }
-
-
-    }
 }
 
 

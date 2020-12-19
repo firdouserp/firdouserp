@@ -25,25 +25,31 @@ exports.createSupplierSchema = [
         .exists()
         .withMessage('Contact is required'),
     check('address')
+        .exists()
         .withMessage('Address must be required'),
     check('city')
+        .exists()
         .withMessage('Your city')
         .optional()
         .isLength({ min: 2 }),
 
         check('country')
+        .exists()
         .withMessage('Your Country')
         .optional()
         .isLength({ min: 2 }),
         check('email')
+        .exists()
         .withMessage('Your Email')
         .optional()
         .isLength({ min: 2 }),
         check('fax')
+        .exists()
         .withMessage('Your Fax')
         .optional()
         .isLength({ min: 2 }),
         check('ntn')
+        .exists()
         .withMessage('Your NTN')
         .optional()
         .isLength({ min: 2 }),
@@ -54,13 +60,14 @@ exports.createSupplierSchema = [
         .exists()
         .withMessage('Business Tittle is required'),
     check('nature')
+        .exists()
         .optional()
         .isAlpha()
         .withMessage('Business nature')
         
 ];
 
-exports.updateSuppliersSchema = [
+exports.updateSupplierSchema = [
     check('code')
     .optional()    
     .isAlphanumeric()
@@ -91,9 +98,11 @@ exports.updateSuppliersSchema = [
         .isLength({ max: 10 })
         .withMessage('City can contain max 10 characters'),
     check('country')
+    .exists()
         .optional()
         .withMessage('Select Country'),
     check('businesstitle')
+    .exists()
         .optional()
         .withMessage('Must be a business title'),
     body()
@@ -107,18 +116,4 @@ exports.updateSuppliersSchema = [
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')
-];
-
-exports.validateLogin = [
-    check('email')
-        .exists()
-        .withMessage('Email is required')
-        .isEmail()
-        .withMessage('Must be a valid email')
-        .normalizeEmail(),
-    check('password')
-        .exists()
-        .withMessage('Password is required')
-        .notEmpty()
-        .withMessage('Password must be filled')
 ];

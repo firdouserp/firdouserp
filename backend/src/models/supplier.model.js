@@ -26,7 +26,7 @@ class SupplierModel {
 
     }
     create = async ({code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active}) => {
-        const sql = `INSERT INTO ${this.tableName}
+        const sql = `INSERT INTO ${this.tableName}code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active
         (code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
         const result = await query(sql, [code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active]);
