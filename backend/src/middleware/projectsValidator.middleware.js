@@ -1,8 +1,8 @@
 const { body, check } = require('express-validator');
-const Role = require('../../utils/userRoles.utils');
+const Role = require('../utils/userRoles.utils');
 
 
-exports.createSupplierSchema = [
+exports.createProjectsSchema = [
     check('code')
         .exists()
         .isAlphanumeric()
@@ -16,55 +16,43 @@ exports.createSupplierSchema = [
         .withMessage('Can be numerical and aplhanumerical')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('person')
+    check('title')
         .exists()
-        .withMessage('person must be required')
+        .withMessage('title must be required')
         .isAlpha()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('contact')
+    check('location')
         .exists()
         .isAlphanumeric()
-        .withMessage('Contact is required'),
-    check('address')
+        .withMessage('Location is required'),
+    check('client')
         .exists()
-        .withMessage('Address must be required'),
+        .withMessage('client must be required'),
     check('city')
         .exists()
         .withMessage('Your city')
         .optional()
         .isLength({ min: 3 }),
 
-     check('country')
+     check('cost')
         .exists()
-        .withMessage('Your Country')
+        .withMessage('Your cost')
         .optional()
         .isLength({ min: 2 }),
-    check('email')
+    check('remarks')
         .exists()
-        .withMessage('Your Email is not valid'),
-    check('fax')
-        .exists()
-        .withMessage('Your Fax')
         .optional()
-        .isLength({ min: 2 }),
-        check('ntn')
-        .optional({nullable:true}),
-        
-    check('cnic')
+        .withMessage('Any remarks please'),
+        check('active')
         .exists()
-        .isAlphanumeric()
-        .isLength({min: 12})
-        .withMessage('CNIC should be valid'),
-        check('businesstitle')
-        .exists()
-        .withMessage('Business Tittle is required'),
-
+        .optional()
+        .withMessage('State required'),
         
 ];
 
-exports.updateSupplierSchema = [
+exports.updateProjectsSchema = [
     check('code')
     .optional()    
     .isAlphanumeric()
@@ -76,17 +64,17 @@ exports.updateSupplierSchema = [
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('person')
+    check('title')
         .optional()
         .isAlpha()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('contact')
+    check('location')
         .optional()
-        .isNumeric()
-        .withMessage('Must be a valid contact'),
-    check('address')
+        .isAlphanumeric()
+        .withMessage('Must be a valid location'),
+    check('client')
         .optional(),
     check('city')
         .optional()
@@ -94,14 +82,18 @@ exports.updateSupplierSchema = [
         .withMessage('Select City')
         .isLength({ max: 10 })
         .withMessage('City can contain max 10 characters'),
-    check('country')
+    check('cost')
     .exists()
         .optional()
-        .withMessage('Select Country'),
-    check('businesstitle')
+        .withMessage('Select Cost'),
+    check('remarks')
     .exists()
         .optional()
-        .withMessage('Must be a business title'),
+        .withMessage('Any remarks'),
+        check('active')
+    .exists()
+        .optional()
+        .withMessage('Define state'),
     body()
         .custom(value => {
             return !!Object.keys(value).length;
@@ -109,7 +101,7 @@ exports.updateSupplierSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active'];
+            const allowUpdates = ['code, scode, title, location, city, client, cost, nature, remakrs, active = Role.SuperUser'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

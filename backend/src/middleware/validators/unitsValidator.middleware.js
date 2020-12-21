@@ -2,7 +2,7 @@ const { body, check } = require('express-validator');
 const Role = require('../../utils/userRoles.utils');
 
 
-exports.createSupplierSchema = [
+exports.createUnitsSchema = [
     check('code')
         .exists()
         .isAlphanumeric()
@@ -16,55 +16,41 @@ exports.createSupplierSchema = [
         .withMessage('Can be numerical and aplhanumerical')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('person')
+    check('title')
         .exists()
-        .withMessage('person must be required')
+        .withMessage('title must be required')
         .isAlpha()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('contact')
+    check('utype')
         .exists()
         .isAlphanumeric()
-        .withMessage('Contact is required'),
-    check('address')
+        .withMessage('Unit type is required'),
+    check('ulocation')
+        .isAlphanumeric()
         .exists()
-        .withMessage('Address must be required'),
-    check('city')
+        .withMessage('Unit location must be required'),
+    check('usize')
         .exists()
-        .withMessage('Your city')
+        .withMessage('Unit size is required')
         .optional()
         .isLength({ min: 3 }),
 
-     check('country')
+     check('remarks')
         .exists()
-        .withMessage('Your Country')
+        .withMessage('Enter remarks')
         .optional()
         .isLength({ min: 2 }),
-    check('email')
+    
+        check('active')
         .exists()
-        .withMessage('Your Email is not valid'),
-    check('fax')
-        .exists()
-        .withMessage('Your Fax')
         .optional()
-        .isLength({ min: 2 }),
-        check('ntn')
-        .optional({nullable:true}),
-        
-    check('cnic')
-        .exists()
-        .isAlphanumeric()
-        .isLength({min: 12})
-        .withMessage('CNIC should be valid'),
-        check('businesstitle')
-        .exists()
-        .withMessage('Business Tittle is required'),
-
+        .withMessage('State required'),
         
 ];
 
-exports.updateSupplierSchema = [
+exports.updateUnitsSchema = [
     check('code')
     .optional()    
     .isAlphanumeric()
@@ -76,32 +62,32 @@ exports.updateSupplierSchema = [
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('person')
+    check('title')
         .optional()
         .isAlpha()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('contact')
+    check('ulocation')
         .optional()
         .isNumeric()
-        .withMessage('Must be a valid contact'),
-    check('address')
+        .withMessage('Must be a valid location'),
+    check('utype')
         .optional(),
-    check('city')
+    check('usize')
         .optional()
         .isLength({ min: 3})
         .withMessage('Select City')
         .isLength({ max: 10 })
         .withMessage('City can contain max 10 characters'),
-    check('country')
+    check('remarks')
     .exists()
         .optional()
-        .withMessage('Select Country'),
-    check('businesstitle')
+        .withMessage('Any remarks'),
+        check('active')
     .exists()
         .optional()
-        .withMessage('Must be a business title'),
+        .withMessage('Define state'),
     body()
         .custom(value => {
             return !!Object.keys(value).length;
@@ -109,7 +95,7 @@ exports.updateSupplierSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active'];
+            const allowUpdates = ['code,scode,title,utype,ulocation,usize,remarks,active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

@@ -43,7 +43,7 @@ class SupplierController {
     
     createSupplier = async (req, res, next) => {
         this.checkValidation(req);
-
+        
          const result = await SupplierModel.create(req.body);
 
         if (!result) {
