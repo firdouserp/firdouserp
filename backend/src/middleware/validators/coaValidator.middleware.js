@@ -55,6 +55,7 @@ exports.updateCoaSchema = [
         .isAlphanumeric()
         .withMessage('code is required')
         .isLength({min: 3})
+        .optional()
         .withMessage('Must be at least 3 chars long'),
     check('scode')
         .exists()
@@ -62,21 +63,25 @@ exports.updateCoaSchema = [
         .withMessage('Your short code is required')
         .withMessage('Can be numerical and aplhanumerical')
         .isLength({ min: 3 })
+        .optional()
         .withMessage('Must be at least 3 chars long'),
     check('title')
         .exists()
         .withMessage('title must be required')
-        .isAlpha()
+        .isAlphanumeric()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
+        .optional()
         .withMessage('Must be at least 3 chars long'),
     check('iscashbook')
         .exists()
         .isAlphanumeric()
+        .optional()
         .withMessage('cash book  is required'),
     check('isbankbook')
         .exists()
         .isAlphanumeric()
+        .optional()
         .withMessage('bank book must be required'),
     check('notes')
         .exists()
@@ -101,8 +106,10 @@ exports.updateCoaSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code, scode, title, iscashbook, isbankbook, notes, obal,active = Role.SuperUser'];
+            const allowUpdates = ['code', 'scode', 'title', 'iscashbook', 'isbankbook', 'notes', 'obal','active'];
+            console.log(allowUpdates);
             return updates.every(update => allowUpdates.includes(update));
+            
         })
         .withMessage('Invalid updates!')
 ];

@@ -56,6 +56,7 @@ class Coa_typeController {
                 
         // do the update query and get the result
         // it can be partial edit
+        const {...restOfUpdates } = req.body;
         const result = await Coa_typeModel.update(restOfUpdates, req.params.id);
 
         if (!result) {

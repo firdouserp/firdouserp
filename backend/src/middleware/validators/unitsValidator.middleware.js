@@ -95,7 +95,7 @@ exports.updateUnitsSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code,scode,title,utype,ulocation,usize,remarks,active'];
+            const allowUpdates = ['code','scode','title','utype','ulocation','usize','remarks','active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

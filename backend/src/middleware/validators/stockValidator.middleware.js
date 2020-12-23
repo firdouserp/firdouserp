@@ -77,13 +77,13 @@ exports.updateStockSchema = [
         .withMessage('Must be at least 3 chars long'),
     check('uom')
         .optional()
-        .isNumeric()
+        .isAlphanumeric()
         .withMessage('Must be valid'),
     check('reamarks')
         .optional(),
     check('qty')
         .optional()
-        .isLength({ min: 3})
+        .isLength({ min: 1})
         .withMessage('Select Quantity')
         .isLength({ max: 10 })
         .withMessage('City can contain max 10 characters'),
@@ -106,7 +106,7 @@ exports.updateStockSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code,scode,title,uom,qty,avg_rate,adv_cost,remarks,active'];
+            const allowUpdates = ['code','scode','title','uom','qty','avg_rate','adv_cost','remarks','active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

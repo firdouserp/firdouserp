@@ -10,6 +10,7 @@ const unitsRouter = require('./routes/units.route');
 const stockRouter = require('./routes/stock.route');
 const coaRouter = require('./routes/coa.route');
 const coa_typeRouter = require('./routes/coa_type.route');
+const ledgerRouter = require('./routes/ledger.route');
 
 // Init express
 const app = express();
@@ -32,6 +33,7 @@ app.use(`/api/v1/units`, unitsRouter);
 app.use(`/api/v1/stock`, stockRouter);
 app.use(`/api/v1/coa`, coaRouter);
 app.use(`/api/v1/coa_type`, coa_typeRouter);
+app.use(`/api/v1/ledger`, ledgerRouter);
 
 
 // 404 error

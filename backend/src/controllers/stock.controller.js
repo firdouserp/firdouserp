@@ -56,6 +56,8 @@ class StockController {
                 
         // do the update query and get the result
         // it can be partial edit
+        const {...restOfUpdates } = req.body;
+        console.log(req.body);
         const result = await StockModel.update(restOfUpdates, req.params.id);
 
         if (!result) {

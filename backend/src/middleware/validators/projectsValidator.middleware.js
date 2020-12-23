@@ -96,12 +96,13 @@ exports.updateProjectsSchema = [
         .withMessage('Define state'),
     body()
         .custom(value => {
+            
             return !!Object.keys(value).length;
         })
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code, scode, title, location, city, client, cost, nature, remakrs, active = Role.SuperUser'];
+            const allowUpdates = ['code', 'scode', 'title', 'location', 'city', 'client', 'cost', 'nature', 'remakrs', 'active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

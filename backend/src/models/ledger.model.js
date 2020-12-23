@@ -26,9 +26,11 @@ class LedgerModel {
 
     }
 
-    create = async ({vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno=null,chq_no=null,chq_date,dr,cr,description,remarks}) => {
+    create = async ({vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno=null,chq_no=null,chq_date=null,dr,cr,description,remarks}) => {
+       console.log(chq_date);
         const sql = `INSERT INTO ${this.tableName} 
         (vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+        console.log(chq_date);
         console.log(sql);
         const result = await query(sql, [vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks]);
         const affectedRows = result ? result.affectedRows : 0;

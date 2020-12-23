@@ -39,7 +39,7 @@ exports.updateCoa_typeSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code, title = Role.SuperUser'];
+            const allowUpdates = ['code', 'title' ];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

@@ -56,6 +56,7 @@ class CoaController {
                 
         // do the update query and get the result
         // it can be partial edit
+        const {...restOfUpdates } = req.body;
         const result = await CoaModel.update(restOfUpdates, req.params.id);
 
         if (!result) {

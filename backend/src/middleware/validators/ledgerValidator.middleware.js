@@ -1,4 +1,5 @@
 const { body, check } = require('express-validator');
+const { NEWDATE } = require('mysql2/lib/constants/types');
 const Role = require('../../utils/userRoles.utils');
 
 
@@ -43,6 +44,7 @@ exports.createLedgerSchema = [
         .isLength({ min: 2 }),
     check('unit')
         .exists()
+        .isAlphanumeric()
         .withMessage('unit is required'),
     check('employee')
         .exists()
@@ -50,16 +52,19 @@ exports.createLedgerSchema = [
         .optional()
         .isLength({ min: 2 }),
         check('refno')
+        .exists()
+        .isAlphanumeric()
         .optional({nullable:true}),
         
     check('chq_no')
         .exists()
         .isAlphanumeric()
-        .isLength({min: 12})
+        .isLength({min: 1})
         .withMessage('cheque should be valid'),
         check('chq_date')
         .exists()
         .isAlphanumeric()
+        .isLength({ min: 3 })
         .withMessage('Cheque date is required'),
         check('dr')
         .exists()
@@ -177,7 +182,7 @@ check('chq_no')
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks'];
+            const allowUpdates = ['vou_no','vou_date','vou_type','srno,coa','supplier','project','stock','unit','employee','refno','chq_no','chq_date','dr','cr','description','remarks'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')
