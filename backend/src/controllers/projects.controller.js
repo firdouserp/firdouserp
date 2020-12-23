@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 /******************************************************************************
- *                              Supplier Controller
+ *                              Project Controller
  ******************************************************************************/
 class ProjectsController {
     getAllProjects = async (req, res, next) => {

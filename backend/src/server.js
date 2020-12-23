@@ -8,6 +8,8 @@ const supplierRouter = require('./routes/supplier.route');
 const projectsRouter = require('./routes/projects.route');
 const unitsRouter = require('./routes/units.route');
 const stockRouter = require('./routes/stock.route');
+const coaRouter = require('./routes/coa.route');
+const coa_typeRouter = require('./routes/coa_type.route');
 
 // Init express
 const app = express();
@@ -28,6 +30,8 @@ app.use(`/api/v1/suppliers`, supplierRouter);
 app.use(`/api/v1/projects`, projectsRouter);
 app.use(`/api/v1/units`, unitsRouter);
 app.use(`/api/v1/stock`, stockRouter);
+app.use(`/api/v1/coa`, coaRouter);
+app.use(`/api/v1/coa_type`, coa_typeRouter);
 
 
 // 404 error

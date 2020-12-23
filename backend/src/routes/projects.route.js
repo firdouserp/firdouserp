@@ -7,7 +7,7 @@ const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middlewar
 
 
 
-const { createProjectsSchema,updateProjectsSchema} = require('../middleware/projectsValidator.middleware');
+const { createProjectsSchema,updateProjectsSchema} = require('../middleware/validators/projectsValidator.middleware');
 
 
 router.get('/',auth(), awaitHandlerFactory(projectsController.getAllProjects)); //localhost:3000/api/v1/projects

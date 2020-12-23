@@ -1,8 +1,8 @@
 const { body, check } = require('express-validator');
-const Role = require('../utils/userRoles.utils');
+const Role = require('../../utils/userRoles.utils');
 
 
-exports.createProjectsSchema = [
+exports.createCoaSchema = [
     check('code')
         .exists()
         .isAlphanumeric()
@@ -23,28 +23,25 @@ exports.createProjectsSchema = [
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('location')
+    check('iscashbook')
         .exists()
         .isAlphanumeric()
-        .withMessage('Location is required'),
-    check('client')
+        .withMessage('cash book  is required'),
+    check('isbankbook')
         .exists()
-        .withMessage('client must be required'),
-    check('city')
+        .isAlphanumeric()
+        .withMessage('bank book must be required'),
+    check('notes')
         .exists()
-        .withMessage('Your city')
+        .withMessage('notes are required')
         .optional()
         .isLength({ min: 3 }),
 
-     check('cost')
+     check('obal')
         .exists()
-        .withMessage('Your cost')
+        .withMessage('obal is required')
         .optional()
         .isLength({ min: 2 }),
-    check('remarks')
-        .exists()
-        .optional()
-        .withMessage('Any remarks please'),
         check('active')
         .exists()
         .optional()
@@ -52,48 +49,51 @@ exports.createProjectsSchema = [
         
 ];
 
-exports.updateProjectsSchema = [
+exports.updateCoaSchema = [
     check('code')
-    .optional()    
-    .isAlphanumeric()
-        .isLength({ min: 3 })
+        .exists()
+        .isAlphanumeric()
+        .withMessage('code is required')
+        .isLength({min: 3})
         .withMessage('Must be at least 3 chars long'),
     check('scode')
-        .optional()
+        .exists()
         .isAlphanumeric()
-        .withMessage('Must be only alphabetical chars')
+        .withMessage('Your short code is required')
+        .withMessage('Can be numerical and aplhanumerical')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('title')
-        .optional()
+        .exists()
+        .withMessage('title must be required')
         .isAlpha()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
-    check('location')
-        .optional()
+    check('iscashbook')
+        .exists()
         .isAlphanumeric()
-        .withMessage('Must be a valid location'),
-    check('client')
-        .optional(),
-    check('city')
+        .withMessage('cash book  is required'),
+    check('isbankbook')
+        .exists()
+        .isAlphanumeric()
+        .withMessage('bank book must be required'),
+    check('notes')
+        .exists()
+        .withMessage('notes are required')
         .optional()
-        .isLength({ min: 3})
-        .withMessage('Select City')
-        .isLength({ max: 10 })
-        .withMessage('City can contain max 10 characters'),
-    check('cost')
-    .exists()
+        .isLength({ min: 3 }),
+
+     check('obal')
+        .exists()
+        .withMessage('obal is required')
         .optional()
-        .withMessage('Select Cost'),
-    check('remarks')
-    .exists()
-        .optional()
-        .withMessage('Any remarks'),
+        .isLength({ min: 2 }),
         check('active')
-    .exists()
+        .exists()
         .optional()
-        .withMessage('Define state'),
+        .withMessage('State required'),
+
     body()
         .custom(value => {
             return !!Object.keys(value).length;
@@ -101,7 +101,7 @@ exports.updateProjectsSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code, scode, title, location, city, client, cost, nature, remakrs, active = Role.SuperUser'];
+            const allowUpdates = ['code, scode, title, iscashbook, isbankbook, notes, obal,active = Role.SuperUser'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')
