@@ -1,5 +1,5 @@
 const { body, check } = require('express-validator');
-const Role = require('../../utils/userRoles.utils');
+const Role =require('../../utils/userRoles.utils');
 
 
 exports.createUnitsSchema = [
@@ -26,13 +26,15 @@ exports.createUnitsSchema = [
     check('utype')
         .exists()
         .isAlphanumeric()
+        .optional()
         .withMessage('Unit type is required'),
     check('ulocation')
         .isAlphanumeric()
         .exists()
+        .isLength({min :2})
         .withMessage('Unit location must be required'),
     check('usize')
-        .exists()
+        .exists() 
         .withMessage('Unit size is required')
         .optional()
         .isLength({ min: 3 }),

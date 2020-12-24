@@ -13,10 +13,7 @@ exports.createLedgerSchema = [
     check('vou_date')
         .exists()
         .isAlphanumeric()
-        .withMessage('Your voucher date is required')
-        .withMessage('Can be numerical and aplhanumerical')
-        .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long'),
+        .withMessage('Your voucher date is required and must be in Date format'),
     check('vou_type')
         .exists()
         .withMessage('voucher type must be required')
@@ -61,27 +58,27 @@ exports.createLedgerSchema = [
         .isAlphanumeric()
         .isLength({min: 1})
         .withMessage('cheque should be valid'),
-        check('chq_date')
+    check('chq_date')
         .exists()
-        .isAlphanumeric()
-        .isLength({ min: 3 })
-        .withMessage('Cheque date is required'),
-        check('dr')
+        .isISO31661Alpha3() 
+        .optional()
+        .withMessage('Cheque date is required and must be in Date'),
+    check('dr')
         .exists()
         .isAlphanumeric()
         .isLength({min: 5})
         .withMessage('dr should be valid'),
-        check('cr')
+    check('cr')
         .exists()
         .isAlphanumeric()
         .isLength({min: 4})
         .withMessage('cr should be valid'),
-        check('description')
+    check('description')
         .exists()
         .isAlphanumeric()
         .isLength({min: 4})
         .withMessage('description should be valid'),
-        check('remarks')
+    check('remarks')
         .exists()
         .isAlphanumeric()
         .isLength({min: 4})
@@ -151,7 +148,7 @@ check('chq_no')
     .withMessage('cheque should be valid'),
     check('chq_date')
     .exists()
-    .isAlphanumeric()
+    .isISO31661Alpha2()
     .withMessage('Cheque date is required'),
     check('dr')
     .exists()

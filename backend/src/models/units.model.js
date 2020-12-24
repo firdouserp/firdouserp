@@ -25,7 +25,7 @@ class UnitsModel {
         return result[0];
 
     }
-    create = async ({code,scode,title,utype,ulocation,usize,remarks,active=0}) => {
+    create = async ({code,scode,title,utype,ulocation=0,usize,remarks,active}) => {
         const sql = `INSERT INTO ${this.tableName} 
         ({code,scode,title,utype,ulocation,usize,remarks,acitve) VALUES (?,?,?,?,?,?,?,?)`;
         console.log(sql);
