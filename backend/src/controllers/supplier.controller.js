@@ -27,7 +27,7 @@ class SupplierController {
             throw new HttpException(404, 'Supplier not found');
         }
 
-        
+        res.send(supplier);
     };
 
     getSupplierBysupplierName = async (req, res, next) => {
@@ -36,9 +36,7 @@ class SupplierController {
             throw new HttpException(404, 'Supplier not found');
         }
 
-        const { password, ...supplierWithoutPassword } = supplier;
-
-        res.send(supplierWithoutPassword);
+        res.send(supplier);
     };
     
     createSupplier = async (req, res, next) => {
@@ -50,7 +48,12 @@ class SupplierController {
             throw new HttpException(500, 'Something went wrong');
         }
 
-        res.status(201).send('Supplier was created!');
+        const supplier = await SupplierModel.findOne({ id: result });
+        if (!supplier) {
+            throw new HttpException(404, 'Supplier not found');
+        }
+
+        res.status(201).send(supplier);
     };
 
     updateSupplier = async (req, res, next) => {

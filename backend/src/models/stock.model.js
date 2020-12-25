@@ -31,9 +31,7 @@ class StockModel {
         (code,scode,title,uom,qty,avg_rate,adv_cost,remarks,active) VALUES (?,?,?,?,?,?,?,?,?)`;
         console.log(sql);
         const result = await query(sql, [code,scode,title,uom,qty,avg_rate,adv_cost,remarks,active]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        return result.insertId;
 
 }
 update = async (params, id) => {

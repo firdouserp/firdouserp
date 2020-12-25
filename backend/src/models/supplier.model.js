@@ -30,9 +30,7 @@ class SupplierModel {
         (code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         console.log(sql);
         const result = await query(sql, [code,scode,title,person,contact,address,city,country,email,fax,ntn,stn,cnic,businesstitle,nature,active]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        return result.insertId;
 
 }
 update = async (params, id,username) => {

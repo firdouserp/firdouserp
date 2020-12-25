@@ -34,9 +34,7 @@ class ProjectsModel {
         ( code, scode, title, location, city, client, cost, nature, remakrs, active) VALUES (?,?,?,?,?,?,?,?,?,?)`;
 
         const result = await query(sql, [code, scode, title, location, city, client, cost, nature, remakrs, active=0]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        return result.insertId;
     }
 
     update = async (params, id) => {

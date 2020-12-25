@@ -30,9 +30,7 @@ class UnitsModel {
         ({code,scode,title,utype,ulocation,usize,remarks,acitve) VALUES (?,?,?,?,?,?,?,?)`;
         console.log(sql);
         const result = await query(sql, [code,scode,title,utype,ulocation,usize,remarks,active]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        return result.insertId;
 
 }
 update = async (params, id) => {

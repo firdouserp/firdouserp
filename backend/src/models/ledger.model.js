@@ -33,9 +33,7 @@ class LedgerModel {
         console.log(chq_date);
         console.log(sql);
         const result = await query(sql, [vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        return result.insertId;
 
 }
 update = async (params, id) => {

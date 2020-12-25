@@ -33,9 +33,7 @@ class CoaModel {
         (code,scode,title,iscashbook,isbankbook,notes,obal,active) VALUES (?,?,?,?,?,?,?,?)`;
         console.log(sql);
         const result = await query(sql, [code,scode,title,iscashbook,isbankbook,notes,obal,active]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        return result.insertId;
 
 }
 update = async (params, id) => {

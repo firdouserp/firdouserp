@@ -33,9 +33,7 @@ class Coa_typeModel {
         (code,title) VALUES (?,?)`;
         console.log(sql);
         const result = await query(sql, [code,title]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        return result.insertId;
 
 }
 update = async (params, id) => {

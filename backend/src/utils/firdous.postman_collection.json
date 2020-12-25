@@ -1,0 +1,542 @@
+{
+	"info": {
+		"_postman_id": "5d2abe4c-e789-425b-be62-a2e4ce7e4cb3",
+		"name": "firdous",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSuppliers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUnits",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/units/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"units",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProjects",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/projects/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"projects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStocks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/stocks/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"stocks",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCOA",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/coa/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"coa",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCOAType",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/coa_type/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"coa_type",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetLedger",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/ledger/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"ledger",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddSupplier",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \r\n        \"code\": \"00033333\",\r\n        \"scode\": \"Test\",\r\n        \"title\": \"Test API SUpplier\",\r\n        \"person\": \"null\",\r\n        \"contact\": \"123456789\",\r\n        \"address\": null,\r\n        \"city\": \"Karachi\",\r\n        \"country\": \"Pakistan\",\r\n        \"email\": null,\r\n        \"fax\": null,\r\n        \"ntn\": null,\r\n        \"stn\": null,\r\n        \"cnic\": \"123456789789\",\r\n        \"businesstitle\": null,\r\n        \"nature\": \"1\",\r\n        \"active\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/suppliers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"suppliers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddProject",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"code\": \"003\",\r\n        \"scode\": null,\r\n        \"title\": \"LS-11/3/36\",\r\n        \"location\": null,\r\n        \"city\": null,\r\n        \"client\": null,\r\n        \"cost\": null,\r\n        \"nature\": null,\r\n        \"remarks\": null,\r\n        \"active\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/projects/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"projects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddUnit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"code\": \"001\",\r\n        \"scode\": \"HOU\",\r\n        \"title\": \"Head Office (Unit)\",\r\n        \"utype\": null,\r\n        \"ulocation\": null,\r\n        \"usize\": null,\r\n        \"remarks\": null,\r\n        \"active\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/units/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"units",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddStock",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n       \"code\": \"00001\",\r\n        \"scode\": \"00001\",\r\n        \"title\": \"Aggregate\",\r\n        \"uom\": \"CFT\",\r\n        \"remarks\": null,\r\n        \"qty\": 0,\r\n        \"avg_rate\": 0,\r\n        \"adv_cost\": 0,\r\n        \"active\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/units/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"units",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddCOA",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"scode\": null,\r\n        \"code\": \"101001\",\r\n        \"title\": \"CASH IN HAND\",\r\n        \"iscashbook\": 1,\r\n        \"isbankbook\": 0,\r\n        \"notes\": 1,\r\n        \"obal\": 0,\r\n        \"active\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/coa/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"coa",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddCOA_TYPE",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"code\": \"40\",\r\n        \"title\": \"Income\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/coa_type/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"coa_type",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddLedger",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNSIsImlhdCI6MTYwODkxNDkzNSwiZXhwIjoxNjA5MDAxMzM1fQ.ADb_FDnV79ICH6CvOFgRjiLzhQdfRwfvg1x6nNhsLU0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n       \"vou_no\": \"J0519-0004\",\r\n        \"vou_date\": \"2019-05-05T22:00:00.000Z\",\r\n        \"vou_type\": \"Journal\",\r\n        \"srno\": 2,\r\n        \"coa\": 36,\r\n        \"supplier\": 0,\r\n        \"project\": 1,\r\n        \"stock\": 0,\r\n        \"unit\": 0,\r\n        \"employee\": 0,\r\n        \"refno\": \"330184\",\r\n        \"chq_no\": \"330184\",\r\n        \"chq_date\": \"2019-05-05T22:00:00.000Z\",\r\n        \"dr\": \"42850.00\",\r\n        \"cr\": \"0.00\",\r\n        \"description\": \"DIFF AMOUNT OF PRIZE BOND CR BY SBP-BL-3A-F\",\r\n        \"remarks\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/ledger/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"ledger",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -45,11 +45,10 @@ exports.createSupplierSchema = [
         .exists()
         .withMessage('Your Email is not valid'),
     check('fax')
-        .exists()
-        .withMessage('Your Fax')
-        .optional()
-        .isLength({ min: 2 }),
-        check('ntn')
+        .optional({nullable:true})
+        .isLength({ min: 2 })
+        .withMessage('Your Fax is not valid'),
+    check('ntn')
         .optional({nullable:true}),
         
     check('cnic')
@@ -57,7 +56,7 @@ exports.createSupplierSchema = [
         .isAlphanumeric()
         .isLength({min: 12})
         .withMessage('CNIC should be valid'),
-        check('businesstitle')
+    check('businesstitle')
         .exists()
         .withMessage('Business Tittle is required'),
 
