@@ -14,7 +14,7 @@ router.get('/',auth(), awaitHandlerFactory(unitsController.getAllUnits)); //loca
 router.get('/id/:id', auth(),awaitHandlerFactory(unitsController.getunitsById)); //localhost:3000/api/v1/units/id/1
 router.get('/username/:username', auth(),awaitHandlerFactory(unitsController.getUnitsBycode)); //localhost:3000/api/v1/suppliers/unitscode/julia
 router.post('/', auth(),createUnitsSchema, awaitHandlerFactory(unitsController.createUnits));  // localhost:3000/api/v1/units
-router.patch('/id/:id',auth(),updateUnitsSchema, awaitHandlerFactory(unitsController.updateUnits)); //localhost:3000/api/v1/units/id/1 , using patch for partial update
+router.patch('/id/:id',auth(),updateUnitsSchema, awaitHandlerFactory(unitsController.updateUnit)); //localhost:3000/api/v1/units/id/1 , using patch for partial update
 router.delete('/id/:id', auth(Role.Admin), awaitHandlerFactory(unitsController.deleteUnits)); //localhost:3000/api/v1/units/id/1
 
 

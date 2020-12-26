@@ -30,7 +30,7 @@ app.use(`/api/v1/users`, userRouter);
 app.use(`/api/v1/suppliers`, supplierRouter);
 app.use(`/api/v1/projects`, projectsRouter);
 app.use(`/api/v1/units`, unitsRouter);
-app.use(`/api/v1/stocks`, stockRouter);
+app.use(`/api/v1/stock`, stockRouter);
 app.use(`/api/v1/coa`, coaRouter);
 app.use(`/api/v1/coa_type`, coa_typeRouter);
 app.use(`/api/v1/ledger`, ledgerRouter);

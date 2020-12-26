@@ -29,11 +29,11 @@ class ProjectsModel {
         return result[0];
     }
 
-    create = async ({ code, scode, title, location, city, client, cost, nature, remakrs, active}) => {
+    create = async ({code,scode,title,location,city,client,cost,nature,remarks,active}) => {
         const sql = `INSERT INTO ${this.tableName}
-        ( code, scode, title, location, city, client, cost, nature, remakrs, active) VALUES (?,?,?,?,?,?,?,?,?,?)`;
-
-        const result = await query(sql, [code, scode, title, location, city, client, cost, nature, remakrs, active=0]);
+        ( code, scode, title, location, city, client, cost, nature, remarks, active) VALUES (?,?,?,?,?,?,?,?,?,?)`;
+        console.log(sql);
+        const result = await query(sql, [code, scode, title, location, city, client, cost, nature, remarks, active]);
         return result.insertId;
     }
 

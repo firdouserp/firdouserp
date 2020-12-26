@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 /******************************************************************************
- *                              Supplier Controller
+ *                              Units Controller
  ******************************************************************************/
 class UnitsController {
     getAllUnits = async (req, res, next) => {
@@ -38,18 +38,23 @@ class UnitsController {
 
         };
     
-    createUnits = async (req, res, next) => {
-        this.checkValidation(req);
-        
-         const result = await UnitsModel.create(req.body);
-
-        if (!result) {
-            throw new HttpException(500, 'Something went wrong');
-        }
-
-        res.status(201).send('Unit was created!');
-    };
-
+        createUnits = async (req, res, next) => {
+            this.checkValidation(req);
+            
+             const result = await UnitsModel.create(req.body);
+    
+            if (!result) {
+                throw new HttpException(500, 'Something went wrong');
+            }
+    
+            const units = await UnitsModel.findOne({ id: result });
+            if (!units) {
+                throw new HttpException(404, 'Units not found');
+            }
+    
+            res.status(201).send(units);
+        };
+    
     updateUnit = async (req, res, next) => {
         this.checkValidation(req);
 
@@ -57,6 +62,7 @@ class UnitsController {
         // do the update query and get the result
         // it can be partial edit
         const {...restOfUpdates } = req.body;
+        console.log(req.body);
         const result = await UnitsModel.update(restOfUpdates, req.params.id);
 
         if (!result) {

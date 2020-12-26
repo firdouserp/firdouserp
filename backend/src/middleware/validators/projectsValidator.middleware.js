@@ -19,75 +19,84 @@ exports.createProjectsSchema = [
     check('title')
         .exists()
         .withMessage('title must be required')
-        .isAlpha()
-        .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long'),
+        .isLength({min : 2}),
     check('location')
         .exists()
-        .isAlphanumeric()
         .withMessage('Location is required'),
     check('client')
         .exists()
-        .withMessage('client must be required'),
+        .isAlphanumeric()
+        .withMessage('client must be required')
+        .isLength({min : 1}),
     check('city')
         .exists()
         .withMessage('Your city')
-        .optional()
-        .isLength({ min: 3 }),
+        .isLength({min:3}),
 
-     check('cost')
+    check('cost')
         .exists()
         .withMessage('Your cost')
-        .optional()
-        .isLength({ min: 2 }),
+        .isAlphanumeric()
+        .isLength({ min:1}),
+    check('nature')
+        .exists()
+        .withMessage('Enter nature')
+        .isAlphanumeric()
+        .isLength({min : 1}),
     check('remarks')
         .exists()
-        .optional()
         .withMessage('Any remarks please'),
-        check('active')
+    check('active')
         .exists()
-        .optional()
-        .withMessage('State required'),
+        .isAlphanumeric()
+        .withMessage('State required')
+        .isLength({min:1}),
         
 ];
 
 exports.updateProjectsSchema = [
     check('code')
-    .optional()    
-    .isAlphanumeric()
+        .optional()    
+        .isAlphanumeric()
+        .optional()
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('scode')
-        .optional()
         .isAlphanumeric()
+        .optional()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('title')
+        .exists()
         .optional()
-        .isAlpha()
-        .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long'),
+        .withMessage('title require')
+        .isLength({ min: 1 }),
     check('location')
-        .optional()
+         .optional({nullable:true})
         .isAlphanumeric()
         .withMessage('Must be a valid location'),
     check('client')
         .optional(),
     check('city')
-        .optional()
+        .optional({nullable:true})
         .isLength({ min: 3})
         .withMessage('Select City')
         .isLength({ max: 10 })
         .withMessage('City can contain max 10 characters'),
     check('cost')
-    .exists()
+        .exists()
+        .isAlphanumeric()
         .optional()
         .withMessage('Select Cost'),
+    check('nature')
+        .exists()
+        .withMessage('Enter nature')
+        .optional()
+        .isAlphanumeric()
+        .isLength({min : 1}),
     check('remarks')
-    .exists()
+        .exists()
         .optional()
         .withMessage('Any remarks'),
         check('active')
@@ -102,7 +111,7 @@ exports.updateProjectsSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code', 'scode', 'title', 'location', 'city', 'client', 'cost', 'nature', 'remakrs', 'active'];
+            const allowUpdates = ['code', 'scode', 'title', 'location', 'city', 'client', 'cost', 'nature', 'remarks', 'active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

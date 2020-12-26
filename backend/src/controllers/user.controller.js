@@ -54,17 +54,21 @@ class UserController {
 
     createUser = async (req, res, next) => {
         this.checkValidation(req);
-
-        await this.hashPassword(req);
-
-        const result = await UserModel.create(req.body);
+        
+         const result = await UserModel.create(req.body);
 
         if (!result) {
             throw new HttpException(500, 'Something went wrong');
         }
 
-        res.status(201).send('User was created!');
+        const user = await UserModel.findOne({ id: result });
+        if (!user) {
+            throw new HttpException(404, 'User not found');
+        }
+
+        res.status(201).send(user);
     };
+
 
     updateUser = async (req, res, next) => {
         this.checkValidation(req);

@@ -39,16 +39,23 @@ class LedgerController {
         };
     
     createLedger = async (req, res, next) => {
-        this.checkValidation(req);
-        
-         const result = await LedgerModel.create(req.body);
-
-        if (!result) {
-            throw new HttpException(500, 'Something went wrong');
-        }
-
-        res.status(201).send('Ledger was created!');
+            this.checkValidation(req);
+            
+             const result = await LedgerModel.create(req.body);
+    
+            if (!result) {
+                throw new HttpException(500, 'Something went wrong');
+            }
+    
+            const ledger = await LedgerModel.findOne({ id: result });
+            if (!ledger) {
+                throw new HttpException(404, 'Ledger not found');
+            }
+    
+            res.status(201).send(ledger);
     };
+    
+    
 
     updateLedger = async (req, res, next) => {
         this.checkValidation(req);
@@ -86,7 +93,6 @@ class LedgerController {
         }
     }
 }
-
 
 
 /******************************************************************************
