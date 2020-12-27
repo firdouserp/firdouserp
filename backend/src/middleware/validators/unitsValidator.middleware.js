@@ -19,33 +19,21 @@ exports.createUnitsSchema = [
     check('title')
         .exists()
         .withMessage('title must be required')
-        .isAlpha()
-        .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long'),
+        .isLength({ min: 3 }),
     check('utype')
         .exists()
-        .isAlphanumeric()
-        .optional()
         .withMessage('Unit type is required'),
     check('ulocation')
-        .isAlphanumeric()
         .exists()
-        .isLength({min :2})
         .withMessage('Unit location must be required'),
     check('usize')
-        .exists() 
-        .withMessage('Unit size is required')
-        .optional()
-        .isLength({ min: 3 }),
-
-     check('remarks')
+        .exists(),
+    check('remarks')
         .exists()
         .withMessage('Enter remarks')
-        .optional()
+        .optional({nullable:true})
         .isLength({ min: 2 }),
-    
-        check('active')
+    check('active')
         .exists()
         .optional()
         .withMessage('State required'),
@@ -54,40 +42,45 @@ exports.createUnitsSchema = [
 
 exports.updateUnitsSchema = [
     check('code')
+    .exists()
     .optional()    
     .isAlphanumeric()
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('scode')
+        .exists()
         .optional()
         .isAlphanumeric()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('title')
+        .exists()
         .optional()
-        .isAlpha()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('ulocation')
+        .exists()
         .optional()
         .isNumeric()
         .withMessage('Must be a valid location'),
     check('utype')
+        .exists()
         .optional(),
     check('usize')
+        .exists()
         .optional()
         .isLength({ min: 3})
         .withMessage('Select City')
         .isLength({ max: 10 })
         .withMessage('City can contain max 10 characters'),
     check('remarks')
-    .exists()
-        .optional()
+        .exists()
+        .optional({nullable:true})
         .withMessage('Any remarks'),
-        check('active')
-    .exists()
+    check('active')
+        .exists()
         .optional()
         .withMessage('Define state'),
     body()

@@ -19,32 +19,37 @@ exports.createCoaSchema = [
     check('title')
         .exists()
         .withMessage('title must be required')
-        .isAlpha()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('iscashbook')
         .exists()
         .isAlphanumeric()
+        .isLength({min : 1})
         .withMessage('cash book  is required'),
     check('isbankbook')
         .exists()
         .isAlphanumeric()
+        .isLength({min : 1})
         .withMessage('bank book must be required'),
     check('notes')
         .exists()
         .withMessage('notes are required')
+        .isAlphanumeric()
         .optional()
-        .isLength({ min: 3 }),
+        .isLength({ min: 1 }),
 
      check('obal')
         .exists()
         .withMessage('obal is required')
         .optional()
-        .isLength({ min: 2 }),
+        .isAlphanumeric()
+        .isLength({ min: 1 }),
         check('active')
         .exists()
+        .isAlphanumeric()
         .optional()
+        .isLength({min : 1})
         .withMessage('State required'),
         
 ];
@@ -68,33 +73,35 @@ exports.updateCoaSchema = [
     check('title')
         .exists()
         .withMessage('title must be required')
-        .isAlphanumeric()
         .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
+        .isLength({ min: 1 })
         .optional()
         .withMessage('Must be at least 3 chars long'),
     check('iscashbook')
         .exists()
         .isAlphanumeric()
+        .isLength({min : 1})
         .optional()
         .withMessage('cash book  is required'),
     check('isbankbook')
         .exists()
         .isAlphanumeric()
+        .isLength({min : 1})
         .optional()
         .withMessage('bank book must be required'),
     check('notes')
         .exists()
         .withMessage('notes are required')
         .optional()
-        .isLength({ min: 3 }),
+        .isLength({ min: 1 }),
 
      check('obal')
         .exists()
+        .isAlphanumeric()
         .withMessage('obal is required')
         .optional()
-        .isLength({ min: 2 }),
-        check('active')
+        .isLength({ min: 1 }),
+    check('active')
         .exists()
         .optional()
         .withMessage('State required'),

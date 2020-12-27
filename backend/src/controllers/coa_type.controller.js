@@ -38,17 +38,23 @@ class Coa_typeController {
 
         };
     
-    createCoa_type = async (req, res, next) => {
-        this.checkValidation(req);
-        
-         const result = await Coa_typeModel.create(req.body);
-
-        if (!result) {
-            throw new HttpException(500, 'Something went wrong');
-        }
-
-        res.status(201).send('COA Type was created!');
-    };
+        createCoa_type = async (req, res, next) => {
+            this.checkValidation(req);
+            
+             const result = await Coa_typeModel.create(req.body);
+    
+            if (!result) {
+                throw new HttpException(500, 'Something went wrong');
+            }
+    
+            const coa_type = await Coa_typeModel.findOne({ id: result });
+            if (!coa_type) {
+                throw new HttpException(404, 'coa type not found');
+            }
+    
+            res.status(201).send(coa_type);
+        };
+    
 
     updateCoa_type = async (req, res, next) => {
         this.checkValidation(req);

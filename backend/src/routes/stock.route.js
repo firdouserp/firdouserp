@@ -15,6 +15,6 @@ router.get('/id/:id', auth(),awaitHandlerFactory(stockController.getStockById));
 router.get('/username/:username', auth(),awaitHandlerFactory(stockController.getStockBycode)); //localhost:3000/api/v1/stock/stockcode/julia
 router.post('/', auth(),createStockSchema, awaitHandlerFactory(stockController.createStock));  // localhost:3000/api/v1/stock
 router.patch('/id/:id',auth(),updateStockSchema, awaitHandlerFactory(stockController.updateStock)); //localhost:3000/api/v1/stock/id/1 , using patch for partial update
-router.delete('/id/:id', auth(Role.Admin), awaitHandlerFactory(stockController.deleteStock)); //localhost:3000/api/v1/stock/id/1
+router.delete('/id/:id', auth(Role.Admin), awaitHandlerFactory(stockController .deleteStock)); //localhost:3000/api/v1/stock/id/1
 
 module.exports = router;

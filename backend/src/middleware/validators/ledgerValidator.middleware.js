@@ -6,24 +6,22 @@ const Role = require('../../utils/userRoles.utils');
 exports.createLedgerSchema = [
     check('vou_no')
         .exists()
-        .isAlphanumeric()
         .withMessage('code is required')
-        .isLength({min: 3})
+        .isLength({min: 1})
         .withMessage('Must be at least 3 chars long'),
     check('vou_date')
         .exists()
-        .isAlphanumeric()
         .withMessage('Your voucher date is required and must be in Date format'),
     check('vou_type')
         .exists()
         .withMessage('voucher type must be required')
         .isAlphanumeric()
         .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
+        .isLength({ min: 1 })
         .withMessage('Must be at least 3 chars long'),
-    check('smo')
+    check('srno')
         .exists()
-        .isAlphanumeric()
+        .isNumeric()
         .withMessage('smo is required'),
     check('supplier')
         .exists()
@@ -31,14 +29,12 @@ exports.createLedgerSchema = [
     check('project')
         .exists()
         .withMessage('Project required')
-        .optional()
-        .isLength({ min: 3 }),
-
+        .isLength({ min: 1}),
      check('stock')
         .exists()
         .withMessage('Stock required')
         .optional()
-        .isLength({ min: 2 }),
+        .isLength({ min: 1 }),
     check('unit')
         .exists()
         .isAlphanumeric()
@@ -46,9 +42,8 @@ exports.createLedgerSchema = [
     check('employee')
         .exists()
         .withMessage('employee required')
-        .optional()
-        .isLength({ min: 2 }),
-        check('refno')
+        .isLength({ min: 1 }),
+    check('refno')
         .exists()
         .isAlphanumeric()
         .optional({nullable:true}),
@@ -60,28 +55,23 @@ exports.createLedgerSchema = [
         .withMessage('cheque should be valid'),
     check('chq_date')
         .exists()
-        .isISO31661Alpha3() 
-        .optional()
         .withMessage('Cheque date is required and must be in Date'),
     check('dr')
         .exists()
-        .isAlphanumeric()
-        .isLength({min: 5})
+        .isLength({min: 1})
         .withMessage('dr should be valid'),
     check('cr')
         .exists()
-        .isAlphanumeric()
-        .isLength({min: 4})
+        .isLength({min: 1})
         .withMessage('cr should be valid'),
     check('description')
         .exists()
-        .isAlphanumeric()
-        .isLength({min: 4})
+        .isLength({min: 1})
         .withMessage('description should be valid'),
     check('remarks')
         .exists()
-        .isAlphanumeric()
-        .isLength({min: 4})
+        .isLength({min: 1})
+        .optional({nullable:true})
         .withMessage('remarks required'),
     
     
@@ -106,7 +96,7 @@ check('vou_date')
     .isLength({ min: 3 })
     .withMessage('Must be at least 3 chars long'),
 check('vou_type')
-    .exists()
+    .exists() 
     .withMessage('voucher type must be required')
     .isAlphanumeric()
     .withMessage('Must be only alphabetical chars')
@@ -152,13 +142,11 @@ check('chq_no')
     .withMessage('Cheque date is required'),
     check('dr')
     .exists()
-    .isAlphanumeric()
-    .isLength({min: 5})
+    .isLength({min: 1})
     .withMessage('dr should be valid'),
     check('cr')
     .exists()
-    .isAlphanumeric()
-    .isLength({min: 4})
+    .isLength({min: 1})
     .withMessage('cr should be valid'),
     check('description')
     .exists()

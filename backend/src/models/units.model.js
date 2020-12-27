@@ -27,7 +27,8 @@ class UnitsModel {
     }
     create = async ({code,scode,title,utype,ulocation=0,usize,remarks,active}) => {
         const sql = `INSERT INTO ${this.tableName} 
-        ({code,scode,title,utype,ulocation,usize,remarks,acitve) VALUES (?,?,?,?,?,?,?,?)`;
+        (code,scode,title,utype,ulocation,usize,remarks,active) VALUES (?,?,?,?,?,?,?,?)`;
+
         console.log(sql);
         const result = await query(sql, [code,scode,title,utype,ulocation,usize,remarks,active]);
         return result.insertId;
@@ -37,7 +38,7 @@ update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params)
 
     const sql = `UPDATE units SET ${columnSet} WHERE id = ?`;
-
+    console.log(sql);
     const result = await query(sql, [...values, id]);
 
     return result;

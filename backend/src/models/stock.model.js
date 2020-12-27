@@ -37,8 +37,9 @@ class StockModel {
 update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params)
 
-    const sql = `UPDATE units SET ${columnSet} WHERE id = ?`;
-
+    const sql = `UPDATE stock SET ${columnSet} WHERE id = ?`;
+    console.log(sql);
+    console.log(values);
     const result = await query(sql, [...values, id]);
 
     return result;

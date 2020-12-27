@@ -38,18 +38,23 @@ class StockController {
 
         };
     
-    createStock = async (req, res, next) => {
-        this.checkValidation(req);
-        
-         const result = await StockModel.create(req.body);
-
-        if (!result) {
-            throw new HttpException(500, 'Something went wrong');
-        }
-
-        res.status(201).send('Stock was created!');
-    };
-
+        createStock = async (req, res, next) => {
+            this.checkValidation(req);
+            
+             const result = await StockModel.create(req.body);
+    
+            if (!result) {
+                throw new HttpException(500, 'Something went wrong');
+            }
+    
+            const stock = await StockModel.findOne({ id: result });
+            if (!stock) {
+                throw new HttpException(404, 'Stock not found');
+            }
+    
+            res.status(201).send(stock);
+        };
+    
     updateStock = async (req, res, next) => {
         this.checkValidation(req);
 
@@ -72,7 +77,7 @@ class StockController {
         res.send({ message, info });
     };
 
-    deleteUnits = async (req, res, next) => {
+    deleteStock = async (req, res, next) => {
         const result = await StockModel.delete(req.params.id);
         if (!result) {
             throw new HttpException(404, 'Stock not found');

@@ -38,17 +38,23 @@ class CoaController {
 
         };
     
-    createCoa = async (req, res, next) => {
-        this.checkValidation(req);
-        
-         const result = await CoaModel.create(req.body);
-
-        if (!result) {
-            throw new HttpException(500, 'Something went wrong');
-        }
-
-        res.status(201).send('COA was created!');
-    };
+        createCoa = async (req, res, next) => {
+            this.checkValidation(req);
+            
+             const result = await CoaModel.create(req.body);
+    
+            if (!result) {
+                throw new HttpException(500, 'Something went wrong');
+            }
+    
+            const coa = await CoaModel.findOne({ id: result });
+            if (!coa) {
+                throw new HttpException(404, 'Coa not found');
+            }
+    
+            res.status(201).send(coa);
+        };
+    
 
     updateCoa = async (req, res, next) => {
         this.checkValidation(req);

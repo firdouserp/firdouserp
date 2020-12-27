@@ -7,8 +7,8 @@ exports.createCoa_typeSchema = [
         .exists()
         .isAlphanumeric()
         .withMessage('code is required')
-        .isLength({min: 3})
-        .withMessage('Must be at least 3 chars long'),
+        .isLength({min: 1})
+        .withMessage('Must be at least 1 chars long'),
     check('title')
         .exists()
         .isAlphanumeric()
@@ -23,14 +23,14 @@ exports.updateCoa_typeSchema = [
         .exists()
         .isAlphanumeric()
         .withMessage('code is required')
-        .isLength({min: 3})
+        .isLength({min: 1})
         .withMessage('Must be at least 3 chars long'),
     check('title')
         .exists()
         .withMessage('title must be required')
         .isAlpha()
         .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
+        .isLength({ min: 1 })
         .withMessage('Must be at least 3 chars long'),
     body()
         .custom(value => {

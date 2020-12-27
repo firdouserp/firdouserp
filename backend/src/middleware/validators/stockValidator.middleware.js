@@ -7,21 +7,21 @@ exports.createStockSchema = [
         .exists()
         .isAlphanumeric()
         .withMessage('code is required')
-        .isLength({min: 3})
+        .isLength({min: 1})
         .withMessage('Must be at least 3 chars long'),
     check('scode')
         .exists()
         .isAlphanumeric()
         .withMessage('Your short code is required')
         .withMessage('Can be numerical and aplhanumerical')
-        .isLength({ min: 3 })
+        .isLength({ min: 1})
         .withMessage('Must be at least 3 chars long'),
     check('title')
         .exists()
         .withMessage('title must be required')
-        .isAlpha()
+        .isAlphanumeric()
         .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
+        .isLength({ min: 1 })
         .withMessage('Must be at least 3 chars long'),
     check('uom')
         .exists()
@@ -29,21 +29,22 @@ exports.createStockSchema = [
         .withMessage('UOM is required'),
     check('remarks')
         .exists()
+        .optional({nullable:true})
         .withMessage('remarks must be required'),
     check('qty')
         .exists()
         .isAlphanumeric()
         .withMessage('Enter quantity')
-        .isLength({ min: 2 })
+        .isLength({ min: 1})
         .optional(),
      check('avg_rate')
         .exists()
         .withMessage('Enter Average Rate')
-        .optional()
-        .isLength({ min: 2 }),
+        .optional({nullable:true})
+        .isLength({ min: 1 }),
      check('adv_cost')
         .exists()
-        .isLength({ min: 2 })
+        .isLength({ min: 1 })
         .isAlphanumeric()
         .withMessage('Enter advance cost'),
     check('active')
@@ -76,24 +77,30 @@ exports.updateStockSchema = [
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('uom')
-        .optional()
+        .exists()
+        .optional({nullable:true})
         .isAlphanumeric()
         .withMessage('Must be valid'),
-    check('reamarks')
-        .optional(),
+    check('remarks')
+        .exists()
+        .isAlphanumeric()
+        .optional({nullable:true}),
     check('qty')
-        .optional()
+        .exists()
+        .optional({nullable:true})
         .isLength({ min: 1})
         .withMessage('Select Quantity')
         .isLength({ max: 10 })
         .withMessage('City can contain max 10 characters'),
     check('avg_rate')
-    .exists()
-        .optional()
+        .exists()
+        .isAlphanumeric()
+        .isLength({ min: 1})
         .withMessage('Select average rates'),
     check('adv_cost')
-    .exists()
-        .optional()
+         .exists()
+        .isAlphanumeric()
+        .isLength({ min: 1})
         .withMessage('Select advance cost'),
         check('active')
         .exists()

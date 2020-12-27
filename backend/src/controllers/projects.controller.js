@@ -38,17 +38,23 @@ class ProjectsController {
 
         };
     
-    createProjects = async (req, res, next) => {
-        this.checkValidation(req);
-        
-         const result = await ProjectsModel.create(req.body);
-
-        if (!result) {
-            throw new HttpException(500, 'Something went wrong');
-        }
-
-        res.status(201).send('Project was created!');
-    };
+        createProjects = async (req, res, next) => {
+            this.checkValidation(req);
+            
+             const result = await ProjectsModel.create(req.body);
+    
+            if (!result) {
+                throw new HttpException(500, 'Something went wrong');
+            }
+    
+            const projects = await ProjectsModel.findOne({ id: result });
+            if (!projects) {
+                throw new HttpException(404, 'Project not found');
+            }
+    
+            res.status(201).send(projects);
+        };
+    
 
     updateProjects = async (req, res, next) => {
         this.checkValidation(req);
