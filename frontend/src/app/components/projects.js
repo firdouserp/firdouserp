@@ -1,7 +1,11 @@
 import * as React from "react";
-import {BooleanInput , SearchInput,Filter, List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
+import {BooleanInput , SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
 import { TopToolbar, ListButton, ShowButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ApartmentIcon from '@material-ui/icons/Apartment';
+import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
+
+export const  ProjectIcon = ApartmentIcon;
 
 export const ProjectActions = ({ basePath, data }) => (
     <TopToolbar>
@@ -22,6 +26,14 @@ const ProjectSearchFilter = (props) => (
 
 export const ProjectList = props => (
     <List filters={<ProjectSearchFilter />} {...props}>
+        {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
+                 <SimpleList
+                    primaryText={record => record.title}
+                    secondaryText={record => `${record.code}`}
+                    tertiaryText={record => record.id  }
+    
+                />
+                ) : (
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="code" />
@@ -35,7 +47,8 @@ export const ProjectList = props => (
             <TextField source="remarks" />
             <TextField source="active" />
             <EditButton  variant="contained" color="secondary"/>
-        </Datagrid>
+            <DeleteButton/>
+        </Datagrid>)}
     </List>
 );
 
@@ -45,7 +58,7 @@ const ProjectTitle = ({ record }) => {
 
 export const ProjectEdit = (props) => (
     <Edit  actions={<ProjectActions />} title={<ProjectTitle />} {...props}>
-        <SimpleForm>
+        <SimpleForm variant="standard" margin="none"    >
             <TextInput disabled source="id" />
             <TextInput source="code" />
             <TextInput source="scode" /*options={{ multiLine: true }}*/ />
