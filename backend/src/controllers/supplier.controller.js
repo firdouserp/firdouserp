@@ -11,10 +11,17 @@ dotenv.config();
  ******************************************************************************/
 class SupplierController {
     getAllSuppliers = async (req, res, next) => {
-        let supplierList = await SupplierModel.find();
-        if (!supplierList.length) {
-            throw new HttpException(404, 'Supplier not found');
-        }
+      
+        var range = JSON.parse(req.query.range);
+        var sort = JSON.parse(req.query.sort);
+        var filter = JSON.parse(req.query.filter);
+     
+        console.log(range)
+        let supplierList = await SupplierModel.find(filter,range,sort);
+        let count = await SupplierModel.count(filter);
+        let content_range = range[0] + '-' + range[1] + '/' + count
+        console.log(content_range);
+        res.set('Content-Range',content_range);
 
         
 
