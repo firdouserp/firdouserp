@@ -25,3 +25,21 @@ exports.multipleColumnSet = (object) => {
         values
     }
 }
+
+
+exports.searchLikeColumnSet = (object) => {
+    if (typeof object !== 'object') {
+        throw new Error('Invalid input');
+    }
+
+    const keys = Object.keys(object);
+ 
+    columnSet = keys.map(key => `${key} like ?`).join(' OR ');
+    values = Object.values(object).map(value => `%${value}%`);
+    console.log(values);
+
+    return {
+        columnSet,
+        values
+    }
+}

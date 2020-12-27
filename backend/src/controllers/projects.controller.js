@@ -11,17 +11,35 @@ dotenv.config();
  ******************************************************************************/
 class ProjectsController {
     getAllProjects = async (req, res, next) => {
-        let projectsList = await ProjectsModel.find();
-        if (!projectsList.length) {
-            throw new HttpException(404, 'Project not found');
-        }
 
-        
+
+        let projectsList;
+        var range;
+        var sort ;
+        var filter;
+      
+        if(req.query && Object.keys(req.query).length){
+            var range = JSON.parse(req.query.range);
+            var sort = JSON.parse(req.query.sort);
+            var filter = JSON.parse(req.query.filter);
+            //console.log(range)
+            projectsList = await ProjectsModel.find(filter,range,sort);
+        }else{
+            projectsList = await ProjectsModel.find();
+        }
+      
+       
+        let count = await ProjectsModel.count(filter);
+        if(range && range.length>1){
+            let content_range = range[0] + '-' + range[1] + '/' + count
+            console.log(content_range);
+            res.set('Content-Range',content_range);
+        }
 
         res.send(projectsList);
     };
 
-    getProjectsById = async (req, res, next) => {
+    getProjectById = async (req, res, next) => {
         const projects = await ProjectsModel.findOne({ id: req.params.id });
         if (!projects) {
             throw new HttpException(404, 'Project not found');

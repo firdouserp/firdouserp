@@ -1,11 +1,11 @@
 const query = require('../db/db-connection');
-const { multipleColumnSet } = require('../utils/common.utils');
+const { multipleColumnSet,searchLikeColumnSet } = require('../utils/common.utils');
 class SupplierModel {
     tableName = 'suppliers';
     find = async (params = {},range={},sort={}) => {
         let sql = `SELECT * FROM ${this.tableName}`;
         let limit = "";
-        let orderby ="ORDER BY id ASC";
+        let orderby =" ORDER BY id ASC";
         if (range && range.length){
             limit= ` LIMIT ${range[0]}, ${range[1]-range[0]+1}`;     
         }
@@ -22,7 +22,7 @@ class SupplierModel {
             return await query(sql);
         }
 
-        const { columnSet, values } = multipleColumnSet(params)
+        const { columnSet, values } = searchLikeColumnSet(params)
         sql += ` WHERE ${columnSet}`;
 
          sql += orderby+limit;   
@@ -71,7 +71,7 @@ count = async (params = {}) => {
     let sql = `select count(*) as total FROM ${this.tableName}`;
     let result = "";
     if (Object.keys(params).length) {
-        const { columnSet, values } = multipleColumnSet(params)
+        const { columnSet, values } = searchLikeColumnSet(params)
         sql += ` WHERE ${columnSet}`; 
         console.log(sql)
         result = await query(sql, [...values]);
@@ -80,6 +80,7 @@ count = async (params = {}) => {
         result = await query(sql);
     }
     var rows = JSON.parse(JSON.stringify(result));
+    
     return rows[0].total;
 }
 }
