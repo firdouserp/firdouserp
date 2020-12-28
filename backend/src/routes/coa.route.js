@@ -9,11 +9,11 @@ const {createCoaSchema,updateCoaSchema} = require('../middleware/validators/coaV
 
 
 router.get('/',auth(), awaitHandlerFactory(coaController.getAllCoa)); //localhost:3000/api/v1/coa
-router.get('/id/:id', auth(),awaitHandlerFactory(coaController.getCoaById)); //localhost:3000/api/v1/coa/id/1
-router.get('/coacode/:coacode', auth(),awaitHandlerFactory(coaController.getCoaBycode)); //localhost:3000/api/v1/coa/coacode/julia
+router.get('/:id', auth(),awaitHandlerFactory(coaController.getCoaById)); //localhost:3000/api/v1/coa/id/1
+router.get('/code/:code', auth(),awaitHandlerFactory(coaController.getCoaBycode)); //localhost:3000/api/v1/coa/coacode/julia
 router.post('/', auth(),createCoaSchema, awaitHandlerFactory(coaController.createCoa));  // localhost:3000/api/v1/coa
-router.patch('/id/:id',auth(),updateCoaSchema, awaitHandlerFactory(coaController.updateCoa)); //localhost:3000/api/v1/coa/id/1 , using patch for partial update
-router.delete('/id/:id', auth(Role.Admin), awaitHandlerFactory(coaController.deleteCoa)); //localhost:3000/api/v1/coa/id/1
+router.put('/:id',auth(),updateCoaSchema, awaitHandlerFactory(coaController.updateCoa)); //localhost:3000/api/v1/coa/id/1 , using patch for partial update
+router.delete('/:id', auth(Role.Admin), awaitHandlerFactory(coaController.deleteCoa)); //localhost:3000/api/v1/coa/id/1
 
 
 module.exports = router;

@@ -11,12 +11,29 @@ dotenv.config();
  ******************************************************************************/
 class UnitsController {
     getAllUnits = async (req, res, next) => {
-        let unitsList = await UnitsModel.find();
-        if (!unitsList.length) {
-            throw new HttpException(404, 'Unit not found');
+       
+        let unitsList;
+        var range;
+        var sort ;
+        var filter;
+      
+        if(req.query && Object.keys(req.query).length){
+            var range = JSON.parse(req.query.range);
+            var sort = JSON.parse(req.query.sort);
+            var filter = JSON.parse(req.query.filter);
+            //console.log(range)
+            unitsList = await UnitsModel.find(filter,range,sort);
+        }else{
+            unitsList = await UnitsModel.find();
         }
-
-        
+      
+       
+        let count = await UnitsModel.count(filter);
+        if(range && range.length>1){
+            let content_range = range[0] + '-' + range[1] + '/' + count
+            console.log(content_range);
+            res.set('Content-Range',content_range);
+        }
 
         res.send(unitsList);
     };
