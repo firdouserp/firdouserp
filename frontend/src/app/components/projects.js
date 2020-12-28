@@ -17,9 +17,9 @@ export const ProjectActions = ({ basePath, data }) => (
 const ProjectSearchFilter = (props) => (
    
         <Filter {...props}>
-          <SearchInput  placeholder="Title" source="title" alwaysOn />
-          <SearchInput placeholder="SCode"  source="scode" alwaysOn />
-          <SearchInput placeholder="Code"  source="code" alwaysOn />
+          <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
+          <SearchInput variant="standard" placeholder="SCode"  source="scode" alwaysOn />
+          <SearchInput variant="standard" placeholder="Code"  source="code" alwaysOn />
         </Filter>
       
   );
@@ -40,9 +40,6 @@ export const ProjectList = props => (
             <TextField source="scode" />
             <TextField source="title" />
             <TextField source="location" />
-            <TextField source="city" />
-            <TextField source="client" />
-            <TextField source="cost" />
             <TextField source="nature" />
             <TextField source="remarks" />
             <TextField source="active" />
@@ -77,7 +74,7 @@ export const ProjectEdit = (props) => (
 
 export const ProjectCreate = (props) => (
     <Create actions={<ProjectActions />}  title="New Project" {...props}>
-        <SimpleForm>
+        <SimpleForm variant="standard">
             <TextInput source="code" />
             <TextInput source="scode" /*options={{ multiLine: true }}*/ />
             <TextInput multiline source="title" />

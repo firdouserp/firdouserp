@@ -11,8 +11,8 @@ const useStyles = makeStyles({
 });
 
 export const SupplierActions = ({ basePath, data }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
+    <TopToolbar variant="contained" >
+        <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} variant="contained" color="secondary"/>
       {/* <ShowButton basePath={basePath} record={data} /> */}
     </TopToolbar>
 );
@@ -22,9 +22,9 @@ export const SupplierIcon = TransferWithinAStationIcon;
 const SupplierSearchFilter = (props) => (
    
         <Filter {...props}>
-          <SearchInput  placeholder="Title" source="title" alwaysOn />
-          <SearchInput placeholder="SCode"  source="scode" alwaysOn />
-          <SearchInput placeholder="Code"  source="code" alwaysOn />
+          <SearchInput  variant="standard" placeholder="Title" source="title" alwaysOn />
+          <SearchInput  variant="standard" placeholder="SCode"  source="scode" alwaysOn />
+          <SearchInput  variant="standard" placeholder="Code"  source="code" alwaysOn />
         </Filter>
       
   );
@@ -91,7 +91,7 @@ export const SupplierEdit = props => {
 
 export const SupplierCreate = (props) => (
     <Create actions={<SupplierActions />}  title="New Suppier" {...props}>
-        <SimpleForm>
+        <SimpleForm variant="standard">
             <TextInput source="code" />
             <TextInput source="scode" />
             <TextInput multiline source="title" />

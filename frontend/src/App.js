@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sidebar,Layout , AppBar, UserMenu, MenuItemLink,fetchUtils,Admin,Login, Resource } from 'react-admin';
+import { Sidebar,Layout ,fetchUtils,Admin,Login, Resource } from 'react-admin';
 import { UserList } from './app/components/users'
 import { ProjectList, ProjectEdit, ProjectCreate,ProjectIcon } from './app/components/projects';
 import { SupplierList,SupplierEdit,SupplierCreate,SupplierIcon } from './app/components/suppliers';
@@ -13,7 +13,7 @@ import  Menu from './app/components/Menu';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import SettingsIcon from "@material-ui/icons/Settings";
+import MyAppBar from './app/components/MyAppBar';
 
 //const dataProvider = myDataProvider('http://localhost:2000/api/v1');
 
@@ -29,7 +29,57 @@ const theme = createMuiTheme({
       main: '#3f51b5',
     },
   },
+  spacing:8,
+  overrides: {
+    MuiTableRow: {
+      root: {
+        height: 20,
+      }},
+    RaSidebar: {
+      spacing:6,
+      paddingRight:'5px',
+      drawerPaper: {
+        backgroundColor: '#fff',
+        color: '#3d5afe',
+        height: "100%",
+       
+        
+      },
+    },
+      RaList: {
+      root: {
+          border: '1px solid #e0e0e3',
+          backgroundColor:'#fcfcfc',
+          color:'#fff',
+          padding:'15px'
+      },
 
+  }, RaEdit: {
+    root: {
+        border: '1px solid #e0e0e3',
+        backgroundColor:'#fcfcfc',
+        color:'#fff',
+        padding:'15px',
+       
+    },
+    RaTopToolbar:{
+      backgroundColor:'green'
+    }
+},
+    RaMenuItemLink: {
+      active: {
+        borderLeftStyle: "none",
+
+        borderRightStyle: "solid",
+        color: '#3d5afe',
+        fontWeight: 'bold',
+      },
+      icon: {
+        color: "inherit",
+      }
+    },
+  },
+ 
   typography: {
     fontFamily: [
       '-apple-system',
@@ -47,15 +97,7 @@ const theme = createMuiTheme({
 });
 
 
-const MyUserMenu = props => (
-  <UserMenu {...props}>
-    <MenuItemLink
-      to="/configuration"
-      primaryText="Configuration"
-      leftIcon={<SettingsIcon />}
-    />
-  </UserMenu>
-);
+
 const useSidebarStyles = makeStyles({
   
       backgroundColor: 'red',
@@ -67,7 +109,7 @@ const MySidebar = props => {
       <Sidebar classes={classes} {...props} />
   );
 };
-const MyAppBar = props => <AppBar {...props} userMenu={<MyUserMenu />} color="primary" />;
+//const MyAppBar = props => <AppBar {...props} userMenu={<MyUserMenu />} color="primary" />;
 
 const MyLayout = props => <Layout {...props} appBar={MyAppBar} sidebar={MySidebar} />;
 
