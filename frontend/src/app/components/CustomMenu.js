@@ -6,7 +6,7 @@ import { MenuItemLink,DashboardMenuItem, getResources } from 'react-admin';
 import DefaultIcon from '@material-ui/icons/ViewList';
 import LabelIcon from '@material-ui/icons/Label';
 import SettingsIcon from '@material-ui/icons/Settings';
-
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import Divider from '@material-ui/core/Divider';
 
 const Menu = ({ onMenuClick, logout }) => {
@@ -17,6 +17,13 @@ const Menu = ({ onMenuClick, logout }) => {
         <div>
             <DashboardMenuItem onClick={onMenuClick} sidebarIsOpen={open} />
             <Divider light />
+            <MenuItemLink
+                to="/accounts"
+                primaryText="Accounts"
+                leftIcon={<AccountBalanceWalletIcon />}
+                onClick={onMenuClick}
+                sidebarIsOpen={open}
+            />
             {resources.map(resource => (
                 <div>
                 <MenuItemLink

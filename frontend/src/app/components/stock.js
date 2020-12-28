@@ -2,10 +2,10 @@ import * as React from "react";
 import {BooleanInput , SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
 import { TopToolbar, ListButton, ShowButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ApartmentIcon from '@material-ui/icons/Apartment';
+import StoreIcon from '@material-ui/icons/Store'
 import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
 
-export const  StockIcon = ApartmentIcon;
+export const  StockIcon = StoreIcon;
 
 export const StockActions = ({ basePath, data }) => (
     <TopToolbar>

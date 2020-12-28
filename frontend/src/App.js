@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import MyAppBar from './app/components/MyAppBar';
+import customRoutes from './app/components/customRoutes';
 
 //const dataProvider = myDataProvider('http://localhost:2000/api/v1');
 
@@ -157,14 +158,15 @@ const httpClient = (url, options = {}) => {
 const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClient);
 
 const App = () => (
-   <Admin theme={theme} layout={MyLayout} loginPage={MyLoginPage} dashboard={Dashboard} authProvider={basicAuthProvider} dataProvider={dataProvider} >
-       <Resource name="Users" list={UserList} />
+   <Admin customRoutes={customRoutes} theme={theme} layout={MyLayout} loginPage={MyLoginPage} dashboard={Dashboard} authProvider={basicAuthProvider} dataProvider={dataProvider} >
+       
        <Resource name="Projects" list={ProjectList} create={ProjectCreate} edit={ProjectEdit} icon={ProjectIcon}/>
        <Resource name="Suppliers"  list={SupplierList} create={SupplierCreate} edit={SupplierEdit} icon={SupplierIcon} />
        <Resource name="Units"  list={UnitsList} create={UnitsCreate} edit={UnitsEdit} icon={UnitsIcon} />
        <Resource name="Stock"  list={StockList} create={StockCreate} edit={StockEdit} icon={StockIcon} />
        <Resource name="Coa"  list={CoaList} create={CoaCreate} edit={CoaEdit} icon={CoaIcon} />
        <Resource name="Coa_type"  list={Coa_typeList} create={Coa_typeCreate} edit={Coa_typeEdit} icon={Coa_typeIcon} />
+       <Resource name="Users" list={UserList} />
        <Copyright />
    </Admin>
    
