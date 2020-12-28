@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from './app/providers/basicAuth';
 import Dashboard from './app/components/Dashboard';
-import  Menu from './app/components/Menu';
+import  Menu from './app/components/CustomMenu';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
@@ -23,13 +23,14 @@ import purple from '@material-ui/core/colors/purple';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#3d5afe',
+      main: '#1976d2',
     },
     secondary: {
       main: '#3f51b5',
     },
   },
   spacing:8,
+  sidebar: {},
   overrides: {
     MuiTableRow: {
       root: {
@@ -111,7 +112,7 @@ const MySidebar = props => {
 };
 //const MyAppBar = props => <AppBar {...props} userMenu={<MyUserMenu />} color="primary" />;
 
-const MyLayout = props => <Layout {...props} appBar={MyAppBar} sidebar={MySidebar} />;
+const MyLayout = props => <Layout {...props} appBar={MyAppBar} sidebar={MySidebar} menu={Menu}  />;
 
 
 
@@ -153,9 +154,9 @@ const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClien
 
 const App = () => (
    <Admin theme={theme} layout={MyLayout} loginPage={MyLoginPage} dashboard={Dashboard} authProvider={basicAuthProvider} dataProvider={dataProvider} >
-       <Resource name="users" list={UserList} />
-       <Resource name="projects" list={ProjectList} create={ProjectCreate} edit={ProjectEdit} icon={ProjectIcon}/>
-       <Resource name="suppliers"  list={SupplierList} create={SupplierCreate} edit={SupplierEdit} icon={SupplierIcon} />
+       <Resource name="Users" list={UserList} />
+       <Resource name="Projects" list={ProjectList} create={ProjectCreate} edit={ProjectEdit} icon={ProjectIcon}/>
+       <Resource name="Suppliers"  list={SupplierList} create={SupplierCreate} edit={SupplierEdit} icon={SupplierIcon} />
        <Copyright />
    </Admin>
    

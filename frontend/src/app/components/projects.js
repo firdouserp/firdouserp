@@ -17,9 +17,9 @@ export const ProjectActions = ({ basePath, data }) => (
 const ProjectSearchFilter = (props) => (
    
         <Filter {...props}>
-          <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
-          <SearchInput variant="standard" placeholder="SCode"  source="scode" alwaysOn />
-          <SearchInput variant="standard" placeholder="Code"  source="code" alwaysOn />
+          <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn  />
+          <SearchInput variant="standard" placeholder="SCode"  source="scode" alwaysOn/>
+          <SearchInput variant="standard" placeholder="Code"  source="code" alwaysOn/>
         </Filter>
       
   );

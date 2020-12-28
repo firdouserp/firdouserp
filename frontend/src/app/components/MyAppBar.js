@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 const MyAppBar = props => {
     const classes = useStyles();
     return (
-        <AppBar {...props} userMenu={<MyUserMenu />}>
+        <AppBar {...props} userMenu={<MyUserMenu />} color="primary">
             
             <Logo />
             {/* <span className={classes.spacer} /> */}
