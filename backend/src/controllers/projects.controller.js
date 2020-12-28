@@ -44,7 +44,7 @@ class ProjectsController {
         if (!projects) {
             throw new HttpException(404, 'Project not found');
         }
-
+        res.send(projects);
         
     };
 
@@ -91,8 +91,12 @@ class ProjectsController {
 
         const message = !affectedRows ? 'Project not found' :
             affectedRows && changedRows ? 'Project updated successfully' : 'Updated faild';
-
-        res.send({ message, info });
+            const projects = await ProjectsModel.findOne({ id: req.params.id });
+            if (!projects) {
+                throw new HttpException(404, 'Project not found');
+            }
+    
+            res.status(201).send(projects);
     };
 
     deleteProjects = async (req, res, next) => {

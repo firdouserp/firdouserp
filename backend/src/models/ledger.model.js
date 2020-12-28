@@ -1,5 +1,5 @@
 const query = require('../db/db-connection');
-const { multipleColumnSet } = require('../utils/common.utils');
+const { multipleColumnSet,searchLikeColumnSet } = require('../utils/common.utils');
 class LedgerModel {
     tableName = 'ledger';
     find = async (params = {},range={},sort={}) => {

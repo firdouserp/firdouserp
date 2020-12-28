@@ -51,7 +51,7 @@ class SupplierModel {
 update = async (params, id,username) => {
     const { columnSet, values } = multipleColumnSet(params)
 
-    const sql = `UPDATE suppliers SET ${columnSet} WHERE id = ?`;
+    const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE id = ?`;
 
     const result = await query(sql, [...values, id]);
 

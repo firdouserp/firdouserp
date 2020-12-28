@@ -56,14 +56,12 @@ exports.updateUnitsSchema = [
         .withMessage('Must be at least 3 chars long'),
     check('title')
         .exists()
-        .optional()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('ulocation')
         .exists()
         .optional()
-        .isNumeric()
         .withMessage('Must be a valid location'),
     check('utype')
         .exists()
@@ -90,7 +88,7 @@ exports.updateUnitsSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code','scode','title','utype','ulocation','usize','remarks','active'];
+            const allowUpdates = ['id','code','scode','title','utype','ulocation','usize','remarks','active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

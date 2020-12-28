@@ -40,11 +40,11 @@ class StockController {
 
     getStockById = async (req, res, next) => {
         const stock = await StockModel.findOne({ id: req.params.id });
-        if (!Stock) {
+        if (!stock) {
             throw new HttpException(404, 'Stock not found');
         }
 
-        
+            res.send(stock)
     };
 
     getStockByStockName = async (req, res, next) => {
@@ -91,7 +91,13 @@ class StockController {
         const message = !affectedRows ? 'Stock not found' :
             affectedRows && changedRows ? 'Stock updated successfully' : 'Updated faild';
 
-        res.send({ message, info });
+            const stock = await StockModel.findOne({ id:  req.params.id });
+            if (!stock) {
+                throw new HttpException(404, 'Stock not found');
+            }
+    
+            res.status(201).send(stock);
+      
     };
 
     deleteStock = async (req, res, next) => {

@@ -1,6 +1,6 @@
 
 const query = require('../db/db-connection');
-const { multipleColumnSet } = require('../utils/common.utils');
+const { multipleColumnSet,searchLikeColumnSet } = require('../utils/common.utils');
 class StockModel {
     tableName = 'stock';
     find = async (params = {},range={},sort={}) => {
@@ -37,7 +37,7 @@ class StockModel {
         WHERE ${columnSet}`;
 
         const result = await query(sql, [...values]);
-
+        console.log(result[0]);
         return result[0];
 
     }
@@ -56,7 +56,7 @@ update = async (params, id) => {
     console.log(sql);
     console.log(values);
     const result = await query(sql, [...values, id]);
-
+    console.log(result);
     return result;
 }
 

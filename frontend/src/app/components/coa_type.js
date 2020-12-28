@@ -37,10 +37,7 @@ export const Coa_typeList = props => (
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="code" />
-            <TextField source="scode" />
             <TextField source="title" />
-            <TextField source="remarks" />
-            <TextField source="active" />
             <EditButton  variant="contained" color="secondary"/>
             <DeleteButton/>
         </Datagrid>)}
@@ -52,35 +49,21 @@ const Coa_typeTitle = ({ record }) => {
 };
 
 export const Coa_typeEdit = (props) => (
-    <Edit  actions={<Coa_typeActions />} title={<Coa_typeTitle />} {...props}>
+    <Edit  undoable={false} actions={<Coa_typeActions />} title={<Coa_typeTitle />} {...props}>
         <SimpleForm variant="standard" margin="none"    >
             <TextInput disabled source="id" />
             <TextInput source="code" />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ />
             <TextInput multiline source="title" />
-            <TextInput source="uom" />
-            <TextInput source="qty" />
-            <TextInput source="avg_rate" />
-            <TextInput source="adv_cost" />
-            <TextInput source="remarks" />
-            <BooleanInput  source="active" />
         </SimpleForm>
     </Edit>
 );
 
 export const Coa_typeCreate = (props) => (
-    <Create actions={<StockActions />}  title="New Stock" {...props}>
+    <Create actions={<Coa_typeActions />}  title="New Coa_type" {...props}>
         <SimpleForm variant="standard">
         <TextInput disabled source="id" />
             <TextInput source="code" />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ />
             <TextInput multiline source="title" />
-            <TextInput source="uom" />
-            <TextInput source="qty" />
-            <TextInput source="avg_rate" />
-            <TextInput source="adv_cost" />
-            <TextInput source="remarks" />
-            <BooleanInput source="active" />
         </SimpleForm>
     </Create>
 );

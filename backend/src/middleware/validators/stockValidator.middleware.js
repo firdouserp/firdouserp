@@ -13,14 +13,11 @@ exports.createStockSchema = [
         .exists()
         .isAlphanumeric()
         .withMessage('Your short code is required')
-        .withMessage('Can be numerical and aplhanumerical')
         .isLength({ min: 1})
         .withMessage('Must be at least 3 chars long'),
     check('title')
         .exists()
         .withMessage('title must be required')
-        .isAlphanumeric()
-        .withMessage('Must be only alphabetical chars')
         .isLength({ min: 1 })
         .withMessage('Must be at least 3 chars long'),
     check('uom')
@@ -47,14 +44,6 @@ exports.createStockSchema = [
         .isLength({ min: 1 })
         .isAlphanumeric()
         .withMessage('Enter advance cost'),
-    check('active')
-        .exists()
-        .isNumeric()
-        .withMessage('Enter state')
-        .optional()
-        .isLength({ min: 1 }),
-        check('ntn')
-        .optional({nullable:true}),
         
 ];
 
@@ -71,8 +60,7 @@ exports.updateStockSchema = [
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('title')
-        .optional()
-        .isAlpha()
+        .exists()
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
@@ -102,10 +90,6 @@ exports.updateStockSchema = [
         .isAlphanumeric()
         .isLength({ min: 1})
         .withMessage('Select advance cost'),
-        check('active')
-        .exists()
-            .optional()
-            .withMessage('Select state'),
     body()
         .custom(value => {
             return !!Object.keys(value).length;
@@ -113,7 +97,8 @@ exports.updateStockSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code','scode','title','uom','qty','avg_rate','adv_cost','remarks','active'];
+            const allowUpdates = ['id','code','scode','title','uom','qty','avg_rate','adv_cost','remarks','active'];
+            console.log(value);
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

@@ -54,7 +54,7 @@ const ProjectTitle = ({ record }) => {
 };
 
 export const ProjectEdit = (props) => (
-    <Edit  actions={<ProjectActions />} title={<ProjectTitle />} {...props}>
+    <Edit  undoable={false} actions={<ProjectActions />} title={<ProjectTitle />} {...props}>
         <SimpleForm variant="standard" margin="none"    >
             <TextInput disabled source="id" />
             <TextInput source="code" />

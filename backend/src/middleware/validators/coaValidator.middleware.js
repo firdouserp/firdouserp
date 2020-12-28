@@ -113,7 +113,7 @@ exports.updateCoaSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code', 'scode', 'title', 'iscashbook', 'isbankbook', 'notes', 'obal','active'];
+            const allowUpdates = ['id','code', 'scode', 'title', 'iscashbook', 'isbankbook', 'notes', 'obal','active'];
             console.log(allowUpdates);
             return updates.every(update => allowUpdates.includes(update));
             

@@ -54,7 +54,7 @@ const UnitsTitle = ({ record }) => {
 };
 
 export const UnitsEdit = (props) => (
-    <Edit  actions={<UnitsActions />} title={<UnitsTitle />} {...props}>
+    <Edit undoable={false}  actions={<UnitsActions />} title={<UnitsTitle />} {...props}>
         <SimpleForm variant="standard" margin="none"    >
             <TextInput disabled source="id" />
             <TextInput source="code" />

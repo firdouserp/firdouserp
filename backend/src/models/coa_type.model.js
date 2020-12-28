@@ -1,5 +1,5 @@
 const query = require('../db/db-connection');
-const { multipleColumnSet } = require('../utils/common.utils');
+const { multipleColumnSet,searchLikeColumnSet } = require('../utils/common.utils');
 class Coa_typeModel {
     tableName = 'coa_type';
     find = async (params = {},range={},sort={}) => {
@@ -54,9 +54,10 @@ class Coa_typeModel {
 update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params)
 
-    const sql = `UPDATE coa SET ${columnSet} WHERE id = ?`;
+    const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE id = ?`;
 
     const result = await query(sql, [...values, id]);
+    console.log(result);
 
     return result;
 }

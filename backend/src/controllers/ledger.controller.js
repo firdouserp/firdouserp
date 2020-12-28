@@ -43,7 +43,7 @@ class LedgerController {
         if (!ledger) {
             throw new HttpException(404, 'Ledger not found');
         }
-
+        res.send(ledger);
         
     };
 
@@ -92,7 +92,12 @@ class LedgerController {
         const message = !affectedRows ? 'Ledger not found' :
             affectedRows && changedRows ? 'Ledger updated successfully' : 'Updated faild';
 
-        res.send({ message, info });
+            const ledger = await LedgerModel.findOne({ id: res.params.id });
+            if (!ledger) {
+                throw new HttpException(404, 'Ledger not found');
+            }
+    
+            res.status(201).send(ledger);
     };
 
     deleteLedger = async (req, res, next) => {

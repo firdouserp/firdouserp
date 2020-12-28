@@ -90,8 +90,12 @@ class SupplierController {
 
         const message = !affectedRows ? 'Supplier not found' :
             affectedRows && changedRows ? 'Supplier updated successfully' : 'Updated faild';
-
-        res.send({ message, info });
+            const supplier = await SupplierModel.findOne({ id: req.params.id });
+            if (!supplier) {
+                throw new HttpException(404, 'Supplier not found');
+            }
+    
+            res.status(201).send(supplier);
     };
 
     deleteSupplier = async (req, res, next) => {

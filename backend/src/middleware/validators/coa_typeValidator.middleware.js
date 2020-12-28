@@ -11,7 +11,6 @@ exports.createCoa_typeSchema = [
         .withMessage('Must be at least 1 chars long'),
     check('title')
         .exists()
-        .isAlphanumeric()
         .withMessage('Your title is required')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
@@ -28,9 +27,8 @@ exports.updateCoa_typeSchema = [
     check('title')
         .exists()
         .withMessage('title must be required')
-        .isAlpha()
         .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 1 })
+        .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     body()
         .custom(value => {
@@ -39,7 +37,7 @@ exports.updateCoa_typeSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code', 'title' ];
+            const allowUpdates = ['id','code', 'title'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

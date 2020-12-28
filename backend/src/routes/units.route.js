@@ -11,7 +11,7 @@ const { createUnitsSchema, updateUnitsSchema} = require('../middleware/validator
 
 
 router.get('/',auth(), awaitHandlerFactory(unitsController.getAllUnits)); //localhost:3000/api/v1/units
-router.get('/:id', auth(),awaitHandlerFactory(unitsController.getunitsById)); //localhost:3000/api/v1/units/id/1
+router.get('/:id', auth(),awaitHandlerFactory(unitsController.getUnitsById)); //localhost:3000/api/v1/units/id/1
 router.get('/:username', auth(),awaitHandlerFactory(unitsController.getUnitsBycode)); //localhost:3000/api/v1/suppliers/unitscode/julia
 router.post('/', auth(),createUnitsSchema, awaitHandlerFactory(unitsController.createUnits));  // localhost:3000/api/v1/units
 router.put('/:id',auth(),updateUnitsSchema, awaitHandlerFactory(unitsController.updateUnit)); //localhost:3000/api/v1/units/id/1 , using patch for partial update

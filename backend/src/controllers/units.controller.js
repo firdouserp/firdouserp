@@ -43,7 +43,7 @@ class UnitsController {
         if (!units) {
             throw new HttpException(404, 'Unit not found');
         }
-
+        res.send(units);
         
     };
 
@@ -91,7 +91,12 @@ class UnitsController {
         const message = !affectedRows ? 'Unit not found' :
             affectedRows && changedRows ? 'Unit updated successfully' : 'Updated faild';
 
-        res.send({ message, info });
+            const units = await UnitsModel.findOne({ id: req.params.id });
+            if (!units) {
+                throw new HttpException(404, 'Units not found');
+            }
+    
+            res.status(201).send(units);
     };
 
     deleteUnits = async (req, res, next) => {

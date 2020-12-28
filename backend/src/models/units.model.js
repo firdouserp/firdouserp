@@ -1,5 +1,5 @@
 const query = require('../db/db-connection');
-const { multipleColumnSet } = require('../utils/common.utils');
+const { multipleColumnSet,searchLikeColumnSet } = require('../utils/common.utils');
 class UnitsModel {
     tableName = 'units';
     find = async (params = {},range={},sort={}) => {

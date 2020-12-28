@@ -1,4 +1,4 @@
-const CoaModel = require('../models/coa.model');
+const NotesModel = require('../models/notes.model');
 const HttpException = require('../utils/HttpException.utils');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
@@ -7,12 +7,12 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 /******************************************************************************
- *                              Supplier Controller
+ *                              Units Controller
  ******************************************************************************/
-class CoaController {
-    getAllCoa = async (req, res, next) => {
+class NotesController {
+    getAllNotes = async (req, res, next) => {
        
-        let coaList;
+        let notesList;
         var range;
         var sort ;
         var filter;
@@ -22,65 +22,65 @@ class CoaController {
             var sort = JSON.parse(req.query.sort);
             var filter = JSON.parse(req.query.filter);
             //console.log(range)
-            coaList = await CoaModel.find(filter,range,sort);
+            notesList = await NotesModel.find(filter,range,sort);
         }else{
-            coaList = await CoaModel.find();
+            notesList = await NotesModel.find();
         }
       
        
-        let count = await CoaModel.count(filter);
+        let count = await notesModel.count(filter);
         if(range && range.length>1){
             let content_range = range[0] + '-' + range[1] + '/' + count
             console.log(content_range);
             res.set('Content-Range',content_range);
         }
 
-        res.send(coaList);
+        res.send(notesList);
     };
 
-    getCoaById = async (req, res, next) => {
-        const coa = await CoaModel.findOne({ id: req.params.id });
-        if (!coa) {
-            throw new HttpException(404, 'COA not found');
+    getNotesById = async (req, res, next) => {
+        const notes = await NotesModel.findOne({ id: req.params.id });
+        if (!notes) {
+            throw new HttpException(404, 'Unit not found');
         }
 
-        res.send(coa);
+        
     };
 
-    getCoaBycoaName = async (req, res, next) => {
-        const coa = await CoaModel.findOne({ coaname: req.params.coaname });
-        if (!coa) {
-            throw new HttpException(404, 'COA not found');
+    getNotesByNotesName = async (req, res, next) => {
+        const Notes = await NotesModel.findOne({ notesname: req.params.notesname });
+        if (!notes) {
+            throw new HttpException(404, 'Note not found');
         }
 
         };
     
-        createCoa = async (req, res, next) => {
+        createNotes = async (req, res, next) => {
             this.checkValidation(req);
             
-             const result = await CoaModel.create(req.body);
+             const result = await NotesModel.create(req.body);
     
             if (!result) {
                 throw new HttpException(500, 'Something went wrong');
             }
     
-            const coa = await CoaModel.findOne({ id: result });
-            if (!coa) {
-                throw new HttpException(404, 'Coa not found');
+            const notes = await NotesModel.findOne({ id: result });
+            if (!notes) {
+                throw new HttpException(404, 'Notes not found');
             }
     
-            res.status(201).send(coa);
+            res.status(201).send(notes);
         };
     
-
-    updateCoa = async (req, res, next) => {
+    updateNotes = async (req, res, next) => {
         this.checkValidation(req);
 
                 
         // do the update query and get the result
         // it can be partial edit
         const {...restOfUpdates } = req.body;
-        const result = await CoaModel.update(restOfUpdates, req.params.id);
+        console.log(req.body);
+        const result = await NotesModel.update(restOfUpdates, req.params.id);
 
         if (!result) {
             throw new HttpException(404, 'Something went wrong');
@@ -88,23 +88,23 @@ class CoaController {
 
         const { affectedRows, changedRows, info } = result;
 
-        const message = !affectedRows ? 'Coas not found' :
-            affectedRows && changedRows ? 'Coa updated successfully' : 'Updated faild';
+        const message = !affectedRows ? 'Note not found' :
+            affectedRows && changedRows ? 'Note updated successfully' : 'Updated faild';
 
-            const coa = await CoaModel.findOne({ id: req.params.id });
-            if (!coa) {
-                throw new HttpException(404, 'Coa not found');
+            const notes = await NotesModel.findOne({ id: result });
+            if (!notes) {
+                throw new HttpException(404, 'Units not found');
             }
     
-            res.status(201).send(coa);
+            res.status(201).send(notes);
     };
 
-    deleteCoa = async (req, res, next) => {
-        const result = await CoaModel.delete(req.params.id);
+    deleteNotes = async (req, res, next) => {
+        const result = await NotesModel.delete(req.params.id);
         if (!result) {
-            throw new HttpException(404, 'Coa not found');
+            throw new HttpException(404, 'Notes not found');
         }
-        res.send('Coa has been deleted');
+        res.send('Notes has been deleted');
     };
 
     checkValidation = (req) => {
@@ -120,4 +120,4 @@ class CoaController {
 /******************************************************************************
  *                               Export
  ******************************************************************************/
-module.exports = new CoaController;
+module.exports = new NotesController;

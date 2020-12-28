@@ -108,7 +108,7 @@ exports.updateSupplierSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code','scode','title','person','contact','address','city','country','email','fax','ntn','stn','cnic','businesstitle','nature','active'];
+            const allowUpdates = ['id','code','scode','title','person','contact','address','city','country','email','fax','ntn','stn','cnic','businesstitle','nature','active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

@@ -52,7 +52,7 @@ const StockTitle = ({ record }) => {
 };
 
 export const StockEdit = (props) => (
-    <Edit  actions={<StockActions />} title={<StockTitle />} {...props}>
+    <Edit undoable={false} actions={<StockActions />} title={<StockTitle />} {...props}>
         <SimpleForm variant="standard" margin="none"    >
             <TextInput disabled source="id" />
             <TextInput source="code" />
@@ -69,7 +69,7 @@ export const StockEdit = (props) => (
 );
 
 export const StockCreate = (props) => (
-    <Create actions={<StockActions />}  title="New Stock" {...props}>
+    <Create undoable={false} actions={<StockActions />}  title="New Stock" {...props}>
         <SimpleForm variant="standard">
         <TextInput disabled source="id" />
             <TextInput source="code" />

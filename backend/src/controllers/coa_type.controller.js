@@ -43,7 +43,7 @@ class Coa_typeController {
         if (!coa_type) {
             throw new HttpException(404, 'COA Type not found');
         }
-
+        res.send(coa_type);
         
     };
 
@@ -80,6 +80,7 @@ class Coa_typeController {
         // do the update query and get the result
         // it can be partial edit
         const {...restOfUpdates } = req.body;
+        console.log("updating controller");
         const result = await Coa_typeModel.update(restOfUpdates, req.params.id);
 
         if (!result) {
@@ -91,7 +92,12 @@ class Coa_typeController {
         const message = !affectedRows ? 'Coa Type not found' :
             affectedRows && changedRows ? 'Coa Type updated successfully' : 'Updated faild';
 
-        res.send({ message, info });
+            const coa_type = await Coa_typeModel.findOne({ id: req.params.id });
+            if (!coa_type) {
+                throw new HttpException(404, 'coa type not found');
+            }
+    
+            res.status(201).send(coa_type);
     };
 
     deleteCoa_type = async (req, res, next) => {

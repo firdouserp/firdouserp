@@ -111,7 +111,7 @@ exports.updateProjectsSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['code', 'scode', 'title', 'location', 'city', 'client', 'cost', 'nature', 'remarks', 'active'];
+            const allowUpdates = ['id','code', 'scode', 'title', 'location', 'city', 'client', 'cost', 'nature', 'remarks', 'active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')
