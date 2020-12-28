@@ -11,12 +11,29 @@ dotenv.config();
  ******************************************************************************/
 class Coa_typeController {
     getAllCoa_type = async (req, res, next) => {
-        let coa_typeList = await Coa_typeModel.find();
-        if (!coa_typeList.length) {
-            throw new HttpException(404, 'Coa type not found');
+       
+        let coa_typeList;
+        var range;
+        var sort;
+        var filter;
+      
+        if(req.query && Object.keys(req.query).length){
+            var range = JSON.parse(req.query.range);
+            var sort = JSON.parse(req.query.sort);
+            var filter = JSON.parse(req.query.filter);
+            //console.log(range)
+            coa_typeList = await Coa_typeModel.find(filter,range,sort);
+        }else{
+            coa_typeList = await Coa_typeModel.find();
         }
-
-        
+      
+       
+        let count = await Coa_typeModel.count(filter);
+        if(range && range.length>1){
+            let content_range = range[0] + '-' + range[1] + '/' + count
+            console.log(content_range);
+            res.set('Content-Range',content_range);
+        }
 
         res.send(coa_typeList);
     };

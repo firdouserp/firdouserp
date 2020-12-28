@@ -3,6 +3,9 @@ import { Sidebar,Layout ,fetchUtils,Admin,Login, Resource } from 'react-admin';
 import { UserList } from './app/components/users'
 import { ProjectList, ProjectEdit, ProjectCreate,ProjectIcon } from './app/components/projects';
 import { SupplierList,SupplierEdit,SupplierCreate,SupplierIcon } from './app/components/suppliers';
+import { UnitsList, UnitsEdit, UnitsCreate,UnitsIcon } from './app/components/units';
+import { StockList, StockEdit, StockCreate,StockIcon } from './app/components/stock';
+import { CoaList, CoaEdit, CoaCreate,CoaIcon } from './app/components/coa';
 import simpleRestProvider from 'ra-data-simple-rest';
 import { makeStyles } from '@material-ui/core/styles';
 //import myDataProvider from './app/auth/dataProvider';
@@ -153,9 +156,12 @@ const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClien
 
 const App = () => (
    <Admin theme={theme} layout={MyLayout} loginPage={MyLoginPage} dashboard={Dashboard} authProvider={basicAuthProvider} dataProvider={dataProvider} >
-       <Resource name="users" list={UserList} />
-       <Resource name="projects" list={ProjectList} create={ProjectCreate} edit={ProjectEdit} icon={ProjectIcon}/>
-       <Resource name="suppliers"  list={SupplierList} create={SupplierCreate} edit={SupplierEdit} icon={SupplierIcon} />
+       <Resource name="Users" list={UserList} />
+       <Resource name="Projects" list={ProjectList} create={ProjectCreate} edit={ProjectEdit} icon={ProjectIcon}/>
+       <Resource name="Suppliers"  list={SupplierList} create={SupplierCreate} edit={SupplierEdit} icon={SupplierIcon} />
+       <Resource name="Units"  list={UnitsList} create={UnitsCreate} edit={UnitsEdit} icon={UnitsIcon} />
+       <Resource name="Stock"  list={StockList} create={StockCreate} edit={StockEdit} icon={StockIcon} />
+       <Resource name="Coa"  list={CoaList} create={CoaCreate} edit={CoaEdit} icon={CoaIcon} />
        <Copyright />
    </Admin>
    

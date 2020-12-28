@@ -11,12 +11,29 @@ dotenv.config();
  ******************************************************************************/
 class StockController {
     getAllStock = async (req, res, next) => {
-        let stockList = await StockModel.find();
-        if (!stockList.length) {
-            throw new HttpException(404, 'Unit not found');
+       
+        let stockList;
+        var range;
+        var sort ;
+        var filter;
+      
+        if(req.query && Object.keys(req.query).length){
+            var range = JSON.parse(req.query.range);
+            var sort = JSON.parse(req.query.sort);
+            var filter = JSON.parse(req.query.filter);
+            //console.log(range)
+            stockList = await StockModel.find(filter,range,sort);
+        }else{
+            stockList = await StockModel.find();
         }
-
-        
+      
+       
+        let count = await StockModel.count(filter);
+        if(range && range.length>1){
+            let content_range = range[0] + '-' + range[1] + '/' + count
+            console.log(content_range);
+            res.set('Content-Range',content_range);
+        }
 
         res.send(stockList);
     };
