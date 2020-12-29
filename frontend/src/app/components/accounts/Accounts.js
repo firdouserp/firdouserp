@@ -59,8 +59,9 @@ function SimplePaper() {
              
         <CardActions>
 
-        <Button className={classes.JournalVoucher} component={Link} to="/accounts/voucherentry" size="large" color="primary">
-            Gerneral Voucher
+
+        <Button className={classes.JournalVoucher} component={Link} to="/suppliers" size="large" color="primary">
+            Journal Voucher
         </Button>
         </CardActions>
 
