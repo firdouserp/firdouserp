@@ -1,6 +1,6 @@
 import * as React from "react";
 import {BooleanInput , SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
-import { TopToolbar, ListButton, ShowButton } from 'react-admin';
+import { useNotify, useRefresh, useRedirect,TopToolbar, ListButton, ShowButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
@@ -13,6 +13,7 @@ export const ProjectActions = ({ basePath, data }) => (
       {/* <ShowButton basePath={basePath} record={data} /> */}
     </TopToolbar>
 );
+
 
 const ProjectSearchFilter = (props) => (
    
@@ -72,8 +73,17 @@ export const ProjectEdit = (props) => (
     </Edit>
 );
 
-export const ProjectCreate = (props) => (
-    <Create actions={<ProjectActions />}  title="New Project" {...props}>
+export const ProjectCreate = (props) => {
+
+const notify = useNotify();
+const refresh = useRefresh();
+const redirect = useRedirect();
+const onFailure = (error) => {
+    notify(`Could not edit post: ${error}`)
+};
+
+return(
+    <Create onFailure={onFailure} actions={<ProjectActions />}  title="New Project" {...props}>
         <SimpleForm variant="standard">
             <TextInput source="code" />
             <TextInput source="scode" /*options={{ multiLine: true }}*/ />
@@ -88,4 +98,4 @@ export const ProjectCreate = (props) => (
             <BooleanInput  source="active" />
         </SimpleForm>
     </Create>
-);
+)};

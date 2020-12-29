@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import { Link } from 'react-router-dom'
 import Icon from '@material-ui/core/Icon';
+import { useAuthenticated ,useAuthState, Loading } from 'react-admin';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -57,7 +59,7 @@ function SimplePaper() {
              
         <CardActions>
 
-        <Button className={classes.JournalVoucher} component={Link} to="/suppliers" size="large" color="primary">
+        <Button className={classes.JournalVoucher} component={Link} to="/accounts/voucherentry" size="large" color="primary">
             Gerneral Voucher
         </Button>
         </CardActions>
@@ -69,6 +71,7 @@ function SimplePaper() {
      
              <Button className={classes.PaymentVoucher} component={Link} to="/suppliers" size="large" color="primary">
                  Payment Voucher
+                 
              </Button>
              </CardActions>
      
@@ -103,16 +106,24 @@ function SimplePaper() {
              </CardActions>
      
              </Paper>
+             https://marmelab.com/react-admin/Actions.html
     </div>
   );
 }
-const Accounts = () => (
-    <Card>
-        <Title title="Accounts" />
-        <CardContent>
-        {SimplePaper()}
-        </CardContent>
-    </Card>
-);
+const Accounts = () => {
+    useAuthenticated();
+    const { loading, authenticated } = useAuthState();
+    
+    
+        return (
+            <Card>
+                <Title title="Accounts" />
+                <CardContent>
+                {SimplePaper()}
+                </CardContent>
+            </Card>
+        )
+    
+};
 
 export default Accounts;
