@@ -21,6 +21,9 @@ import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import MyAppBar from './app/components/MyAppBar';
 import customRoutes from './app/components/customRoutes';
+import MyDataProvider from './app/providers/MyDataProvider';
+
+
 
 //const dataProvider = myDataProvider('http://localhost:2000/api/v1');
 
@@ -37,29 +40,40 @@ const theme = createMuiTheme({
     },
   },
   spacing:8,
-  sidebar: {},
+  sidebar: {
+    
+    
+  },
   overrides: {
     MuiTableRow: {
       root: {
         height: 20,
       }},
+      
     RaSidebar: {
-      spacing:6,
-      paddingRight:'5px',
+      root:{paddingTop: '1em',},
+
       drawerPaper: {
         backgroundColor: '#fff',
         color: '#3d5afe',
         height: "100%",
-       
+        firdousmenu:{
+          //paddingTop:'10px',
+        }
         
       },
+    },
+    RaLayout:{
+      root: {
+     
+    },
     },
       RaList: {
       root: {
           border: '1px solid #e0e0e3',
           backgroundColor:'#fcfcfc',
           color:'#fff',
-          padding:'15px'
+          padding:'10px'
       },
 
   }, RaEdit: {
@@ -67,7 +81,7 @@ const theme = createMuiTheme({
         border: '1px solid #e0e0e3',
         backgroundColor:'#fcfcfc',
         color:'#fff',
-        padding:'15px',
+        padding:'10px',
        
     },
     RaTopToolbar:{
@@ -129,8 +143,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://firdouserp.pk/">
+        FirdousERP 
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -157,10 +171,12 @@ const httpClient = (url, options = {}) => {
    
   return fetchUtils.fetchJson(url, options);
 };
-const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClient);
+const dataProvider = MyDataProvider;
 
 const App = () => (
-   <Admin customRoutes={customRoutes} theme={theme} layout={MyLayout} loginPage={MyLoginPage} dashboard={Dashboard} authProvider={basicAuthProvider} dataProvider={dataProvider} >
+  
+   <Admin customRoutes={customRoutes} theme={theme} layout={MyLayout} loginPage={MyLoginPage} dashboard={Dashboard}
+    authProvider={basicAuthProvider} dataProvider={dataProvider} >
        
        <Resource name="Projects" list={ProjectList} create={ProjectCreate} edit={ProjectEdit} icon={ProjectIcon}/>
        <Resource name="Suppliers"  list={SupplierList} create={SupplierCreate} edit={SupplierEdit} icon={SupplierIcon} />
@@ -171,8 +187,9 @@ const App = () => (
        <Resource name="Notes"  list={NotesList} create={NotesCreate} edit={NotesEdit} icon={NotesIcon} />
        <Resource name="Vouchers"  list={VouchersList} create={VouchersCreate} edit={VouchersEdit} icon={VouchersIcon} />
        <Resource name="Users" list={UserList} />
-       <Copyright />
+       
    </Admin>
+   
    
 );
 

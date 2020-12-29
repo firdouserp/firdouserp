@@ -14,7 +14,8 @@ const Menu = ({ onMenuClick, logout }) => {
     const open = useSelector(state => state.admin.ui.sidebarOpen);
     const resources = useSelector(getResources);
     return (
-        <div>
+        <div className="firdousmenu">
+  
             <DashboardMenuItem onClick={onMenuClick} sidebarIsOpen={open} />
             <Divider light />
             <MenuItemLink
