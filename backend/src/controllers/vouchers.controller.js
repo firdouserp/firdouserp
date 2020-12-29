@@ -1,4 +1,4 @@
-const NotesModel = require('../models/notes.model');
+const VouchersModel = require('../models/vouchers.model');
 const HttpException = require('../utils/HttpException.utils');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
@@ -7,12 +7,12 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 /******************************************************************************
- *                              Notes Controller
+ *                              Vouchers Controller
  ******************************************************************************/
-class NotesController {
-    getAllNotes = async (req, res, next) => {
+class VouchersController {
+    getAllVouchers = async (req, res, next) => {
        
-        let notesList;
+        let vouchersList;
         var range;
         var sort ;
         var filter;
@@ -22,57 +22,57 @@ class NotesController {
             var sort = JSON.parse(req.query.sort);
             var filter = JSON.parse(req.query.filter);
             //console.log(range)
-            notesList = await NotesModel.find(filter,range,sort);
+            vouchersList = await VouchersModel.find(filter,range,sort);
         }else{
-            notesList = await NotesModel.find();
+            vouchersList = await VouchersModel.find();
         }
       
        
-        let count = await NotesModel.count(filter);
+        let count = await VouchersModel.count(filter);
         if(range && range.length>1){
             let content_range = range[0] + '-' + range[1] + '/' + count
             console.log(content_range);
             res.set('Content-Range',content_range);
         }
 
-        res.send(notesList);
+        res.send(vouchersList);
     };
 
-    getNotesById = async (req, res, next) => {
-        const notes = await NotesModel.findOne({ id: req.params.id });
-        if (!notes) {
-            throw new HttpException(404, 'Unit not found');
+    getVouchersById = async (req, res, next) => {
+        const vouchers = await VouchersModel.findOne({ id: req.params.id });
+        if (!vouchers) {
+            throw new HttpException(404, 'Voucher not found');
         }
-        res.send(notes);
+        res.send(vouchers);
         
     };
 
-    getNotesByNotesName = async (req, res, next) => {
-        const Notes = await NotesModel.findOne({ notesname: req.params.notesname });
-        if (!notes) {
-            throw new HttpException(404, 'Note not found');
+    getVouchersByVouchersName = async (req, res, next) => {
+        const vouchers = await VouchersModel.findOne({ vouchersname: req.params.vouchersname });
+        if (!vouchers) {
+            throw new HttpException(404, 'Voucher not found');
         }
 
         };
     
-        createNotes = async (req, res, next) => {
+        createVouchers = async (req, res, next) => {
             this.checkValidation(req);
             
-             const result = await NotesModel.create(req.body);
+             const result = await VouchersModel.create(req.body);
     
             if (!result) {
                 throw new HttpException(500, 'Something went wrong');
             }
     
-            const notes = await NotesModel.findOne({ id: result });
-            if (!notes) {
-                throw new HttpException(404, 'Notes not found');
+            const vouchers = await VouchersModel.findOne({ id: result });
+            if (!vouchers) {
+                throw new HttpException(404, 'Voucher not found');
             }
     
-            res.status(201).send(notes);
+            res.status(201).send(vouchers);
         };
     
-    updateNotes = async (req, res, next) => {
+    updateVouchers = async (req, res, next) => {
         this.checkValidation(req);
 
                 
@@ -80,7 +80,7 @@ class NotesController {
         // it can be partial edit
         const {...restOfUpdates } = req.body;
         console.log(req.body);
-        const result = await NotesModel.update(restOfUpdates, req.params.id);
+        const result = await VouchersModel.update(restOfUpdates, req.params.id);
 
         if (!result) {
             throw new HttpException(404, 'Something went wrong');
@@ -88,23 +88,23 @@ class NotesController {
 
         const { affectedRows, changedRows, info } = result;
 
-        const message = !affectedRows ? 'Note not found' :
-            affectedRows && changedRows ? 'Note updated successfully' : 'Updated faild';
+        const message = !affectedRows ? 'Voucher not found' :
+            affectedRows && changedRows ? 'Voucher updated successfully' : 'Updated faild';
 
-            const notes = await NotesModel.findOne({ id : req.params.id });
-            if (!notes) {
-                throw new HttpException(404, 'Notes not found');
+            const vouchers = await VouchersModel.findOne({ id : req.params.id });
+            if (!vouchers) {
+                throw new HttpException(404, 'Voucher not found');
             }
     
-            res.status(201).send(notes);
+            res.status(201).send(vouchers);
     };
 
-    deleteNotes = async (req, res, next) => {
-        const result = await NotesModel.delete(req.params.id);
+    deleteVouchers = async (req, res, next) => {
+        const result = await VouchersModel.delete(req.params.id);
         if (!result) {
-            throw new HttpException(404, 'Notes not found');
+            throw new HttpException(404, 'Voucher not found');
         }
-        res.send('Notes has been deleted');
+        res.send('Voucher has been deleted');
     };
 
     checkValidation = (req) => {
@@ -120,4 +120,4 @@ class NotesController {
 /******************************************************************************
  *                               Export
  ******************************************************************************/
-module.exports = new NotesController;
+module.exports = new VouchersController;

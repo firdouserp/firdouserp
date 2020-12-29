@@ -1,9 +1,9 @@
 const query = require('../db/db-connection');
 const { multipleColumnSet,searchLikeColumnSet } = require('../utils/common.utils');
-class NotesModel {
-    tableName = 'notes';
+class VouchersModel {
+    tableName = 'vouchers';
     find = async (params = {},range={},sort={}) => {
-        let sql = `SELECT * FROM ${this.tableName}`;
+        let sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}`;
         let limit = "";
         let orderby =" ORDER BY id ASC";
         if (range && range.length){
@@ -32,7 +32,7 @@ class NotesModel {
     findOne = async (params) => {
         const { columnSet, values } = multipleColumnSet(params)
 
-        const sql = `SELECT * FROM ${this.tableName}
+        const sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}
         WHERE ${columnSet}`;
 
         const result = await query(sql, [...values]);
@@ -43,19 +43,18 @@ class NotesModel {
     
   
     
-    create = async ({code,scode,title,coa_type,active=0}) => {
+    create = async ({voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date}) => {
         const sql = `INSERT INTO ${this.tableName} 
-        (code,scode,title,coa_type,active) VALUES (?,?,?,?,?)`;
+        (voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date) VALUES (?,?,?,?,?,?,?,?,?,?)`;
         console.log(sql);
-        const result = await query(sql, [code,scode,title,coa_type,active]);
+        const result = await query(sql, [voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date]);
         return result.insertId;
-
-}
+    }
 update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params)
 
-    const sql = `UPDATE notes SET ${columnSet} WHERE id = ?`;
-
+    const sql = `UPDATE vouchers SET ${columnSet} WHERE id = ?`;
+    console.log(values);
     const result = await query(sql, [...values, id]);
 
     return result;
@@ -87,4 +86,4 @@ count = async (params = {}) => {
 }
 }
 
-module.exports = new NotesModel;
+module.exports = new VouchersModel;

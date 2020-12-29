@@ -7,6 +7,8 @@ import { UnitsList, UnitsEdit, UnitsCreate,UnitsIcon } from './app/components/un
 import { StockList, StockEdit, StockCreate,StockIcon } from './app/components/stock';
 import { CoaList, CoaEdit, CoaCreate,CoaIcon } from './app/components/coa';
 import { Coa_typeList, Coa_typeEdit, Coa_typeCreate,Coa_typeIcon } from './app/components/coa_type';
+import { NotesList, NotesEdit, NotesCreate,NotesIcon } from './app/components/notes';
+import { VouchersList, VouchersEdit, VouchersCreate,VouchersIcon } from './app/components/vouchers';
 import simpleRestProvider from 'ra-data-simple-rest';
 import { makeStyles } from '@material-ui/core/styles';
 //import myDataProvider from './app/auth/dataProvider';
@@ -166,6 +168,8 @@ const App = () => (
        <Resource name="Stock"  list={StockList} create={StockCreate} edit={StockEdit} icon={StockIcon} />
        <Resource name="Coa"  list={CoaList} create={CoaCreate} edit={CoaEdit} icon={CoaIcon} />
        <Resource name="Coa_type"  list={Coa_typeList} create={Coa_typeCreate} edit={Coa_typeEdit} icon={Coa_typeIcon} />
+       <Resource name="Notes"  list={NotesList} create={NotesCreate} edit={NotesEdit} icon={NotesIcon} />
+       <Resource name="Vouchers"  list={VouchersList} create={VouchersCreate} edit={VouchersEdit} icon={VouchersIcon} />
        <Resource name="Users" list={UserList} />
        <Copyright />
    </Admin>
