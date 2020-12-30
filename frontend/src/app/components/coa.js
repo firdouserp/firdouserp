@@ -4,6 +4,7 @@ import { TopToolbar, ListButton, ShowButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
+import { Notes } from "@material-ui/icons";
 
 export const  CoaIcon = ListAltIcon;
 
@@ -60,7 +61,10 @@ export const CoaEdit = (props) => (
             <TextInput multiline source="title" />
             <TextInput source="iscashbook" />
             <TextInput source="isbankbook" />
-            <TextInput source="notes" />
+           < ReferenceInput label="notes" source="notes"  reference="notes" validate={[required()]}>
+                <SelectInput optionText="title" />
+            </ReferenceInput>
+            <AutocompleteInput source="notes"  optionText="notes" optionValue="code" />
             <TextInput source="obal" />
             <BooleanInput  source="active" />
         </SimpleForm>
@@ -75,8 +79,13 @@ export const CoaCreate = (props) => (
             <TextInput source="iscashbook" />
             <TextInput source="isbankbook" />
             <ReferenceInput label="Notes" source="notes" resource="notes" reference="notes/list">
-              
+
             <SelectInput  />
+            </ReferenceInput>
+            <BooleanInput source="iscashbook"/>
+            <BooleanInput source="isbankbook" />
+            < ReferenceInput label="notes" source="notes" reference="notes" validate={[required()]}>
+            <SelectInput optionText="code" />
             </ReferenceInput>
             <TextInput source="obal" />
             <BooleanInput  source="active" />

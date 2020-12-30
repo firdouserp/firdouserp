@@ -72,7 +72,6 @@ const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClien
 
 const MyDataProvider = {
     ...dataProvider,
-
 };
 
 

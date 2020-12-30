@@ -48,7 +48,7 @@ export const VouchersList = props => (
 );
 
 const VouchersTitle = ({ record }) => {
-    return <span>Supplier {record ? `"${record.title}"` : ''}</span>;
+    return <span>Voucher {record ? `"${record.title}"` : ''}</span>;
 };
 
 export const VouchersEdit = (props) => (
@@ -95,7 +95,9 @@ const dateFormatter = v => {
     const yy = v.getFullYear().toString();
     const mm = (v.getMonth() + 1).toString();
     const dd = v.getDate().toString();
-    return `${yy}-${(pad + mm).slice(-2)}-${(pad + dd).slice(-2)}`;
+    const date=`${yy}-${(pad + mm).slice(-2)}-${(pad + dd).slice(-2)}`;
+    console.log(date);
+    return date;
   };
   
   const dateParser = v => {
@@ -103,8 +105,10 @@ const dateFormatter = v => {
     const match = /(\d{4})-(\d{2})-(\d{2})/.exec(v);
     if (match === null) return;
     const d = new Date(match[1], parseInt(match[2], 10) - 1, match[3]);
+    console.log(d);
     if (isNaN(d)) return;
     return d;
+    
   };
   
   <DateInput source="isodate" format={dateFormatter} parse={dateParser} />
