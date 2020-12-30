@@ -47,7 +47,7 @@ export const fetchJson = (url, options: Options = {}) => {
                     
                     new HttpError(
 
-                        (JSON.stringify(errors) && json.message) || statusText,
+                        (json && json.error && json.message) || statusText,
                         status,
                         json
                     )
@@ -66,15 +66,13 @@ const httpClient = (url, options = {}) => {
     
     options.headers.set('Authorization', `Bearer ${token}`);
      
-    return fetchJson(url, options).then();
+    return fetchUtils.fetchJson(url, options).then();
   };
 const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClient);
 
 const MyDataProvider = {
     ...dataProvider,
-    update: (resource, params) => {
-
-    },
+   
 };
 
 

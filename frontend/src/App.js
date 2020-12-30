@@ -7,6 +7,7 @@ import { UnitsList, UnitsEdit, UnitsCreate,UnitsIcon } from './app/components/un
 import { StockList, StockEdit, StockCreate,StockIcon } from './app/components/stock';
 import { CoaList, CoaEdit, CoaCreate,CoaIcon } from './app/components/coa';
 import { Coa_typeList, Coa_typeEdit, Coa_typeCreate,Coa_typeIcon } from './app/components/coa_type';
+import { BookingList, BookingEdit, BookingCreate,BookingIcon } from './app/components/booking';
 import { NotesList, NotesEdit, NotesCreate,NotesIcon } from './app/components/notes';
 import { VouchersList, VouchersEdit, VouchersCreate,VouchersIcon } from './app/components/vouchers';
 import simpleRestProvider from 'ra-data-simple-rest';
@@ -186,6 +187,7 @@ const App = () => (
        <Resource name="Coa_type"  list={Coa_typeList} create={Coa_typeCreate} edit={Coa_typeEdit} icon={Coa_typeIcon} />
        <Resource name="Notes"  list={NotesList} create={NotesCreate} edit={NotesEdit} icon={NotesIcon} />
        <Resource name="Vouchers"  list={VouchersList} create={VouchersCreate} edit={VouchersEdit} icon={VouchersIcon} />
+       <Resource name="Booking"  list={BookingList} create={BookingCreate} edit={BookingEdit} icon={BookingIcon} />
        <Resource name="Users" list={UserList} />
        
    </Admin>
