@@ -38,6 +38,17 @@ class NotesController {
         res.send(notesList);
     };
 
+    ListAllNotes = async (req, res, next) => {
+        console.log("List All Notes");  
+        let notesList = await NotesModel.list();
+          console.log(notesList);   
+          let count = await NotesModel.count();
+          let content_range = '1-'  +count+ '/' + count;
+          console.log(content_range);
+          res.set('Content-Range',content_range);
+        res.send(notesList);
+    };
+
     getNotesById = async (req, res, next) => {
         const notes = await NotesModel.findOne({ id: req.params.id });
         if (!notes) {

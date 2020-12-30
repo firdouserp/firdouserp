@@ -21,7 +21,7 @@ export const createHeadersFromOptions = (options: Options): Headers => {
 
     return requestHeaders;
 };
-export const fetchJson = (url, options: Options = {}) => {
+export const fetchJson = (url, options = {}) => {
     const requestHeaders = createHeadersFromOptions(options);
 
     return fetch(url, { ...options, headers: requestHeaders })
@@ -47,7 +47,7 @@ export const fetchJson = (url, options: Options = {}) => {
                     
                     new HttpError(
 
-                        (JSON.stringify(errors) && json.message) || statusText,
+                        (json && json.error && json.message) || statusText,
                         status,
                         json
                     )
@@ -66,27 +66,25 @@ const httpClient = (url, options = {}) => {
     
     options.headers.set('Authorization', `Bearer ${token}`);
      
-    return fetchJson(url, options).then();
+    return fetchUtils.fetchJson(url, options).then();
   };
 const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClient);
 
 const MyDataProvider = {
     ...dataProvider,
-    update: (resource, params) => {
 
-    },
 };
 
 
-const convertHTTPResponse = (response, type, resource, params) => {
-    const { headers, json } = response;
-    switch (type) {
-        default:
-            if(json.status === 200){
-                return { data: json.docs };
-            }else{
-                throw new Error(json.errors)
-            }
-    }
-}
+// const convertHTTPResponse = (response, type, resource, params) => {
+//     const { headers, json } = response;
+//     switch (type) {
+//         default:
+//             if(json.status === 200){
+//                 return { data: json.docs };
+//             }else{
+//                 throw new Error(json.errors)
+//             }
+//     }
+// }
 export default MyDataProvider;

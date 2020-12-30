@@ -79,11 +79,13 @@ const notify = useNotify();
 const refresh = useRefresh();
 const redirect = useRedirect();
 const onFailure = (error) => {
+
+  
     notify(`Could not edit post: ${error}`)
 };
 
 return(
-    <Create onFailure={onFailure} actions={<ProjectActions />}  title="New Project" {...props}>
+    <Create  actions={<ProjectActions />}  title="New Project" {...props}>
         <SimpleForm variant="standard">
             <TextInput source="code" />
             <TextInput source="scode" /*options={{ multiLine: true }}*/ />

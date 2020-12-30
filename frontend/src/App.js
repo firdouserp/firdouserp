@@ -187,6 +187,7 @@ const App = () => (
        <Resource name="Notes"  list={NotesList} create={NotesCreate} edit={NotesEdit} icon={NotesIcon} />
        <Resource name="Vouchers"  list={VouchersList} create={VouchersCreate} edit={VouchersEdit} icon={VouchersIcon} />
        <Resource name="Users" list={UserList} />
+       <Resource name="Test" />
        
    </Admin>
    

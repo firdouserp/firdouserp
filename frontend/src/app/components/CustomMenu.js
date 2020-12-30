@@ -25,26 +25,36 @@ const Menu = ({ onMenuClick, logout }) => {
                 onClick={onMenuClick}
                 sidebarIsOpen={open}
             />
-            {resources.map(resource => (
-                <div>
-                <MenuItemLink
-                    key={resource.name}
-                    to={`/${resource.name}`}
-                    primaryText={
-                        (resource.options && resource.options.label) ||
-                        resource.name
-                    }
-                    leftIcon={
-                        resource.icon ? <resource.icon /> : <DefaultIcon />
-                    }
-                    onClick={onMenuClick}
-                    sidebarIsOpen={open}
+            {resources.map(resource => {
+                if(resource.options && resource.options.menu==="false"){
+                     console.log(resource);
+                     return;
+                } else if(resource.hasList) {    
+                return (
+                    <div>
+                    <MenuItemLink
+                        key={resource.name}
+                        to={`/${resource.name}`}
+                        primaryText={
+                            (resource.options && resource.options.label) ||
+                            resource.name
+                        }
+                        leftIcon={
+                            resource.icon ? <resource.icon /> : <DefaultIcon />
+                        }
+                        onClick={onMenuClick}
+                        sidebarIsOpen={open}
+                        
+                    />
+                    <Divider light />
+                   </div>
                     
-                />
-                <Divider light />
-               </div>
-                
-            ))}
+                )
+            
+                 }
+
+
+            })}
             
             <Divider light />
             <MenuItemLink

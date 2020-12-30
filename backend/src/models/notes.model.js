@@ -41,7 +41,16 @@ class NotesModel {
 
     }
     
-  
+    list = async (params) => {
+      
+
+        const sql = `SELECT id,id as name,title as value FROM ${this.tableName}`;
+        console.log(sql);
+        const result = await query(sql);
+
+        return result;
+
+    }
     
     create = async ({code,scode,title,coa_type,active=0}) => {
         const sql = `INSERT INTO ${this.tableName} 

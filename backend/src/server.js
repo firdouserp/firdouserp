@@ -46,6 +46,7 @@ app.use(`/api/v1/coa`, coaRouter);
 app.use(`/api/v1/coa_type`, coa_typeRouter);
 app.use(`/api/v1/ledger`, ledgerRouter);
 app.use(`/api/v1/notes`, notesRouter);
+app.use(`/api/v1/noteslist`, notesRouter);
 app.use(`/api/v1/vouchers`, vouchersRouter);
 
 // 404 error

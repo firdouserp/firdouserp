@@ -23,7 +23,7 @@ export const VoucherEntry = (props) => {
     
         <div variant="standard">
             <Create basePath="vouchers" resource="vouchers">
-                <VisitorForm  {...props}/>
+                <VisitorForm variant="standard" {...props}/>
             </Create>
             Voucher Entry Form goes here
         </div>
@@ -45,7 +45,7 @@ export const VoucherEntry = (props) => {
     ];
     
     const VisitorForm = props => (
-        <FormWithRedirect
+        <FormWithRedirect 
             {...props}
             render={formProps => (
                 // here starts the custom form layout

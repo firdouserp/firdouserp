@@ -11,6 +11,7 @@ const { createNotesSchema, updateNotesSchema} = require('../middleware/validator
 
 
 router.get('/',auth(), awaitHandlerFactory(notesController.getAllNotes)); //localhost:3000/api/v1/notes
+router.get('/list',auth(), awaitHandlerFactory(notesController.ListAllNotes)); //localhost:3000/api/v1/notes
 router.get('/:id', auth(),awaitHandlerFactory(notesController.getNotesById)); //localhost:3000/api/v1/notes/id/1
 router.get('/code/:code', auth(),awaitHandlerFactory(notesController.getNotesBycode)); //localhost:3000/api/v1/notes/notescode/julia
 router.post('/', auth(),createNotesSchema, awaitHandlerFactory(notesController.createNotes));  // localhost:3000/api/v1/notes
