@@ -1,6 +1,6 @@
 import * as React from "react";
 import {BooleanInput , required, AutocompleteInput, ReferenceInput, SelectInput,SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
-import { TopToolbar, ListButton, ShowButton } from 'react-admin';
+import { TopToolbar, ListButton, ShowButton,useQueryWithStore,Loading,Error } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
@@ -71,24 +71,34 @@ export const CoaEdit = (props) => (
     </Edit>
 );
 
-export const CoaCreate = (props) => (
+export const CoaCreate = (props) => {
+    const { data, loading, error } = useQueryWithStore({ 
+        type: 'getList',
+        resource: 'notes/list',
+        payload: { pagination: { page: 1 , perPage: 100 }, sort: { field: 'vou_date', order: 'DESC'},filter:{}}
+    });
+  
+    if (loading) return <Loading />;
+    if (error) return <Error />;
+    if (!data) return null;
+    return(
     <Create actions={<CoaActions />}  title="New Coa" {...props}>
         <SimpleForm variant="standard">
             <TextInput source="code" />
             <TextInput multiline source="title" />
             <TextInput source="iscashbook" />
             <TextInput source="isbankbook" />
-            <ReferenceInput label="Notes" source="notes" resource="notes" reference="notes/list">
+            
 
-            <SelectInput  />
-            </ReferenceInput>
+            <SelectInput source="notes"  choices={data} optionText="value"/>
+            
             <BooleanInput source="iscashbook"/>
             <BooleanInput source="isbankbook" />
-            < ReferenceInput label="notes" source="notes" reference="notes" validate={[required()]}>
+            {/* < ReferenceInput label="notes" source="notes" reference="notes" validate={[required()]}>
             <SelectInput optionText="code" />
-            </ReferenceInput>
+            </ReferenceInput> */}
             <TextInput source="obal" />
             <BooleanInput  source="active" />
         </SimpleForm>
     </Create>
-);
+)};

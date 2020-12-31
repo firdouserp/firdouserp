@@ -1,6 +1,7 @@
 
 import * as React from "react";
-import {FormWithRedirect, SelectArrayInput,SaveButton,
+import {useQueryWithStore,
+    Error,FormWithRedirect, SelectArrayInput,SaveButton,
         NullableBooleanInput,BooleanInput ,ReferenceInput, SelectInput,TabbedForm , SearchInput,Filter, List, Datagrid, Edit, Create, SimpleList,SimpleForm, DateField, TextField, EditButton,DeleteButton, TextInput, DateInput, CheckboxGroupInput, BooleanField, FormTab } from 'react-admin';
 import { TopToolbar, ListButton, ShowButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -12,6 +13,8 @@ import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { CardContent, Typography, Box } from '@material-ui/core';
 import {  Toolbar } from '@material-ui/core';
+import   VoucherTable  from './VoucherTable';
+
 const useStyles = makeStyles({
     inlineBlock: { display: 'inline-flex', marginRight: '1rem' },
 });
@@ -44,7 +47,20 @@ export const VoucherEntry = (props) => {
         { id: 'reviewer', name: 'Reviewer' },
     ];
     
-    const VisitorForm = props => (
+    const VisitorForm = props => {
+        const { data, loading, error } = useQueryWithStore({ 
+            type: 'getList',
+            resource: 'notes/list',
+            payload: { pagination: { page: 1 , perPage: 100 }, sort: { field: 'vou_date', order: 'DESC'},filter:{}}
+        });
+      
+        if (loading) return <Loading />;
+        if (error) return <Error />;
+        if (!data) return null;
+
+        return(
+
+            
         <FormWithRedirect 
             {...props}
             render={formProps => (
@@ -85,14 +101,15 @@ export const VoucherEntry = (props) => {
                                 
                                 <Typography variant="h6" gutterBottom>Stats</Typography>
     
-                                <SelectArrayInput source="groups" resource="customers" choices={segments} fullWidth />
+                                <SelectArrayInput optionText="value" source="groups" resource="customers" choices={data} fullWidth />
                                 <ReferenceInput source="notes" reference="notes">
                                     <SelectInput optionText="code"/>
                                 </ReferenceInput>
-
+                                <SelectInput source="notes" optionText="value" choices={data}/>
                                 <NullableBooleanInput source="has_newsletter" resource="customers" />
+                                <VoucherTable/>
                             </Box>
-    
+                            
                         </Box>
                     </Box>
                     <Toolbar>
@@ -107,7 +124,7 @@ export const VoucherEntry = (props) => {
                 </form>
             )}
         />
-    );
+    )};
 
 // the parent component (Edit or Create) injects these props to their child
 // const VisitorForm = ({ basePath, record, save, saving, version }) => {

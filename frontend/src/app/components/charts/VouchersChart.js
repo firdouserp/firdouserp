@@ -43,7 +43,7 @@ margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
 <XAxis dataKey="vou_date" />
 <YAxis/>
 <Legend label ="Vouchers Per Month" />
-<Bar label={<Label />} dataKey="count" fill="#8884d8" />
+<Bar name="Vouchers this Month" label={<Label />}  dataKey="count" fill="#8884d8" />
 </BarChart>
 </ResponsiveContainer>
  </div>
