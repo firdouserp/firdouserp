@@ -23,7 +23,7 @@ import Link from '@material-ui/core/Link';
 import MyAppBar from './app/components/MyAppBar';
 import customRoutes from './app/components/customRoutes';
 import MyDataProvider from './app/providers/MyDataProvider';
-
+import './App.css';
 
 
 //const dataProvider = myDataProvider('http://localhost:2000/api/v1');
@@ -42,31 +42,35 @@ const theme = createMuiTheme({
   },
   spacing:8,
   sidebar: {
-    
+    //root:{backgroundColor: '#fff',}
     
   },
+  
   overrides: {
+
     MuiTableRow: {
       root: {
         height: 20,
       }},
       
     RaSidebar: {
-      root:{paddingTop: '1em',},
-
+      boxShadow:
+          "2px 0px 1px -1px rgba(0,0,0,0.2), 1px 0px 3px 0px rgba(0,0,0,0.1)",
       drawerPaper: {
-        backgroundColor: '#fff',
-        color: '#3d5afe',
+        backgroundColor: '#022f5a',
+        color: '#ffffff',
         height: "100%",
-        firdousmenu:{
-          //paddingTop:'10px',
-        }
-        
+        paddingTop: '1em',
+        '@media (min-width: 0px)': {
+          backgroundColor: '#022f5a',
+        },
+
       },
     },
+
     RaLayout:{
-      root: {
-     
+      content: {
+        //paddingTop: '2em',
     },
     },
       RaList: {
@@ -86,15 +90,23 @@ const theme = createMuiTheme({
        
     },
     RaTopToolbar:{
-      backgroundColor:'green'
+      root:{padding:'0px'},
     }
+},        MuiDivider:{
+  light:{backgroundColor: '#6868681f',}
+  
 },
     RaMenuItemLink: {
+      root:{color: '#fff','&:hover': {
+        background: "#007eff",
+     },
+    },
+ 
       active: {
-        borderLeftStyle: "none",
-
+        borderLeftStyle: "solid",
+        backgroundColor:'#007eff',
         borderRightStyle: "solid",
-        color: '#3d5afe',
+        color: '#fff',
         fontWeight: 'bold',
       },
       icon: {
@@ -122,14 +134,14 @@ const theme = createMuiTheme({
 
 
 const useSidebarStyles = makeStyles({
-  
-      backgroundColor: 'red',
+  red:{ backgroundColor: 'red',}
+      
   
 });
 const MySidebar = props => {
   const classes = useSidebarStyles();
   return (
-      <Sidebar classes={classes} {...props} />
+      <Sidebar classes={classes.red} {...props} />
   );
 };
 //const MyAppBar = props => <AppBar {...props} userMenu={<MyUserMenu />} color="primary" />;
@@ -172,7 +184,7 @@ const httpClient = (url, options = {}) => {
    
   return fetchUtils.fetchJson(url, options);
 };
-const dataProvider = MyDataProvider;
+const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClient);
 
 const App = () => (
   

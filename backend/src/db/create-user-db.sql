@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS user
 
 
    CREATE TABLE `firdouserp`.`booking` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `scode` VARCHAR(45) NULL,
   `code` VARCHAR(45) NULL,
   `title` VARCHAR(45) NOT NULL,

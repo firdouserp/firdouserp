@@ -3,7 +3,7 @@ import { fetchUtils } from 'react-admin';
 
 import { HttpError } from 'react-admin';
 
-export const createHeadersFromOptions = (options: Options): Headers => {
+export const createHeadersFromOptions = (options) => {
     const requestHeaders = (options.headers ||
         new Headers({
             Accept: 'application/json',

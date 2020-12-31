@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import {FormWithRedirect, SelectArrayInput,SaveButton,
-        NullableBooleanInput,BooleanInput ,TabbedForm , SearchInput,Filter, List, Datagrid, Edit, Create, SimpleList,SimpleForm, DateField, TextField, EditButton,DeleteButton, TextInput, DateInput, CheckboxGroupInput, BooleanField, FormTab } from 'react-admin';
+        NullableBooleanInput,BooleanInput ,ReferenceInput, SelectInput,TabbedForm , SearchInput,Filter, List, Datagrid, Edit, Create, SimpleList,SimpleForm, DateField, TextField, EditButton,DeleteButton, TextInput, DateInput, CheckboxGroupInput, BooleanField, FormTab } from 'react-admin';
 import { TopToolbar, ListButton, ShowButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
@@ -86,6 +86,10 @@ export const VoucherEntry = (props) => {
                                 <Typography variant="h6" gutterBottom>Stats</Typography>
     
                                 <SelectArrayInput source="groups" resource="customers" choices={segments} fullWidth />
+                                <ReferenceInput source="notes" reference="notes">
+                                    <SelectInput optionText="code"/>
+                                </ReferenceInput>
+
                                 <NullableBooleanInput source="has_newsletter" resource="customers" />
                             </Box>
     

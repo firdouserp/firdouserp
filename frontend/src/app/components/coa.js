@@ -1,5 +1,5 @@
 import * as React from "react";
-import {BooleanInput ,  AutocompleteInput, ReferenceInput, SelectInput,SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
+import {BooleanInput , required, AutocompleteInput, ReferenceInput, SelectInput,SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
 import { TopToolbar, ListButton, ShowButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
