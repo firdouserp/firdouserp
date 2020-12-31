@@ -61,8 +61,8 @@ export const CoaEdit = (props) => (
             <TextInput multiline source="title" />
             <TextInput source="iscashbook" />
             <TextInput source="isbankbook" />
-           < ReferenceInput label="notes" source="notes"  reference="notes" validate={[required()]}>
-                <SelectInput optionText="title" />
+           < ReferenceInput label="Notes" source="notes"  reference="notes/list" validate={[required()]}>
+                <SelectInput source="notes" optionText="title" />
             </ReferenceInput>
             <AutocompleteInput source="notes"  optionText="notes" optionValue="code" />
             <TextInput source="obal" />

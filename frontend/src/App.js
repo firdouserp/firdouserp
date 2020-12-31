@@ -181,7 +181,7 @@ const httpClient = (url, options = {}) => {
   const { token } = JSON.parse(localStorage.getItem('jwtToken'));
   
   options.headers.set('Authorization', `Bearer ${token}`);
-   
+   console.log("fetching:"+url);
   return fetchUtils.fetchJson(url, options);
 };
 const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClient);
