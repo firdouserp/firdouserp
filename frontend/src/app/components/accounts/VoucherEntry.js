@@ -80,7 +80,7 @@ export const VoucherEntry = (props) => {
                 <form>
                     <Box p="1em" style={{border:"1px solid #e0e0e3"}}>
                         <Box display="flex">
-                            <Box flexGrow={1} flex={1} mr="1em">
+                            <Box  flex={1} mr="1em">
     
                                 <Typography variant="h6" gutterBottom>Voucher Entry {props.vou_type}</Typography>
                                 <Box flex={1}>
@@ -127,7 +127,7 @@ export const VoucherEntry = (props) => {
                                 <Box mt="1em" />
                             </Box>
     
-                            <Box ml="1em">
+                            <Box flexGrow={1} ml="1em">
                             <ArrayInput source="transactions">
                             <SimpleFormIterator>
                             <Box display="flex">
