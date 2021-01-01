@@ -23,18 +23,18 @@ const useStyles = makeStyles(theme => ({
     overflowX: "auto"
   },
   table: {
-    minWidth: 650
+    minWidth: 400
   },
   selectTableCell: {
-    width: 60
+    //width: 60
   },
   tableCell: {
-    width: 130,
-    height: 40
+    //width: 130,
+    //height: 40
   },
   input: {
-    width: 130,
-    height: 40
+    //width: 130,
+    //height: 40
   }
 }));
 
@@ -123,8 +123,8 @@ const VoucherTable = ()=> {
       }
       return row;
     });
-    newRows=newRows.filter(row=>row.isDeleted && !row.isNew)
-    setRows(newRows);
+    const newRowitems=newRows.filter(row=>row.isDeleted && !row.isNew)
+    setRows(newRowitems);
     setPrevious(state => {
       delete state[id];
       return state;
@@ -175,7 +175,7 @@ const VoucherTable = ()=> {
                   </IconButton>
                 )}
               </TableCell>
-              <CustomTableCell {...{ row, name: "srno", onChange }} />
+              <span> {row.srno} </span>
               <CustomTableCell {...{ row, name: "refno", onChange }} />
               <CustomTableCell {...{ row, name: "chqno", onChange }} />
               <CustomTableCell {...{ row, name: "description", onChange }} />
