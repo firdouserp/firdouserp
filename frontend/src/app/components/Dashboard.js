@@ -7,8 +7,8 @@ import VouchersChart from './charts/VouchersChart';
 
 
 export default () => (
-    <Card style={{height:'100%'}}>
+    <Card style={{ height: '100%' }}>
         <Title title="Welcome to the Firdous ERP" />
-        <CardContent><DummyChart/><VouchersChart/></CardContent>
+        <CardContent><DummyChart /><VouchersChart /></CardContent>
     </Card>
 );

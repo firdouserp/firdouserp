@@ -20,10 +20,10 @@ const Label = props => {
   );
 };
 const VouchersChart = () => {
-  const { data, loading, error } = useQueryWithStore({ 
-      type: 'getList',
-      resource: 'vouchers/monthly',
-      payload: { pagination: { page: 1 , perPage: 100 }, sort: { field: 'vou_date', order: 'DESC'},filter:{}}
+  const { data, loading, error } = useQueryWithStore({
+    type: 'getList',
+    resource: 'vouchers/monthly',
+    payload: { pagination: { page: 1, perPage: 100 }, sort: { field: 'vou_date', order: 'DESC' }, filter: {} }
   });
 
   if (loading) return <Loading />;
@@ -31,22 +31,22 @@ const VouchersChart = () => {
   if (!data) return null;
 
   return (
-    <div style={{width:"100%",height:'350px'}}>
-    <ResponsiveContainer>
-    <BarChart
-width={600}
-height={300}
-data={data.reverse()}
-margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
->
-<CartesianGrid strokeDasharray="3 3" />
-<XAxis dataKey="vou_date" />
-<YAxis/>
-<Legend label ="Vouchers Per Month" />
-<Bar name="Vouchers this Month" label={<Label />}  dataKey="count" fill="#8884d8" />
-</BarChart>
-</ResponsiveContainer>
- </div>
+    <div style={{ width: "100%", height: '350px' }}>
+      <ResponsiveContainer>
+        <BarChart
+          width={600}
+          height={300}
+          data={data.reverse()}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="vou_date" />
+          <YAxis />
+          <Legend label="Vouchers Per Month" />
+          <Bar name="Vouchers this Month" label={<Label />} dataKey="count" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   )
 };
 

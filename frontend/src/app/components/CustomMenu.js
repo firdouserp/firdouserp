@@ -14,7 +14,7 @@ const Menu = ({ onMenuClick, logout }) => {
     const resources = useSelector(getResources);
     return (
         <div className="firdousmenu">
-  
+
             <DashboardMenuItem onClick={onMenuClick} sidebarIsOpen={open} />
             <Divider light />
             <MenuItemLink
@@ -25,36 +25,36 @@ const Menu = ({ onMenuClick, logout }) => {
                 sidebarIsOpen={open}
             />
             {resources.map(resource => {
-                if(resource.options && resource.options.menu==="false"){
-                     console.log(resource);
-                     return;
-                } else if(resource.hasList) {    
-                return (
-                    <div>
-                    <MenuItemLink
-                        key={resource.name}
-                        to={`/${resource.name}`}
-                        primaryText={
-                            (resource.options && resource.options.label) ||
-                            resource.name
-                        }
-                        leftIcon={
-                            resource.icon ? <resource.icon /> : <DefaultIcon />
-                        }
-                        onClick={onMenuClick}
-                        sidebarIsOpen={open}
-                        
-                    />
-                    <Divider light />
-                   </div>
-                    
-                )
-            
-                 }
+                if (resource.options && resource.options.menu === "false") {
+                    console.log(resource);
+                    return;
+                } else if (resource.hasList) {
+                    return (
+                        <div>
+                            <MenuItemLink
+                                key={resource.name}
+                                to={`/${resource.name}`}
+                                primaryText={
+                                    (resource.options && resource.options.label) ||
+                                    resource.name
+                                }
+                                leftIcon={
+                                    resource.icon ? <resource.icon /> : <DefaultIcon />
+                                }
+                                onClick={onMenuClick}
+                                sidebarIsOpen={open}
+
+                            />
+                            <Divider light />
+                        </div>
+
+                    )
+
+                }
 
 
             })}
-            
+
             <Divider light />
             <MenuItemLink
                 to="/custom-route"
@@ -64,12 +64,12 @@ const Menu = ({ onMenuClick, logout }) => {
                 sidebarIsOpen={open}
             />
             <MenuItemLink
-        to="/help-center"
-        primaryText="Settings"
-        leftIcon={<SettingsIcon />}
-        onClick={onMenuClick}
-        sidebarIsOpen={open}
-        />
+                to="/help-center"
+                primaryText="Settings"
+                leftIcon={<SettingsIcon />}
+                onClick={onMenuClick}
+                sidebarIsOpen={open}
+            />
             {isXSmall && logout}
         </div>
     );

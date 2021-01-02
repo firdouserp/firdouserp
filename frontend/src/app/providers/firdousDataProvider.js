@@ -13,7 +13,7 @@ const myDataProvider = {
          * For posts update only, convert uploaded image in base 64 and attach it to
          * the `picture` sent property, with `src` and `title` attributes.
          */
-        
+
         // Freshly dropped pictures are File objects and must be converted to base64 strings
         const newPictures = params.data.pictures.filter(
             p => p.rawFile instanceof File

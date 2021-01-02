@@ -1,7 +1,6 @@
 import simpleRestProvider from 'ra-data-simple-rest';
-import { fetchUtils } from 'react-admin';
+import { fetchUtils, HttpError } from 'react-admin';
 
-import { HttpError } from 'react-admin';
 
 export const createHeadersFromOptions = (options) => {
     const requestHeaders = (options.headers ||
@@ -38,13 +37,13 @@ export const fetchJson = (url, options = {}) => {
             let errors;
             try {
                 json = JSON.parse(body);
-                errors=json.errors;
+                errors = json.errors;
             } catch (e) {
                 // not json, no big deal
             }
             if (status < 200 || status >= 300) {
                 return Promise.reject(
-                    
+
                     new HttpError(
 
                         (json && json.error && json.message) || statusText,
@@ -58,17 +57,17 @@ export const fetchJson = (url, options = {}) => {
 };
 
 const httpClient = (url, options = {}) => {
-   
+
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
     }
     const { token } = JSON.parse(localStorage.getItem('jwtToken'));
-    
+
     options.headers.set('Authorization', `Bearer ${token}`);
-     
+
     return fetchUtils.fetchJson(url, options).then();
-  };
-const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClient);
+};
+const dataProvider = simpleRestProvider('http://localhost:2000/api/v1', httpClient);
 
 const MyDataProvider = {
     ...dataProvider,

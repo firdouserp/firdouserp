@@ -4,7 +4,7 @@ class Logo extends Component {
   render() {
     return (
       <div className="logo-main">
-         <img width="40px"  alt="daily smarty ui image logo big" src={image}/>
+        <img width="40px" alt="daily smarty ui image logo big" src={image} />
       </div>
     )
   }

@@ -14,46 +14,47 @@ const useStyles = makeStyles({
 
 export const VoucherEntry = (props) => {
     useAuthenticated();
-    return(
-    
+    return (
+
         <div variant="standard">
             <Create basePath="vouchers" resource="vouchers">
-                <VisitorForm variant="standard" {...props}/>
+                <VisitorForm variant="standard" {...props} />
             </Create>
             Voucher Entry Form goes here
         </div>
- 
-    )};
+
+    )
+};
 
 
 
 
-    
-    
-    const segments = [
-        { id: 'compulsive', name: 'Compulsive' },
-        { id: 'collector', name: 'Collector' },
-        { id: 'ordered_once', name: 'Ordered Once' },
-        { id: 'regular', name: 'Regular' },
-        { id: 'returns', name: 'Returns' },
-        { id: 'reviewer', name: 'Reviewer' },
-    ];
-    
-    const VisitorForm = props => {
-        const { data, loading, error } = useQueryWithStore({ 
-            type: 'getList',
-            resource: 'notes/list',
-            payload: { pagination: { page: 1 , perPage: 100 }, sort: { field: 'vou_date', order: 'DESC'},filter:{}}
-        });
-      
-        if (loading) return <Loading />;
-        if (error) return <Error />;
-        if (!data) return null;
 
-        return(
 
-            
-        <FormWithRedirect 
+const segments = [
+    { id: 'compulsive', name: 'Compulsive' },
+    { id: 'collector', name: 'Collector' },
+    { id: 'ordered_once', name: 'Ordered Once' },
+    { id: 'regular', name: 'Regular' },
+    { id: 'returns', name: 'Returns' },
+    { id: 'reviewer', name: 'Reviewer' },
+];
+
+const VisitorForm = props => {
+    const { data, loading, error } = useQueryWithStore({
+        type: 'getList',
+        resource: 'notes/list',
+        payload: { pagination: { page: 1, perPage: 100 }, sort: { field: 'vou_date', order: 'DESC' }, filter: {} }
+    });
+
+    if (loading) return <Loading />;
+    if (error) return <Error />;
+    if (!data) return null;
+
+    return (
+
+
+        <FormWithRedirect
             {...props}
             render={formProps => (
                 // here starts the custom form layout
@@ -61,9 +62,9 @@ export const VoucherEntry = (props) => {
                     <Box p="1em">
                         <Box display="flex">
                             <Box flex={2} mr="1em">
-    
+
                                 <Typography variant="h6" gutterBottom>{props.vou_type}</Typography>
-    
+
                                 <Box display="flex">
                                     <Box flex={1} mr="0.5em">
                                         <TextInput source="first_name" resource="customers" fullWidth />
@@ -75,9 +76,9 @@ export const VoucherEntry = (props) => {
                                 <TextInput source="email" resource="customers" type="email" fullWidth />
                                 <DateInput source="birthday" resource="customers" />
                                 <Box mt="1em" />
-    
+
                                 <Typography variant="h6" gutterBottom>Address</Typography>
-    
+
                                 <TextInput resource="customers" source="address" multiline fullWidth />
                                 <Box display="flex">
                                     <Box flex={1} mr="0.5em">
@@ -88,20 +89,20 @@ export const VoucherEntry = (props) => {
                                     </Box>
                                 </Box>
                             </Box>
-    
+
                             <Box flex={1} ml="1em">
-                                
+
                                 <Typography variant="h6" gutterBottom>Stats</Typography>
-    
+
                                 <SelectArrayInput optionText="value" source="groups" resource="customers" choices={data} fullWidth />
                                 <ReferenceInput source="notes" reference="notes">
-                                    <SelectInput optionText="code"/>
+                                    <SelectInput optionText="code" />
                                 </ReferenceInput>
-                                <SelectInput source="notes" optionText="value" choices={data}/>
+                                <SelectInput source="notes" optionText="value" choices={data} />
                                 <NullableBooleanInput source="has_newsletter" resource="customers" />
-                                <VoucherTable/>
+                                <VoucherTable />
                             </Box>
-                            
+
                         </Box>
                     </Box>
                     <Toolbar>
@@ -116,7 +117,8 @@ export const VoucherEntry = (props) => {
                 </form>
             )}
         />
-    )};
+    )
+};
 
 // the parent component (Edit or Create) injects these props to their child
 // const VisitorForm = ({ basePath, record, save, saving, version }) => {

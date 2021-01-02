@@ -1,9 +1,9 @@
 
-const basicAuth=  {
+const basicAuth = {
     login: ({ username, password }) => {
         const request = new Request('http://localhost:2000/api/v1/users/login', {
             method: 'POST',
-            body: JSON.stringify({ "email":username, password }),
+            body: JSON.stringify({ "email": username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),
             //credentials: 'include',
         });
@@ -18,9 +18,9 @@ const basicAuth=  {
             .then(auth => {
                 localStorage.setItem('jwtToken', JSON.stringify(auth));
             })
-            
+
     },
-   logout: () => {
+    logout: () => {
         localStorage.removeItem('jwtToken');
         return Promise.resolve();
     },
@@ -37,6 +37,6 @@ const basicAuth=  {
             : Promise.reject();
     },
     getPermissions: () => Promise.resolve(),
- };
+};
 
- export default basicAuth; 
+export default basicAuth; 

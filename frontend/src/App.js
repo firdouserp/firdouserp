@@ -34,19 +34,20 @@ const theme = createMuiTheme({
       main: '#3f51b5',
     },
   },
-  spacing:8,
+  spacing: 8,
   sidebar: {
     //root:{backgroundColor: '#fff',}
-    
+
   },
-  
+
   overrides: {
 
     MuiTableRow: {
       root: {
         height: 20,
-      }},
-      
+      }
+    },
+
     RaSidebar: {
       // boxShadow:
       //     "2px 0px 1px -1px rgba(0,0,0,0.2), 1px 0px 3px 0px rgba(0,0,0,0.1)",
@@ -62,44 +63,45 @@ const theme = createMuiTheme({
       },
     },
 
-    RaLayout:{
+    RaLayout: {
       content: {
         //paddingTop: '2em',
         paddingTop: '0px',
+      },
     },
-    },
-      RaList: {
+    RaList: {
       root: {
-          border: '1px solid #e0e0e3',
-          backgroundColor:'#fcfcfc',
-          color:'#fff',
-          padding:'10px'
+        border: '1px solid #e0e0e3',
+        backgroundColor: '#fcfcfc',
+        color: '#fff',
+        padding: '10px'
       },
 
-  }, RaEdit: {
-    root: {
+    }, RaEdit: {
+      root: {
         border: '1px solid #e0e0e3',
-        backgroundColor:'#fcfcfc',
-        color:'#fff',
-        padding:'10px',
-       
+        backgroundColor: '#fcfcfc',
+        color: '#fff',
+        padding: '10px',
+
+      },
+      RaTopToolbar: {
+        root: { padding: '0px' },
+      }
+    }, MuiDivider: {
+      light: { backgroundColor: '#6868681f', }
+
     },
-    RaTopToolbar:{
-      root:{padding:'0px'},
-    }
-},        MuiDivider:{
-  light:{backgroundColor: '#6868681f',}
-  
-},
     RaMenuItemLink: {
-      root:{color: '#fff','&:hover': {
-        background: "#007eff",
-     },
-    },
- 
+      root: {
+        color: '#fff', '&:hover': {
+          background: "#007eff",
+        },
+      },
+
       active: {
         borderLeftStyle: "solid",
-        backgroundColor:'#007eff',
+        backgroundColor: '#007eff',
         borderRightStyle: "solid",
         color: '#fff',
         fontWeight: 'bold',
@@ -109,7 +111,7 @@ const theme = createMuiTheme({
       }
     },
   },
- 
+
   typography: {
     fontFamily: [
       '-apple-system',
@@ -129,19 +131,19 @@ const theme = createMuiTheme({
 
 
 const useSidebarStyles = makeStyles({
-  
-      
-  
+
+
+
 });
 const MySidebar = props => {
   const classes = useSidebarStyles();
   return (
-      <Sidebar {...props} />
+    <Sidebar {...props} />
   );
 };
 //const MyAppBar = props => <AppBar {...props} userMenu={<MyUserMenu />} color="primary" />;
 
-const MyLayout = props => <Layout {...props} appBar={MyAppBar} sidebar={MySidebar} menu={Menu}  />;
+const MyLayout = props => <Layout {...props} appBar={MyAppBar} sidebar={MySidebar} menu={Menu} />;
 
 
 
@@ -152,7 +154,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://firdouserp.pk/">
-        FirdousERP 
+        FirdousERP
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -162,45 +164,45 @@ function Copyright() {
 
 const MyLoginPage = () => (
   <Login
-      // A random image that changes everyday
-      backgroundImage="https://source.unsplash.com/random/1600x900/daily"
+    // A random image that changes everyday
+    backgroundImage="https://source.unsplash.com/random/1600x900/daily"
   />
 );
 
 
 const httpClient = (url, options = {}) => {
-   
+
   if (!options.headers) {
-      options.headers = new Headers({ Accept: 'application/json' });
+    options.headers = new Headers({ Accept: 'application/json' });
   }
   const { token } = JSON.parse(localStorage.getItem('jwtToken'));
-  
+
   options.headers.set('Authorization', `Bearer ${token}`);
-   console.log("fetching:"+url);
+  console.log("fetching:" + url);
   return fetchUtils.fetchJson(url, options);
 };
-const dataProvider = simpleRestProvider('http://localhost:2000/api/v1',httpClient);
+const dataProvider = simpleRestProvider('http://localhost:2000/api/v1', httpClient);
 
 const App = () => (
-  
-   <Admin customRoutes={customRoutes} theme={theme} layout={MyLayout} loginPage={MyLoginPage} dashboard={Dashboard}
+
+  <Admin customRoutes={customRoutes} theme={theme} layout={MyLayout} loginPage={MyLoginPage} dashboard={Dashboard}
     authProvider={basicAuthProvider} dataProvider={dataProvider} >
-       
-       <Resource name="Projects" list={ProjectList} create={ProjectCreate} edit={ProjectEdit} icon={ProjectIcon}/>
-       <Resource name="Suppliers"  list={SupplierList} create={SupplierCreate} edit={SupplierEdit} icon={SupplierIcon} />
-       <Resource name="Units"  list={UnitsList} create={UnitsCreate} edit={UnitsEdit} icon={UnitsIcon} />
-       <Resource name="Stock"  list={StockList} create={StockCreate} edit={StockEdit} icon={StockIcon} />
-       <Resource name="Coa"  list={CoaList} create={CoaCreate} edit={CoaEdit} icon={CoaIcon} />
-       <Resource name="Coa_type"  list={Coa_typeList} create={Coa_typeCreate} edit={Coa_typeEdit} icon={Coa_typeIcon} />
-       <Resource name="Notes"  list={NotesList} create={NotesCreate} edit={NotesEdit} icon={NotesIcon} />
-       <Resource name="Vouchers"  list={VouchersList} create={VouchersCreate} edit={VouchersEdit} icon={VouchersIcon} />
-       <Resource name="Booking"  list={BookingList} create={BookingCreate} edit={BookingEdit} icon={BookingIcon} />
-       <Resource name="Users" list={UserList} />
-       <Resource name="Test" />
-       
-   </Admin>
-   
-   
+
+    <Resource name="Projects" list={ProjectList} create={ProjectCreate} edit={ProjectEdit} icon={ProjectIcon} />
+    <Resource name="Suppliers" list={SupplierList} create={SupplierCreate} edit={SupplierEdit} icon={SupplierIcon} />
+    <Resource name="Units" list={UnitsList} create={UnitsCreate} edit={UnitsEdit} icon={UnitsIcon} />
+    <Resource name="Stock" list={StockList} create={StockCreate} edit={StockEdit} icon={StockIcon} />
+    <Resource name="Coa" list={CoaList} create={CoaCreate} edit={CoaEdit} icon={CoaIcon} />
+    <Resource name="Coa_type" list={Coa_typeList} create={Coa_typeCreate} edit={Coa_typeEdit} icon={Coa_typeIcon} />
+    <Resource name="Notes" list={NotesList} create={NotesCreate} edit={NotesEdit} icon={NotesIcon} />
+    <Resource name="Vouchers" list={VouchersList} create={VouchersCreate} edit={VouchersEdit} icon={VouchersIcon} />
+    <Resource name="Booking" list={BookingList} create={BookingCreate} edit={BookingEdit} icon={BookingIcon} />
+    <Resource name="Users" list={UserList} />
+    <Resource name="Test" />
+
+  </Admin>
+
+
 );
 
 export default App;

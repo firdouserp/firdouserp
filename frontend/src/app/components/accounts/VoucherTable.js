@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const newRow = (srno, account,  refno,  chqno,  description,  debit,  credit) => ({
+const newRow = (srno, account, refno, chqno, description, debit, credit) => ({
   id: srno,
   srno,
   account,
@@ -47,8 +47,8 @@ const newRow = (srno, account,  refno,  chqno,  description,  debit,  credit) =>
   debit,
   credit,
   isEditMode: false,
-  isNew:true,
-  isDeleted:false
+  isNew: true,
+  isDeleted: false
 });
 
 const CustomTableCell = ({ row, name, onChange }) => {
@@ -64,35 +64,35 @@ const CustomTableCell = ({ row, name, onChange }) => {
           className={classes.input}
         />
       ) : (
-        row[name]
-      )}
+          row[name]
+        )}
     </TableCell>
   );
 };
 
-const VoucherTable = ()=> {
+const VoucherTable = () => {
   const [rows, setRows] = React.useState([
-    newRow(1, "","","","",0.0,0.0),
+    newRow(1, "", "", "", "", 0.0, 0.0),
   ]);
   const [previous, setPrevious] = React.useState({});
   const classes = useStyles();
 
   const onToggleEditMode = id => {
     setRows(state => {
-      const tm= rows.find((row)=> row.id==id);
-      if(tm && tm.isNew && !tm.isDeleted){
-        tm.isNew=false;
-        rows.push(newRow(tm.srno+1, "","","","",0.0,0.0));
+      const tm = rows.find((row) => row.id == id);
+      if (tm && tm.isNew && !tm.isDeleted) {
+        tm.isNew = false;
+        rows.push(newRow(tm.srno + 1, "", "", "", "", 0.0, 0.0));
       }
 
       return rows.map(row => {
         if (row.id === id) {
-          if(row.isNew && !tm.isDeleted){
-            row.isNew=false;
+          if (row.isNew && !tm.isDeleted) {
+            row.isNew = false;
           }
           return { ...row, isEditMode: !row.isEditMode };
         }
-        
+
         return row;
       });
     });
@@ -117,12 +117,12 @@ const VoucherTable = ()=> {
   const onRevert = id => {
     const newRows = rows.map(row => {
       if (row.id === id) {
-        row.isDeleted=true;
+        row.isDeleted = true;
         return previous[id] ? previous[id] : row;
       }
       return row;
     });
-    const newRowitems=newRows.filter(row=>row.isDeleted && !row.isNew)
+    const newRowitems = newRows.filter(row => row.isDeleted && !row.isNew)
     setRows(newRowitems);
     setPrevious(state => {
       delete state[id];
@@ -166,13 +166,13 @@ const VoucherTable = ()=> {
                     </IconButton>
                   </>
                 ) : (
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => onToggleEditMode(row.id)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                )}
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => onToggleEditMode(row.id)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  )}
               </TableCell>
               <span> {row.srno} </span>
               <CustomTableCell {...{ row, name: "refno", onChange }} />

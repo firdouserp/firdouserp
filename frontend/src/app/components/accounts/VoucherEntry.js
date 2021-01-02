@@ -10,8 +10,8 @@ import {
 import { useLocation } from "react-router";
 
 const useStyles = makeStyles({
-    inlineBlock: { display: 'inline-flex', marginRight: '1em' ,width:"40%" },
-    smallwidth: { display: 'inline-flex', marginRight: '0.2em', width:'25%'}
+    inlineBlock: { display: 'inline-flex', marginRight: '1em', width: "40%" },
+    smallwidth: { display: 'inline-flex', marginRight: '0.2em', width: '25%' }
 });
 
 export const useQuery = queryParam => {
@@ -55,7 +55,7 @@ const segments = [
 
 const VisitorForm = props => {
     const classes = useStyles();
-    const initial =  [ {"coa": "Debit Account"},{"coa": "Credit Account",}]
+    const initial = [{ "coa": "Debit Account" }, { "coa": "Credit Account", }]
     // const toCurrency= (number)=> {
     //     const formatter = new Intl.NumberFormat("en-US", {
     //       style: "currency",
@@ -73,7 +73,7 @@ const VisitorForm = props => {
     if (loading) return <Loading />;
     if (error) return <Error />;
     if (!data) return null;
-    
+
     return (
 
 
@@ -103,7 +103,7 @@ const VisitorForm = props => {
                                         <SelectInput margin="none" allowEmpty={true} label="Vendor" source="suppliers" optionText="value" choices={data} fullWidth />
                                     </Box>
                                     <Box flex={1} ml="0.5em">
-                                        <SelectInput margin= "none"label="Project" source="project" optionText="value" choices={data} validate={[required()]} fullWidth />
+                                        <SelectInput margin="none" label="Project" source="project" optionText="value" choices={data} validate={[required()]} fullWidth />
                                     </Box>
                                 </Box>
                                 <Box display="flex">
@@ -126,31 +126,31 @@ const VisitorForm = props => {
                                         <DateInput margin="none" label="Cheque Date" source="chq_date" resource="vouchers" fullWidth />
                                     </Box>
                                 </Box>
-                                <TextInput  source="description" resource="vouchers" multiline fullWidth />
+                                <TextInput source="description" resource="vouchers" multiline fullWidth />
                                 <TextInput margin="none" label="Remarks" source="remarks" resource="vouchers" multiline fullWidth />
                                 <Box mt="1em" />
                             </Box>
-                            <Box display="flex" flexGrow={1} ml="1em"  width="100%"  >
-                            <ArrayInput initialValue={initial}  variant="standard" source="transactions" label="Transactions"> 
-                           
+                            <Box display="flex" flexGrow={1} ml="1em" width="100%"  >
+                                <ArrayInput initialValue={initial} variant="standard" source="transactions" label="Transactions">
 
-                                <SimpleFormIterator>
-                                   
-                                    <TextInput formClassName={classes.inlineBlock} label="Account" source="coa" resource="vouchers" multiline fullWidth />
-                                    {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
-                                    <NumberInput formClassName={classes.smallwidth} label="Debit" source="dr" resource="vouchers" fullWidth  />
-                                    <NumberInput  formClassName={classes.smallwidth} label="Credit" source="cr" resource="vouchers" fullWidth />
-                                  
-                                 
-                                </SimpleFormIterator>
-                            </ArrayInput>
-                            {/* <VoucherTable/> */}
+
+                                    <SimpleFormIterator>
+
+                                        <TextInput formClassName={classes.inlineBlock} label="Account" source="coa" resource="vouchers" multiline fullWidth />
+                                        {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
+                                        <NumberInput formClassName={classes.smallwidth} label="Debit" source="dr" resource="vouchers" fullWidth />
+                                        <NumberInput formClassName={classes.smallwidth} label="Credit" source="cr" resource="vouchers" fullWidth />
+
+
+                                    </SimpleFormIterator>
+                                </ArrayInput>
+                                {/* <VoucherTable/> */}
+                            </Box>
+
+
+
                         </Box>
 
-
-
-                        </Box>
-                       
                     </Box>
                     <Toolbar>
                         <Box display="flex" justifyContent="space-between" width="100%">

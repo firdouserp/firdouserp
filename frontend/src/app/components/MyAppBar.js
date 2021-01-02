@@ -7,20 +7,20 @@ import Logo from './Logo';
 
 const MyUserMenu = props => (
     <UserMenu {...props}>
-      <MenuItemLink
-        to="/configuration"
-        primaryText="Configuration"
-        leftIcon={<SettingsIcon />}
-      />
+        <MenuItemLink
+            to="/configuration"
+            primaryText="Configuration"
+            leftIcon={<SettingsIcon />}
+        />
     </UserMenu>
-  );
+);
 const useStyles = makeStyles({
     title: {
         flex: 1,
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        paddingLeft:'8px',
+        paddingLeft: '8px',
     },
     spacer: {
         flex: 0.13,
@@ -31,7 +31,7 @@ const MyAppBar = props => {
     const classes = useStyles();
     return (
         <AppBar {...props} userMenu={<MyUserMenu />} color="primary">
-            
+
             <Logo />
             {/* <span className={classes.spacer} /> */}
             <Typography
@@ -40,8 +40,8 @@ const MyAppBar = props => {
                 className={classes.title}
                 id="react-admin-title"
             />
-            
-            
+
+
         </AppBar>
     );
 };

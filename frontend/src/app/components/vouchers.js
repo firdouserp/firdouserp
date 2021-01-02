@@ -1,49 +1,48 @@
-import * as React from "react";
-import {BooleanInput , SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
-import { TopToolbar, ListButton, ShowButton } from 'react-admin';
+import { useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import StoreIcon from '@material-ui/icons/Store'
-import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
+import StoreIcon from '@material-ui/icons/Store';
+import * as React from "react";
+import { BooleanInput, Create, Datagrid, DateInput, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
 
-export const  VouchersIcon = StoreIcon;
+export const VouchersIcon = StoreIcon;
 
 export const VouchersActions = ({ basePath, data }) => (
     <TopToolbar>
         <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
-      {/* <ShowButton basePath={basePath} record={data} /> */}
+        {/* <ShowButton basePath={basePath} record={data} /> */}
     </TopToolbar>
 );
 
 const VouchersSearchFilter = (props) => (
-   
-        <Filter {...props}>
-          <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
-          <SearchInput variant="standard" placeholder="SCode"  source="scode" alwaysOn />
-          <SearchInput variant="standard" placeholder="Code"  source="code" alwaysOn />
-        </Filter>
-      
-  );
+
+    <Filter {...props}>
+        <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
+        <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
+        <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
+    </Filter>
+
+);
 
 export const VouchersList = props => (
     <List filters={<VouchersSearchFilter />} {...props}>
         {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
-                 <SimpleList
-                    primaryText={record => record.title}
-                    secondaryText={record => `${record.code}`}
-                    tertiaryText={record => record.id  }
-    
-                />
-                ) : (
-        <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <TextField source="voucher_no" />
-            <TextField source="project_id" />
-            <TextField source="created_by" />
-            <TextField source="chq_no" />
-            <TextField source="chq_date" />
-            <EditButton  variant="contained" color="secondary"/>
-            <DeleteButton/>
-        </Datagrid>)}
+            <SimpleList
+                primaryText={record => record.title}
+                secondaryText={record => `${record.code}`}
+                tertiaryText={record => record.id}
+
+            />
+        ) : (
+                <Datagrid rowClick="edit">
+                    <TextField source="id" />
+                    <TextField source="voucher_no" />
+                    <TextField source="project_id" />
+                    <TextField source="created_by" />
+                    <TextField source="chq_no" />
+                    <TextField source="chq_date" />
+                    <EditButton variant="contained" color="secondary" />
+                    <DeleteButton />
+                </Datagrid>)}
     </List>
 );
 
@@ -56,7 +55,7 @@ export const VouchersEdit = (props) => (
         <SimpleForm variant="standard" margin="none"    >
             <TextInput disabled source="id" />
             <TextInput source="voucher_no" />
-            <DateInput format={dateFormatter} parse={dateParser}  source="voucher_date" /*options={{ multiLine: true }}*/ />
+            <DateInput format={dateFormatter} parse={dateParser} source="voucher_date" /*options={{ multiLine: true }}*/ />
             <TextInput multiline source="voucher_type" />
             <TextInput source="amount" />
             <TextInput source="remarks" />
@@ -64,18 +63,18 @@ export const VouchersEdit = (props) => (
             <TextInput source="project_id" />
             <TextInput source="created_by" />
             <TextInput source="chq_no" />
-            <DateInput format={dateFormatter} parse={dateParser}  source="chq_date" />
+            <DateInput format={dateFormatter} parse={dateParser} source="chq_date" />
             <BooleanInput source="approved" />
         </SimpleForm>
     </Edit>
 );
 
 export const VouchersCreate = (props) => (
-    <Create undoable={false}   title="New Voucher" {...props}>
+    <Create undoable={false} title="New Voucher" {...props}>
         <SimpleForm variant="standard" margin="none">
-        <TextInput disabled source="id" />
+            <TextInput disabled source="id" />
             <TextInput source="voucher_no" />
-            <DateInput format={dateFormatter} parse={dateParser}  source="voucher_date" /*options={{ multiLine: true }}*/ /> 
+            <DateInput format={dateFormatter} parse={dateParser} source="voucher_date" /*options={{ multiLine: true }}*/ />
             <TextInput multiline source="voucher_type" />
             <TextInput source="amount" />
             <TextInput source="remarks" />
@@ -83,7 +82,7 @@ export const VouchersCreate = (props) => (
             <TextInput source="project_id" />
             <TextInput source="created_by" />
             <TextInput source="chq_no" />
-            <DateInput format={dateFormatter} parse={dateParser}  source="chq_date" />
+            <DateInput format={dateFormatter} parse={dateParser} source="chq_date" />
             <BooleanInput source="approved" />
         </SimpleForm>
     </Create>
@@ -96,14 +95,14 @@ const dateFormatter = v => {
     const mm = (v.getMonth() + 1).toString();
     const dd = v.getDate().toString();
     return `${yy}-${(pad + mm).slice(-2)}-${(pad + dd).slice(-2)}`;
-  };
-  
-  const dateParser = v => {
+};
+
+const dateParser = v => {
     // v is a string of "YYYY-MM-DD" format
     const match = /(\d{4})-(\d{2})-(\d{2})/.exec(v);
     if (match === null) return;
     const d = new Date(match[1], parseInt(match[2], 10) - 1, match[3]);
     if (isNaN(d)) return;
     return d;
-  };
-  
+};
+

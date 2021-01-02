@@ -60,7 +60,7 @@ class Menu extends Component {
                         onClick={onMenuClick}
                     />
                 </SubMenu>
-               
+
                 <MenuItemLink
                     to={`/reviews`}
                     primaryText={translate(`resources.reviews.name`, {
