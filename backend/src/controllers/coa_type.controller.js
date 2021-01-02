@@ -11,28 +11,28 @@ dotenv.config();
  ******************************************************************************/
 class Coa_typeController {
     getAllCoa_type = async (req, res, next) => {
-       
+
         let coa_typeList;
         var range;
         var sort;
         var filter;
-      
-        if(req.query && Object.keys(req.query).length){
+
+        if (req.query && Object.keys(req.query).length) {
             var range = JSON.parse(req.query.range);
             var sort = JSON.parse(req.query.sort);
             var filter = JSON.parse(req.query.filter);
             //console.log(range)
-            coa_typeList = await Coa_typeModel.find(filter,range,sort);
-        }else{
+            coa_typeList = await Coa_typeModel.find(filter, range, sort);
+        } else {
             coa_typeList = await Coa_typeModel.find();
         }
-      
-       
+
+
         let count = await Coa_typeModel.count(filter);
-        if(range && range.length>1){
+        if (range && range.length > 1) {
             let content_range = range[0] + '-' + range[1] + '/' + count
             console.log(content_range);
-            res.set('Content-Range',content_range);
+            res.set('Content-Range', content_range);
         }
 
         res.send(coa_typeList);
@@ -44,7 +44,7 @@ class Coa_typeController {
             throw new HttpException(404, 'COA Type not found');
         }
         res.send(coa_type);
-        
+
     };
 
     getCoa_typeBycoa_typeName = async (req, res, next) => {
@@ -53,33 +53,33 @@ class Coa_typeController {
             throw new HttpException(404, 'COA Type not found');
         }
 
-        };
-    
-        createCoa_type = async (req, res, next) => {
-            this.checkValidation(req);
-            
-             const result = await Coa_typeModel.create(req.body);
-    
-            if (!result) {
-                throw new HttpException(500, 'Something went wrong');
-            }
-    
-            const coa_type = await Coa_typeModel.findOne({ id: result });
-            if (!coa_type) {
-                throw new HttpException(404, 'coa type not found');
-            }
-    
-            res.status(201).send(coa_type);
-        };
-    
+    };
+
+    createCoa_type = async (req, res, next) => {
+        this.checkValidation(req);
+
+        const result = await Coa_typeModel.create(req.body);
+
+        if (!result) {
+            throw new HttpException(500, 'Something went wrong');
+        }
+
+        const coa_type = await Coa_typeModel.findOne({ id: result });
+        if (!coa_type) {
+            throw new HttpException(404, 'coa type not found');
+        }
+
+        res.status(201).send(coa_type);
+    };
+
 
     updateCoa_type = async (req, res, next) => {
         this.checkValidation(req);
 
-                
+
         // do the update query and get the result
         // it can be partial edit
-        const {...restOfUpdates } = req.body;
+        const { ...restOfUpdates } = req.body;
         console.log("updating controller");
         const result = await Coa_typeModel.update(restOfUpdates, req.params.id);
 
@@ -92,12 +92,12 @@ class Coa_typeController {
         const message = !affectedRows ? 'Coa Type not found' :
             affectedRows && changedRows ? 'Coa Type updated successfully' : 'Updated faild';
 
-            const coa_type = await Coa_typeModel.findOne({ id: req.params.id });
-            if (!coa_type) {
-                throw new HttpException(404, 'coa type not found');
-            }
-    
-            res.status(201).send(coa_type);
+        const coa_type = await Coa_typeModel.findOne({ id: req.params.id });
+        if (!coa_type) {
+            throw new HttpException(404, 'coa type not found');
+        }
+
+        res.status(201).send(coa_type);
     };
 
     deleteCoa_type = async (req, res, next) => {
