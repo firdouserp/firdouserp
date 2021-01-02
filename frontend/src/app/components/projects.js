@@ -1,9 +1,8 @@
-import * as React from "react";
-import {BooleanInput , SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
-import { useNotify, useRefresh, useRedirect,TopToolbar, ListButton, ShowButton } from 'react-admin';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import { useMediaQuery } from '@material-ui/core';
 import ApartmentIcon from '@material-ui/icons/Apartment';
-import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import * as React from "react";
+import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar, useNotify, useRedirect, useRefresh } from 'react-admin';
 
 export const  ProjectIcon = ApartmentIcon;
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Route } from 'react-router-dom';
 import Accounts from './accounts/Accounts';
-import {VoucherEntry} from './accounts/VoucherEntry';
+import { VoucherEntry } from './accounts/VoucherEntry';
 
 export default [
     

@@ -1,35 +1,29 @@
-import * as React from "react";
-import { Sidebar,Layout ,fetchUtils,Admin,Login, Resource } from 'react-admin';
-import { UserList } from './app/components/users'
-import { ProjectList, ProjectEdit, ProjectCreate,ProjectIcon } from './app/components/projects';
-import { SupplierList,SupplierEdit,SupplierCreate,SupplierIcon } from './app/components/suppliers';
-import { UnitsList, UnitsEdit, UnitsCreate,UnitsIcon } from './app/components/units';
-import { StockList, StockEdit, StockCreate,StockIcon } from './app/components/stock';
-import { CoaList, CoaEdit, CoaCreate,CoaIcon } from './app/components/coa';
-import { Coa_typeList, Coa_typeEdit, Coa_typeCreate,Coa_typeIcon } from './app/components/coa_type';
-import { BookingList, BookingEdit, BookingCreate,BookingIcon } from './app/components/booking';
-import { NotesList, NotesEdit, NotesCreate,NotesIcon } from './app/components/notes';
-import { VouchersList, VouchersEdit, VouchersCreate,VouchersIcon } from './app/components/vouchers';
+import Link from '@material-ui/core/Link';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import simpleRestProvider from 'ra-data-simple-rest';
-import { makeStyles } from '@material-ui/core/styles';
+import * as React from "react";
+import { Admin, fetchUtils, Layout, Login, Resource, Sidebar } from 'react-admin';
+import './App.css';
+import { BookingCreate, BookingEdit, BookingIcon, BookingList } from './app/components/booking';
+import { CoaCreate, CoaEdit, CoaIcon, CoaList } from './app/components/coa';
+import { Coa_typeCreate, Coa_typeEdit, Coa_typeIcon, Coa_typeList } from './app/components/coa_type';
+import Menu from './app/components/CustomMenu';
+import customRoutes from './app/components/customRoutes';
+import Dashboard from './app/components/Dashboard';
+import MyAppBar from './app/components/MyAppBar';
+import { NotesCreate, NotesEdit, NotesIcon, NotesList } from './app/components/notes';
+import { ProjectCreate, ProjectEdit, ProjectIcon, ProjectList } from './app/components/projects';
+import { StockCreate, StockEdit, StockIcon, StockList } from './app/components/stock';
+import { SupplierCreate, SupplierEdit, SupplierIcon, SupplierList } from './app/components/suppliers';
+import { UnitsCreate, UnitsEdit, UnitsIcon, UnitsList } from './app/components/units';
+import { UserList } from './app/components/users';
+import { VouchersCreate, VouchersEdit, VouchersIcon, VouchersList } from './app/components/vouchers';
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from './app/providers/basicAuth';
-import Dashboard from './app/components/Dashboard';
-import  Menu from './app/components/CustomMenu';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
-import MyAppBar from './app/components/MyAppBar';
-import customRoutes from './app/components/customRoutes';
-import MyDataProvider from './app/providers/MyDataProvider';
-import './App.css';
 
 
-//const dataProvider = myDataProvider('http://localhost:2000/api/v1');
-
-import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
 
 const theme = createMuiTheme({
   palette: {
@@ -54,8 +48,8 @@ const theme = createMuiTheme({
       }},
       
     RaSidebar: {
-      boxShadow:
-          "2px 0px 1px -1px rgba(0,0,0,0.2), 1px 0px 3px 0px rgba(0,0,0,0.1)",
+      // boxShadow:
+      //     "2px 0px 1px -1px rgba(0,0,0,0.2), 1px 0px 3px 0px rgba(0,0,0,0.1)",
       drawerPaper: {
         backgroundColor: '#022f5a',
         color: '#ffffff',
@@ -71,6 +65,7 @@ const theme = createMuiTheme({
     RaLayout:{
       content: {
         //paddingTop: '2em',
+        paddingTop: '0px',
     },
     },
       RaList: {
@@ -134,14 +129,14 @@ const theme = createMuiTheme({
 
 
 const useSidebarStyles = makeStyles({
-  red:{ backgroundColor: 'red',}
+  
       
   
 });
 const MySidebar = props => {
   const classes = useSidebarStyles();
   return (
-      <Sidebar classes={classes.red} {...props} />
+      <Sidebar {...props} />
   );
 };
 //const MyAppBar = props => <AppBar {...props} userMenu={<MyUserMenu />} color="primary" />;

@@ -1,9 +1,8 @@
-import * as React from "react";
-import {BooleanInput ,TabbedForm, SearchInput,Filter, List, Datagrid, Edit, Create, SimpleList,SimpleForm, DateField, TextField, EditButton,DeleteButton, TextInput, DateInput, CheckboxGroupInput, BooleanField, FormTab } from 'react-admin';
-import { TopToolbar, ListButton, ShowButton } from 'react-admin';
+import { makeStyles, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
 import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStation';
+import * as React from "react";
+import { BooleanField, BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
 
 
 const useStyles = makeStyles({

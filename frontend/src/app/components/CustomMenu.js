@@ -1,13 +1,12 @@
-import * as React from 'react';
-import { createElement } from 'react';
-import { useSelector } from 'react-redux';
 import { useMediaQuery } from '@material-ui/core';
-import { MenuItemLink,DashboardMenuItem, getResources } from 'react-admin';
-import DefaultIcon from '@material-ui/icons/ViewList';
+import Divider from '@material-ui/core/Divider';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import LabelIcon from '@material-ui/icons/Label';
 import SettingsIcon from '@material-ui/icons/Settings';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import Divider from '@material-ui/core/Divider';
+import DefaultIcon from '@material-ui/icons/ViewList';
+import * as React from 'react';
+import { DashboardMenuItem, getResources, MenuItemLink } from 'react-admin';
+import { useSelector } from 'react-redux';
 
 const Menu = ({ onMenuClick, logout }) => {
     const isXSmall = useMediaQuery(theme => theme.breakpoints.down('xs'));

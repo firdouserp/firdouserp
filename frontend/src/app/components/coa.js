@@ -1,10 +1,8 @@
-import * as React from "react";
-import {BooleanInput , required, AutocompleteInput, ReferenceInput, SelectInput,SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
-import { TopToolbar, ListButton, ShowButton,useQueryWithStore,Loading,Error } from 'react-admin';
+import { useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
-import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
-import { Notes } from "@material-ui/icons";
+import * as React from "react";
+import { AutocompleteInput, BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Error, Filter, List, ListButton, Loading, ReferenceInput, required, SearchInput, SelectInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar, useQueryWithStore } from 'react-admin';
 
 export const  CoaIcon = ListAltIcon;
 

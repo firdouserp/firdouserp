@@ -1,19 +1,11 @@
 
+import { Box, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import * as React from "react";
-import {useQueryWithStore,
-    Error,FormWithRedirect, SelectArrayInput,SaveButton,
-        NullableBooleanInput,BooleanInput ,ReferenceInput, SelectInput,TabbedForm , SearchInput,Filter, List, Datagrid, Edit, Create, SimpleList,SimpleForm, DateField, TextField, EditButton,DeleteButton, TextInput, DateInput, CheckboxGroupInput, BooleanField, FormTab } from 'react-admin';
-import { TopToolbar, ListButton, ShowButton } from 'react-admin';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
-import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStation';
-import { useAuthenticated ,useAuthState, Loading } from 'react-admin';
-import { sanitizeEmptyValues } from 'react-admin';
-import { Form } from 'react-final-form';
-import arrayMutators from 'final-form-arrays';
-import { CardContent, Typography, Box } from '@material-ui/core';
-import {  Toolbar } from '@material-ui/core';
-import   VoucherTable  from './VoucherTable';
+import {
+    Create, DateInput, DeleteButton, Error, FormWithRedirect, Loading, NullableBooleanInput, ReferenceInput, SaveButton, SelectArrayInput,
+    SelectInput, TextInput, useAuthenticated, useQueryWithStore
+} from 'react-admin';
+import VoucherTable from './VoucherTable';
 
 const useStyles = makeStyles({
     inlineBlock: { display: 'inline-flex', marginRight: '1rem' },

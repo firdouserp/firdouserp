@@ -1,9 +1,8 @@
-import * as React from "react";
-import {BooleanInput , SearchInput,Filter, List, Datagrid, Edit, Create,SimpleList, SimpleForm, DateField, TextField, DeleteButton,EditButton, TextInput, DateInput, CheckboxGroupInput, BooleanField } from 'react-admin';
-import { TopToolbar, ListButton, ShowButton } from 'react-admin';
+import { useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import StoreIcon from '@material-ui/icons/Store'
-import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
+import StoreIcon from '@material-ui/icons/Store';
+import * as React from "react";
+import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
 
 export const  NotesIcon = StoreIcon;
 

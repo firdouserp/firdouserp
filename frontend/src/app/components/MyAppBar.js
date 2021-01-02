@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { AppBar  , UserMenu, MenuItemLink } from 'react-admin';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import SettingsIcon from "@material-ui/icons/Settings";
+import * as React from 'react';
+import { AppBar, MenuItemLink, UserMenu } from 'react-admin';
 import Logo from './Logo';
 
 const MyUserMenu = props => (

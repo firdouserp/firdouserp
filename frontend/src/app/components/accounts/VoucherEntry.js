@@ -1,24 +1,14 @@
 
+import { Box, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import * as React from "react";
 import {
-    useQueryWithStore, required, AutocompleteInput, NumberInput,
-    Error, FormWithRedirect, SelectArrayInput, SaveButton, SimpleFormIterator,
-    NullableBooleanInput, BooleanInput, ReferenceInput, SelectInput, TabbedForm, SearchInput, Filter, List, Datagrid, Edit, Create, SimpleList, SimpleForm, DateField, TextField, EditButton, DeleteButton, TextInput, DateInput, CheckboxGroupInput, BooleanField, FormTab
+    ArrayInput, Create, DateInput, DeleteButton, Error, FormWithRedirect, Loading, NumberInput, required,
+    SaveButton,
+    SelectInput, SimpleFormIterator,
+    TextInput, useAuthenticated, useQueryWithStore
 } from 'react-admin';
-import { TopToolbar, ListButton, ShowButton } from 'react-admin';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import { makeStyles, Chip, useMediaQuery } from '@material-ui/core';
-import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStation';
-import { useAuthenticated, useAuthState, Loading, ArrayInput } from 'react-admin';
-import { sanitizeEmptyValues } from 'react-admin';
-import { Form } from 'react-final-form';
-import arrayMutators from 'final-form-arrays';
-import { CardContent, Typography, Box } from '@material-ui/core';
-import { Toolbar } from '@material-ui/core';
-import VoucherTable from './VoucherTable';
-import parse from 'query-string';
+import { useLocation } from "react-router";
 
-import { useParams, useLocation } from "react-router";
 const useStyles = makeStyles({
     inlineBlock: { display: 'inline-flex', marginRight: '1em' ,width:"40%" },
     smallwidth: { display: 'inline-flex', marginRight: '0.2em', width:'25%'}
@@ -65,7 +55,7 @@ const segments = [
 
 const VisitorForm = props => {
     const classes = useStyles();
-    const initial =  [ {"coa": "Debit Account","dr": 0,"cr": 0,},{"coa": "Credit Account","dr": 0,"cr": 0,}]
+    const initial =  [ {"coa": "Debit Account"},{"coa": "Credit Account",}]
     // const toCurrency= (number)=> {
     //     const formatter = new Intl.NumberFormat("en-US", {
     //       style: "currency",
@@ -110,7 +100,7 @@ const VisitorForm = props => {
                                 </Box>
                                 <Box display="flex">
                                     <Box flex={1} mr="0.5em">
-                                        <SelectInput margin="none" allowEmpty="true" label="Vendor" source="suppliers" optionText="value" choices={data} fullWidth />
+                                        <SelectInput margin="none" allowEmpty={true} label="Vendor" source="suppliers" optionText="value" choices={data} fullWidth />
                                     </Box>
                                     <Box flex={1} ml="0.5em">
                                         <SelectInput margin= "none"label="Project" source="project" optionText="value" choices={data} validate={[required()]} fullWidth />
@@ -118,15 +108,15 @@ const VisitorForm = props => {
                                 </Box>
                                 <Box display="flex">
                                     <Box flex={1} mr="0.5em">
-                                        <SelectInput margin="none" allowEmpty="true" label="Unit" source="unit" optionText="value" choices={data} fullWidth />
+                                        <SelectInput margin="none" allowEmpty={true} label="Unit" source="unit" optionText="value" choices={data} fullWidth />
                                     </Box>
                                     <Box flex={1} ml="0.5em">
-                                        <SelectInput margin="none" allowEmpty="true" label="Stock" source="stock" optionText="value" choices={data} fullWidth />
+                                        <SelectInput margin="none" allowEmpty={true} label="Stock" source="stock" optionText="value" choices={data} fullWidth />
                                     </Box>
 
                                 </Box>
                                 <Box flex={1}>
-                                    <SelectInput margin="none" allowEmpty="true" label="Employee" source="employee" optionText="value" choices={data} fullWidth />
+                                    <SelectInput margin="none" allowEmpty={true} label="Employee" source="employee" optionText="value" choices={data} fullWidth />
                                 </Box>
                                 <Box display="flex">
                                     <Box flex={1} mr="0.5em">
@@ -141,15 +131,15 @@ const VisitorForm = props => {
                                 <Box mt="1em" />
                             </Box>
                             <Box display="flex" flexGrow={1} ml="1em"  width="100%"  >
-                            <ArrayInput initialValue={initial}  variant="standard" margin="none" source="transactions" label="Transactions"> 
+                            <ArrayInput initialValue={initial}  variant="standard" source="transactions" label="Transactions"> 
                            
 
                                 <SimpleFormIterator>
                                    
-                                    <TextInput formClassName={classes.inlineBlock} label="Account" source="coa" resource="vouchers" multiline fullWidth margin="none"/>
+                                    <TextInput formClassName={classes.inlineBlock} label="Account" source="coa" resource="vouchers" multiline fullWidth />
                                     {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
-                                    <NumberInput formClassName={classes.smallwidth} label="Debit" source="dr" resource="vouchers" fullWidth margin="none" />
-                                    <NumberInput  formClassName={classes.smallwidth} label="Credit" source="cr" resource="vouchers" fullWidth margin="none" />
+                                    <NumberInput formClassName={classes.smallwidth} label="Debit" source="dr" resource="vouchers" fullWidth  />
+                                    <NumberInput  formClassName={classes.smallwidth} label="Credit" source="cr" resource="vouchers" fullWidth />
                                   
                                  
                                 </SimpleFormIterator>

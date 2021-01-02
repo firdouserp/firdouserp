@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import {BarChart,Bar,XAxis,YAxis,Legend,Cell,CartesianGrid,Tooltip,ReferenceLine,ResponsiveContainer} from 'recharts';
-import { useQueryWithStore, Loading, Error } from 'react-admin';
+import React from 'react';
+import { Error, Loading, useQueryWithStore } from 'react-admin';
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 const Label = props => {
   const { x, y, value } = props;
 

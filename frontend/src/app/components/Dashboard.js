@@ -1,9 +1,9 @@
-import * as React from "react";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import * as React from "react";
 import { Title } from 'react-admin';
-import DummyChart from './charts/DummyChart'
-import VouchersChart from './charts/VouchersChart'
+import DummyChart from './charts/DummyChart';
+import VouchersChart from './charts/VouchersChart';
 
 
 export default () => (

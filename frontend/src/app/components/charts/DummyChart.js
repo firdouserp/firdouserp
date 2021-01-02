@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BarChart,Bar,XAxis,YAxis,Legend,Cell,CartesianGrid,Tooltip,ReferenceLine,ResponsiveContainer} from 'recharts';
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 export class    DummyChart extends Component {
     state={initialGraph:[
