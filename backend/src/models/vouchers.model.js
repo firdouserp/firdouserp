@@ -1,4 +1,4 @@
-const query = require('../db/db-connection');
+./src/app/components/react_form/FormUserDetails.jsconst query = require('../db/db-connection');
 const { multipleColumnSet,searchLikeColumnSet } = require('../utils/common.utils');
 class VouchersModel {
     tableName = 'vouchers';

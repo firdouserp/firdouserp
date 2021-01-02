@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton'; 
+import React, { Component } from 'react';
 export class FormUserDetails extends Component {
   continue = e => {
       e.preventDefault();   
