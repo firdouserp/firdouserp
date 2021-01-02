@@ -64,6 +64,14 @@ const VisitorForm = props => {
     //     console.log(number)
     //     formatter.format(number);
     // }
+    const vou_types = [
+        { id: 1, title: 'Journal Voucher' },
+        { id: 2, title: 'Payment Voucher' },
+        { id: 3, title: 'Reciept Voucher' },
+        { id: 4, title: 'Sales Voucher' },
+        { id: 5, title: 'Salary Voucher' },
+        { id: 6, title: 'Inventory Voucher' },
+    ];
     const { data, loading, error } = useQueryWithStore({
         type: 'getList',
         resource: 'notes/list',
@@ -77,18 +85,18 @@ const VisitorForm = props => {
     return (
 
 
-        <FormWithRedirect
+        <FormWithRedirect display="flex"
             {...props}
             render={formProps => (
                 // here starts the custom form layout
-                <form>
+                <form >
                     <Box p="1em" style={{ border: "1px solid #e0e0e3" }}>
                         <Box display="flex">
                             <Box flex={1} mr="1em">
 
                                 <Typography variant="h6" gutterBottom>Voucher Entry {props.vou_type}</Typography>
                                 <Box flex={1}>
-                                    <SelectInput margin="none" label="Voucher Type" source="vou_type" optionText="value" choices={data} validate={[required()]} fullWidth />
+                                    <SelectInput margin="none" label="Voucher Type" source="vou_type" initialValue={props.vou_type} optionText="title" optionValue="id" choices={vou_types} validate={[required()]} fullWidth />
                                 </Box>
                                 <Box display="flex">
                                     <Box flex={1} mr="0.5em">
@@ -130,7 +138,7 @@ const VisitorForm = props => {
                                 <TextInput margin="none" label="Remarks" source="remarks" resource="vouchers" multiline fullWidth />
                                 <Box mt="1em" />
                             </Box>
-                            <Box display="flex" flexGrow={1} ml="1em" width="100%"  >
+                            <Box display="flex" flexGrow={1} ml="1em" minWidth="350px" width="100%"  >
                                 <ArrayInput initialValue={initial} variant="standard" source="transactions" label="Transactions">
 
 
