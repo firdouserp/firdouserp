@@ -20,6 +20,8 @@ import FirdousSelect from "./FirdousSelect";
 const useStyles = makeStyles({
   inlineBlock: { display: "inline-flex", marginRight: "1em", width: "40%" },
   smallwidth: { display: "inline-flex", marginRight: "0.2em", width: "25%" },
+  maxFixedWidth: { maxWidth: "180px", boxSizing: "border-box" },
+  fixedWidth: { width: "180px" },
 });
 
 export const useQuery = (queryParam) => {
@@ -58,6 +60,7 @@ const VoucherEntryForm = (props) => {
     { id: 5, title: "Salary Voucher" },
     { id: 6, title: "Inventory Voucher" },
   ];
+
   return (
     <FormWithRedirect
       display="flex"
@@ -67,7 +70,7 @@ const VoucherEntryForm = (props) => {
         <form>
           <Box p="1em" style={{ border: "1px solid #e0e0e3" }}>
             <Box display="flex">
-              <Box flex={1} mr="1em">
+              <Box flex={1} mr="1em" style={{ minWidth: "370px" }}>
                 <Typography variant="h6" gutterBottom>
                   Voucher Entry {props.vou_type}
                 </Typography>
@@ -103,6 +106,7 @@ const VoucherEntryForm = (props) => {
                       validate={[required()]}
                       autoFocus
                       fullWidth
+                      className={classes.fixedWidth}
                     />
                   </Box>
                 </Box>
@@ -118,6 +122,7 @@ const VoucherEntryForm = (props) => {
                       filter={""}
                       optionText="title"
                       fullWidth
+                      className={classes.maxFixedWidth}
                     />
                   </Box>
                   <Box flex={1} ml="0.5em">
@@ -131,6 +136,7 @@ const VoucherEntryForm = (props) => {
                       filter={""}
                       validate={[required()]}
                       fullWidth
+                      className={classes.maxFixedWidth}
                     />
                   </Box>
                 </Box>
@@ -145,6 +151,7 @@ const VoucherEntryForm = (props) => {
                       list="units"
                       sort="title"
                       fullWidth
+                      className={classes.maxFixedWidth}
                     />
                   </Box>
                   <Box flex={1} ml="0.5em">
@@ -156,11 +163,12 @@ const VoucherEntryForm = (props) => {
                       optionText="title"
                       list="stock"
                       fullWidth
+                      className={classes.maxFixedWidth}
                     />
                   </Box>
                 </Box>
                 <Box flex={1}>
-                  <SelectInput
+                  <FirdousSelect
                     margin="none"
                     allowEmpty={true}
                     label="Employee"
@@ -169,6 +177,7 @@ const VoucherEntryForm = (props) => {
                     list="suppliers"
                     sort="title"
                     fullWidth
+                    //className={classes.maxFixedWidth}
                   />
                 </Box>
                 <Box display="flex">
@@ -188,6 +197,7 @@ const VoucherEntryForm = (props) => {
                       source="chq_date"
                       resource="vouchers"
                       fullWidth
+                      className={classes.fixedWidth}
                     />
                   </Box>
                 </Box>
@@ -211,7 +221,7 @@ const VoucherEntryForm = (props) => {
                 display="flex"
                 flexGrow={1}
                 ml="1em"
-                minWidth="350px"
+                minWidth="370px"
                 width="100%"
               >
                 <ArrayInput
