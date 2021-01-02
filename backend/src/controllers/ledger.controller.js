@@ -11,28 +11,28 @@ dotenv.config();
  ******************************************************************************/
 class LedgerController {
     getAllLedger = async (req, res, next) => {
-       
+
         let ledgerList;
         var range;
-        var sort ;
+        var sort;
         var filter;
-      
-        if(req.query && Object.keys(req.query).length){
+
+        if (req.query && Object.keys(req.query).length) {
             var range = JSON.parse(req.query.range);
             var sort = JSON.parse(req.query.sort);
             var filter = JSON.parse(req.query.filter);
             //console.log(range)
-            ledgerList = await LedgerModel.find(filter,range,sort);
-        }else{
+            ledgerList = await LedgerModel.find(filter, range, sort);
+        } else {
             ledgerList = await LedgerModel.find();
         }
-      
-       
+
+
         let count = await LedgerModel.count(filter);
-        if(range && range.length>1){
+        if (range && range.length > 1) {
             let content_range = range[0] + '-' + range[1] + '/' + count
             console.log(content_range);
-            res.set('Content-Range',content_range);
+            res.set('Content-Range', content_range);
         }
 
         res.send(ledgerList);
@@ -44,7 +44,7 @@ class LedgerController {
             throw new HttpException(404, 'Ledger not found');
         }
         res.send(ledger);
-        
+
     };
 
     getLedgerByledgerName = async (req, res, next) => {
@@ -53,34 +53,34 @@ class LedgerController {
             throw new HttpException(404, 'Ledger not found');
         }
 
-        };
-    
-    createLedger = async (req, res, next) => {
-            this.checkValidation(req);
-            
-             const result = await LedgerModel.create(req.body);
-    
-            if (!result) {
-                throw new HttpException(500, 'Something went wrong');
-            }
-    
-            const ledger = await LedgerModel.findOne({ id: result });
-            if (!ledger) {
-                throw new HttpException(404, 'Ledger not found');
-            }
-    
-            res.status(201).send(ledger);
     };
-    
-    
+
+    createLedger = async (req, res, next) => {
+        this.checkValidation(req);
+
+        const result = await LedgerModel.create(req.body);
+
+        if (!result) {
+            throw new HttpException(500, 'Something went wrong');
+        }
+
+        const ledger = await LedgerModel.findOne({ id: result });
+        if (!ledger) {
+            throw new HttpException(404, 'Ledger not found');
+        }
+
+        res.status(201).send(ledger);
+    };
+
+
 
     updateLedger = async (req, res, next) => {
         this.checkValidation(req);
 
-                
+
         // do the update query and get the result
         // it can be partial edit
-        const {...restOfUpdates } = req.body;
+        const { ...restOfUpdates } = req.body;
         const result = await LedgerModel.update(restOfUpdates, req.params.id);
 
         if (!result) {
@@ -92,12 +92,12 @@ class LedgerController {
         const message = !affectedRows ? 'Ledger not found' :
             affectedRows && changedRows ? 'Ledger updated successfully' : 'Updated faild';
 
-            const ledger = await LedgerModel.findOne({ id: res.params.id });
-            if (!ledger) {
-                throw new HttpException(404, 'Ledger not found');
-            }
-    
-            res.status(201).send(ledger);
+        const ledger = await LedgerModel.findOne({ id: res.params.id });
+        if (!ledger) {
+            throw new HttpException(404, 'Ledger not found');
+        }
+
+        res.status(201).send(ledger);
     };
 
     deleteLedger = async (req, res, next) => {

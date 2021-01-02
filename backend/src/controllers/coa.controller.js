@@ -11,28 +11,28 @@ dotenv.config();
  ******************************************************************************/
 class CoaController {
     getAllCoa = async (req, res, next) => {
-       
+
         let coaList;
         var range;
-        var sort ;
+        var sort;
         var filter;
-      
-        if(req.query && Object.keys(req.query).length){
+
+        if (req.query && Object.keys(req.query).length) {
             var range = JSON.parse(req.query.range);
             var sort = JSON.parse(req.query.sort);
             var filter = JSON.parse(req.query.filter);
             //console.log(range)
-            coaList = await CoaModel.find(filter,range,sort);
-        }else{
+            coaList = await CoaModel.find(filter, range, sort);
+        } else {
             coaList = await CoaModel.find();
         }
-      
-       
+
+
         let count = await CoaModel.count(filter);
-        if(range && range.length>1){
+        if (range && range.length > 1) {
             let content_range = range[0] + '-' + range[1] + '/' + count
             console.log(content_range);
-            res.set('Content-Range',content_range);
+            res.set('Content-Range', content_range);
         }
 
         res.send(coaList);
@@ -53,33 +53,33 @@ class CoaController {
             throw new HttpException(404, 'COA not found');
         }
 
-        };
-    
-        createCoa = async (req, res, next) => {
-            this.checkValidation(req);
-            
-             const result = await CoaModel.create(req.body);
-    
-            if (!result) {
-                throw new HttpException(500, 'Something went wrong');
-            }
-    
-            const coa = await CoaModel.findOne({ id: result });
-            if (!coa) {
-                throw new HttpException(404, 'Coa not found');
-            }
-    
-            res.status(201).send(coa);
-        };
-    
+    };
+
+    createCoa = async (req, res, next) => {
+        this.checkValidation(req);
+
+        const result = await CoaModel.create(req.body);
+
+        if (!result) {
+            throw new HttpException(500, 'Something went wrong');
+        }
+
+        const coa = await CoaModel.findOne({ id: result });
+        if (!coa) {
+            throw new HttpException(404, 'Coa not found');
+        }
+
+        res.status(201).send(coa);
+    };
+
 
     updateCoa = async (req, res, next) => {
         this.checkValidation(req);
 
-                
+
         // do the update query and get the result
         // it can be partial edit
-        const {...restOfUpdates } = req.body;
+        const { ...restOfUpdates } = req.body;
         const result = await CoaModel.update(restOfUpdates, req.params.id);
 
         if (!result) {
@@ -91,12 +91,12 @@ class CoaController {
         const message = !affectedRows ? 'Coas not found' :
             affectedRows && changedRows ? 'Coa updated successfully' : 'Updated faild';
 
-            const coa = await CoaModel.findOne({ id: req.params.id });
-            if (!coa) {
-                throw new HttpException(404, 'Coa not found');
-            }
-    
-            res.status(201).send(coa);
+        const coa = await CoaModel.findOne({ id: req.params.id });
+        if (!coa) {
+            throw new HttpException(404, 'Coa not found');
+        }
+
+        res.status(201).send(coa);
     };
 
     deleteCoa = async (req, res, next) => {

@@ -1,7 +1,7 @@
 import { stringify } from 'query-string';
 import { fetchUtils } from 'ra-core';
-
 import inMemoryJWT from './inMemoryJWT';
+
 
 const getXTotalCountHeaderValue = (headers) => {
     if (!headers.has('x-total-count')) {

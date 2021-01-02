@@ -84,6 +84,15 @@ count = async (params = {}) => {
     
     return rows[0].total;
 }
+
+voucherThisMonth = async (params = {}) => {
+    
+    let sql = `SELECT id,vou_type,  DATE_FORMAT(vou_date,'%d/%m') as vou_date, count(*) as count FROM ledger  WHERE   vou_date BETWEEN NOW() - INTERVAL 30 DAY AND NOW() group by vou_date order by vou_date desc `;
+    console.log(sql);
+    const result= await query(sql);
+    console.log(result);
+    return result;
+}
 }
 
 module.exports = new VouchersModel;

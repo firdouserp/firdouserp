@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import compose from 'recompose/compose';
-import SettingsIcon from '@material-ui/icons/Settings';
-import LabelIcon from '@material-ui/icons/Label';
-import { withRouter } from 'react-router-dom';
 import OrderIcon from '@material-ui/icons/AttachMoney';
-import InvoiceIcon from '@material-ui/icons/LibraryBooks';
 import ReviewIcon from '@material-ui/icons/Comment';
+import InvoiceIcon from '@material-ui/icons/LibraryBooks';
+import SettingsIcon from '@material-ui/icons/Settings';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
-    translate,
     DashboardMenuItem,
     MenuItemLink,
-    Responsive,
+    Responsive, translate
 } from 'react-admin';
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import compose from 'recompose/compose';
 import SubMenu from './SubMenu';
+
 class Menu extends Component {
     state = {
         menuCatalog: false,
@@ -62,7 +60,7 @@ class Menu extends Component {
                         onClick={onMenuClick}
                     />
                 </SubMenu>
-               
+
                 <MenuItemLink
                     to={`/reviews`}
                     primaryText={translate(`resources.reviews.name`, {

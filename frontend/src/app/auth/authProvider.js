@@ -4,7 +4,7 @@ const authProvider = {
     login: ({ username, password }) => {
         const request = new Request('http://localhost:2000/api/v1/users/login', {
             method: 'POST',
-            body: JSON.stringify({ "email":username, password }),
+            body: JSON.stringify({ "email": username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),
             credentials: 'include',
         });

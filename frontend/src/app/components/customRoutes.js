@@ -7,6 +7,7 @@ import BookingFormWizard from './booking/BookingFormWizard';
 
 
 export default [
+
     <Route exact path="/accounts" component={Accounts} />,
     <Route exact path="/accounts/voucherentry" component={VoucherEntry} />,
     <Route exact path="/userform" component={Userform} />,

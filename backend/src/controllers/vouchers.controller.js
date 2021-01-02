@@ -11,7 +11,7 @@ dotenv.config();
  ******************************************************************************/
 class VouchersController {
     getAllVouchers = async (req, res, next) => {
-       
+        
         let vouchersList;
         var range;
         var sort ;
@@ -41,8 +41,21 @@ class VouchersController {
     getVouchersById = async (req, res, next) => {
         const vouchers = await VouchersModel.findOne({ id: req.params.id });
         if (!vouchers) {
+            throw new HttpException(404, ' getVouchersById Voucher not found');
+        }
+        res.send(vouchers);
+        
+    };
+
+    getVouchersThisMonth = async (req, res, next) => {
+        console.log('get Vouchers')
+        const vouchers = await VouchersModel.voucherThisMonth();
+        if (!vouchers) {
             throw new HttpException(404, 'Voucher not found');
         }
+        let content_range = '1-' + vouchers.length + '/' + vouchers.length
+            console.log(content_range);
+            res.set('Content-Range',content_range);
         res.send(vouchers);
         
     };
