@@ -3,8 +3,8 @@ import {BooleanInput , classes,ReferenceInput,AutocompleteInput, choices, Choice
 import { TopToolbar, ListButton, ShowButton } from 'react-admin';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
-import { makeStyles, Chip,useMediaQuery } from '@material-ui/core';
-import { Notes } from "@material-ui/icons";
+import { makeStyles, Chip,useMediaQuery, Button } from '@material-ui/core';
+import { Notes, Schedule } from "@material-ui/icons";
 
 export const  BookingIcon = ListAltIcon;
 const useStyles = makeStyles({
@@ -86,7 +86,8 @@ export const BookingEdit = (props) =>
             <TextInput source="project" formClassName={classes.inlineBlock}/>
             <TextInput source="email" formClassName={classes.inlineBlock}/>
             <BooleanInput  source="active" formClassName={classes.inlineBlock}/>
-        </SimpleForm>
+            
+            </SimpleForm>
     </Edit>
 )};
 
@@ -116,6 +117,7 @@ export const BookingCreate = (props) => (
             <TextInput source="project" />
             <TextInput source="email" />
             <BooleanInput  source="active" />
+            <Button source = "Schedule" />
         </SimpleForm>
     </Create>
 );

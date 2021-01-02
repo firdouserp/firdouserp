@@ -105,6 +105,17 @@ function SimplePaper() {
                  Salary Voucher
              </Button>
              </CardActions>
+             <CardActions>
+
+
+      <Button className={classes.JournalVoucher} component={Link} to="/userform" size="large" color="primary">
+        User Form</Button>
+      </CardActions>
+      <CardActions>
+        <Button className={classes.JournalVoucher} component={Link} to="/bookingform" size="large" color="primary">
+        Booking Form</Button>
+        </CardActions>
+
      
              </Paper>
              https://marmelab.com/react-admin/Actions.html
