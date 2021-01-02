@@ -1,8 +1,7 @@
-import { makeStyles, useMediaQuery } from '@material-ui/core';
+import { Button, makeStyles, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
-import { makeStyles, Chip,useMediaQuery, Button } from '@material-ui/core';
-import { Notes, Schedule } from "@material-ui/icons";
+import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
 
 export const BookingIcon = ListAltIcon;
 const useStyles = makeStyles({
@@ -56,37 +55,38 @@ const BookingTitle = ({ record }) => {
 export const BookingEdit = (props) => {
     const classes = useStyles();
     return (
-    
-    <Edit undoable={false} actions={<BookingActions />} title={<BookingTitle />} {...props}>
-        <SimpleForm variant="standard" margin="none"    >
-            <TextInput disabled source="id" formClassName={classes.inlineBlock} />
-            <TextInput source="code" formClassName={classes.inlineBlock} />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ 
-            formClassName={classes.inlineBlock}/>
-            <TextInput multiline source="title"  />
-            <TextInput source="unit" formClassName={classes.inlineBlock}/> 
-            <TextInput source="client"  formClassName={classes.inlineBlock}/>
-            <TextInput source="book_date"  formClassName={classes.inlineBlock}/>
-            <TextInput source="sale_price" formClassName={classes.inlineBlock}/>
-            <TextInput source="discount" formClassName={classes.inlineBlock}/>
-            <TextInput source="remarks" formClassName={classes.inlineBlock}/>
-            <TextInput source="name" formClassName={classes.inlineBlock}/>
-            <TextInput source="father_name" formClassName={classes.inlineBlock}/>
-            <TextInput source="residential_address" formClassName={classes.inlineBlock}/>
-            <TextInput source="phone_no" formClassName={classes.inlineBlock}/>
-            <TextInput source="occupation" formClassName={classes.inlineBlock}/>
-            <TextInput source="nationality" formClassName={classes.inlineBlock}/>
-            <TextInput source="reference_off" formClassName={classes.inlineBlock}/>
-            <TextInput source="nominee_name" formClassName={classes.inlineBlock}/>
-            <TextInput source="relation" formClassName={classes.inlineBlock}/>
-            <TextInput source="cnic" formClassName={classes.inlineBlock}/>
-            <TextInput source="project" formClassName={classes.inlineBlock}/>
-            <TextInput source="email" formClassName={classes.inlineBlock}/>
-            <BooleanInput  source="active" formClassName={classes.inlineBlock}/>
-            
+
+        <Edit undoable={false} actions={<BookingActions />} title={<BookingTitle />} {...props}>
+            <SimpleForm variant="standard" margin="none"    >
+                <TextInput disabled source="id" formClassName={classes.inlineBlock} />
+                <TextInput source="code" formClassName={classes.inlineBlock} />
+                <TextInput source="scode" /*options={{ multiLine: true }}*/
+                    formClassName={classes.inlineBlock} />
+                <TextInput multiline source="title" />
+                <TextInput source="unit" formClassName={classes.inlineBlock} />
+                <TextInput source="client" formClassName={classes.inlineBlock} />
+                <TextInput source="book_date" formClassName={classes.inlineBlock} />
+                <TextInput source="sale_price" formClassName={classes.inlineBlock} />
+                <TextInput source="discount" formClassName={classes.inlineBlock} />
+                <TextInput source="remarks" formClassName={classes.inlineBlock} />
+                <TextInput source="name" formClassName={classes.inlineBlock} />
+                <TextInput source="father_name" formClassName={classes.inlineBlock} />
+                <TextInput source="residential_address" formClassName={classes.inlineBlock} />
+                <TextInput source="phone_no" formClassName={classes.inlineBlock} />
+                <TextInput source="occupation" formClassName={classes.inlineBlock} />
+                <TextInput source="nationality" formClassName={classes.inlineBlock} />
+                <TextInput source="reference_off" formClassName={classes.inlineBlock} />
+                <TextInput source="nominee_name" formClassName={classes.inlineBlock} />
+                <TextInput source="relation" formClassName={classes.inlineBlock} />
+                <TextInput source="cnic" formClassName={classes.inlineBlock} />
+                <TextInput source="project" formClassName={classes.inlineBlock} />
+                <TextInput source="email" formClassName={classes.inlineBlock} />
+                <BooleanInput source="active" formClassName={classes.inlineBlock} />
+
             </SimpleForm>
-    </Edit>
-)};
+        </Edit>
+    )
+};
 
 export const BookingCreate = (props) => (
     <Create undoable={false} actions={<BookingActions />} title="New Booking" {...props}>
@@ -113,8 +113,8 @@ export const BookingCreate = (props) => (
             <TextInput source="cnic" />
             <TextInput source="project" />
             <TextInput source="email" />
-            <BooleanInput  source="active" />
-            <Button source = "Schedule" />
+            <BooleanInput source="active" />
+            <Button source="Schedule" />
         </SimpleForm>
     </Create>
 );
