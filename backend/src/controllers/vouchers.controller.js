@@ -6,33 +6,34 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
+
 /******************************************************************************
  *                              Vouchers Controller
  ******************************************************************************/
 class VouchersController {
     getAllVouchers = async (req, res, next) => {
-        
+
         let vouchersList;
         var range;
-        var sort ;
+        var sort;
         var filter;
-      
-        if(req.query && Object.keys(req.query).length){
+
+        if (req.query && Object.keys(req.query).length) {
             var range = JSON.parse(req.query.range);
             var sort = JSON.parse(req.query.sort);
             var filter = JSON.parse(req.query.filter);
             //console.log(range)
-            vouchersList = await VouchersModel.find(filter,range,sort);
-        }else{
+            vouchersList = await VouchersModel.find(filter, range, sort);
+        } else {
             vouchersList = await VouchersModel.find();
         }
-      
-       
+
+
         let count = await VouchersModel.count(filter);
-        if(range && range.length>1){
+        if (range && range.length > 1) {
             let content_range = range[0] + '-' + range[1] + '/' + count
             console.log(content_range);
-            res.set('Content-Range',content_range);
+            res.set('Content-Range', content_range);
         }
 
         res.send(vouchersList);
@@ -44,7 +45,7 @@ class VouchersController {
             throw new HttpException(404, ' getVouchersById Voucher not found');
         }
         res.send(vouchers);
-        
+
     };
 
     getVouchersThisMonth = async (req, res, next) => {
@@ -54,10 +55,10 @@ class VouchersController {
             throw new HttpException(404, 'Voucher not found');
         }
         let content_range = '1-' + vouchers.length + '/' + vouchers.length
-            console.log(content_range);
-            res.set('Content-Range',content_range);
+        console.log(content_range);
+        res.set('Content-Range', content_range);
         res.send(vouchers);
-        
+
     };
 
     getVouchersByVouchersName = async (req, res, next) => {
@@ -66,32 +67,32 @@ class VouchersController {
             throw new HttpException(404, 'Voucher not found');
         }
 
-        };
-    
-        createVouchers = async (req, res, next) => {
-            this.checkValidation(req);
-            
-             const result = await VouchersModel.create(req.body);
-    
-            if (!result) {
-                throw new HttpException(500, 'Something went wrong');
-            }
-    
-            const vouchers = await VouchersModel.findOne({ id: result });
-            if (!vouchers) {
-                throw new HttpException(404, 'Voucher not found');
-            }
-    
-            res.status(201).send(vouchers);
-        };
-    
+    };
+
+    createVouchers = async (req, res, next) => {
+        this.checkValidation(req);
+
+        const result = await VouchersModel.create(req.body);
+
+        if (!result) {
+            throw new HttpException(500, 'Something went wrong');
+        }
+
+        const vouchers = await VouchersModel.findOne({ id: result });
+        if (!vouchers) {
+            throw new HttpException(404, 'Voucher not found');
+        }
+
+        res.status(201).send(vouchers);
+    };
+
     updateVouchers = async (req, res, next) => {
         this.checkValidation(req);
 
-                
+
         // do the update query and get the result
         // it can be partial edit
-        const {...restOfUpdates } = req.body;
+        const { ...restOfUpdates } = req.body;
         console.log(req.body);
         const result = await VouchersModel.update(restOfUpdates, req.params.id);
 
@@ -104,12 +105,12 @@ class VouchersController {
         const message = !affectedRows ? 'Voucher not found' :
             affectedRows && changedRows ? 'Voucher updated successfully' : 'Updated faild';
 
-            const vouchers = await VouchersModel.findOne({ id : req.params.id });
-            if (!vouchers) {
-                throw new HttpException(404, 'Voucher not found');
-            }
-    
-            res.status(201).send(vouchers);
+        const vouchers = await VouchersModel.findOne({ id: req.params.id });
+        if (!vouchers) {
+            throw new HttpException(404, 'Voucher not found');
+        }
+
+        res.status(201).send(vouchers);
     };
 
     deleteVouchers = async (req, res, next) => {

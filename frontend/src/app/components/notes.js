@@ -17,7 +17,7 @@ import {
   SimpleList,
   TextField,
   TextInput,
-  TopToolbar,
+  TopToolbar
 } from "react-admin";
 import FirdousSelect from "./accounts/FirdousSelect";
 export const NotesIcon = StoreIcon;
@@ -56,16 +56,16 @@ export const NotesList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="code" />
-        <TextField source="scode" />
-        <TextField source="title" />
-        <TextField source="active" />
-        <EditButton variant="contained" color="secondary" />
-        <DeleteButton />
-      </Datagrid>
-    )}
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="code" />
+          <TextField source="scode" />
+          <TextField source="title" />
+          <TextField source="active" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>
+      )}
   </List>
 );
 
@@ -112,7 +112,16 @@ export const NotesCreate = (props) => (
       <TextInput source="code" />
       <TextInput source="scode" /*options={{ multiLine: true }}*/ />
       <TextInput multiline source="title" />
-      <TextInput source="coa_type" />
+      <FirdousSelect
+        margin="none"
+        allowEmpty={false}
+        label="Account Type"
+        source="coa_type"
+        list="coa_type"
+        sort="title"
+        filter={""}
+        optionText="title"
+      />
       <BooleanInput source="active" />
     </SimpleForm>
   </Create>
