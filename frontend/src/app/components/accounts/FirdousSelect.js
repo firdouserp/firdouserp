@@ -1,6 +1,7 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Error, SelectInput, useQueryWithStore } from "react-admin";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { AutocompleteInput, Error, useQueryWithStore } from "react-admin";
 const FirdousSelect = ({ list, sort, filter = {}, ...props }) => {
+  console.log(list, sort, filter);
   const { data, loading, error } = useQueryWithStore({
     type: "getList",
     resource: list,
@@ -17,13 +18,29 @@ const FirdousSelect = ({ list, sort, filter = {}, ...props }) => {
   if (error) {
     return <Error />;
   }
-  console.log("data -" + data);
   if (!data) {
     console.log("return null");
     return null;
   }
 
-  return <SelectInput {...props} choices={data} />;
+  // return (
+  //   <Autocomplete
+  //     {...props}
+  //     id="combo-box-demo"
+  //     options={data}
+  //     name="daata"
+  //     onChange={(event, value) => console.log(props)}
+  //     getOptionLabel={(option) => option.title}
+  //     style={{}}
+  //     renderInput={(params) => (
+  //       <TextField source="dddd" {...params} {...props} variant="filled" />
+  //     )}
+  //   />
+  // );
+  // onChange={(event, value) => console.log(value)}
+  return (
+    <AutocompleteInput translateChoice={false} {...props} choices={data} />
+  );
 };
 
 export default FirdousSelect;
