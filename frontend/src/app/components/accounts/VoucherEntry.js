@@ -63,7 +63,8 @@ const VoucherEntryForm = (props) => {
     { id: 5, title: "Salary Voucher" },
     { id: 6, title: "Inventory Voucher" },
   ];
-
+  const optionRenderer = (choice) =>
+    `${choice.scode || ""} ${choice.code} ${choice.title}`;
   return (
     <FormWithRedirect
       display="flex"
@@ -238,7 +239,7 @@ const VoucherEntryForm = (props) => {
                       list="coa"
                       source="coa"
                       sort="title"
-                      optionText="title"
+                      optionText={optionRenderer}
                       validate={[required()]}
                       formClassName={classes.fixedWidth}
                     />
