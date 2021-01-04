@@ -27,16 +27,9 @@ class BookingDetailsForm extends Component {
           </Typography>
           <div>
             <Grid container spacing={10}>
-              <Grid
-               
-                spacing={1}
-                id="left-container"
-                item
-                xs={xsmall}
-                md={6}
-              >
+              <Grid spacing={1} id="left-container" item xs={xsmall} md={4}>
                 <Grid container spacing={2}>
-                  <Grid item xs={xsmall} sm={small} md={medium} >
+                  <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput disabled source="id" fullWidth />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
