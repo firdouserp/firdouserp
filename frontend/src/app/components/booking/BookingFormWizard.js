@@ -1,8 +1,8 @@
-import { Input } from '@material-ui/core';
-import React, { Component } from 'react'
-import FormUserDetails from './BookingDetailsForm';
+import React, { Component } from 'react';
+import { Button, Create, FormWithRedirect, Toolbar } from 'react-admin';
 import BookingDetailsForm from './BookingDetailsForm';
-import { Create, FormWithRedirect,Toolbar,Button } from 'react-admin';
+import ScheduleForm from './ScheduleForm';
+import BookingConfirm from './BookingConfirm';
 
 //import Confirm from './Confirm';
 //import Success from './Success';
@@ -10,10 +10,12 @@ import { Create, FormWithRedirect,Toolbar,Button } from 'react-admin';
 
 class BookingFormWizard extends Component {
 
+
+
     state = {
         step: 1,
         booking: { code: "", scode: "", title: "", unit: "123", client: "", project: "", book_date: "", sale_price: "", discount: "", remarks: "", client_name: "", father_name: "", residential_address: "", phone_no: "", nationality: "", cnic: "", reference_off: "", nominee_name: "", relation: "", email: "" },
-        schedule: { name: "", date: "", unit: "", type: "", floor: "", block: "", contact: "", total_cost: "", on_booking: "", on_allocation: "", on_confirmation: "", on_start: "", monthly_installment: "", quaterly_payment: "" }
+        schedule: { id: "", name: "", date: "", unit: "", type: "", floor: "", block: "", contact: "", total_cost: "", on_booking: "", on_allocation: "", on_confirmation: "", on_start: "", monthly_installment: "", quaterly_payment: "" }
     }
     //Proceed to the next step
     nextStep = () => {
@@ -38,9 +40,9 @@ class BookingFormWizard extends Component {
         this.setState({ [input]: e.target.value });
     }
 
-     CustomToolbar = props => (
+    CustomToolbar = props => (
         <Toolbar {...props} >
-            <Button label = "Continue"></Button>
+            <Button label="Continue"></Button>
         </Toolbar>
     );
 
@@ -59,6 +61,11 @@ class BookingFormWizard extends Component {
                             booking={booking}
                             step={step}
                         />
+                        {/* <BookingConfirm
+                            nextStep={this.nextStep}
+                            prevStep={this.prevStep}
+                            values={values}
+                        /> */}
 
 
 
