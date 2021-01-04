@@ -79,11 +79,12 @@ class BookingDetailsForm extends Component {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={xsmall} sm={small} md={medium}>
+                  <Grid item xs={xsmall}>
                     <TextInput
                       source="remarks"
                       defaultValue={booking.remarks}
                       fullWidth
+                      multiline
                     />
                   </Grid>
                 </Grid>
@@ -123,6 +124,7 @@ class BookingDetailsForm extends Component {
                       source="residential_address"
                       defaultValue={booking.residential_address}
                       fullWidth
+                      multiline
                     />
                   </Grid>
 
