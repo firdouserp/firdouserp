@@ -2,8 +2,8 @@ import { useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import * as React from "react";
-import { AutocompleteInput, BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Error, Filter, List, ListButton, Loading, ReferenceInput, required, SearchInput, SelectInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar, useQueryWithStore } from 'react-admin';
-
+import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
+import FirdousSelect from './accounts/FirdousSelect';
 export const CoaIcon = ListAltIcon;
 
 export const CoaActions = ({ basePath, data }) => (
@@ -59,10 +59,7 @@ export const CoaEdit = (props) => (
             <TextInput multiline source="title" />
             <TextInput source="iscashbook" />
             <TextInput source="isbankbook" />
-            < ReferenceInput label="Notes" source="notes" reference="notes/list" validate={[required()]}>
-                <SelectInput source="notes" optionText="title" />
-            </ReferenceInput>
-            <AutocompleteInput source="notes" optionText="notes" optionValue="code" />
+            <FirdousSelect source="notes" list="notes/list" sort="value" optionText="value" />
             <TextInput source="obal" />
             <BooleanInput source="active" />
         </SimpleForm>
@@ -70,15 +67,6 @@ export const CoaEdit = (props) => (
 );
 
 export const CoaCreate = (props) => {
-    const { data, loading, error } = useQueryWithStore({
-        type: 'getList',
-        resource: 'notes/list',
-        payload: { pagination: { page: 1, perPage: 100 }, sort: { field: 'vou_date', order: 'DESC' }, filter: {} }
-    });
-
-    if (loading) return <Loading />;
-    if (error) return <Error />;
-    if (!data) return null;
     return (
         <Create actions={<CoaActions />} title="New Coa" {...props}>
             <SimpleForm variant="standard">
@@ -86,10 +74,7 @@ export const CoaCreate = (props) => {
                 <TextInput multiline source="title" />
                 <TextInput source="iscashbook" />
                 <TextInput source="isbankbook" />
-
-
-                <SelectInput source="notes" choices={data} optionText="value" />
-
+                <FirdousSelect source="notes" list="notes/list" sort="value" optionText="value" />
                 <BooleanInput source="iscashbook" />
                 <BooleanInput source="isbankbook" />
                 {/* < ReferenceInput label="notes" source="notes" reference="notes" validate={[required()]}>
