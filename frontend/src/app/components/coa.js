@@ -59,7 +59,7 @@ export const CoaEdit = (props) => (
             <TextInput multiline source="title" />
             <TextInput source="iscashbook" />
             <TextInput source="isbankbook" />
-            <FirdousSelect source="notes" list="notes/list" sort="value" optionText="value" />
+            <FirdousSelect source="notes" list="notes" sort="title" optionText="title" />
             <TextInput source="obal" />
             <BooleanInput source="active" />
         </SimpleForm>

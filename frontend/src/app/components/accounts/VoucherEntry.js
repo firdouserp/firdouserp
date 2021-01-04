@@ -1,4 +1,5 @@
 import { Box, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import * as React from "react";
 import {
   ArrayInput,
@@ -12,12 +13,15 @@ import {
   SelectInput,
   SimpleFormIterator,
   TextInput,
-  useAuthenticated
+  useAuthenticated,
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
 
 const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
   inlineBlock: { display: "inline-flex", marginRight: "1em", width: "40%" },
   smallwidth: { display: "inline-flex", marginRight: "0.2em", width: "25%" },
   maxFixedWidth: { maxWidth: "180px", boxSizing: "border-box" },
@@ -66,12 +70,12 @@ const VoucherEntryForm = (props) => {
     { id: 6, title: "Inventory Voucher" },
   ];
   const optionRenderer = (choice) => {
-
     return choice && `${choice.scode || ""} ${choice.code} ${choice.title}`;
-  }
+  };
   const redirect = (basePath, id, data) => `/author/${data.author_id}/show`;
   return (
-    <FormWithRedirect redirect={redirect}
+    <FormWithRedirect
+      redirect={redirect}
       display="flex"
       {...props}
       render={(formProps) => (
@@ -185,7 +189,7 @@ const VoucherEntryForm = (props) => {
                     list="suppliers"
                     sort="title"
                     fullWidth
-                  //className={classes.maxFixedWidth}
+                    //className={classes.maxFixedWidth}
                   />
                 </Box>
                 <Box display="flex">
@@ -209,6 +213,7 @@ const VoucherEntryForm = (props) => {
                     />
                   </Box>
                 </Box>
+
                 <TextInput
                   source="description"
                   resource="vouchers"
@@ -231,42 +236,56 @@ const VoucherEntryForm = (props) => {
                 ml="1em"
                 minWidth="370px"
                 width="100%"
+                className={classes.root}
               >
                 <ArrayInput
                   initialValue={initial}
                   variant="standard"
                   source="transactions"
                   label="Transactions"
+                  className={classes.root}
+                  fullWidth
                 >
-                  <SimpleFormIterator>
-                    <FirdousSelect
-                      label="Account"
-                      list="coa"
-                      source="coa"
-                      sort="title"
-                      optionText={optionRenderer}
-                      validate={ra_required}
-                      initialValue={1}
-                      formClassName={classes.fixedWidth}
-                    />
-
+                  <SimpleFormIterator className={classes.root} fullWidth>
+                    <div className={classes.root}>
+                      <Grid container spacing={1}>
+                        <Grid item xs={6}>
+                          <FirdousSelect
+                            resettable
+                            label="Account"
+                            list="coa"
+                            source="coa"
+                            sort="title"
+                            optionText={optionRenderer}
+                            validate={ra_required}
+                            initialValue={1}
+                            fullWidth
+                            formClassName={classes.fixedWidth}
+                          />
+                        </Grid>
+                        <Grid item xs={3}>
+                          <NumberInput
+                            //formClassName={classes.smallwidth}
+                            label="Debit"
+                            source="dr"
+                            resource="vouchers"
+                            //validate={ra_required}
+                            fullWidth
+                          />
+                        </Grid>
+                        <Grid item xs={3}>
+                          <NumberInput
+                            // formClassName={classes.smallwidth}
+                            label="Credit"
+                            source="cr"
+                            resource="vouchers"
+                            //validate={ra_required}
+                            fullWidth
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
                     {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
-                    <NumberInput
-                      formClassName={classes.smallwidth}
-                      label="Debit"
-                      source="dr"
-                      resource="vouchers"
-                      //validate={ra_required}
-                      fullWidth
-                    />
-                    <NumberInput
-                      formClassName={classes.smallwidth}
-                      label="Credit"
-                      source="cr"
-                      resource="vouchers"
-                      //validate={ra_required}
-                      fullWidth
-                    />
                   </SimpleFormIterator>
                 </ArrayInput>
               </Box>
