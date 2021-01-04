@@ -1,48 +1,46 @@
 import Button from "@material-ui/core/Button";
-import Card from '@material-ui/core/Card';
+import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
-import CardContent from '@material-ui/core/CardContent';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import CardContent from "@material-ui/core/CardContent";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import * as React from "react";
-import { Title, useAuthenticated, useAuthState } from 'react-admin';
-import { Link } from 'react-router-dom';
+import { Title, useAuthenticated, useAuthState } from "react-admin";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
+    display: "flex",
+    flexWrap: "wrap",
+    "& > *": {
       margin: theme.spacing(1),
       width: theme.spacing(16),
       height: theme.spacing(16),
     },
   },
   JournalVoucher: {
-    backgroundColor: '#64b5f6',
-    color:"white",
+    backgroundColor: "#64b5f6",
+    color: "white",
     hover: {
-		color: 'red',
-
-	}
+      color: "red",
+    },
   },
   PaymentVoucher: {
-    backgroundColor: '#7b1fa2',
-    color:"white"
+    backgroundColor: "#7b1fa2",
+    color: "white",
   },
   SalesVoucher: {
-    backgroundColor: '#aa00ff',
-    color:"white"
+    backgroundColor: "#aa00ff",
+    color: "white",
   },
   RecieptVoucher: {
-    backgroundColor: '#00897b',
-    color:"white"
+    backgroundColor: "#00897b",
+    color: "white",
   },
   SalaryVoucher: {
-    backgroundColor: '#ff5252',
-    color:"white"
+    backgroundColor: "#ff5252",
+    color: "white",
   },
-
 }));
 
 function SimplePaper() {
@@ -50,87 +48,111 @@ function SimplePaper() {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.JournalVoucher} variant="outlined" square >
-             
+      <Paper className={classes.JournalVoucher} variant="outlined" square>
         <CardActions>
-
-
-        <Button className={classes.JournalVoucher} component={Link} to="/accounts/voucherentry?vou_type=1" size="large" color="primary">
+          <Button
+            className={classes.JournalVoucher}
+            component={Link}
+            to="/accounts/voucherentry?vou_type=1"
+            size="large"
+            color="primary"
+          >
             Journal Voucher
-        </Button>
+          </Button>
         </CardActions>
-
-        </Paper>
-        <Paper className={classes.PaymentVoucher} variant="outlined" square >
-             
-             <CardActions>
-     
-             <Button className={classes.PaymentVoucher} component={Link} to="/suppliers" size="large" color="primary">
-                 Payment Voucher
-                 
-             </Button>
-             </CardActions>
-     
-             </Paper>
-             <Paper className={classes.SalesVoucher} variant="outlined" square >
-             
-             <CardActions>
-     
-             <Button className={classes.SalesVoucher} component={Link} to="/suppliers" size="large" color="primary">
-                 Sales Voucher
-             </Button>
-             </CardActions>
-     
-             </Paper>
-             <Paper className={classes.RecieptVoucher} variant="outlined" square >
-             
-             <CardActions>
-     
-             <Button className={classes.RecieptVoucher} component={Link} to="/suppliers" size="large" color="primary">
-                 Reciept Voucher
-             </Button>
-             </CardActions>
-     
-             </Paper>
-             <Paper className={classes.SalaryVoucher} variant="outlined" square >
-             
-             <CardActions>
-     
-             <Button className={classes.SalaryVoucher} component={Link} to="/suppliers" size="large" color="primary">
-                 Salary Voucher
-             </Button>
-             </CardActions>
-             <CardActions>
-
-
-      <Button className={classes.JournalVoucher} component={Link} to="/userform" size="large" color="primary">
-        User Form</Button>
-      </CardActions>
-      <CardActions>
-        <Button className={classes.JournalVoucher} component={Link} to="/bookingform" size="large" color="primary">
-        Booking Form</Button>
+      </Paper>
+      <Paper className={classes.PaymentVoucher} variant="outlined" square>
+        <CardActions>
+          <Button
+            className={classes.PaymentVoucher}
+            component={Link}
+            to="/accounts/voucherentry?vou_type=2"
+            size="large"
+            color="primary"
+          >
+            Payment Voucher
+          </Button>
         </CardActions>
-
-     
-             </Paper>
-             https://marmelab.com/react-admin/Actions.html
+      </Paper>
+      <Paper className={classes.SalesVoucher} variant="outlined" square>
+        <CardActions>
+          <Button
+            className={classes.SalesVoucher}
+            component={Link}
+            to="/accounts/voucherentry?vou_type=4"
+            size="large"
+            color="primary"
+          >
+            Sales Voucher
+          </Button>
+        </CardActions>
+      </Paper>
+      <Paper className={classes.RecieptVoucher} variant="outlined" square>
+        <CardActions>
+          <Button
+            className={classes.RecieptVoucher}
+            component={Link}
+            to="/accounts/voucherentry?vou_type=3"
+            size="large"
+            color="primary"
+          >
+            Reciept Voucher
+          </Button>
+        </CardActions>
+      </Paper>
+      <Paper className={classes.SalaryVoucher} variant="outlined" square>
+        <CardActions>
+          <Button
+            className={classes.SalaryVoucher}
+            component={Link}
+            to="/accounts/voucherentry?vou_type=5"
+            size="large"
+            color="primary"
+          >
+            Salary Voucher
+          </Button>
+        </CardActions>
+      </Paper>
+      <Paper className={classes.SalaryVoucher} variant="outlined" square>
+        <CardActions>
+          <Button
+            className={classes.JournalVoucher}
+            component={Link}
+            to="/userform"
+            size="large"
+            color="primary"
+          >
+            User Form
+          </Button>
+        </CardActions>
+      </Paper>
+      <Paper className={classes.SalaryVoucher} variant="outlined" square>
+        <CardActions>
+          <Button
+            className={classes.JournalVoucher}
+            component={Link}
+            to="/bookingform"
+            size="large"
+            color="primary"
+          >
+            Booking Form
+          </Button>
+        </CardActions>
+      </Paper>
+      https://marmelab.com/react-admin/Actions.html
     </div>
   );
 }
 const Accounts = () => {
-    useAuthenticated();
-    const { loading, authenticated } = useAuthState();
-    
-    
-        return (
-            <Card>
-                <Title title="Accounts" />
-                <CardContent>
-                {SimplePaper()}
-                </CardContent>
-            </Card>
-        )
-    
+  useAuthenticated();
+  const { loading, authenticated } = useAuthState();
+
+  return (
+    <Card>
+      <Title title="Accounts" />
+      <CardContent>{SimplePaper()}</CardContent>
+    </Card>
+  );
 };
 
 export default Accounts;
