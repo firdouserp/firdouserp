@@ -12,7 +12,7 @@ import {
   SelectInput,
   SimpleFormIterator,
   TextInput,
-  useAuthenticated,
+  useAuthenticated
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
@@ -39,7 +39,9 @@ export const VoucherEntry = (props) => {
     </div>
   );
 };
-
+// const required = (message = 'Required') =>
+//   value => value ? undefined : message;
+const ra_required = [required()];
 const segments = [
   { id: "compulsive", name: "Compulsive" },
   { id: "collector", name: "Collector" },
@@ -52,8 +54,8 @@ const segments = [
 const VoucherEntryForm = (props) => {
   const classes = useStyles();
   const initial = [
-    { coa: "Debit Account", dr: 0, cr: 0 },
-    { coa: "Credit Account", dr: 0, cr: 0 },
+    { coa: "1", dr: 0, cr: 0 },
+    { coa: "1", dr: 0, cr: 0 },
   ];
   const vou_types = [
     { id: 1, title: "Journal Voucher" },
@@ -63,10 +65,13 @@ const VoucherEntryForm = (props) => {
     { id: 5, title: "Salary Voucher" },
     { id: 6, title: "Inventory Voucher" },
   ];
-  const optionRenderer = (choice) =>
-    `${choice.scode || ""} ${choice.code} ${choice.title}`;
+  const optionRenderer = (choice) => {
+
+    return choice && `${choice.scode || ""} ${choice.code} ${choice.title}`;
+  }
+  const redirect = (basePath, id, data) => `/author/${data.author_id}/show`;
   return (
-    <FormWithRedirect
+    <FormWithRedirect redirect={redirect}
       display="flex"
       {...props}
       render={(formProps) => (
@@ -87,7 +92,7 @@ const VoucherEntryForm = (props) => {
                     optionText="title"
                     optionValue="id"
                     choices={vou_types}
-                    validate={[required()]}
+                    validate={ra_required}
                     fullWidth
                   />
                 </Box>
@@ -107,7 +112,7 @@ const VoucherEntryForm = (props) => {
                       margin="none"
                       source="vou_date"
                       resource="vouchers"
-                      validate={[required()]}
+                      validate={ra_required}
                       autoFocus
                       fullWidth
                       className={classes.fixedWidth}
@@ -135,7 +140,7 @@ const VoucherEntryForm = (props) => {
                       optionText="title"
                       list="projects"
                       sort="title"
-                      validate={[required()]}
+                      validate={ra_required}
                       fullWidth
                       initialValue={1}
                       className={classes.maxFixedWidth}
@@ -180,7 +185,7 @@ const VoucherEntryForm = (props) => {
                     list="suppliers"
                     sort="title"
                     fullWidth
-                    //className={classes.maxFixedWidth}
+                  //className={classes.maxFixedWidth}
                   />
                 </Box>
                 <Box display="flex">
@@ -240,7 +245,8 @@ const VoucherEntryForm = (props) => {
                       source="coa"
                       sort="title"
                       optionText={optionRenderer}
-                      validate={[required()]}
+                      validate={ra_required}
+                      initialValue={1}
                       formClassName={classes.fixedWidth}
                     />
 
@@ -250,7 +256,7 @@ const VoucherEntryForm = (props) => {
                       label="Debit"
                       source="dr"
                       resource="vouchers"
-                      validate={[required()]}
+                      //validate={ra_required}
                       fullWidth
                     />
                     <NumberInput
@@ -258,7 +264,7 @@ const VoucherEntryForm = (props) => {
                       label="Credit"
                       source="cr"
                       resource="vouchers"
-                      validate={[required()]}
+                      //validate={ra_required}
                       fullWidth
                     />
                   </SimpleFormIterator>
