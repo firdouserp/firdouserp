@@ -1,131 +1,133 @@
-import AppBar from 'material-ui/AppBar';
-import { List } from 'material-ui/List';
+import { Box } from '@material-ui/core';
+import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
-import { TextInput } from 'react-admin';
 class BookingConfirm extends Component {
     continue = e => {
         e.preventDefault();
         //PROCESS FORM // 
         this.props.nextStep();
+        
     }
     back = e => {
         e.preventDefault();
         this.props.prevStep();
 
     }
+    
     render() {
-        const { values: { code, scode, title, client, project, book_date, sale_price, discount, remarks, client_name, father_name, residential_address, phone_no, nationality, cnic, reference_off, nominee_name, relation, email, name, date, unit, type, floor, block, contact, total_cost, on_booking, on_allocation, on_confirmation, on_start, monthly_installment, quaterly_payment } } = this.props;
-
-
+        const { booking, schedule, handleChange,step} = this.props;
+        if (step == 3) {
+            console.log(booking);
+            console.log(schedule);
         return (
             <MuiThemeProvider>
                 <React.Fragment>
-                    <AppBar title="Confirm User Data" ></AppBar>
+                    <Box title="Confirm User Data" ></Box>
                     <List>
-                        <TextInput
+                        <ListItem
                             primaryText="code"
-                            secondaryText={code} />
-                        <TextInput
+                            secondaryText={booking.code} />
+                        <ListItem
                             primaryText="scode"
-                            secondaryText={scode} />
-                        <TextInput
+                            secondaryText={booking.scode} />
+                        <ListItem
                             primaryText="title"
-                            secondaryText={title} />
-                        <TextInput
+                            secondaryText={booking.title} />
+                        <ListItem   
                             primaryText="unit"
-                            secondaryText={unit} />
-                        <TextInput
+                            secondaryText={booking.unit} />
+                        <ListItem
                             primaryText="client"
-                            secondaryText={client} />
-                        <TextInput
+                            secondaryText={booking.client} />
+                        <ListItem
                             primaryText="project"
-                            secondaryText={project} />
-                        <TextInput
+                            secondaryText={booking.project} />
+                        <ListItem
                             primaryText="book_date"
-                            secondaryText={book_date} />
-                        <TextInput
+                            secondaryText={booking.book_date} />
+                        <ListItem
                             primaryText="sale_price"
-                            secondaryText={sale_price} />
-                        <TextInput
+                            secondaryText={booking.sale_price} />
+                        <ListItem
                             primaryText="discount"
-                            secondaryText={discount} />
-                        <TextInput
+                            secondaryText={booking.discount} />
+                        <ListItem
                             primaryText="remarks"
-                            secondaryText={remarks} />
-                        <TextInput
+                            secondaryText={booking.remarks} />
+                        <ListItem
                             primaryText="client_name"
-                            secondaryText={client_name} />
-                        <TextInput
+                            secondaryText={booking.client_name} />
+                        <ListItem
                             primaryText="father_name"
-                            secondaryText={father_name} />
-                        <TextInput
+                            secondaryText={booking.father_name} />
+                        <ListItem
                             primaryText="residential_address"
-                            secondaryText={residential_address} />
-                        <TextInput
+                            secondaryText={booking.residential_address} />
+                        <ListItem
                             primaryText="phone_no"
-                            secondaryText={phone_no} />
-                        <TextInput
+                            secondaryText={booking.phone_no} />
+                        <ListItem
                             primaryText="nationality"
-                            secondaryText={nationality} />
-                        <TextInput
+                            secondaryText={booking.nationality} />
+                        <ListItem
                             primaryText="cnic"
-                            secondaryText={cnic} />
-                        <TextInput
+                            secondaryText={booking.cnic} />
+                        <ListItem
                             primaryText="reference_off"
-                            secondaryText={reference_off} />
-                        <TextInput
+                            secondaryText={booking.reference_off} />
+                        <ListItem
                             primaryText="nominee_name"
-                            secondaryText={nominee_name} />
-                        <TextInput
+                            secondaryText={booking.nominee_name} />
+                        <ListItem
                             primaryText="relation"
-                            secondaryText={relation} />
-                        <TextInput
+                            secondaryText={booking.relation} />
+                        <ListItem
                             primaryText="email"
-                            secondaryText={email} />
-                        <TextInput
+                            secondaryText={booking.email} />
+                        <ListItem
                             primaryText="name"
-                            secondaryText={name} />
-                        <TextInput
+                            secondaryText={schedule.name} />
+                        <ListItem
                             primaryText="date"
-                            secondaryText={date} />
-                        <TextInput
+                            secondaryText={schedule.date} />
+                        <ListItem
                             primaryText="unit"
-                            secondaryText={unit} />
-                        <TextInput
+                            secondaryText={schedule.unit} />
+                        <ListItem
                             primaryText="type"
-                            secondaryText={type} />
-                        <TextInput
+                            secondaryText={schedule.type} />
+                        <ListItem
                             primaryText="floor"
-                            secondaryText={floor} />
-                        <TextInput
+                            secondaryText={schedule.floor} />
+                        <ListItem
                             primaryText="block"
-                            secondaryText={block} />
-                        <TextInput
+                            secondaryText={schedule.block} />
+                        <ListItem
                             primaryText="contact"
-                            secondaryText={contact} />
-                        <TextInput
+                            secondaryText={schedule.contact} />
+                        <ListItem
                             primaryText="total_cost"
-                            secondaryText={total_cost} />
-                        <TextInput
+                            secondaryText={schedule.total_cost} />
+                        <ListItem
                             primaryText="on_booking"
-                            secondaryText={on_booking} />
-                        <TextInput
+                            secondaryText={schedule.on_booking} />
+                        <ListItem
                             primaryText="on_allocation"
-                            secondaryText={on_allocation} />
-                        <TextInput
+                            secondaryText={schedule.on_allocation} />
+                        <ListItem
                             primaryText="on_confirmation"
-                            secondaryText={on_confirmation} />
-                        <TextInput
+                            secondaryText={schedule.on_confirmation} />
+                        <ListItem
                             primaryText="on_start"
-                            secondaryText={on_start} />
-                        <TextInput
+                            secondaryText={schedule.on_start} />
+                        <ListItem
                             primaryText="monthly_installment"
-                            secondaryText={monthly_installment} />
-                        <TextInput
+                            secondaryText={schedule.monthly_installment} />
+                        <ListItem
                             primaryText="quaterly_payment"
-                            secondaryText={quaterly_payment} />
+                            secondaryText={schedule.quaterly_payment} />
 
                     </List>
                     <br />
@@ -147,8 +149,9 @@ class BookingConfirm extends Component {
 
         )
     }
+    else return null;
 }
-
+}
 const styles = {
     button: {
         margin: 15
