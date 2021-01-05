@@ -1,9 +1,12 @@
 import { Box, Grid } from '@material-ui/core';
-import { List, ListItem } from 'material-ui/List';
+import { ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
 class BookingConfirm extends Component {
+    
+    
+    
     continue = e => {
         e.preventDefault();
         //PROCESS FORM // 
@@ -15,9 +18,13 @@ class BookingConfirm extends Component {
         this.props.prevStep();
 
     }
+
+    
     
     render() {
-        const { booking, schedule, handleChange,step} = this.props;
+        
+        const { booking, schedule, handleChange,step,} = this.props;
+        
         if (step == 3) {
             console.log(booking);
             console.log(schedule);
@@ -132,6 +139,14 @@ class BookingConfirm extends Component {
                 
                     </Grid>
                     </Grid>
+                    
+                    <br />
+                    <div>
+                    <span className="print"
+              onClick={this.print}>
+                PRINT
+                            </span>
+                    </div>
                     <br />
                     <RaisedButton
                         label="Confirm & Continue"
@@ -139,12 +154,21 @@ class BookingConfirm extends Component {
                         style={styles.button}
                         onClick={this.continue}
                     />
+                     <RaisedButton
+                        label="print"
+                        primary={true}
+                        style={styles.button}
+                        onClick={this.print}
+                    />
                     <RaisedButton
                         label="Back"
                         primary={false}
                         style={styles.button}
                         onClick={this.back}
                     />
+                    
+                  
+                    
 
                 </React.Fragment>
             </MuiThemeProvider>

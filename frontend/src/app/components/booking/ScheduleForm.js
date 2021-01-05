@@ -203,6 +203,7 @@ class ScheduleForm extends Component {
             </Grid>
             <Button source="Schedule" />
           </div>
+          
           <Toolbar>
             <Box display="flex" justifyContent="space-between" width="100%">
               <Button

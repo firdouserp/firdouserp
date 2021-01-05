@@ -80,7 +80,12 @@ class BookingFormWizard extends Component {
                             booking={booking}
                             schedule={schedule}
                             step={step}
-                        />}
+                        />
+                        
+                        
+                        
+                        }
+
 
 
 
