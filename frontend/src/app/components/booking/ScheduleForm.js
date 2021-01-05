@@ -30,13 +30,13 @@ class ScheduleForm extends Component {
             Payment Schedule
           </Typography>
           <div>
-            <Grid container spacing ={5}>
-              <Grid spacing={1} id = "left-container" item xs={xsmall} md={4}>
-               <Typography variant="h6" gutterBottom>
-             Details
-             </Typography>
-             <Grid container spacing={5}>
-             <Grid item xs={xsmall} sm={small} md={medium}>
+            <Grid container spacing={7}>
+              <Grid spacing={1} id="left-container" item xs={xsmall} md={4}>
+                <Typography variant="h7" gutterBottom>
+                  Details
+                </Typography>
+                <Grid container spacing={1}>
+                  <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput disabled source="id" fullWidth />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
@@ -54,10 +54,11 @@ class ScheduleForm extends Component {
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput 
+                    <TextInput
                       source="type"
                       defaultValue={schedule.type}
-                      fullWidth />
+                      fullWidth
+                    />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
@@ -65,7 +66,6 @@ class ScheduleForm extends Component {
                       defaultValue={schedule.block}
                       fullWidth /*options={{ multiLine: true }}*/
                     />
-                  </Grid>
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput fullWidth multiline source="contact" />
@@ -91,7 +91,7 @@ class ScheduleForm extends Component {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={xsmall}>
+                  <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_confirmation"
                       defaultValue={schedule.on_confirmation}
@@ -101,7 +101,11 @@ class ScheduleForm extends Component {
                   </Grid>
                 </Grid>
               </Grid>
+
               <Grid spacing={1} id="right-container" item xs={xsmall} md={6}>
+                <Typography variant="h7" gutterBottom>
+                  Payment Details
+                </Typography>
                 <Grid container spacing={4}>
                   <Grid item xs={xsmall} sm={small} md={medium} lg={medium}>
                     <TextInput
@@ -131,17 +135,16 @@ class ScheduleForm extends Component {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={xsmall}>
+                  <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_foundation"
                       defaultValue={schedule.on_foundation}
                       fullWidth
-                      multiline
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
-                      source="on_slab" 
+                      source="on_slab"
                       defaultValue={schedule.on_slab}
                       fullWidth
                     />
@@ -159,8 +162,8 @@ class ScheduleForm extends Component {
                       defaultValue={schedule.on_plaster}
                       fullWidth
                     />
-                    </Grid>
-                    <Grid item xs={xsmall} sm={small} md={medium}>
+                  </Grid>
+                  <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_plumbing"
                       defaultValue={schedule.on_plumbing}
@@ -195,29 +198,33 @@ class ScheduleForm extends Component {
                       fullWidth
                     />
                   </Grid>
-                  </Grid>
                 </Grid>
-                <Button source="Schedule" />
-              </div>
-              <Toolbar>
-                <Box display="flex" justifyContent="space-between" width="100%">
-                  <Button
-                    label="Back" primary={false} style={styles.button} onClick={this.back}
-                  />
+              </Grid>
+            </Grid>
+            <Button source="Schedule" />
+          </div>
+          <Toolbar>
+            <Box display="flex" justifyContent="space-between" width="100%">
+              <Button
+                label="Back"
+                primary={false}
+                style={styles.button}
+                onClick={this.back}
+              />
 
-                  <Button
-                    label="Continue"
-                    primary={false}
-                    style={styles.button}
-                    onClick={this.continue}
-                  />
-                </Box>
-              </Toolbar>
+              <Button
+                label="Continue"
+                primary={false}
+                style={styles.button}
+                onClick={this.continue}
+              />
             </Box>
-          );
-        }
-        return null;
-      }
+          </Toolbar>
+        </Box>
+      );
     }
+    return null;
+  }
+}
 
-    export default ScheduleForm;
+export default ScheduleForm;
