@@ -1,3 +1,4 @@
+import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -47,100 +48,118 @@ function SimplePaper() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.JournalVoucher} variant="outlined" square>
-        <CardActions>
-          <Button
-            className={classes.JournalVoucher}
-            component={Link}
-            to="/accounts/voucherentry?vou_type=1"
-            size="large"
-            color="primary"
-          >
-            Journal Voucher
-          </Button>
-        </CardActions>
-      </Paper>
-      <Paper className={classes.PaymentVoucher} variant="outlined" square>
-        <CardActions>
-          <Button
-            className={classes.PaymentVoucher}
-            component={Link}
-            to="/accounts/voucherentry?vou_type=2"
-            size="large"
-            color="primary"
-          >
-            Payment Voucher
-          </Button>
-        </CardActions>
-      </Paper>
-      <Paper className={classes.SalesVoucher} variant="outlined" square>
-        <CardActions>
-          <Button
-            className={classes.SalesVoucher}
-            component={Link}
-            to="/accounts/voucherentry?vou_type=4"
-            size="large"
-            color="primary"
-          >
-            Sales Voucher
-          </Button>
-        </CardActions>
-      </Paper>
-      <Paper className={classes.RecieptVoucher} variant="outlined" square>
-        <CardActions>
-          <Button
-            className={classes.RecieptVoucher}
-            component={Link}
-            to="/accounts/voucherentry?vou_type=3"
-            size="large"
-            color="primary"
-          >
-            Reciept Voucher
-          </Button>
-        </CardActions>
-      </Paper>
-      <Paper className={classes.SalaryVoucher} variant="outlined" square>
-        <CardActions>
-          <Button
-            className={classes.SalaryVoucher}
-            component={Link}
-            to="/accounts/voucherentry?vou_type=5"
-            size="large"
-            color="primary"
-          >
-            Salary Voucher
-          </Button>
-        </CardActions>
-      </Paper>
-      <Paper className={classes.SalaryVoucher} variant="outlined" square>
-        <CardActions>
-          <Button
-            className={classes.JournalVoucher}
-            component={Link}
-            to="/userform"
-            size="large"
-            color="primary"
-          >
-            User Form
-          </Button>
-        </CardActions>
-      </Paper>
-      <Paper className={classes.SalaryVoucher} variant="outlined" square>
-        <CardActions>
-          <Button
-            className={classes.JournalVoucher}
-            component={Link}
-            to="/bookingform"
-            size="large"
-            color="primary"
-          >
-            Booking Form
-          </Button>
-        </CardActions>
-      </Paper>
-      https://marmelab.com/react-admin/Actions.html
-    </div>
+    <Grid container display="flex" spacing={3}>
+      <Grid item xs={12} sm={4}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.JournalVoucher} variant="outlined" square>
+              <CardActions>
+                <Button
+                  className={classes.JournalVoucher}
+                  component={Link}
+                  to="/accounts/voucherentry?vou_type=1"
+                  size="large"
+                  color="primary"
+                >
+                  Journal Voucher
+                </Button>
+              </CardActions>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.PaymentVoucher} variant="outlined" square>
+              <CardActions>
+                <Button
+                  className={classes.PaymentVoucher}
+                  component={Link}
+                  to="/accounts/voucherentry?vou_type=2"
+                  size="large"
+                  color="primary"
+                >
+                  Payment Voucher
+                </Button>
+              </CardActions>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.SalesVoucher} variant="outlined" square>
+              <CardActions>
+                <Button
+                  className={classes.SalesVoucher}
+                  component={Link}
+                  to="/accounts/voucherentry?vou_type=4"
+                  size="large"
+                  color="primary"
+                >
+                  Sales Voucher
+                </Button>
+              </CardActions>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.RecieptVoucher} variant="outlined" square>
+              <CardActions>
+                <Button
+                  className={classes.RecieptVoucher}
+                  component={Link}
+                  to="/accounts/voucherentry?vou_type=3"
+                  size="large"
+                  color="primary"
+                >
+                  Reciept Voucher
+                </Button>
+              </CardActions>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.SalaryVoucher} variant="outlined" square>
+              <CardActions>
+                <Button
+                  className={classes.SalaryVoucher}
+                  component={Link}
+                  to="/accounts/voucherentry?vou_type=5"
+                  size="large"
+                  color="primary"
+                >
+                  Salary Voucher
+                </Button>
+              </CardActions>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12} sm={4}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.SalaryVoucher} variant="outlined" square>
+              <CardActions>
+                <Button
+                  className={classes.JournalVoucher}
+                  component={Link}
+                  to="/userform"
+                >
+                  User Form
+                </Button>
+              </CardActions>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.SalaryVoucher} variant="outlined" square>
+              <CardActions>
+                <Button
+                  className={classes.JournalVoucher}
+                  component={Link}
+                  to="/bookingform"
+                >
+                  Booking Form
+                </Button>
+              </CardActions>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 const Accounts = () => {

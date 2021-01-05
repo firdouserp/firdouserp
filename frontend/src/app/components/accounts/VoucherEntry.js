@@ -1,5 +1,4 @@
-import { Box, makeStyles, Toolbar, Typography } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import { Box, Grid, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import * as React from "react";
 import {
   ArrayInput,
@@ -13,7 +12,7 @@ import {
   SelectInput,
   SimpleFormIterator,
   TextInput,
-  useAuthenticated
+  useAuthenticated,
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
@@ -23,7 +22,8 @@ const useStyles = makeStyles({
     flexGrow: 1,
   },
   inlineBlock: { display: "inline-flex", marginRight: "1em", width: "40%" },
-  smallwidth: { display: "inline-flex", marginRight: "0.2em", width: "25%" },
+  iteratorinput: { marginRight: "0.5em", width: "100%" },
+  iteratorinput50: { marginRight: "0.5em", width: "50%" },
   maxFixedWidth: { maxWidth: "180px", boxSizing: "border-box" },
   fixedWidth: { width: "180px" },
 });
@@ -77,179 +77,174 @@ const VoucherEntryForm = (props) => {
     <FormWithRedirect
       redirect={redirect}
       display="flex"
+      sanitizeEmptyValues={false}
       {...props}
       render={(formProps) => (
         // here starts the custom form layout
         <form>
           <Box p="1em" style={{ border: "1px solid #e0e0e3" }}>
             <Box display="flex">
-              <Box flex={1} mr="1em" style={{ minWidth: "370px" }}>
-                <Typography variant="h6" gutterBottom>
-                  Voucher Entry {props.vou_type}
-                </Typography>
-                <Box flex={1}>
-                  <SelectInput
-                    margin="none"
-                    label="Voucher Type"
-                    source="vou_type"
-                    initialValue={props.vou_type}
-                    optionText="title"
-                    optionValue="id"
-                    choices={vou_types}
-                    validate={ra_required}
-                    fullWidth
-                  />
-                </Box>
-                <Box display="flex">
-                  <Box flex={1} mr="0.5em">
-                    <TextInput
-                      margin="none"
-                      disabled
-                      source="vou_no"
-                      resource="vouchers"
-                      fullWidth
-                    />
-                  </Box>
-                  <Box flex={1} ml="0.5em">
-                    <DateInput
-                      initialValue={new Date()}
-                      margin="none"
-                      source="vou_date"
-                      resource="vouchers"
-                      validate={ra_required}
-                      autoFocus
-                      fullWidth
-                      className={classes.fixedWidth}
-                    />
-                  </Box>
-                </Box>
-                <Box display="flex">
-                  <Box flex={1} mr="0.5em">
-                    <FirdousSelect
-                      allowEmpty
-                      label="Vendor"
-                      list="suppliers"
-                      sort="title"
-                      source="supplier"
-                      optionText="title"
-                      fullWidth
-                      className={classes.maxFixedWidth}
-                    />
-                  </Box>
-                  <Box flex={1} ml="0.5em">
-                    <FirdousSelect
-                      margin="none"
-                      label="Project"
-                      source="project"
-                      optionText="title"
-                      list="projects"
-                      sort="title"
-                      validate={ra_required}
-                      fullWidth
-                      initialValue={1}
-                      className={classes.maxFixedWidth}
-                    />
-                  </Box>
-                </Box>
-                <Box display="flex">
-                  <Box flex={1} mr="0.5em">
-                    <FirdousSelect
-                      margin="none"
-                      allowEmpty
-                      label="Unit"
-                      source="unit"
-                      optionText="title"
-                      list="units"
-                      sort="title"
-                      fullWidth
-                      className={classes.maxFixedWidth}
-                    />
-                  </Box>
-                  <Box flex={1} ml="0.5em">
-                    <FirdousSelect
-                      margin="none"
-                      allowEmpty
-                      label="Stock"
-                      source="stock"
-                      optionText="title"
-                      list="stock"
-                      sort="title"
-                      fullWidth
-                      className={classes.maxFixedWidth}
-                    />
-                  </Box>
-                </Box>
-                <Box flex={1}>
-                  <FirdousSelect
-                    margin="none"
-                    allowEmpty
-                    label="Employee"
-                    source="employee"
-                    optionText="value"
-                    list="suppliers"
-                    sort="title"
-                    fullWidth
-                  //className={classes.maxFixedWidth}
-                  />
-                </Box>
-                <Box display="flex">
-                  <Box flex={1} mr="0.5em">
-                    <TextInput
-                      margin="none"
-                      label="cheque no"
-                      source="chq_no"
-                      resource="vouchers"
-                      fullWidth
-                    />
-                  </Box>
-                  <Box flex={1} ml="0.5em">
-                    <DateInput
-                      margin="none"
-                      label="Cheque Date"
-                      source="chq_date"
-                      resource="vouchers"
-                      fullWidth
-                      className={classes.fixedWidth}
-                    />
-                  </Box>
-                </Box>
+              <Grid container display="flex">
+                <Grid item xs={12} sm={12} md={6} lg={4}>
+                  <Grid item xs={12}>
+                    <Box flex={1} mr="1em" style={{ minWidth: "360px" }}>
+                      <Typography variant="h6" gutterBottom>
+                        Voucher Entry {props.vou_type}
+                      </Typography>
+                      <Box flex={1}>
+                        <SelectInput
+                          margin="none"
+                          label="Voucher Type"
+                          source="vou_type"
+                          initialValue={props.vou_type}
+                          optionText="title"
+                          optionValue="id"
+                          choices={vou_types}
+                          validate={ra_required}
+                          fullWidth
+                        />
+                      </Box>
+                      <Box display="flex">
+                        <Box flex={1} mr="0.5em">
+                          <TextInput
+                            margin="none"
+                            disabled
+                            source="vou_no"
+                            resource="vouchers"
+                            fullWidth
+                          />
+                        </Box>
+                        <Box flex={1} ml="0.5em">
+                          <DateInput
+                            initialValue={new Date()}
+                            margin="none"
+                            source="vou_date"
+                            resource="vouchers"
+                            validate={ra_required}
+                            autoFocus
+                            fullWidth
+                          />
+                        </Box>
+                      </Box>
+                      <Box display="flex">
+                        <Box flex={1} mr="0.5em">
+                          <FirdousSelect
+                            allowEmpty
+                            label="Vendor"
+                            list="suppliers"
+                            sort="title"
+                            source="supplier"
+                            optionText="title"
+                            fullWidth
+                          />
+                        </Box>
+                        <Box flex={1} ml="0.5em">
+                          <FirdousSelect
+                            margin="none"
+                            label="Project"
+                            source="project"
+                            optionText="title"
+                            list="projects"
+                            sort="title"
+                            validate={ra_required}
+                            fullWidth
+                            initialValue={1}
+                          />
+                        </Box>
+                      </Box>
+                      <Box display="flex">
+                        <Box flex={1} mr="0.5em">
+                          <FirdousSelect
+                            margin="none"
+                            allowEmpty
+                            label="Unit"
+                            source="unit"
+                            optionText="title"
+                            list="units"
+                            sort="title"
+                            fullWidth
+                          />
+                        </Box>
+                        <Box flex={1} ml="0.5em">
+                          <FirdousSelect
+                            margin="none"
+                            allowEmpty
+                            label="Stock"
+                            source="stock"
+                            optionText="title"
+                            list="stock"
+                            sort="title"
+                            fullWidth
+                          />
+                        </Box>
+                      </Box>
+                      <Box flex={1}>
+                        <FirdousSelect
+                          margin="none"
+                          allowEmpty
+                          label="Employee"
+                          source="employee"
+                          optionText="value"
+                          list="suppliers"
+                          sort="title"
+                          fullWidth
+                          //className={classes.maxFixedWidth}
+                        />
+                      </Box>
+                      <Box display="flex">
+                        <Box flex={1} mr="0.5em">
+                          <TextInput
+                            margin="none"
+                            label="cheque no"
+                            source="chq_no"
+                            resource="vouchers"
+                            fullWidth
+                          />
+                        </Box>
+                        <Box flex={1} ml="0.5em">
+                          <DateInput
+                            margin="none"
+                            label="Cheque Date"
+                            source="chq_date"
+                            resource="vouchers"
+                            fullWidth
+                          />
+                        </Box>
+                      </Box>
 
-                <TextInput
-                  source="description"
-                  resource="vouchers"
-                  multiline
-                  fullWidth
-                />
-                <TextInput
-                  margin="none"
-                  label="Remarks"
-                  source="remarks"
-                  resource="vouchers"
-                  multiline
-                  fullWidth
-                />
-                <Box mt="1em" />
-              </Box>
-              <Box
-                display="flex"
-                flexGrow={1}
-                ml="1em"
-                minWidth="370px"
-                width="100%"
-
-              >
-                <ArrayInput
-                  initialValue={initial}
-                  //variant="standard"
-                  source="transactions"
-                  label="Transactions"
-
-                  fullWidth
-                >
-                  <SimpleFormIterator fullWidth>
-
-                    <Grid container spacing={1}>
-                      <Grid item xs={6}>
+                      <TextInput
+                        source="description"
+                        resource="vouchers"
+                        multiline
+                        fullWidth
+                      />
+                      <TextInput
+                        margin="none"
+                        label="Remarks"
+                        source="remarks"
+                        resource="vouchers"
+                        multiline
+                        fullWidth
+                      />
+                      <Box mt="1em" />
+                    </Box>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
+                  <Box
+                    display="flex"
+                    flexGrow={1}
+                    minWidth="360px"
+                    width="100%"
+                  >
+                    <ArrayInput
+                      initialValue={initial}
+                      //variant="standard"
+                      source="transactions"
+                      label="Transactions"
+                      fullWidth
+                    >
+                      <SimpleFormIterator fullWidth>
                         <FirdousSelect
                           resettable
                           label="Account"
@@ -260,35 +255,33 @@ const VoucherEntryForm = (props) => {
                           validate={ra_required}
                           initialValue={1}
                           fullWidth
-                          formClassName={classes.fixedWidth}
+                          formClassName={classes.iteratorinput}
                         />
-                      </Grid>
-                      <Grid item xs={3}>
+
                         <NumberInput
-                          //formClassName={classes.smallwidth}
+                          formClassName={classes.iteratorinput50}
                           label="Debit"
                           source="dr"
                           resource="vouchers"
                           //validate={ra_required}
                           fullWidth
                         />
-                      </Grid>
-                      <Grid item xs={3}>
+
                         <NumberInput
-                          // formClassName={classes.smallwidth}
+                          formClassName={classes.iteratorinput50}
                           label="Credit"
                           source="cr"
                           resource="vouchers"
                           //validate={ra_required}
                           fullWidth
                         />
-                      </Grid>
-                    </Grid>
 
-                    {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
-                  </SimpleFormIterator>
-                </ArrayInput>
-              </Box>
+                        {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
+                      </SimpleFormIterator>
+                    </ArrayInput>
+                  </Box>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
           <Toolbar>
