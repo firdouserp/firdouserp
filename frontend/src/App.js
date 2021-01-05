@@ -72,6 +72,9 @@ import {
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
 
+
+
+
 const theme = createMuiTheme({
   palette: {
     primary: {

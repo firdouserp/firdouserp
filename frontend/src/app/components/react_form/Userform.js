@@ -1,8 +1,7 @@
-import { Input } from '@material-ui/core';
-import React, { Component } from 'react'
-import FormUserDetails from './FormUserDetails';
-import FormPersonalDetails from './FormPersonalDetails';
+import React, { Component } from 'react';
 import Confirm from './Confirm';
+import FormPersonalDetails from './FormPersonalDetails';
+import FormUserDetails from './FormUserDetails';
 import Success from './Success';
 
 
@@ -70,6 +69,7 @@ export class Userform extends Component {
                     nextStep = {this.nextStep}
                     prevStep = {this.prevStep}
                     values = {values}
+                    
                     />
                 )
                 
