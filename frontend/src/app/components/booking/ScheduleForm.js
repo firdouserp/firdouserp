@@ -12,7 +12,7 @@ class ScheduleForm extends Component {
   };
 
   render() {
-    const { schedule, step, handleChange, ScheduleForm } = this.props;
+    const { schedule, step, handleChange } = this.props;
     const small = 6;
     const xsmall = 12;
     const medium = 6;
@@ -22,7 +22,8 @@ class ScheduleForm extends Component {
       },
     };
 
-    console.log(schedule);
+
+
     if (step == 2) {
       return (
         <Box p="1em">
@@ -37,42 +38,42 @@ class ScheduleForm extends Component {
                 </Typography>
                 <Grid container spacing={1}>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput disabled source="id" fullWidth />
+                    <TextInput disabled source="id" fullWidth onBlur={handleChange} />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="name"
                       defaultValue={schedule.name}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="unit"
                       defaultValue={schedule.unit}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="type"
                       defaultValue={schedule.type}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="block"
                       defaultValue={schedule.block}
-                      fullWidth /*options={{ multiLine: true }}*/
+                      fullWidth onBlur={handleChange} /*options={{ multiLine: true }}*/
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput fullWidth multiline source="contact" />
+                    <TextInput fullWidth onBlur={handleChange} multiline source="contact" />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                       source="total_cost"
                       defaultValue={schedule.total_cost}
                     />
@@ -81,21 +82,21 @@ class ScheduleForm extends Component {
                     <DateInput
                       source="on_booking"
                       defaultValue={schedule.on_booking}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_allocation"
                       defaultValue={schedule.on_allocation}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_confirmation"
                       defaultValue={schedule.on_confirmation}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                       multiline
                     />
                   </Grid>
@@ -111,91 +112,91 @@ class ScheduleForm extends Component {
                     <TextInput
                       source="on_start"
                       defaultValue={schedule.on_start}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="monthly_installment"
                       defaultValue={schedule.monthly_installment}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="quaterly_payment"
                       defaultValue={schedule.quaterly_payment}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_excavation"
                       defaultValue={schedule.on_excavation}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_foundation"
                       defaultValue={schedule.on_foundation}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_slab"
                       defaultValue={schedule.on_slab}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_block"
                       defaultValue={schedule.on_block}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_plaster"
                       defaultValue={schedule.on_plaster}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_plumbing"
                       defaultValue={schedule.on_plumbing}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_electric"
                       defaultValue={schedule.on_electric}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_coloring"
                       defaultValue={schedule.on_coloring}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_finishing"
                       defaultValue={schedule.on_finishing}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="on_possesion"
                       defaultValue={schedule.on_possesion}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                 </Grid>
@@ -203,7 +204,7 @@ class ScheduleForm extends Component {
             </Grid>
             <Button source="Schedule" />
           </div>
-          
+
           <Toolbar>
             <Box display="flex" justifyContent="space-between" width="100%">
               <Button

@@ -18,7 +18,7 @@ class BookingDetailsForm extends Component {
       },
     };
 
-    console.log(booking);
+
     if (step == 1) {
       return (
         <Box p="1em">
@@ -33,37 +33,38 @@ class BookingDetailsForm extends Component {
                 </Typography>
                 <Grid container spacing={1}>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput disabled source="id" fullWidth />
+                    <TextInput disabled source="id" fullWidth onBlur={handleChange} />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="client"
                       defaultValue={booking.client}
-                      fullWidth
+                      fullWidth onBlur={handleChange} onBlur={handleChange}
+
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="project"
                       defaultValue={booking.project}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput disabled source="code" fullWidth />
+                    <TextInput disabled source="code" fullWidth onBlur={handleChange} />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="scode"
-                      fullWidth /*options={{ multiLine: true }}*/
+                      fullWidth onBlur={handleChange} /*options={{ multiLine: true }}*/
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput fullWidth multiline source="title" />
+                    <TextInput fullWidth onBlur={handleChange} multiline source="title" />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                       source="unit"
                       defaultValue={booking.unit}
                     />
@@ -72,21 +73,21 @@ class BookingDetailsForm extends Component {
                     <DateInput
                       source="book_date"
                       defaultValue={booking.book_date}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="sale_price"
                       defaultValue={booking.sale_price}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall}>
                     <TextInput
                       source="remarks"
                       defaultValue={booking.remarks}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                       multiline
                     />
                   </Grid>
@@ -101,35 +102,35 @@ class BookingDetailsForm extends Component {
                     <TextInput
                       source="name"
                       defaultValue={booking.name}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="father_name"
                       defaultValue={booking.father_name}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="cnic"
                       defaultValue={booking.cnic}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="phone_no"
                       defaultValue={booking.phone_no}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall}>
                     <TextInput
                       source="residential_address"
                       defaultValue={booking.residential_address}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                       multiline
                     />
                   </Grid>
@@ -138,35 +139,35 @@ class BookingDetailsForm extends Component {
                     <TextInput
                       source="occupation"
                       defaultValue={booking.occupation}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="nationality"
                       defaultValue={booking.nationality}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="reference_off"
                       defaultValue={booking.reference_off}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="nominee_name"
                       defaultValue={booking.nominee_name}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
                       source="relation"
                       defaultValue={booking.relation}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
 
@@ -174,14 +175,14 @@ class BookingDetailsForm extends Component {
                     <TextInput
                       source="email"
                       defaultValue={booking.unit}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <BooleanInput
                       source="active"
                       defaultValue={booking.active}
-                      fullWidth
+                      fullWidth onBlur={handleChange}
                     />
                   </Grid>
                 </Grid>

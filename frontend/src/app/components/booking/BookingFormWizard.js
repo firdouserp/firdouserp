@@ -35,10 +35,7 @@ class BookingFormWizard extends Component {
     }
 
 
-    // Handle field change
-    handleChange = input => e => {
-        this.setState({ [input]: e.target.value });
-    }
+
 
     CustomToolbar = props => (
         <Toolbar {...props} >
@@ -47,8 +44,25 @@ class BookingFormWizard extends Component {
     );
 
     render(props) {
-        const { schedule, step, booking } = this.state;
-        console.log(booking);
+        const { step } = this.state;
+        // Handle field change
+        const handleChangeBooking = (e) => {
+            console.log("handlechangedBooking")
+            let inputName = e.target.name;
+            let inputValue = e.target.value
+            let stateCopy = Object.assign({}, this.state);
+            stateCopy.booking[inputName] = inputValue;
+            this.setState(stateCopy);
+        }
+        const handleChangeSchedule = (e) => {
+            console.log("handleChangeSchedule")
+            let inputName = e.target.name;
+            let inputValue = e.target.value
+            let stateCopy = Object.assign({}, this.state);
+            stateCopy.schedule[inputName] = inputValue;
+            this.setState(stateCopy);
+        }
+
         return (<Create basePath="booking" resource="booking" {...props}>
             <FormWithRedirect
                 {...props}
@@ -56,8 +70,8 @@ class BookingFormWizard extends Component {
                     <form>
                         <BookingDetailsForm
                             nextStep={this.nextStep}
-                            handleChange={this.handleChange}
-                            booking={booking}
+                            handleChange={handleChangeBooking}
+                            booking={this.state.booking}
                             step={step}
                         />
 
@@ -65,26 +79,25 @@ class BookingFormWizard extends Component {
                         <ScheduleForm
                             nextStep={this.nextStep}
                             prevStep={this.prevStep}
-                            handleChange={this.handleChange}
-                            booking={booking}
-                            schedule={schedule}
+                            handleChange={handleChangeSchedule}
+                            booking={this.state.booking}
+                            schedule={this.state.schedule}
 
                             step={step}
                         />
 
 *
-                        { <BookingConfirm
+                        <BookingConfirm
                             nextStep={this.nextStep}
                             prevStep={this.prevStep}
-                            handleChange={this.handleChange}
-                            booking={booking}
-                            schedule={schedule}
+                            booking={this.state.booking}
+                            schedule={this.state.schedule}
                             step={step}
                         />
-                        
-                        
-                        
-                        }
+
+
+
+
 
 
 

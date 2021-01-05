@@ -49,9 +49,9 @@ function SimplePaper() {
 
   return (
     <Grid container display="flex" spacing={3}>
-      <Grid item xs={12} sm={4}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={3}>
+        <Grid container spacing={3} direction="column">
+          <Grid item xs={12} >
             <Paper className={classes.JournalVoucher} variant="outlined" square>
               <CardActions>
                 <Button
@@ -66,7 +66,7 @@ function SimplePaper() {
               </CardActions>
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} >
             <Paper className={classes.PaymentVoucher} variant="outlined" square>
               <CardActions>
                 <Button
@@ -81,7 +81,7 @@ function SimplePaper() {
               </CardActions>
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} >
             <Paper className={classes.SalesVoucher} variant="outlined" square>
               <CardActions>
                 <Button
@@ -96,7 +96,7 @@ function SimplePaper() {
               </CardActions>
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} >
             <Paper className={classes.RecieptVoucher} variant="outlined" square>
               <CardActions>
                 <Button
@@ -111,7 +111,7 @@ function SimplePaper() {
               </CardActions>
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} >
             <Paper className={classes.SalaryVoucher} variant="outlined" square>
               <CardActions>
                 <Button
@@ -130,7 +130,7 @@ function SimplePaper() {
       </Grid>
 
       <Grid item xs={12} sm={4}>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} direction="column">
           <Grid item xs={12} sm={6}>
             <Paper className={classes.SalaryVoucher} variant="outlined" square>
               <CardActions>
