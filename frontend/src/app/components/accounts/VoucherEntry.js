@@ -13,7 +13,7 @@ import {
   SelectInput,
   SimpleFormIterator,
   TextInput,
-  useAuthenticated,
+  useAuthenticated
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
@@ -189,7 +189,7 @@ const VoucherEntryForm = (props) => {
                     list="suppliers"
                     sort="title"
                     fullWidth
-                    //className={classes.maxFixedWidth}
+                  //className={classes.maxFixedWidth}
                   />
                 </Box>
                 <Box display="flex">
@@ -236,55 +236,55 @@ const VoucherEntryForm = (props) => {
                 ml="1em"
                 minWidth="370px"
                 width="100%"
-                className={classes.root}
+
               >
                 <ArrayInput
                   initialValue={initial}
-                  variant="standard"
+                  //variant="standard"
                   source="transactions"
                   label="Transactions"
-                  className={classes.root}
+
                   fullWidth
                 >
-                  <SimpleFormIterator className={classes.root} fullWidth>
-                    <div className={classes.root}>
-                      <Grid container spacing={1}>
-                        <Grid item xs={6}>
-                          <FirdousSelect
-                            resettable
-                            label="Account"
-                            list="coa"
-                            source="coa"
-                            sort="title"
-                            optionText={optionRenderer}
-                            validate={ra_required}
-                            initialValue={1}
-                            fullWidth
-                            formClassName={classes.fixedWidth}
-                          />
-                        </Grid>
-                        <Grid item xs={3}>
-                          <NumberInput
-                            //formClassName={classes.smallwidth}
-                            label="Debit"
-                            source="dr"
-                            resource="vouchers"
-                            //validate={ra_required}
-                            fullWidth
-                          />
-                        </Grid>
-                        <Grid item xs={3}>
-                          <NumberInput
-                            // formClassName={classes.smallwidth}
-                            label="Credit"
-                            source="cr"
-                            resource="vouchers"
-                            //validate={ra_required}
-                            fullWidth
-                          />
-                        </Grid>
+                  <SimpleFormIterator fullWidth>
+
+                    <Grid container spacing={1}>
+                      <Grid item xs={6}>
+                        <FirdousSelect
+                          resettable
+                          label="Account"
+                          list="coa"
+                          source="coa"
+                          sort="title"
+                          optionText={optionRenderer}
+                          validate={ra_required}
+                          initialValue={1}
+                          fullWidth
+                          formClassName={classes.fixedWidth}
+                        />
                       </Grid>
-                    </div>
+                      <Grid item xs={3}>
+                        <NumberInput
+                          //formClassName={classes.smallwidth}
+                          label="Debit"
+                          source="dr"
+                          resource="vouchers"
+                          //validate={ra_required}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={3}>
+                        <NumberInput
+                          // formClassName={classes.smallwidth}
+                          label="Credit"
+                          source="cr"
+                          resource="vouchers"
+                          //validate={ra_required}
+                          fullWidth
+                        />
+                      </Grid>
+                    </Grid>
+
                     {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
                   </SimpleFormIterator>
                 </ArrayInput>

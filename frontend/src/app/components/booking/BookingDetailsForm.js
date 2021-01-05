@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@material-ui/core";
 import React, { Component } from "react";
-import { BooleanInput, Button, TextInput, Toolbar } from "react-admin";
+import { BooleanInput, Button, DateInput, TextInput, Toolbar } from "react-admin";
 class BookingDetailsForm extends Component {
   continue = (e) => {
     e.preventDefault();
@@ -28,9 +28,19 @@ class BookingDetailsForm extends Component {
           <div>
             <Grid container spacing={10}>
               <Grid spacing={1} id="left-container" item xs={xsmall} md={4}>
-                <Grid container spacing={2}>
+                <Typography variant="h7" gutterBottom>
+                  Unit Allotment
+                </Typography>
+                <Grid container spacing={1}>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput disabled source="id" fullWidth />
+                  </Grid>
+                  <Grid item xs={xsmall} sm={small} md={medium}>
+                    <TextInput
+                      source="client"
+                      defaultValue={booking.client}
+                      fullWidth
+                    />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
@@ -58,15 +68,8 @@ class BookingDetailsForm extends Component {
                       defaultValue={booking.unit}
                     />
                   </Grid>
-                  <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput
-                      source="client"
-                      defaultValue={booking.client}
-                      fullWidth
-                    />
-                  </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium} lg={medium}>
-                    <TextInput
+                    <DateInput
                       source="book_date"
                       defaultValue={booking.book_date}
                       fullWidth
@@ -89,7 +92,10 @@ class BookingDetailsForm extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid spacing={2} id="right-container" item xs={xsmall} md={6}>
+              <Grid spacing={1} id="right-container" item xs={xsmall} md={6}>
+                <Typography variant="h7" gutterBottom>
+                  Booking Allottee
+                </Typography>
                 <Grid container spacing={1}>
                   <Grid item xs={xsmall} sm={small} md={medium} lg={medium}>
                     <TextInput

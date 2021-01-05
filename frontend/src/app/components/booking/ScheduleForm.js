@@ -24,7 +24,7 @@ class ScheduleForm extends Component {
       return (
         <Box p="1em">
           <Typography variant="h6" gutterBottom>
-            Booking Schedule
+            Payment Schedule
           </Typography>
           <Box>
             <TextInput disabled source="id" />
