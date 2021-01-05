@@ -102,11 +102,11 @@ class ScheduleForm extends Component {
                 </Grid>
               </Grid>
 
-              <Grid spacing={1} id="right-container" item xs={xsmall} md={6}>
+              <Grid spacing={1} id="right-container" item xs={xsmall} md={4}>
                 <Typography variant="h7" gutterBottom>
                   Payment Details
                 </Typography>
-                <Grid container spacing={4}>
+                <Grid container spacing={2}>
                   <Grid item xs={xsmall} sm={small} md={medium} lg={medium}>
                     <TextInput
                       source="on_start"
