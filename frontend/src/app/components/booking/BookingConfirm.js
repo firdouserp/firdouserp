@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -25,7 +25,8 @@ class BookingConfirm extends Component {
             <MuiThemeProvider>
                 <React.Fragment>
                     <Box title="Confirm User Data" ></Box>
-                    <List>
+                    <Grid>
+                    <Grid>
                         <ListItem
                             primaryText="code"
                             secondaryText={booking.code} />
@@ -128,8 +129,9 @@ class BookingConfirm extends Component {
                         <ListItem
                             primaryText="quaterly_payment"
                             secondaryText={schedule.quaterly_payment} />
-
-                    </List>
+                
+                    </Grid>
+                    </Grid>
                     <br />
                     <RaisedButton
                         label="Confirm & Continue"
