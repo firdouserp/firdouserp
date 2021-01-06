@@ -43,6 +43,30 @@ export const VoucherEntry = (props) => {
     </div>
   );
 };
+
+const validateVoucherCreation = (values) => {
+  const errors = {};
+  console.log("values:" + JSON.stringify(values));
+  if (values.vou_type == 5 && !values.employee) {
+    errors.employee = ["The Employee is required"];
+  }
+
+  if (!values.transactions || values.transactions.length == 0) {
+    errors.total_debit = ["Please Enter the Transactions"];
+  } else {
+    values.transactions.map((transaction) => {
+      (transaction == null &&
+        (errors.total_debit = ["Please add Transactions"])) ||
+        (!(transaction.dr || transaction.dr === 0) &&
+          (!transaction.cr || transaction.cr === 0) &&
+          (errors.total_debit = [
+            "Debit and Credit of a transaction cant be Zero",
+          ]));
+    });
+  }
+  return errors;
+};
+
 // const required = (message = 'Required') =>
 //   value => value ? undefined : message;
 const ra_required = [required()];
@@ -58,8 +82,8 @@ const segments = [
 const VoucherEntryForm = (props) => {
   const classes = useStyles();
   const initial = [
-    { coa: "1", dr: 0, cr: 0 },
-    { coa: "1", dr: 0, cr: 0 },
+    { coa: "", dr: 0, cr: 0 },
+    { coa: "", dr: 0, cr: 0 },
   ];
   const vou_types = [
     { id: 1, title: "Journal Voucher" },
@@ -73,13 +97,14 @@ const VoucherEntryForm = (props) => {
     return choice && `${choice.scode || ""} ${choice.code} ${choice.title}`;
   };
   const redirect = (basePath, id, data) => `/author/${data.author_id}/show`;
-  const calculateSum = (values) => {
-    console.log("transactions:" + JSON.stringify(values));
+  const calculateSum = (values, source, field) => {
     let sum = 0;
-
-    values.transactions.map((transaction) => (sum = sum + transaction.dr));
-    console.log(sum);
-    values.total_debit = sum;
+    if (values && values.transactions) {
+      values.transactions.map(
+        (transaction) => transaction && (sum = sum + transaction[field])
+      );
+      values[source] = sum;
+    }
     return sum;
   };
 
@@ -89,8 +114,8 @@ const VoucherEntryForm = (props) => {
       <TextInput
         disabled
         variant="standard"
-        source="total_debit"
-        value={calculateSum(values)}
+        source={props.source}
+        value={calculateSum(values, props.source, props.field)}
         {...props}
       />
     );
@@ -98,9 +123,11 @@ const VoucherEntryForm = (props) => {
 
   return (
     <FormWithRedirect
+      warnWhenUnsavedChanges
       redirect={redirect}
       display="flex"
-      sanitizeEmptyValues={false}
+      sanitizeEmptyValues
+      validate={validateVoucherCreation}
       {...props}
       render={(formProps) => (
         // here starts the custom form layout
@@ -207,8 +234,8 @@ const VoucherEntryForm = (props) => {
                           allowEmpty
                           label="Employee"
                           source="employee"
-                          optionText="value"
-                          list="suppliers"
+                          optionText="title"
+                          list="employees"
                           sort="title"
                           fullWidth
                           //className={classes.maxFixedWidth}
@@ -304,13 +331,8 @@ const VoucherEntryForm = (props) => {
                     </ArrayInput>
                   </Box>
                   <Grid item xs="12" align="right">
-                    <TotalInput />
-                    <TextInput
-                      disabled
-                      variant="standard"
-                      source="total_credit"
-                      initialValue={"0.00"}
-                    />
+                    <TotalInput source="total_debit" field="dr" />
+                    <TotalInput source="total_credit" field="cr" />
                   </Grid>
                 </Grid>
               </Grid>
