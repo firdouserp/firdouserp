@@ -55,9 +55,11 @@ const validateVoucherCreation = (values) => {
     errors.total_debit = ["Please Enter the Transactions"];
   } else {
     values.transactions.map((transaction) => {
-      (transaction == null &&
-        (errors.total_debit = ["Please add Transactions"])) ||
-        (!(transaction.dr || transaction.dr === 0) &&
+      (!transaction &&
+        (errors.total_debit = [
+          "Debit and Credit of a transaction cant be Zero",
+        ])) ||
+        ((!transaction.dr || transaction.dr === 0) &&
           (!transaction.cr || transaction.cr === 0) &&
           (errors.total_debit = [
             "Debit and Credit of a transaction cant be Zero",
@@ -82,8 +84,8 @@ const segments = [
 const VoucherEntryForm = (props) => {
   const classes = useStyles();
   const initial = [
-    { coa: "", dr: 0, cr: 0 },
-    { coa: "", dr: 0, cr: 0 },
+    { coa: "1", dr: 0, cr: 0 },
+    { coa: "1", dr: 0, cr: 0 },
   ];
   const vou_types = [
     { id: 1, title: "Journal Voucher" },
@@ -128,6 +130,7 @@ const VoucherEntryForm = (props) => {
       display="flex"
       sanitizeEmptyValues
       validate={validateVoucherCreation}
+      subscription={{ submitting: true }}
       {...props}
       render={(formProps) => (
         // here starts the custom form layout
