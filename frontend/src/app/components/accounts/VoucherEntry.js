@@ -12,7 +12,7 @@ import {
   SelectInput,
   SimpleFormIterator,
   TextInput,
-  useAuthenticated
+  useAuthenticated,
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
@@ -188,7 +188,7 @@ const VoucherEntryForm = (props) => {
                           list="suppliers"
                           sort="title"
                           fullWidth
-                        //className={classes.maxFixedWidth}
+                          //className={classes.maxFixedWidth}
                         />
                       </Box>
                       <Box display="flex">
@@ -280,6 +280,14 @@ const VoucherEntryForm = (props) => {
                       </SimpleFormIterator>
                     </ArrayInput>
                   </Box>
+                </Grid>
+                <Grid item xs="10" align="right">
+                  <TextInput
+                    disabled
+                    variant="standard"
+                    source="total"
+                    initialValue={"0.00"}
+                  />
                 </Grid>
               </Grid>
             </Box>

@@ -72,9 +72,6 @@ import {
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
 
-
-
-
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -248,6 +245,7 @@ const i18nProvider = polyglotI18nProvider((locale) => messages[locale], "en", {
 
 const App = () => (
   <Admin
+    disableTelemetry
     //i18nProvider={i18nProvider}
     customRoutes={customRoutes}
     theme={theme}
