@@ -1,11 +1,35 @@
-import { Box, Grid } from '@material-ui/core';
-import { ListItem } from 'material-ui/List';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import React, { Component } from 'react';
-class BookingConfirm extends Component {
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import * as React from 'react';
+import ReactToPrint from "react-to-print";
 
+export class BookingPrint extends React.Component {
+    render() {
+      
+        const { booking, schedule, step} = this.props;
+      return (
+        <div>
+          <ReactToPrint
+            trigger={() => {
+              // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
+              // to the root node of the returned component as it will be overwritten.
+              return <a href="#/accounts">Print this out!</a>;
+            }}
+            content={() => this.componentRef}
+          />
+          <BookingConfirm booking = {booking} schedule = {schedule} step = {3} ref={(el) => (this.componentRef = el)} />
+        </div>
+      );
+    }
+  }
+
+export class BookingConfirm extends React.Component {
+    
+
+    
 
     continue = e => {
         e.preventDefault();
@@ -20,169 +44,259 @@ class BookingConfirm extends Component {
     }
 
 
+   
 
     render() {
 
-        const { booking, schedule, step, } = this.props;
+        const { booking, schedule, step} = this.props;
+       // const classes = useStyles();
+
 
         if (step == 3) {
 
             return (
-                <MuiThemeProvider>
-                    <React.Fragment>
-                        <Box title="Confirm User Data" ></Box>
-                        <Grid>
-                            <Grid>
-                                <ListItem
-                                    primaryText="code"
-                                    secondaryText={booking.code} />
-                                <ListItem
-                                    primaryText="scode"
-                                    secondaryText={booking.scode} />
-                                <ListItem
-                                    primaryText="title"
-                                    secondaryText={booking.title} />
-                                <ListItem
-                                    primaryText="unit"
-                                    secondaryText={booking.unit} />
-                                <ListItem
-                                    primaryText="client"
-                                    secondaryText={booking.client} />
-                                <ListItem
-                                    primaryText="project"
-                                    secondaryText={booking.project} />
-                                <ListItem
-                                    primaryText="book_date"
-                                    secondaryText={booking.book_date} />
-                                <ListItem
-                                    primaryText="sale_price"
-                                    secondaryText={booking.sale_price} />
-                                <ListItem
-                                    primaryText="discount"
-                                    secondaryText={booking.discount} />
-                                <ListItem
-                                    primaryText="remarks"
-                                    secondaryText={booking.remarks} />
-                                <ListItem
-                                    primaryText="client_name"
-                                    secondaryText={booking.client_name} />
-                                <ListItem
-                                    primaryText="father_name"
-                                    secondaryText={booking.father_name} />
-                                <ListItem
-                                    primaryText="residential_address"
-                                    secondaryText={booking.residential_address} />
-                                <ListItem
-                                    primaryText="phone_no"
-                                    secondaryText={booking.phone_no} />
-                                <ListItem
-                                    primaryText="nationality"
-                                    secondaryText={booking.nationality} />
-                                <ListItem
-                                    primaryText="cnic"
-                                    secondaryText={booking.cnic} />
-                                <ListItem
-                                    primaryText="reference_off"
-                                    secondaryText={booking.reference_off} />
-                                <ListItem
-                                    primaryText="nominee_name"
-                                    secondaryText={booking.nominee_name} />
-                                <ListItem
-                                    primaryText="relation"
-                                    secondaryText={booking.relation} />
-                                <ListItem
-                                    primaryText="email"
-                                    secondaryText={booking.email} />
-                                <ListItem
-                                    primaryText="name"
-                                    secondaryText={schedule.name} />
-                                <ListItem
-                                    primaryText="date"
-                                    secondaryText={schedule.date} />
-                                <ListItem
-                                    primaryText="unit"
-                                    secondaryText={schedule.unit} />
-                                <ListItem
-                                    primaryText="type"
-                                    secondaryText={schedule.type} />
-                                <ListItem
-                                    primaryText="floor"
-                                    secondaryText={schedule.floor} />
-                                <ListItem
-                                    primaryText="block"
-                                    secondaryText={schedule.block} />
-                                <ListItem
-                                    primaryText="contact"
-                                    secondaryText={schedule.contact} />
-                                <ListItem
-                                    primaryText="total_cost"
-                                    secondaryText={schedule.total_cost} />
-                                <ListItem
-                                    primaryText="on_booking"
-                                    secondaryText={schedule.on_booking} />
-                                <ListItem
-                                    primaryText="on_allocation"
-                                    secondaryText={schedule.on_allocation} />
-                                <ListItem
-                                    primaryText="on_confirmation"
-                                    secondaryText={schedule.on_confirmation} />
-                                <ListItem
-                                    primaryText="on_start"
-                                    secondaryText={schedule.on_start} />
-                                <ListItem
-                                    primaryText="monthly_installment"
-                                    secondaryText={schedule.monthly_installment} />
-                                <ListItem
-                                    primaryText="quaterly_payment"
-                                    secondaryText={schedule.quaterly_payment} />
-
-                            </Grid>
+                      
+                <Card >
+                <CardContent>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <Typography variant="h6" gutterBottom>
+                                Booking Confirmation 
+                                    </Typography>
                         </Grid>
+                        <Grid item xs={6}>
+                            <Typography variant="h6" gutterBottom align="right">
+                            {/* <BookingPrint />  */}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} container alignContent="flex-end">
+                        <Typography variant="h6" gutterBottom>
+                                Booking Details
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <div >&nbsp;</div>
+                    <Grid container display = "flex" spacing={2}>
+                        <Grid item xs={6}>
+                            <Typography variant="h6" gutterBottom align="left">
+                                Date :{' '}  {new Date(booking.book_date).toLocaleDateString()} 
+                            </Typography>
+                            <Typography variant="h6" gutterBottom align="left">
+                                ID { } {(booking.id)}
+                            </Typography>
+                            <Typography variant="h6" gutterBottom align="left">
+                                Code {(booking.code)}
+                            </Typography>
+                             <Typography variant="h6" gutterBottom align="left">
+                                Scode {(booking.scode)}
+                            </Typography>
+                            <Typography variant="h6" gutterBottom align="left" >
+                                Title {(booking.title)} 
+                            </Typography>
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                Unit {(booking.unit)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Client {(booking.client)}
+                            </Typography>
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                Project {(booking.project)}
+                            </Typography>
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                Sale Price {(booking.sale_price)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Discount  {(booking.discount)}
+                            </Typography>
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                Active  {(booking.active)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Remarks {(booking.remarks)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Name  {(booking.name)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Father's Name  {(booking.father_name)}
+                            </Typography>
+                          
+                            <Typography variant="h6" gutterBottom align="left">
+                                Residential Address {(booking.residential_address)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Phone Number {(booking.phone_no)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Occupation  {(booking.occupation)}
+                            </Typography>
+                         
+                            <Typography variant="h6" gutterBottom align="left">
+                                Nationality  {(booking.nationality)}
+                            </Typography> 
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                CNIC  {(booking.cnic)}
+                            </Typography>
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                Reference Of {(booking.reference_off)}
+                            </Typography>
+                          
+                            <Typography variant="h6" gutterBottom align="left">
+                                Nominee's Name {(booking.nominee_name)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Realtion  {(booking.relation)}
+                            </Typography>
+                            <Typography variant="h6" gutterBottom align="left">
+                                Email  {(booking.email)}
+                            </Typography>
 
-                        <br />
-                        <div>
-                            <span className="print"
-                                onClick={this.print}>
-                                PRINT
-                            </span>
-                        </div>
-                        <br />
-                        <RaisedButton
-                            label="Confirm & Continue"
-                            primary={true}
-                            style={styles.button}
-                            onClick={this.continue}
-                        />
-                        <RaisedButton
-                            label="print"
-                            primary={true}
-                            style={styles.button}
-                            onClick={this.print}
-                        />
-                        <RaisedButton
-                            label="Back"
-                            primary={false}
-                            style={styles.button}
-                            onClick={this.back}
-                        />
+                        
+                        
+                            
 
+                            
+                           
+                        </Grid>
+                            <Grid item xs = {6}>
+                            <Typography variant="h6" gutterBottom align="left">
+                                Schedule Confirmation 
+                                    </Typography>
+                            <Typography variant="h6" gutterBottom align="left">
+                                ID :  {(schedule.id)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Name : {(schedule.name)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Date: {" "} {new Date(schedule.date).toLocaleDateString()}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Unit :{(schedule.unit)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Type : {(schedule.type)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                floor : {(schedule.floor)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                block : {(schedule.block)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Contact :  {(schedule.contact)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                total Cost : {(schedule.total_cost)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Booking : {(schedule.on_booking)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Allocation: {(schedule.on_allocation)}
+                            </Typography>
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Confirmation : {(schedule.on_confirmation)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Monthly Installment :  {(schedule.monthly_installment)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Start : {(schedule.on_start)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                Quaterly Payment : {(schedule.quaterly_payment)}
+                            </Typography>
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Excavation :  {(schedule.on_excavation)}
+                            </Typography>
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Foundaiton : {(schedule.on_foundation)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Slab :  {(schedule.on_slab)}
+                            </Typography>
+                          
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Block  : {(schedule.on_block)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Plaster : {(schedule.on_plaster)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Plumbing  :{(schedule.on_plumbing)}
+                            </Typography> 
+                           
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Coloring : {(schedule.on_coloring)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Finishing: {(schedule.on_finishing)}
+                            </Typography>
+                            
+                            <Typography variant="h6" gutterBottom align="left">
+                                On Possesion : {(schedule.on_posession)}
+                            </Typography>
+                            </Grid>
+                        
+                        
+                        
+                        </Grid>
+                      
 
+                        
+                  
 
-
-                    </React.Fragment>
-                </MuiThemeProvider>
+                    
+                </CardContent>
+               
+            </Card>
 
             )
-        }
-        else return null;
+    }
+       else return null;
     }
 }
-const styles = {
-    button: {
-        margin: 15
-    }
-}
+
+
 
 
 export default BookingConfirm;
+
 
