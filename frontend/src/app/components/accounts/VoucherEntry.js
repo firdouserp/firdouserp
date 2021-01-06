@@ -12,7 +12,7 @@ import {
   SelectInput,
   SimpleFormIterator,
   TextInput,
-  useAuthenticated,
+  useAuthenticated
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import { useLocation } from "react-router";
@@ -57,14 +57,24 @@ const validateVoucherCreation = (values) => {
     values.transactions.map((transaction) => {
       (!transaction &&
         (errors.total_debit = [
-          "Debit and Credit of a transaction cant be Zero",
+          "Please Enter the Transactions",
         ])) ||
+        (!transaction.coa &&
+          (errors.total_debit = [
+            "Please select transaction account",
+          ])) ||
         ((!transaction.dr || transaction.dr === 0) &&
           (!transaction.cr || transaction.cr === 0) &&
           (errors.total_debit = [
             "Debit and Credit of a transaction cant be Zero",
           ]));
     });
+  }
+
+  if (values.total_debit == 0 || values.total_credit == 0 || (values.total_debit != values.total_credit)) {
+    errors.total_debit = [
+      "Debit and Credit must be equal!",
+    ]
   }
   return errors;
 };
@@ -84,8 +94,8 @@ const segments = [
 const VoucherEntryForm = (props) => {
   const classes = useStyles();
   const initial = [
-    { coa: "1", dr: 0, cr: 0 },
-    { coa: "1", dr: 0, cr: 0 },
+    { coa: "", dr: 0, cr: 0 },
+    { coa: "", dr: 0, cr: 0 },
   ];
   const vou_types = [
     { id: 1, title: "Journal Voucher" },
@@ -130,7 +140,7 @@ const VoucherEntryForm = (props) => {
       display="flex"
       sanitizeEmptyValues
       validate={validateVoucherCreation}
-      subscription={{ submitting: true }}
+      subscription={{ submitting: true, valid: true, invalid: true }}
       {...props}
       render={(formProps) => (
         // here starts the custom form layout
@@ -241,7 +251,7 @@ const VoucherEntryForm = (props) => {
                           list="employees"
                           sort="title"
                           fullWidth
-                          //className={classes.maxFixedWidth}
+                        //className={classes.maxFixedWidth}
                         />
                       </Box>
                       <Box display="flex">
@@ -305,7 +315,7 @@ const VoucherEntryForm = (props) => {
                           source="coa"
                           sort="title"
                           optionText={optionRenderer}
-                          validate={ra_required}
+                          //validate={ra_required}
                           initialValue={1}
                           fullWidth
                           formClassName={classes.iteratorinput}
