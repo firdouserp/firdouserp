@@ -1,8 +1,8 @@
 import { Component, React } from "react";
 import ReactToPrint from "react-to-print";
-import { BookingConfirm } from "../booking/BookingConfirm";
+import { BookingConfirm } from "./BookingConfirm";
 
-class Example extends Component {
+class BookingPrint extends Component {
   render() {
     return (
       <div>
@@ -20,4 +20,4 @@ class Example extends Component {
   }
 }
 
-export default Example;
+export default BookingPrint;

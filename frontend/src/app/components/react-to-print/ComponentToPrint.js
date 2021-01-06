@@ -5,15 +5,11 @@ export class ComponentToPrint extends React.PureComponent {
     return (
       <table>
         <thead>
-          <th>column 1</th>
-          <th>column 2</th>
-          <th>column 3</th>
+          <th></th>
         </thead>
         <tbody>
           <tr>
-            <td>data 1</td>
-            <td>data 2</td>
-            <td>data 3</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
