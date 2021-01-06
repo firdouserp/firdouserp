@@ -14,9 +14,9 @@ import {
   TextInput,
   useAuthenticated,
 } from "react-admin";
+import { useFormState } from "react-final-form";
 import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
-
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -73,6 +73,29 @@ const VoucherEntryForm = (props) => {
     return choice && `${choice.scode || ""} ${choice.code} ${choice.title}`;
   };
   const redirect = (basePath, id, data) => `/author/${data.author_id}/show`;
+  const calculateSum = (values) => {
+    console.log("transactions:" + JSON.stringify(values));
+    let sum = 0;
+
+    values.transactions.map((transaction) => (sum = sum + transaction.dr));
+    console.log(sum);
+    values.total_debit = sum;
+    return sum;
+  };
+
+  const TotalInput = (props) => {
+    const { values } = useFormState();
+    return (
+      <TextInput
+        disabled
+        variant="standard"
+        source="total_debit"
+        value={calculateSum(values)}
+        {...props}
+      />
+    );
+  };
+
   return (
     <FormWithRedirect
       redirect={redirect}
@@ -280,14 +303,15 @@ const VoucherEntryForm = (props) => {
                       </SimpleFormIterator>
                     </ArrayInput>
                   </Box>
-                </Grid>
-                <Grid item xs="10" align="right">
-                  <TextInput
-                    disabled
-                    variant="standard"
-                    source="total"
-                    initialValue={"0.00"}
-                  />
+                  <Grid item xs="12" align="right">
+                    <TotalInput />
+                    <TextInput
+                      disabled
+                      variant="standard"
+                      source="total_credit"
+                      initialValue={"0.00"}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
             </Box>
