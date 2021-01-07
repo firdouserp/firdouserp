@@ -15,6 +15,7 @@ const notesRouter = require('./routes/notes.route');
 const vouchersRouter = require('./routes/vouchers.route');
 const bookingRouter = require('./routes/booking.route');
 const employeesRouter = require('./routes/employees.route');
+const scheduleRouter = require('./routes/schedule.route');
 
 // Init express
 const app = express();
@@ -28,14 +29,13 @@ app.use(cors());
 // Enable pre-flight
 app.options("*", cors());
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Expose-Headers", "X-Total-Count, Content-Range");
-    //   res.header('Content-Range','bytes : 0-9/*');
+ //   res.header('Content-Range','bytes : 0-9/*');
     next();
 });
-
 
 app.set('etag', false)
 const port = Number(process.env.PORT || 3331);
@@ -53,6 +53,7 @@ app.use(`/api/v1/noteslist`, notesRouter);
 app.use(`/api/v1/vouchers`, vouchersRouter);
 app.use(`/api/v1/booking`, bookingRouter);
 app.use(`/api/v1/employees`, employeesRouter);
+app.use(`/api/v1/schedule`, scheduleRouter);
 
 // 404 error
 app.all('*', (req, res, next) => {

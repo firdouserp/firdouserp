@@ -11,62 +11,74 @@ import {
   Layout,
   Login,
   Resource,
-  Sidebar,
+  Sidebar
 } from "react-admin";
 import "./App.css";
 import {
   BookingCreate,
   BookingEdit,
   BookingIcon,
-  BookingList,
+  BookingList
 } from "./app/components/booking";
 import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
 import {
   Coa_typeCreate,
   Coa_typeEdit,
   Coa_typeIcon,
-  Coa_typeList,
+  Coa_typeList
 } from "./app/components/coa_type";
 import Menu from "./app/components/CustomMenu";
 import customRoutes from "./app/components/customRoutes";
 import Dashboard from "./app/components/Dashboard";
+import {
+  EmployeesCreate,
+  EmployeesEdit,
+  EmployeesIcon,
+  EmployeesList
+} from "./app/components/employees";
 import MyAppBar from "./app/components/MyAppBar";
 import {
   NotesCreate,
   NotesEdit,
   NotesIcon,
-  NotesList,
+  NotesList
 } from "./app/components/notes";
 import {
   ProjectCreate,
   ProjectEdit,
   ProjectIcon,
-  ProjectList,
+  ProjectList
 } from "./app/components/projects";
+import {
+  ScheduleCreate,
+  ScheduleEdit,
+  ScheduleIcon,
+  ScheduleList
+} from "./app/components/schedule";
 import {
   StockCreate,
   StockEdit,
   StockIcon,
-  StockList,
+  StockList
 } from "./app/components/stock";
 import {
   SupplierCreate,
   SupplierEdit,
   SupplierIcon,
-  SupplierList,
+  SupplierList
 } from "./app/components/suppliers";
 import {
   UnitsCreate,
   UnitsEdit,
   UnitsIcon,
-  UnitsList,
+  UnitsList
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
 import {
   VouchersCreate,
   VouchersEdit,
   VouchersIcon,
-  VouchersList,
+  VouchersList
 } from "./app/components/vouchers";
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
@@ -317,6 +329,20 @@ const App = () => (
       create={BookingCreate}
       edit={BookingEdit}
       icon={BookingIcon}
+    />
+     <Resource
+      name="Employees"
+      list={EmployeesList}
+      create={EmployeesCreate}
+      edit={EmployeesEdit}
+      icon={EmployeesIcon}
+    />
+     <Resource
+      name="Schedule"
+      list={ScheduleList}
+      create={ScheduleCreate}
+      edit={ScheduleEdit}
+      icon={ScheduleIcon}
     />
 
     <Resource name="Users" list={UserList} />

@@ -2,7 +2,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { AutocompleteInput, Error, useQueryWithStore } from "react-admin";
 const FirdousSelect = ({ list, sort, filter = {}, ...props }) => {
   console.log(list, sort, filter);
-  const { data, loaded, error } = useQueryWithStore({
+  const { data, loading, error } = useQueryWithStore({
     type: "getList",
     resource: list,
     payload: {
@@ -12,7 +12,7 @@ const FirdousSelect = ({ list, sort, filter = {}, ...props }) => {
     },
   });
 
-  if (!loaded) {
+  if (loading) {
     return <CircularProgress />;
   }
   if (error) {

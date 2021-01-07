@@ -67,3 +67,30 @@ CREATE TABLE `firdouserp`.`vouchertypes` (
 
 ALTER TABLE `firdouserp`.`ledger` 
 ADD COLUMN `register_id` INT NOT NULL AFTER `id`;
+CREATE TABLE `firdouserp`.`schedule` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `date` DATE NULL,
+  `unit` VARCHAR(45) NULL,
+  `type` VARCHAR(45) NULL,
+  `floor` VARCHAR(45) NULL,
+  `block` VARCHAR(45) NULL,
+  `contact` INT NULL,
+  `total_cost` DECIMAL(50) NULL,
+  `on_booking` DECIMAL(45) NULL,
+  `on_allocation` DECIMAL(45) NULL,
+  `on_confirmation` DECIMAL(45) NULL,
+  `on_start` DECIMAL(45) NULL,
+  `monthly_installment` DECIMAL(45) NULL,
+  `quaterly_payment` DECIMAL(45) NULL,
+  `on_excavation` DECIMAL(45) NULL,
+  `on_foundation` DECIMAL(45) NULL,
+  `on_slab` DECIMAL(45) NULL,
+  `on_block` DECIMAL(45) NULL,
+  `on_plaster` DECIMAL(45) NULL,
+  `on_plumbing` DECIMAL(45) NULL,
+  `on_electric` DECIMAL(45) NULL,
+  `on_coloring` DECIMAL(45) NULL,
+  `on_finishing` DECIMAL(45) NULL,
+  `on_possesion` DECIMAL(45) NULL,
+  PRIMARY KEY (`id`));
