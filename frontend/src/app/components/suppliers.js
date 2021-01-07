@@ -60,9 +60,9 @@ export const SupplierEdit = props => {
     const classes = useStyles();
     return (
 
-        <Edit undoable={false} actions={<SupplierActions />} title={<SupplierTitle />} {...props}>
+        <Edit undoable={false} title={<SupplierTitle />} {...props}>
 
-            <SimpleForm variant="standard" margin="none">
+            <SimpleForm margin="none">
 
                 <TextInput disabled source="id" />
                 <TextInput source="code" formClassName={classes.inlineBlock} />
@@ -90,7 +90,7 @@ export const SupplierEdit = props => {
 };
 
 export const SupplierCreate = (props) => (
-    <Create actions={<SupplierActions />} title="New Suppier" {...props}>
+    <Create title="New Suppier" {...props}>
         <SimpleForm variant="standard">
             <TextInput source="code" />
             <TextInput source="scode" />

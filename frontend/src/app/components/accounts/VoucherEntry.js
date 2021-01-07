@@ -4,7 +4,7 @@ import {
   ArrayInput,
   Create,
   DateInput,
-  DeleteButton,
+
   FormWithRedirect,
   NumberInput,
   required,
@@ -71,11 +71,11 @@ const validateVoucherCreation = (values) => {
     });
   }
 
-  if (values.total_debit == 0 || values.total_credit == 0 || (values.total_debit != values.total_credit)) {
-    errors.total_debit = [
-      "Debit and Credit must be equal!",
-    ]
-  }
+  // if (values.total_debit == 0 || values.total_credit == 0 || (values.total_debit != values.total_credit)) {
+  //   errors.total_debit = [
+  //     "Debit and Credit must be equal!",
+  //   ]
+  // }
   return errors;
 };
 
@@ -192,17 +192,6 @@ const VoucherEntryForm = (props) => {
                       <Box display="flex">
                         <Box flex={1} mr="0.5em">
                           <FirdousSelect
-                            allowEmpty
-                            label="Vendor"
-                            list="suppliers"
-                            sort="title"
-                            source="supplier"
-                            optionText="title"
-                            fullWidth
-                          />
-                        </Box>
-                        <Box flex={1} ml="0.5em">
-                          <FirdousSelect
                             margin="none"
                             label="Project"
                             source="project"
@@ -214,6 +203,18 @@ const VoucherEntryForm = (props) => {
                             initialValue={1}
                           />
                         </Box>
+                        <Box flex={1} ml="0.5em">
+                          <FirdousSelect
+                            allowEmpty
+                            label="Vendor"
+                            list="suppliers"
+                            sort="title"
+                            source="supplier"
+                            optionText="title"
+                            fullWidth
+                          />
+                        </Box>
+
                       </Box>
                       <Box display="flex">
                         <Box flex={1} mr="0.5em">
@@ -289,7 +290,7 @@ const VoucherEntryForm = (props) => {
                         multiline
                         fullWidth
                       />
-                      <Box mt="1em" />
+
                     </Box>
                   </Grid>
                 </Grid>
@@ -352,12 +353,21 @@ const VoucherEntryForm = (props) => {
             </Box>
           </Box>
           <Toolbar>
-            <Box display="flex" justifyContent="space-between" width="100%">
-              <SaveButton
-                saving={formProps.saving}
-                handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-              />
-              <DeleteButton record={formProps.record} />
+            <Box display="flex" justifyContent="left" width="100%">
+              <Box mr="1em" >
+                <SaveButton
+                  saving={formProps.saving}
+                  handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                />
+              </Box>
+              <Box mr="1em" >
+                <SaveButton
+                  label="Save and Add"
+                  saving={formProps.saving}
+                  redirect={"edit"}
+                  handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                />
+              </Box>
             </Box>
           </Toolbar>
         </form>
