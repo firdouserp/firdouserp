@@ -24,7 +24,7 @@ const VouchersSearchFilter = (props) => (
 );
 
 export const VouchersList = props => (
-    <List filters={<VouchersSearchFilter />} {...props}>
+    <List empty={false} filters={<VouchersSearchFilter />} {...props}>
         {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
             <SimpleList
                 primaryText={record => record.title}

@@ -26,7 +26,7 @@ const BookingSearchFilter = (props) => (
 );
 
 export const BookingList = props => (
-    <List filters={<BookingSearchFilter />} {...props}>
+    <List empty={false} filters={<BookingSearchFilter />} {...props}>
         {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
             <SimpleList
                 primaryText={record => record.title}

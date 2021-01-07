@@ -4,7 +4,7 @@ import {
   ArrayInput,
   Create,
   DateInput,
-  DeleteButton,
+
   FormWithRedirect,
   NumberInput,
   required,
@@ -14,9 +14,9 @@ import {
   TextInput,
   useAuthenticated
 } from "react-admin";
+import { useFormState } from "react-final-form";
 import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
-
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -43,6 +43,42 @@ export const VoucherEntry = (props) => {
     </div>
   );
 };
+
+const validateVoucherCreation = (values) => {
+  const errors = {};
+  console.log("values:" + JSON.stringify(values));
+  if (values.vou_type == 5 && !values.employee) {
+    errors.employee = ["The Employee is required"];
+  }
+
+  if (!values.transactions || values.transactions.length == 0) {
+    errors.total_debit = ["Please Enter the Transactions"];
+  } else {
+    values.transactions.map((transaction) => {
+      (!transaction &&
+        (errors.total_debit = [
+          "Please Enter the Transactions",
+        ])) ||
+        (!transaction.coa &&
+          (errors.total_debit = [
+            "Please select transaction account",
+          ])) ||
+        ((!transaction.dr || transaction.dr === 0) &&
+          (!transaction.cr || transaction.cr === 0) &&
+          (errors.total_debit = [
+            "Debit and Credit of a transaction cant be Zero",
+          ]));
+    });
+  }
+
+  // if (values.total_debit == 0 || values.total_credit == 0 || (values.total_debit != values.total_credit)) {
+  //   errors.total_debit = [
+  //     "Debit and Credit must be equal!",
+  //   ]
+  // }
+  return errors;
+};
+
 // const required = (message = 'Required') =>
 //   value => value ? undefined : message;
 const ra_required = [required()];
@@ -58,8 +94,8 @@ const segments = [
 const VoucherEntryForm = (props) => {
   const classes = useStyles();
   const initial = [
-    { coa: "1", dr: 0, cr: 0 },
-    { coa: "1", dr: 0, cr: 0 },
+    { coa: "", dr: 0, cr: 0 },
+    { coa: "", dr: 0, cr: 0 },
   ];
   const vou_types = [
     { id: 1, title: "Journal Voucher" },
@@ -73,11 +109,38 @@ const VoucherEntryForm = (props) => {
     return choice && `${choice.scode || ""} ${choice.code} ${choice.title}`;
   };
   const redirect = (basePath, id, data) => `/author/${data.author_id}/show`;
+  const calculateSum = (values, source, field) => {
+    let sum = 0;
+    if (values && values.transactions) {
+      values.transactions.map(
+        (transaction) => transaction && (sum = sum + transaction[field])
+      );
+      values[source] = sum;
+    }
+    return sum;
+  };
+
+  const TotalInput = (props) => {
+    const { values } = useFormState();
+    return (
+      <TextInput
+        disabled
+        variant="standard"
+        source={props.source}
+        value={calculateSum(values, props.source, props.field)}
+        {...props}
+      />
+    );
+  };
+
   return (
     <FormWithRedirect
+      warnWhenUnsavedChanges
       redirect={redirect}
       display="flex"
-      sanitizeEmptyValues={false}
+      sanitizeEmptyValues
+      validate={validateVoucherCreation}
+      subscription={{ submitting: true, valid: true, invalid: true }}
       {...props}
       render={(formProps) => (
         // here starts the custom form layout
@@ -129,17 +192,6 @@ const VoucherEntryForm = (props) => {
                       <Box display="flex">
                         <Box flex={1} mr="0.5em">
                           <FirdousSelect
-                            allowEmpty
-                            label="Vendor"
-                            list="suppliers"
-                            sort="title"
-                            source="supplier"
-                            optionText="title"
-                            fullWidth
-                          />
-                        </Box>
-                        <Box flex={1} ml="0.5em">
-                          <FirdousSelect
                             margin="none"
                             label="Project"
                             source="project"
@@ -151,6 +203,18 @@ const VoucherEntryForm = (props) => {
                             initialValue={1}
                           />
                         </Box>
+                        <Box flex={1} ml="0.5em">
+                          <FirdousSelect
+                            allowEmpty
+                            label="Vendor"
+                            list="suppliers"
+                            sort="title"
+                            source="supplier"
+                            optionText="title"
+                            fullWidth
+                          />
+                        </Box>
+
                       </Box>
                       <Box display="flex">
                         <Box flex={1} mr="0.5em">
@@ -184,8 +248,8 @@ const VoucherEntryForm = (props) => {
                           allowEmpty
                           label="Employee"
                           source="employee"
-                          optionText="value"
-                          list="suppliers"
+                          optionText="title"
+                          list="employees"
                           sort="title"
                           fullWidth
                         //className={classes.maxFixedWidth}
@@ -226,7 +290,7 @@ const VoucherEntryForm = (props) => {
                         multiline
                         fullWidth
                       />
-                      <Box mt="1em" />
+
                     </Box>
                   </Grid>
                 </Grid>
@@ -252,7 +316,7 @@ const VoucherEntryForm = (props) => {
                           source="coa"
                           sort="title"
                           optionText={optionRenderer}
-                          validate={ra_required}
+                          //validate={ra_required}
                           initialValue={1}
                           fullWidth
                           formClassName={classes.iteratorinput}
@@ -280,17 +344,30 @@ const VoucherEntryForm = (props) => {
                       </SimpleFormIterator>
                     </ArrayInput>
                   </Box>
+                  <Grid item xs="12" align="right">
+                    <TotalInput source="total_debit" field="dr" />
+                    <TotalInput source="total_credit" field="cr" />
+                  </Grid>
                 </Grid>
               </Grid>
             </Box>
           </Box>
           <Toolbar>
-            <Box display="flex" justifyContent="space-between" width="100%">
-              <SaveButton
-                saving={formProps.saving}
-                handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-              />
-              <DeleteButton record={formProps.record} />
+            <Box display="flex" justifyContent="left" width="100%">
+              <Box mr="1em" >
+                <SaveButton
+                  saving={formProps.saving}
+                  handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                />
+              </Box>
+              <Box mr="1em" >
+                <SaveButton
+                  label="Save and Add"
+                  saving={formProps.saving}
+                  redirect={"edit"}
+                  handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                />
+              </Box>
             </Box>
           </Toolbar>
         </form>
