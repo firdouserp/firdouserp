@@ -34,11 +34,15 @@ class VouchersModel {
   findOne = async (params) => {
     const { columnSet, values } = multipleColumnSet(params);
 
-    const sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}
+    const sql = `SELECT id,voucher_date as vou_date,voucher_no as vou_no,voucher_type as vou_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}
         WHERE ${columnSet}`;
 
-    const result = await query(sql, [...values]);
 
+
+        
+    const result = await query(sql, [...values]);
+    const data = result[0];
+    data.push()
     return result[0];
   };
   //   {

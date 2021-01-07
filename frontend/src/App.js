@@ -11,21 +11,25 @@ import {
   Layout,
   Login,
   Resource,
-  Sidebar
+  Sidebar,
 } from "react-admin";
 import "./App.css";
+import {
+  VoucherEdit,
+  VoucherEntry,
+} from "./app/components/accounts/VoucherEntry";
 import {
   BookingCreate,
   BookingEdit,
   BookingIcon,
-  BookingList
+  BookingList,
 } from "./app/components/booking";
 import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
 import {
   Coa_typeCreate,
   Coa_typeEdit,
   Coa_typeIcon,
-  Coa_typeList
+  Coa_typeList,
 } from "./app/components/coa_type";
 import Menu from "./app/components/CustomMenu";
 import customRoutes from "./app/components/customRoutes";
@@ -34,52 +38,47 @@ import {
   EmployeesCreate,
   EmployeesEdit,
   EmployeesIcon,
-  EmployeesList
+  EmployeesList,
 } from "./app/components/employees";
 import MyAppBar from "./app/components/MyAppBar";
 import {
   NotesCreate,
   NotesEdit,
   NotesIcon,
-  NotesList
+  NotesList,
 } from "./app/components/notes";
 import {
   ProjectCreate,
   ProjectEdit,
   ProjectIcon,
-  ProjectList
+  ProjectList,
 } from "./app/components/projects";
 import {
   ScheduleCreate,
   ScheduleEdit,
   ScheduleIcon,
-  ScheduleList
+  ScheduleList,
 } from "./app/components/schedule";
 import {
   StockCreate,
   StockEdit,
   StockIcon,
-  StockList
+  StockList,
 } from "./app/components/stock";
 import {
   SupplierCreate,
   SupplierEdit,
   SupplierIcon,
-  SupplierList
+  SupplierList,
 } from "./app/components/suppliers";
 import {
   UnitsCreate,
   UnitsEdit,
   UnitsIcon,
-  UnitsList
+  UnitsList,
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
-import {
-  VouchersCreate,
-  VouchersEdit,
-  VouchersIcon,
-  VouchersList
-} from "./app/components/vouchers";
+import { VouchersIcon, VouchersList } from "./app/components/vouchers";
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
@@ -296,31 +295,35 @@ const App = () => (
       icon={StockIcon}
     />
     <Resource
-      name="Coa"
+      name="coa"
+      options={{ label: "Chart of Accounts", menu: "false" }}
       list={CoaList}
       create={CoaCreate}
       edit={CoaEdit}
       icon={CoaIcon}
     />
     <Resource
-      name="Coa_type"
+      name="coa_type"
+      options={{ label: "Account Types", menu: "false" }}
       list={Coa_typeList}
       create={Coa_typeCreate}
       edit={Coa_typeEdit}
       icon={Coa_typeIcon}
     />
     <Resource
-      name="Notes"
+      name="notes"
+      options={{ label: "Notes", menu: "false" }}
       list={NotesList}
       create={NotesCreate}
       edit={NotesEdit}
       icon={NotesIcon}
     />
     <Resource
-      name="Vouchers"
+      name="accounts/vouchers"
+      options={{ label: "Vouchers", menu: "false" }}
       list={VouchersList}
-      create={VouchersCreate}
-      edit={VouchersEdit}
+      create={VoucherEntry}
+      edit={VoucherEdit}
       icon={VouchersIcon}
     />
     <Resource
@@ -330,14 +333,14 @@ const App = () => (
       edit={BookingEdit}
       icon={BookingIcon}
     />
-     <Resource
+    <Resource
       name="Employees"
       list={EmployeesList}
       create={EmployeesCreate}
       edit={EmployeesEdit}
       icon={EmployeesIcon}
     />
-     <Resource
+    <Resource
       name="Schedule"
       list={ScheduleList}
       create={ScheduleCreate}

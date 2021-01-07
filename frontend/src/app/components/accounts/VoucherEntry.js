@@ -48,7 +48,7 @@ export const VoucherEdit = (props) => {
   const vou_type = useQuery("vou_type");
   return (
     <div>
-      <Edit basePath="vouchers" resource="vouchers">
+      <Edit {...props}>
         <VoucherEntryForm vou_type={vou_type} {...props} />
       </Edit>
     </div>

@@ -1,7 +1,15 @@
-import React from 'react';
-import { Error, Loading, useQueryWithStore } from 'react-admin';
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-const Label = props => {
+import React from "react";
+import { Error, Loading, useQueryWithStore } from "react-admin";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
+const Label = (props) => {
   const { x, y, value } = props;
 
   return (
@@ -21,9 +29,13 @@ const Label = props => {
 };
 const VouchersChart = () => {
   const { data, loading, error } = useQueryWithStore({
-    type: 'getList',
-    resource: 'vouchers/monthly',
-    payload: { pagination: { page: 1, perPage: 100 }, sort: { field: 'vou_date', order: 'DESC' }, filter: {} }
+    type: "getList",
+    resource: "accounts/vouchers/monthly",
+    payload: {
+      pagination: { page: 1, perPage: 100 },
+      sort: { field: "vou_date", order: "DESC" },
+      filter: {},
+    },
   });
 
   if (loading) return <Loading />;
@@ -31,7 +43,7 @@ const VouchersChart = () => {
   if (!data) return null;
 
   return (
-    <div style={{ width: "100%", height: '350px' }}>
+    <div style={{ width: "100%", height: "350px" }}>
       <ResponsiveContainer>
         <BarChart
           width={600}
@@ -43,12 +55,16 @@ const VouchersChart = () => {
           <XAxis dataKey="vou_date" />
           <YAxis />
           <Legend label="Vouchers Per Month" />
-          <Bar name="Vouchers this Month" label={<Label />} dataKey="count" fill="#8884d8" />
+          <Bar
+            name="Vouchers this Month"
+            label={<Label />}
+            dataKey="count"
+            fill="#8884d8"
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>
-  )
+  );
 };
 
-
-export default VouchersChart
+export default VouchersChart;
