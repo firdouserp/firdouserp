@@ -4,7 +4,7 @@ import {
   ArrayInput,
   Create,
   DateInput,
-
+  Edit,
   FormWithRedirect,
   NumberInput,
   required,
@@ -12,7 +12,7 @@ import {
   SelectInput,
   SimpleFormIterator,
   TextInput,
-  useAuthenticated
+  useAuthenticated,
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import { useLocation } from "react-router";
@@ -43,6 +43,17 @@ export const VoucherEntry = (props) => {
     </div>
   );
 };
+export const VoucherEdit = (props) => {
+  useAuthenticated();
+  const vou_type = useQuery("vou_type");
+  return (
+    <div>
+      <Edit basePath="vouchers" resource="vouchers">
+        <VoucherEntryForm vou_type={vou_type} {...props} />
+      </Edit>
+    </div>
+  );
+};
 
 const validateVoucherCreation = (values) => {
   const errors = {};
@@ -56,13 +67,9 @@ const validateVoucherCreation = (values) => {
   } else {
     values.transactions.map((transaction) => {
       (!transaction &&
-        (errors.total_debit = [
-          "Please Enter the Transactions",
-        ])) ||
+        (errors.total_debit = ["Please Enter the Transactions"])) ||
         (!transaction.coa &&
-          (errors.total_debit = [
-            "Please select transaction account",
-          ])) ||
+          (errors.total_debit = ["Please select transaction account"])) ||
         ((!transaction.dr || transaction.dr === 0) &&
           (!transaction.cr || transaction.cr === 0) &&
           (errors.total_debit = [
@@ -82,15 +89,24 @@ const validateVoucherCreation = (values) => {
 // const required = (message = 'Required') =>
 //   value => value ? undefined : message;
 const ra_required = [required()];
-const segments = [
-  { id: "compulsive", name: "Compulsive" },
-  { id: "collector", name: "Collector" },
-  { id: "ordered_once", name: "Ordered Once" },
-  { id: "regular", name: "Regular" },
-  { id: "returns", name: "Returns" },
-  { id: "reviewer", name: "Reviewer" },
-];
+const dateFormatter = (v) => {
+  // v is a `Date` object
+  if (!(v instanceof Date) || isNaN(v)) return;
+  const pad = "00";
+  const yy = v.getFullYear().toString();
+  const mm = (v.getMonth() + 1).toString();
+  const dd = v.getDate().toString();
+  return `${yy}-${(pad + mm).slice(-2)}-${(pad + dd).slice(-2)}`;
+};
 
+const dateParser = (v) => {
+  // v is a string of "YYYY-MM-DD" format
+  const match = /(\d{4})-(\d{2})-(\d{2})/.exec(v);
+  if (match === null) return;
+  const d = new Date(match[1], parseInt(match[2], 10) - 1, match[3]);
+  if (isNaN(d)) return;
+  return d;
+};
 const VoucherEntryForm = (props) => {
   const classes = useStyles();
   const initial = [
@@ -108,7 +124,7 @@ const VoucherEntryForm = (props) => {
   const optionRenderer = (choice) => {
     return choice && `${choice.scode || ""} ${choice.code} ${choice.title}`;
   };
-  const redirect = (basePath, id, data) => `/author/${data.author_id}/show`;
+  const redirect = (basePath, id, data) => `/vouchers/${data.vou_id}/show`;
   const calculateSum = (values, source, field) => {
     let sum = 0;
     if (values && values.transactions) {
@@ -179,7 +195,7 @@ const VoucherEntryForm = (props) => {
                         </Box>
                         <Box flex={1} ml="0.5em">
                           <DateInput
-                            initialValue={new Date()}
+                            //initialValue={new Date().toLocaleDateString()}
                             margin="none"
                             source="vou_date"
                             resource="vouchers"
@@ -214,7 +230,6 @@ const VoucherEntryForm = (props) => {
                             fullWidth
                           />
                         </Box>
-
                       </Box>
                       <Box display="flex">
                         <Box flex={1} mr="0.5em">
@@ -252,7 +267,7 @@ const VoucherEntryForm = (props) => {
                           list="employees"
                           sort="title"
                           fullWidth
-                        //className={classes.maxFixedWidth}
+                          //className={classes.maxFixedWidth}
                         />
                       </Box>
                       <Box display="flex">
@@ -279,6 +294,7 @@ const VoucherEntryForm = (props) => {
                       <TextInput
                         source="description"
                         resource="vouchers"
+                        validate={ra_required}
                         multiline
                         fullWidth
                       />
@@ -290,7 +306,6 @@ const VoucherEntryForm = (props) => {
                         multiline
                         fullWidth
                       />
-
                     </Box>
                   </Grid>
                 </Grid>
@@ -354,17 +369,18 @@ const VoucherEntryForm = (props) => {
           </Box>
           <Toolbar>
             <Box display="flex" justifyContent="left" width="100%">
-              <Box mr="1em" >
+              <Box mr="1em">
                 <SaveButton
                   saving={formProps.saving}
+                  redirect={"show"}
                   handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
                 />
               </Box>
-              <Box mr="1em" >
+              <Box mr="1em">
                 <SaveButton
                   label="Save and Add"
                   saving={formProps.saving}
-                  redirect={"edit"}
+                  redirect={"create"}
                   handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
                 />
               </Box>

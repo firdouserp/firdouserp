@@ -57,7 +57,7 @@ function SimplePaper() {
                 <Button
                   className={classes.JournalVoucher}
                   component={Link}
-                  to="/accounts/voucherentry?vou_type=1"
+                  to="/accounts/vouchers/create?vou_type=1"
                   size="large"
                   color="primary"
                 >
@@ -72,7 +72,7 @@ function SimplePaper() {
                 <Button
                   className={classes.PaymentVoucher}
                   component={Link}
-                  to="/accounts/voucherentry?vou_type=2"
+                  to="/accounts/vouchers/create?vou_type=2"
                   size="large"
                   color="primary"
                 >
@@ -87,7 +87,7 @@ function SimplePaper() {
                 <Button
                   className={classes.SalesVoucher}
                   component={Link}
-                  to="/accounts/voucherentry?vou_type=4"
+                  to="/accounts/vouchers/create?vou_type=4"
                   size="large"
                   color="primary"
                 >
@@ -102,7 +102,7 @@ function SimplePaper() {
                 <Button
                   className={classes.RecieptVoucher}
                   component={Link}
-                  to="/accounts/voucherentry?vou_type=3"
+                  to="/accounts/vouchers/create?vou_type=3"
                   size="large"
                   color="primary"
                 >
@@ -117,7 +117,7 @@ function SimplePaper() {
                 <Button
                   className={classes.SalaryVoucher}
                   component={Link}
-                  to="/accounts/voucherentry?vou_type=5"
+                  to="/accounts/vouchers/create?vou_type=5"
                   size="large"
                   color="primary"
                 >

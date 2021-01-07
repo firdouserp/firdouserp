@@ -59,3 +59,11 @@ CREATE TABLE IF NOT EXISTS user
   `email` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
 
+CREATE TABLE `firdouserp`.`vouchertypes` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(45) NOT NULL,
+  `ttile` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `firdouserp`.`ledger` 
+ADD COLUMN `register_id` INT NOT NULL AFTER `id`;
