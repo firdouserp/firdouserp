@@ -94,4 +94,10 @@ CREATE TABLE `firdouserp`.`schedule` (
   `on_possesion` DECIMAL(45) NULL,
   PRIMARY KEY (`id`));
 
+
+ALTER TABLE `firdouserp`.`ledger` 
+ADD COLUMN `register_id` INT NOT NULL AFTER `id`;
 CREATE OR REPLACE VIEW `view_vouno` AS select `temp`.`A` AS `Voucher`,max(`temp`.`D`) AS `MaxNo` from (select `ledger`.`vou_no` AS `Vou_No`,substr(`ledger`.`vou_no`,1,5) AS `A`,substr(`ledger`.`vou_no`,1,1) AS `B`,substr(`ledger`.`vou_no`,2,4) AS `C`,cast(substr(`ledger`.`vou_no`,7,4) as double) AS `D` from `ledger`) `temp` group by `temp`.`A`
+
+ALTER TABLE `firdouserp`.`units` 
+ADD COLUMN `project` INT NULL AFTER `active`;

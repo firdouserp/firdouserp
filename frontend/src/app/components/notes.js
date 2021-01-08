@@ -76,7 +76,6 @@ const NotesTitle = ({ record }) => {
 export const NotesEdit = (props) => (
   <Edit
     undoable={false}
-    actions={<NotesActions />}
     title={<NotesTitle />}
     {...props}
   >
@@ -103,7 +102,6 @@ export const NotesEdit = (props) => (
 export const NotesCreate = (props) => (
   <Create
     undoable={false}
-    actions={<NotesActions />}
     title="New Note"
     {...props}
   >

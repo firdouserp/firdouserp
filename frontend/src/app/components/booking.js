@@ -56,7 +56,7 @@ export const BookingEdit = (props) => {
     const classes = useStyles();
     return (
 
-        <Edit undoable={false} actions={<BookingActions />} title={<BookingTitle />} {...props}>
+        <Edit undoable={false}  title={<BookingTitle />} {...props}>
             <SimpleForm variant="standard" margin="none"    >
                 <TextInput disabled source="id" formClassName={classes.inlineBlock} />
                 <TextInput source="code" formClassName={classes.inlineBlock} />
@@ -89,7 +89,7 @@ export const BookingEdit = (props) => {
 };
 
 export const BookingCreate = (props) => (
-    <Create undoable={false} actions={<BookingActions />} title="New Booking" {...props}>
+    <Create undoable={false}  title="New Booking" {...props}>
         <SimpleForm variant="standard">
             <TextInput disabled source="id" />
             <TextInput source="code" />
