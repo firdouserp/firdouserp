@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Route } from "react-router-dom";
 import Accounts from "./accounts/Accounts";
-import BookingFormWizard from "./booking/BookingFormWizard";
 import { Userform } from "./react_form/Userform";
 
 export default [
@@ -9,5 +8,5 @@ export default [
   //<Route exact path="/accounts/vouchers/create" component={VoucherEntry} />,
   //<Route exact path="/accounts/voucherentry/:id" component={VoucherEdit} />,
   <Route exact path="/userform" component={Userform} />,
-  <Route exact path="/bookingform" component={BookingFormWizard} />,
+  //<Route exact path="/bookingform" component={BookingFormWizard} />,
 ];
