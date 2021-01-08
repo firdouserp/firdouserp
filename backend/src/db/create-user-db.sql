@@ -93,3 +93,7 @@ CREATE TABLE `firdouserp`.`schedule` (
   `on_finishing` DECIMAL(45) NULL,
   `on_possesion` DECIMAL(45) NULL,
   PRIMARY KEY (`id`));
+
+
+ALTER TABLE `firdouserp`.`ledger` 
+ADD COLUMN `register_id` INT NOT NULL AFTER `id`;

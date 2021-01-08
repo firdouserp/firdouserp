@@ -48,7 +48,7 @@ const ScheduleTitle = ({ record }) => {
 };
 
 export const ScheduleEdit = (props) => (
-    <Edit undoable={false} actions={<ScheduleActions />} title={<ScheduleTitle />} {...props}>
+    <Edit undoable={false}  title={<ScheduleTitle />} {...props}>
         <SimpleForm variant="standard" margin="none"    >
             <TextInput disabled source="id" />
             <TextInput source="name" />
@@ -80,7 +80,7 @@ export const ScheduleEdit = (props) => (
 );
 
 export const ScheduleCreate = (props) => (
-    <Create undoable={false} actions={<ScheduleActions />} title="New Schedule" {...props}>
+    <Create undoable={false}  title="New Schedule" {...props}>
         <SimpleForm variant="standard">
         <TextInput disabled source="id" />
             <TextInput source="name" />
