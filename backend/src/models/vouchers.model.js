@@ -114,7 +114,7 @@ class VouchersModel {
     chq_date,
     refno,
     description,
-    remark,
+    remarks,
     created_by,
     transactions,
     total_debit,
@@ -130,7 +130,7 @@ class VouchersModel {
       vou_no,
       vou_type,
       total_debit,
-      remark,
+      remarks,
       project,
       created_by,
       chq_no,
@@ -160,10 +160,10 @@ class VouchersModel {
         transaction.refno,
         transaction.chq_no,
         transaction.chq_date,
-        transaction.dr,
-        transaction.cr,
+        transaction.dr || 0,
+        transaction.cr || 0,
         description,
-        remark,
+        remarks,
       ]);
       console.log("srn:" + srno);
       console.log(sql);

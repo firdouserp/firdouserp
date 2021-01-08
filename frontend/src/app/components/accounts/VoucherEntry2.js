@@ -131,9 +131,9 @@ const VoucherEntryForm = (props) => {
       values.transactions.map(
         (transaction) =>
           transaction &&
-          (sum = parseFloat(sum) + parseFloat(transaction[field]))
+          (sum = parseFloat(sum || 0) + parseFloat(transaction[field] || 0))
       );
-      values[source] = parseFloat(sum);
+      values[source] = parseFloat(sum || 0);
     }
     return sum;
   };
@@ -144,7 +144,7 @@ const VoucherEntryForm = (props) => {
       <NumberInput
         disabled
         variant="standard"
-        source={parseFloat(props.source)}
+        source={parseFloat(props.source || 0)}
         value={calculateSum(values, props.source, props.field)}
         {...props}
       />
@@ -165,7 +165,15 @@ const VoucherEntryForm = (props) => {
         // here starts the custom form layout
         <form>
           <Box p="1em" style={{ border: "1px solid #e0e0e3" }}>
-            <Typography variant="h6" gutterBottom>
+            <Typography
+              // style={{
+              //   background: "#007eff",
+              //   color: "white",
+              //   padding: "8px",
+              // }}
+              variant="h6"
+              gutterBottom
+            >
               Voucher Entry {props.vou_type}
             </Typography>
 
