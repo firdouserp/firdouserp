@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@material-ui/core';
+import { Grid, useMediaQuery } from '@material-ui/core';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import * as React from "react";
@@ -54,21 +54,56 @@ const ProjectTitle = ({ record }) => {
 };
 
 export const ProjectEdit = (props) => (
-    <Edit undoable={false} actions={<ProjectActions />} title={<ProjectTitle />} {...props}>
-        <SimpleForm variant="standard" margin="none"    >
-            <TextInput disabled source="id" />
-            <TextInput source="code" />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ />
-            <TextInput multiline source="title" />
-            <TextInput source="location" />
-            <TextInput source="city" />
-            <TextInput source="client" />
-            <TextInput source="cost" />
-            <TextInput source="country" />
-            <TextInput source="nature" />
-            <TextInput source="remarks" />
-            <BooleanInput source="active" />
-        </SimpleForm>
+    <Edit undoable={false} title={<ProjectTitle />} {...props}>
+        
+        <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="scode" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="location" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="city" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="client" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="cost" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="country" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="nature" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="remarks" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>   
+    
     </Edit>
 );
 
@@ -84,20 +119,54 @@ export const ProjectCreate = (props) => {
     };
 
     return (
-        <Create actions={<ProjectActions />} title="New Project" {...props}>
-            <SimpleForm variant="standard">
-                <TextInput source="code" />
-                <TextInput source="scode" /*options={{ multiLine: true }}*/ />
-                <TextInput multiline source="title" />
-                <TextInput source="location" />
-                <TextInput source="city" />
-                <TextInput source="client" />
-                <TextInput source="cost" />
-                <TextInput source="country" />
-                <TextInput source="nature" />
-                <TextInput source="remarks" />
-                <BooleanInput source="active" />
-            </SimpleForm>
+        <Create  title="New Project" {...props}>
+              <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="scode" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="location" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="city" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="client" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="cost" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="country" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="nature" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="remarks" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>   
         </Create>
     )
 };

@@ -1,8 +1,8 @@
-import { useMediaQuery } from '@material-ui/core';
+import { Grid, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import StoreIcon from '@material-ui/icons/Store';
 import * as React from "react";
-import { Create, Datagrid, DateInput, DeleteButton, Edit, EditButton, Filter, List, ListButton, NumberInput, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
+import { Create, Datagrid, DateInput, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
 
 export const ScheduleIcon = StoreIcon;
 
@@ -49,64 +49,174 @@ const ScheduleTitle = ({ record }) => {
 
 export const ScheduleEdit = (props) => (
     <Edit undoable={false}  title={<ScheduleTitle />} {...props}>
-        <SimpleForm variant="standard" margin="none"    >
-            <TextInput disabled source="id" />
-            <TextInput source="name" />
-            <TextInput source="date" /*options={{ multiLine: true }}*/ />
-            <TextInput multiline source="unit" />
-            <TextInput source="type" />
-            <TextInput source="floor" />
-            <TextInput source="block" />
-            <TextInput source="contact" />
-            <TextInput source="total_cost" />
-            <TextInput source="on_booking" />
-            <TextInput source="on_confirmation" />
-            <TextInput source="on_allocation" />
-            <TextInput source="on_start" />
-            <TextInput source="monthly_installment" />
-            <TextInput source="quaterly_payment" />
-            <TextInput source="on_excavation" />
-            <TextInput source="on_foundation" />
-            <TextInput source="on_slab" />
-            <TextInput source="on_block" />
-            <TextInput source="on_plaster" />
-            <TextInput source="on_plumbing" />
-            <TextInput source="on_electric" />
-            <TextInput source="on_coloring" />
-            <TextInput source="on_finishing" />
-            <TextInput source="on_possesion" />
-        </SimpleForm>
+        <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="name" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <DateInput source="date" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="unit" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="type" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="floor" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="block" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="contact" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="total_cost" fullWidth />
+        </Grid> <Grid item xs={12} md={4}>
+          <TextInput source="on_booking" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_confirmation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_allocation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_start" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="monthly_installment" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="quaterly_payment" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_excavation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_foundation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_slab" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_block" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_plaster" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_plumbing" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_electric" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_finishing" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_possesion" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>   
     </Edit>
 );
 
 export const ScheduleCreate = (props) => (
     <Create undoable={false}  title="New Schedule" {...props}>
-        <SimpleForm variant="standard">
-        <TextInput disabled source="id" />
-            <TextInput source="name" />
-            <DateInput source="date" /*options={{ multiLine: true }}*/ />
-            <TextInput multiline source="unit" />
-            <TextInput source="type" />
-            <TextInput source="floor" />
-            <TextInput source="block" />
-            <NumberInput source="contact" />
-            <NumberInput source="total_cost" />
-            <NumberInput source="on_booking" />
-            <NumberInput source="on_confirmation" />
-            <NumberInput source="on_allocation" />
-            <NumberInput source="on_start" />
-            <NumberInput source="monthly_installment" />
-            <NumberInput source="quaterly_payment" />
-            <NumberInput source="on_excavation" />
-            <NumberInput source="on_foundation" />
-            <NumberInput source="on_slab" />
-            <NumberInput source="on_plaster" />
-            <TextInput source="on_block" />
-            <NumberInput source="on_plumbing" />
-            <NumberInput source="on_electric" />
-            <NumberInput source="on_coloring" />
-            <NumberInput source="on_finishing" />
-            <NumberInput source="on_possesion" />
-        </SimpleForm>
+          <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="name" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <DateInput source="date" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="unit" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="type" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="floor" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="block" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="contact" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="total_cost" fullWidth />
+        </Grid> <Grid item xs={12} md={4}>
+          <TextInput source="on_booking" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_confirmation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_allocation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_start" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="monthly_installment" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="quaterly_payment" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_excavation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_foundation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_slab" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_block" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_plaster" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_plumbing" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_electric" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_finishing" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="on_possesion" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>   
     </Create>
 );

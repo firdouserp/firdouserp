@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@material-ui/core';
+import { Grid, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import StoreIcon from '@material-ui/icons/Store';
 import * as React from "react";
@@ -50,39 +50,107 @@ const EmployeesTitle = ({ record }) => {
 };
 
 export const EmployeesEdit = (props) => (
-    <Edit undoable={false} actions={<EmployeesActions />} title={<EmployeesTitle />} {...props}>
-        <SimpleForm variant="standard" margin="none"    >
-            <TextInput disabled source="id" />
-            <TextInput source="code" />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ />
-            <TextInput multiline source="title" />
-            <TextInput source="designation" />
-            <TextInput source="grade" />
-            <TextInput source="department" />
-            <TextInput source="address" />
-            <TextInput source="city" />
-            <TextInput source="cnic" />
-            <TextInput source="remarks" />
-            <BooleanInput source="active" />
-        </SimpleForm>
+    <Edit undoable={false} title={<EmployeesTitle />} {...props}>
+        
+        <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="scode" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="designation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="grade" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="department" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="address" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="city" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="cnic" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="remarks" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>    
+        
     </Edit>
 );
 
 export const EmployeesCreate = (props) => (
-    <Create undoable={false} actions={<EmployeesActions />} title="New Employee" {...props}>
-        <SimpleForm variant="standard">
-            <TextInput disabled source="id" />
-            <TextInput source="code" />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ />
-            <TextInput multiline source="title" />
-            <TextInput source="designation" />
-            <TextInput source="grade" />
-            <TextInput source="department" />
-            <TextInput source="address" />
-            <TextInput source="city" />
-            <TextInput source="cnic" />
-            <TextInput source="remarks" />
-            <BooleanInput source="active" />
-        </SimpleForm>
+    <Create undoable={false} title="New Employee" {...props}>
+         <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="scode" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="designation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="grade" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="department" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="address" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="city" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="cnic" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="remarks" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>    
     </Create>
 );

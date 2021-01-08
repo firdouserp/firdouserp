@@ -48,7 +48,7 @@ const Coa_typeTitle = ({ record }) => {
 };
 
 export const Coa_typeEdit = (props) => (
-    <Edit undoable={false} actions={<Coa_typeActions />} title={<Coa_typeTitle />} {...props}>
+    <Edit undoable={false}  title={<Coa_typeTitle />} {...props}>
         <SimpleForm variant="standard" margin="none"    >
             <TextInput disabled source="id" />
             <TextInput source="code" />
@@ -58,7 +58,7 @@ export const Coa_typeEdit = (props) => (
 );
 
 export const Coa_typeCreate = (props) => (
-    <Create actions={<Coa_typeActions />} title="New Coa_type" {...props}>
+    <Create  title="New Coa_type" {...props}>
         <SimpleForm variant="standard">
             <TextInput disabled source="id" />
             <TextInput source="code" />

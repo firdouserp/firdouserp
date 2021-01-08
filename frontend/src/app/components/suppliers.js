@@ -1,4 +1,4 @@
-import { makeStyles, useMediaQuery } from '@material-ui/core';
+import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStation';
 import * as React from "react";
@@ -57,57 +57,143 @@ const SupplierTitle = ({ record }) => {
 };
 
 export const SupplierEdit = props => {
-    const classes = useStyles();
-    return (
-
+return(
         <Edit undoable={false} title={<SupplierTitle />} {...props}>
 
-            <SimpleForm margin="none">
+  
+<SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="scode" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="person" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="contact" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="address" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="country" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="city" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="email" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="fax" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="cnic" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="ntn" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="stn" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="businesstitle" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="nature" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
 
-                <TextInput disabled source="id" />
-                <TextInput source="code" formClassName={classes.inlineBlock} />
-                <TextInput source="scode" formClassName={classes.inlineBlock}/*options={{ multiLine: true }}*/ />
-                <TextInput multiline source="title" />
-                <TextInput source="person" formClassName={classes.inlineBlock} />
-                <TextInput source="contact" formClassName={classes.inlineBlock} />
-                <TextInput source="address" fullWidth />
-                <TextInput source="city" formClassName={classes.inlineBlock} />
-                <TextInput source="country" formClassName={classes.inlineBlock} />
+       
+        </Grid>
+        </SimpleForm>    
 
-                <TextInput source="email" formClassName={classes.inlineBlock} />
-                <TextInput source="fax" formClassName={classes.inlineBlock} />
-                <TextInput source="cnic" formClassName={classes.inlineBlock} />
-                <TextInput source="ntn" formClassName={classes.inlineBlock} />
-                <TextInput source="stn" formClassName={classes.inlineBlock} />
 
-                <TextInput source="businesstitle" />
-                <TextInput source="nature" />
-                <BooleanInput source="active" />
 
-            </SimpleForm >
         </Edit>
-    )
+)
 };
 
 export const SupplierCreate = (props) => (
     <Create title="New Suppier" {...props}>
-        <SimpleForm variant="standard">
-            <TextInput source="code" />
-            <TextInput source="scode" />
-            <TextInput multiline source="title" />
-            <TextInput source="person" />
-            <TextInput source="contact" />
-            <TextInput source="address" />
-            <TextInput source="city" />
-            <TextInput source="country" />
-            <TextInput source="email" />
-            <TextInput source="fax" />
-            <TextInput source="ntn" />
-            <TextInput source="stn" />
-            <TextInput source="cnic" />
-            <TextInput source="businesstitle" />
-            <TextInput source="nature" />
-            <BooleanInput source="active" />
-        </SimpleForm>
-    </Create>
+      <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="scode" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="person" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="contact" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="address" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="country" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="city" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="email" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="fax" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="cnic" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="ntn" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="stn" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="businesstitle" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="nature" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>  
+        </Create>  
+
 );

@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@material-ui/core';
+import { Grid, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import StoreIcon from '@material-ui/icons/Store';
 import * as React from "react";
@@ -51,35 +51,93 @@ const StockTitle = ({ record }) => {
 };
 
 export const StockEdit = (props) => (
-    <Edit undoable={false} actions={<StockActions />} title={<StockTitle />} {...props}>
-        <SimpleForm variant="standard" margin="none"    >
-            <TextInput disabled source="id" />
-            <TextInput source="code" />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ />
-            <TextInput multiline source="title" />
-            <TextInput source="uom" />
-            <TextInput source="qty" />
-            <TextInput source="avg_rate" />
-            <TextInput source="adv_cost" />
-            <TextInput source="remarks" />
-            <BooleanInput source="active" />
-        </SimpleForm>
+    <Edit undoable={false}  title={<StockTitle />} {...props}>
+           <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="scode" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="uom" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="qty" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="avg_rate" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="avg_cost" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="remarks" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>   
     </Edit>
 );
 
 export const StockCreate = (props) => (
-    <Create undoable={false} actions={<StockActions />} title="New Stock" {...props}>
-        <SimpleForm variant="standard">
-            <TextInput disabled source="id" />
-            <TextInput source="code" />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ />
-            <TextInput multiline source="title" />
-            <TextInput source="uom" />
-            <TextInput source="qty" />
-            <TextInput source="avg_rate" />
-            <TextInput source="adv_cost" />
-            <TextInput source="remarks" />
-            <BooleanInput source="active" />
-        </SimpleForm>
-    </Create>
+    <Create undoable={false} title="New Stock" {...props}>
+            <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    > 
+    <Grid container display="flex" fullWidth spacing={4}>
+    <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="scode" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid> 
+        <Grid item xs={12} md={4}>
+          <TextInput source="uom" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="qty" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="avg_rate" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="avg_cost" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="remarks" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
+
+       
+        </Grid>
+        </SimpleForm>   
+        </Create>
 );
