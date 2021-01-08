@@ -94,3 +94,5 @@ CREATE TABLE `firdouserp`.`schedule` (
   `on_finishing` DECIMAL(45) NULL,
   `on_possesion` DECIMAL(45) NULL,
   PRIMARY KEY (`id`));
+
+CREATE OR REPLACE VIEW `view_vouno` AS select `temp`.`A` AS `Voucher`,max(`temp`.`D`) AS `MaxNo` from (select `ledger`.`vou_no` AS `Vou_No`,substr(`ledger`.`vou_no`,1,5) AS `A`,substr(`ledger`.`vou_no`,1,1) AS `B`,substr(`ledger`.`vou_no`,2,4) AS `C`,cast(substr(`ledger`.`vou_no`,7,4) as double) AS `D` from `ledger`) `temp` group by `temp`.`A`
