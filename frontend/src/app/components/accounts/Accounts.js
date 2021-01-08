@@ -134,36 +134,6 @@ function SimplePaper() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} sm={4}>
-        <Grid container spacing={2} direction="column">
-          <Grid item xs={12} sm={6}>
-            <Paper className={classes.SalaryVoucher} variant="outlined" square>
-              <CardActions>
-                <Button
-                  className={classes.JournalVoucher}
-                  component={Link}
-                  to="/userform"
-                >
-                  User Form
-                </Button>
-              </CardActions>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Paper className={classes.SalaryVoucher} variant="outlined" square>
-              <CardActions>
-                <Button
-                  className={classes.JournalVoucher}
-                  component={Link}
-                  to="/bookingform"
-                >
-                  Booking Form
-                </Button>
-              </CardActions>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Grid>
     </Grid>
   );
 }
