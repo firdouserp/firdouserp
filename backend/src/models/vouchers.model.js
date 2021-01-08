@@ -33,14 +33,18 @@ class VouchersModel {
     return await query(sql, [...values]);
   };
   findOne = async (params) => {
-
     const { columnSet, values } = multipleColumnSet(params);
-    console.log(params)
-    let sql = `SELECT id,voucher_date as vou_date,voucher_no as vou_no,voucher_type as vou_type,amount,remarks,prepared_by,project_id as project,created_by,chq_no,chq_date FROM ${this.tableName}
-        WHERE ${columnSet}`;
+    //console.log(params);
+    //let sql = `SELECT id,voucher_date as vou_date,voucher_no as vou_no,voucher_type as vou_type,amount,remarks,prepared_by,project_id as project,created_by,chq_no,chq_date FROM ${this.tableName}
+    let sql =
+      `SELECT v.id,v.voucher_date as vou_date,v.voucher_no as vou_no,v.voucher_type as vou_type,v.remarks,v.prepared_by,v.created_by,l.chq_no,l.chq_date,l.description,l.supplier,l.project,l.employee,l.stock,l.unit from vouchers v,ledger l 
+        WHERE v.id=l.register_id 
+        AND v.id=` +
+      params["id"] +
+      ` group by l.register_id`;
     let result = await query(sql, [...values]);
     let data = result[0];
-    // let sql = `SELECT l.*,v.id as vou_id,v.amount,v.created_by,v.creation_date FROM firdouserp.vouchers as v inner join ledger as l 
+    // let sql = `SELECT l.*,v.id as vou_id,v.amount,v.created_by,v.creation_date FROM firdouserp.vouchers as v inner join ledger as l
     //             WHERE v.id=l.register_id
     //             AND v.id=`+ params['id'];
 
@@ -54,11 +58,11 @@ class VouchersModel {
     //   return data;
     // }
 
-
-    sql = `SELECT  * FROM LEDGER   WHERE register_id =` + data.id;
+    sql = `SELECT  * FROM LEDGER   WHERE register_id =` + params["id"];
     result = await query(sql);
-    data['transactions'] = result;
-    console.log(data);
+    //console.log("voucher get one : " + JSON.stringify(result));
+    data["transactions"] = result;
+    //console.log(data);
     return data;
   };
   //   {
@@ -139,7 +143,6 @@ class VouchersModel {
     //=========================================
     let srno = 0;
     for (let transaction of transactions) {
-
       const sql = `INSERT INTO ledger 
                     (register_id,vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
       const result = await query(sql, [
@@ -154,9 +157,9 @@ class VouchersModel {
         stock,
         unit,
         employee,
-        refno,
-        chq_no,
-        chq_date,
+        transaction.refno,
+        transaction.chq_no,
+        transaction.chq_date,
         transaction.dr,
         transaction.cr,
         description,
