@@ -119,7 +119,7 @@ class VouchersModel {
     vou_no = await this.newVoucherNumber(vou_type);
     console.log(vou_no);
     const sql = `INSERT INTO ${this.tableName} 
-        (voucher_date,voucher_no,voucher_type,amount,remarks,descriptions,project_id,created_by,chq_no,chq_date) VALUES (?,?,?,?,?,?,?,?,?)`;
+        (voucher_date,voucher_no,voucher_type,amount,remarks,project_id,created_by,chq_no,chq_date) VALUES (?,?,?,?,?,?,?,?,?)`;
     console.log(sql);
     const result = await query(sql, [
       vou_date,
@@ -137,9 +137,9 @@ class VouchersModel {
     //=========================================
     //LEDGER ENTRY OF VOUCHER
     //=========================================
-
+    let srno = 0;
     for (let transaction of transactions) {
-      let srno = 1;
+
       const sql = `INSERT INTO ledger 
                     (register_id,vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
       const result = await query(sql, [
@@ -147,7 +147,7 @@ class VouchersModel {
         vou_no,
         vou_date,
         vou_type,
-        srno,
+        ++srno,
         transaction.coa,
         supplier,
         project,
@@ -162,7 +162,7 @@ class VouchersModel {
         description,
         remark,
       ]);
-      srno = srno + 1;
+      console.log("srn:" + srno);
       console.log(sql);
     }
 
