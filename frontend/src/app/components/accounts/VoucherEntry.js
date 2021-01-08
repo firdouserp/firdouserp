@@ -129,9 +129,11 @@ const VoucherEntryForm = (props) => {
     let sum = 0;
     if (values && values.transactions) {
       values.transactions.map(
-        (transaction) => transaction && (sum = sum + transaction[field])
+        (transaction) =>
+          transaction &&
+          (sum = parseFloat(sum) + parseFloat(transaction[field]))
       );
-      values[source] = sum;
+      values[source] = parseFloat(sum);
     }
     return sum;
   };
@@ -139,10 +141,10 @@ const VoucherEntryForm = (props) => {
   const TotalInput = (props) => {
     const { values } = useFormState();
     return (
-      <TextInput
+      <NumberInput
         disabled
         variant="standard"
-        source={props.source}
+        source={parseFloat(props.source)}
         value={calculateSum(values, props.source, props.field)}
         {...props}
       />
@@ -201,6 +203,7 @@ const VoucherEntryForm = (props) => {
                             resource="vouchers"
                             validate={ra_required}
                             autoFocus
+                            pattern="\d{4}-\d{2}-\d{2}"
                             fullWidth
                           />
                         </Box>

@@ -11,17 +11,21 @@ import {
   Layout,
   Login,
   Resource,
-  Sidebar
+  Sidebar,
 } from "react-admin";
 import "./App.css";
+// import {
+//   VoucherEdit,
+//   VoucherEntry
+// } from "./app/components/accounts/VoucherEntry";
 import {
   VoucherEdit,
-  VoucherEntry
-} from "./app/components/accounts/VoucherEntry";
+  VoucherEntry,
+} from "./app/components/accounts/VoucherEntry2";
 import {
   BookingEdit,
   BookingIcon,
-  BookingList
+  BookingList,
 } from "./app/components/booking";
 import BookingFormWizard from "./app/components/booking/BookingFormWizard";
 import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
@@ -29,7 +33,7 @@ import {
   Coa_typeCreate,
   Coa_typeEdit,
   Coa_typeIcon,
-  Coa_typeList
+  Coa_typeList,
 } from "./app/components/coa_type";
 import Menu from "./app/components/CustomMenu";
 import customRoutes from "./app/components/customRoutes";
@@ -38,44 +42,44 @@ import {
   EmployeesCreate,
   EmployeesEdit,
   EmployeesIcon,
-  EmployeesList
+  EmployeesList,
 } from "./app/components/employees";
 import MyAppBar from "./app/components/MyAppBar";
 import {
   NotesCreate,
   NotesEdit,
   NotesIcon,
-  NotesList
+  NotesList,
 } from "./app/components/notes";
 import {
   ProjectCreate,
   ProjectEdit,
   ProjectIcon,
-  ProjectList
+  ProjectList,
 } from "./app/components/projects";
 import {
   ScheduleCreate,
   ScheduleEdit,
   ScheduleIcon,
-  ScheduleList
+  ScheduleList,
 } from "./app/components/schedule";
 import {
   StockCreate,
   StockEdit,
   StockIcon,
-  StockList
+  StockList,
 } from "./app/components/stock";
 import {
   SupplierCreate,
   SupplierEdit,
   SupplierIcon,
-  SupplierList
+  SupplierList,
 } from "./app/components/suppliers";
 import {
   UnitsCreate,
   UnitsEdit,
   UnitsIcon,
-  UnitsList
+  UnitsList,
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
 import { VouchersIcon, VouchersList } from "./app/components/vouchers";
