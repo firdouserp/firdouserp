@@ -4,6 +4,7 @@ const {
   multipleColumnSet,
   searchLikeColumnSet,
 } = require("../utils/common.utils");
+const { param } = require("express-validator");
 class VouchersModel {
   tableName = "vouchers";
   find = async (params = {}, range = {}, sort = {}) => {
@@ -32,18 +33,33 @@ class VouchersModel {
     return await query(sql, [...values]);
   };
   findOne = async (params) => {
+
     const { columnSet, values } = multipleColumnSet(params);
-
-    const sql = `SELECT id,voucher_date as vou_date,voucher_no as vou_no,voucher_type as vou_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}
+    console.log(params)
+    let sql = `SELECT id,voucher_date as vou_date,voucher_no as vou_no,voucher_type as vou_type,amount,remarks,prepared_by,project_id as project,created_by,chq_no,chq_date FROM ${this.tableName}
         WHERE ${columnSet}`;
+    let result = await query(sql, [...values]);
+    let data = result[0];
+    // let sql = `SELECT l.*,v.id as vou_id,v.amount,v.created_by,v.creation_date FROM firdouserp.vouchers as v inner join ledger as l 
+    //             WHERE v.id=l.register_id
+    //             AND v.id=`+ params['id'];
+
+    // let result = await query(sql, [...values]);
+    // if (result.length > 0) {
+    //   console.log(result)
+    //   let data = result[0];
+    //   let transactions = result.map(row => { row['coa'] })
+    //   data['transactions'] = transactions;
+    //   console.log(data)
+    //   return data;
+    // }
 
 
-
-        
-    const result = await query(sql, [...values]);
-    const data = result[0];
-    data.push()
-    return result[0];
+    sql = `SELECT  * FROM LEDGER   WHERE register_id =` + data.id;
+    result = await query(sql);
+    data['transactions'] = result;
+    console.log(data);
+    return data;
   };
   //   {
   //     "vou_type": "5",
@@ -121,9 +137,9 @@ class VouchersModel {
     //=========================================
     //LEDGER ENTRY OF VOUCHER
     //=========================================
-
+    let srno = 0;
     for (let transaction of transactions) {
-      let srno = 1;
+
       const sql = `INSERT INTO ledger 
                     (register_id,vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
       const result = await query(sql, [
@@ -131,7 +147,7 @@ class VouchersModel {
         vou_no,
         vou_date,
         vou_type,
-        srno,
+        ++srno,
         transaction.coa,
         supplier,
         project,
@@ -146,7 +162,7 @@ class VouchersModel {
         description,
         remark,
       ]);
-      srno = srno + 1;
+      console.log("srn:" + srno);
       console.log(sql);
     }
 

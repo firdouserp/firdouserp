@@ -65,8 +65,7 @@ CREATE TABLE `firdouserp`.`vouchertypes` (
   `ttile` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`));
 
-ALTER TABLE `firdouserp`.`ledger` 
-ADD COLUMN `register_id` INT NOT NULL AFTER `id`;
+
 CREATE TABLE `firdouserp`.`schedule` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
