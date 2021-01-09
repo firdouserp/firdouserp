@@ -276,7 +276,7 @@ const i18nProvider = polyglotI18nProvider((locale) => messages[locale], "en", {
 const App = () => (
   <Admin
     disableTelemetry
-    i18nProvider={i18nProvider}
+    //i18nProvider={i18nProvider}
     customRoutes={customRoutes}
     theme={theme}
     layout={MyLayout}
