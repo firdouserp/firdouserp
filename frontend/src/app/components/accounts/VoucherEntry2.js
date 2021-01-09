@@ -21,10 +21,36 @@ const useStyles = makeStyles({
     flexGrow: 1,
   },
   inlineBlock: { display: "inline-flex", marginRight: "1em", width: "40%" },
-  iteratorinput: { marginRight: "0.5em", width: "100%" },
-  iteratorinput50: { marginRight: "0.5em", width: "50%" },
+  iteratorinput: { marginRight: "0.5em", width: "40%" },
+  iteratorinput50: { marginRight: "0.5em", width: "20%" },
   maxFixedWidth: { maxWidth: "180px", boxSizing: "border-box" },
   fixedWidth: { width: "180px" },
+  BorderandBackgroundIter: {
+    border: "1px solid #ccc",
+    padding: "1em"
+  },
+  VoucherEntry: {
+    border: "1px solid #ccc"
+  },
+  BorderandBackground: {
+    border: "1px solid #ccc",
+    backgroundColor: "#1976d20f",
+    margin: "2px",
+    fontWeight: "bold",
+    MuiFormHelperText: {
+      contained: {
+        display: "none"
+      }
+    },
+    MuiFormControl: {
+      root: { border: "1px solid #ccc" }
+    },
+
+    MuiFilledInput: {
+      root: { backgroundColor: "#1976d20f" }
+
+    },
+  }
 });
 
 const validateVoucherCreation = (values) => {
@@ -118,13 +144,14 @@ export const VoucherEntryForm = ({ ...props }) => {
 
   return (
 
-    <SimpleForm
+    <SimpleForm className={classes.VoucherEntry}
       toolbar={<Toolbar alwaysEnableSaveButton />}
       /*warnWhenUnsavedChanges*/ validate={validateVoucherCreation} fullWidth {...props}>
       <Box display="flex" mb="1em" fullWidth justifyContent="space-between">
         <Typography
           variant="h6"
           gutterBottom
+          align="center"
         >
           Voucher Entry {props.vou_type}
         </Typography>
@@ -143,6 +170,7 @@ export const VoucherEntryForm = ({ ...props }) => {
             choices={vou_types}
             validate={ra_required}
             fullWidth
+            className={classes.BorderandBackground}
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
@@ -152,6 +180,7 @@ export const VoucherEntryForm = ({ ...props }) => {
             source="vou_no"
             //    resource="vouchers"
             fullWidth
+            className={classes.BorderandBackground}
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
@@ -164,6 +193,7 @@ export const VoucherEntryForm = ({ ...props }) => {
             autoFocus
             pattern="\d{4}-\d{2}-\d{2}"
             fullWidth
+            className={classes.BorderandBackground}
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
@@ -177,6 +207,8 @@ export const VoucherEntryForm = ({ ...props }) => {
             validate={ra_required}
             fullWidth
             initialValue={1}
+            className={classes.BorderandBackground}
+
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
@@ -189,6 +221,7 @@ export const VoucherEntryForm = ({ ...props }) => {
             source="supplier"
             optionText="title"
             fullWidth
+            className={classes.BorderandBackground}
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
@@ -201,6 +234,7 @@ export const VoucherEntryForm = ({ ...props }) => {
             list="units"
             sort="title"
             fullWidth
+            className={classes.BorderandBackground}
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
@@ -213,6 +247,7 @@ export const VoucherEntryForm = ({ ...props }) => {
             list="stock"
             sort="title"
             fullWidth
+            className={classes.BorderandBackground}
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
@@ -225,7 +260,29 @@ export const VoucherEntryForm = ({ ...props }) => {
             list="employees"
             sort="title"
             fullWidth
+            className={classes.BorderandBackground}
           //className={classes.maxFixedWidth}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <TextInput
+            margin="none"
+            label="Chq.no"
+            source="chq_no"
+            //resource="vouchers"
+            fullWidth
+            className={classes.BorderandBackground}
+
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <DateInput
+            margin="none"
+            label="Chq.date"
+            source="chq_date"
+            resource="vouchers"
+            fullWidth
+            className={classes.BorderandBackground}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -236,26 +293,19 @@ export const VoucherEntryForm = ({ ...props }) => {
             validate={ra_required}
             multiline
             fullWidth
+            className={classes.BorderandBackground}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextInput
-            margin="none"
-            label="Remarks"
-            source="remarks"
-            //resource="vouchers"
-            multiline
-            fullWidth
-          />
-        </Grid>
+
         <Grid item xs={12}>
-          <Box display="flex" flexGrow={2} minWidth="800px" width="100%">
+          <Box display="flex" flexGrow={2} minWidth="600px" width="100%">
             <ArrayInput
               initialValue={initial}
               //variant="standard"
               source="transactions"
               label="Transactions"
               fullWidth
+              className={classes.BorderandBackgroundIter}
 
             >
               <SimpleFormIterator fullWidth>
@@ -270,29 +320,21 @@ export const VoucherEntryForm = ({ ...props }) => {
                   //initialValue={1}
                   //resource="vouchers"
                   fullWidth
-                  formClassName={classes.iteratorinput50}
+                  formClassName={classes.iteratorinput}
+                  className={classes.BorderandBackground}
                 />
-
                 <TextInput
                   margin="none"
-                  label="Chq.no"
-                  source="chq_no"
+                  label="RefNo."
+                  source="refno"
                   //resource="vouchers"
                   fullWidth
                   formClassName={classes.iteratorinput50}
+                  className={classes.BorderandBackground}
                 />
-
-                <DateInput
-                  margin="none"
-                  label="Chq.date"
-                  source="chq_date"
-                  resource="vouchers"
-                  fullWidth
-                  formClassName={classes.iteratorinput50}
-                />
-
                 <NumberInput
                   formClassName={classes.iteratorinput50}
+                  className={classes.BorderandBackground}
                   label="Debit"
                   source="dr"
                   // resource="vouchers"
@@ -302,6 +344,7 @@ export const VoucherEntryForm = ({ ...props }) => {
 
                 <NumberInput
                   formClassName={classes.iteratorinput50}
+                  className={classes.BorderandBackground}
                   label="Credit"
                   source="cr"
                   //resource="vouchers"
@@ -313,9 +356,22 @@ export const VoucherEntryForm = ({ ...props }) => {
               </SimpleFormIterator>
             </ArrayInput>
           </Box>
-          <Grid item xs="12" align="right">
-            <TotalInput source="total_debit" field="dr" />
-            <TotalInput source="total_credit" field="cr" />
+          <Grid container display="flex" fullWidth>
+            <Grid item xs="6" align="right">
+              <TextInput
+                margin="none"
+                label="Remarks"
+                source="remarks"
+                //resource="vouchers"
+                multiline
+                fullWidth
+                className={classes.BorderandBackground}
+
+              /></Grid>
+            <Grid item xs="6" align="right" >
+              <TotalInput margin="none" source="total_debit" field="dr" />
+              <TotalInput margin="none" source="total_credit" field="cr" />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

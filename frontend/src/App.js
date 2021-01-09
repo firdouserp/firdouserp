@@ -99,14 +99,27 @@ const theme = createMuiTheme({
   sidebar: {
     //root:{backgroundColor: '#fff',}
   },
+  VoucherEntry: {
+    border: "1px solid #ccc",
 
+  },
   overrides: {
     MuiTableRow: {
       root: {
         height: 20,
       },
     },
+    MuiFormHelperText: {
+      contained: {
+        display: "none"
+      }
+    },
 
+
+    MuiFilledInput: {
+      root: { backgroundColor: "#1976d20f" }
+
+    },
     RaSidebar: {
       // boxShadow:
       //     "2px 0px 1px -1px rgba(0,0,0,0.2), 1px 0px 3px 0px rgba(0,0,0,0.1)",
@@ -178,6 +191,8 @@ const theme = createMuiTheme({
 
       }
     },
+
+
     MuiDivider: {
       light: { backgroundColor: "#6868681f" },
     },
