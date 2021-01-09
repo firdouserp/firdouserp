@@ -7,59 +7,59 @@ import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter,
 export const StockIcon = StoreIcon;
 
 export const StockActions = ({ basePath, data }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
-        {/* <ShowButton basePath={basePath} record={data} /> */}
-    </TopToolbar>
+  <TopToolbar>
+    <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
+    {/* <ShowButton basePath={basePath} record={data} /> */}
+  </TopToolbar>
 );
 
 const StockSearchFilter = (props) => (
 
-    <Filter {...props}>
-        <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
-        <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
-        <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
-    </Filter>
+  <Filter {...props}>
+    <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
+    <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
+    <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
+  </Filter>
 
 );
 
 export const StockList = props => (
-    <List filters={<StockSearchFilter />} {...props}>
-        {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
-            <SimpleList
-                primaryText={record => record.title}
-                secondaryText={record => `${record.code}`}
-                tertiaryText={record => record.id}
+  <List filters={<StockSearchFilter />} {...props}>
+    {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
+      <SimpleList
+        primaryText={record => record.title}
+        secondaryText={record => `${record.code}`}
+        tertiaryText={record => record.id}
 
-            />
-        ) : (
-                <Datagrid rowClick="edit">
-                    <TextField source="id" />
-                    <TextField source="code" />
-                    <TextField source="scode" />
-                    <TextField source="title" />
-                    <TextField source="remarks" />
-                    <TextField source="active" />
-                    <EditButton variant="contained" color="secondary" />
-                    <DeleteButton />
-                </Datagrid>)}
-    </List>
+      />
+    ) : (
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="code" />
+          <TextField source="scode" />
+          <TextField source="title" />
+          <TextField source="remarks" />
+          <TextField source="active" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>)}
+  </List>
 );
 
 const StockTitle = ({ record }) => {
-    return <span>Supplier {record ? `"${record.title}"` : ''}</span>;
+  return <span>Supplier {record ? `"${record.title}"` : ''}</span>;
 };
 
 export const StockEdit = (props) => (
-    <Edit undoable={false}  title={<StockTitle />} {...props}>
-           <SimpleForm
+  <Edit undoable={false} title={<StockTitle />} {...props}>
+    <SimpleForm
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
-    > 
-    <Grid container display="flex" fullWidth spacing={4}>
-    <Grid item xs={12} md={4}>
+    >
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={4}>
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -70,7 +70,7 @@ export const StockEdit = (props) => (
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput multiline source="title" fullWidth />
-        </Grid> 
+        </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="uom" fullWidth />
         </Grid>
@@ -90,22 +90,22 @@ export const StockEdit = (props) => (
           <BooleanInput source="active" fullWidth />
         </Grid>
 
-       
-        </Grid>
-        </SimpleForm>   
-    </Edit>
+
+      </Grid>
+    </SimpleForm>
+  </Edit>
 );
 
 export const StockCreate = (props) => (
-    <Create undoable={false} title="New Stock" {...props}>
-            <SimpleForm
+  <Create undoable={false} title="New Stock" {...props}>
+    <SimpleForm
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
-    > 
-    <Grid container display="flex" fullWidth spacing={4}>
-    <Grid item xs={12} md={4}>
+    >
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={4}>
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -116,7 +116,7 @@ export const StockCreate = (props) => (
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput multiline source="title" fullWidth />
-        </Grid> 
+        </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="uom" fullWidth />
         </Grid>
@@ -136,8 +136,8 @@ export const StockCreate = (props) => (
           <BooleanInput source="active" fullWidth />
         </Grid>
 
-       
-        </Grid>
-        </SimpleForm>   
-        </Create>
+
+      </Grid>
+    </SimpleForm>
+  </Create>
 );

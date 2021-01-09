@@ -1,21 +1,18 @@
-import { Box, Grid, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
 import * as React from "react";
 import {
   ArrayInput,
-  Create,
   DateInput,
-  Edit,
-  FormWithRedirect,
+
   NumberInput,
   required,
-  SaveButton,
   SelectInput,
+  SimpleForm,
   SimpleFormIterator,
   TextInput,
-  useAuthenticated,
+  Toolbar
 } from "react-admin";
 import { useFormState } from "react-final-form";
-import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
 const useStyles = makeStyles({
   root: {
@@ -27,33 +24,6 @@ const useStyles = makeStyles({
   maxFixedWidth: { maxWidth: "180px", boxSizing: "border-box" },
   fixedWidth: { width: "180px" },
 });
-
-export const useQuery = (queryParam) => {
-  const search = new URLSearchParams(useLocation().search);
-  return search.get(queryParam);
-};
-export const VoucherEntry = (props) => {
-  useAuthenticated();
-  const vou_type = useQuery("vou_type");
-  return (
-    <div>
-      <Create basePath="vouchers" resource="vouchers">
-        <VoucherEntryForm vou_type={vou_type} {...props} />
-      </Create>
-    </div>
-  );
-};
-export const VoucherEdit = (props) => {
-  useAuthenticated();
-  const vou_type = useQuery("vou_type");
-  return (
-    <div>
-      <Edit {...props}>
-        <VoucherEntryForm vou_type={vou_type} {...props} />
-      </Edit>
-    </div>
-  );
-};
 
 const validateVoucherCreation = (values) => {
   const errors = {};
@@ -77,17 +47,9 @@ const validateVoucherCreation = (values) => {
           ]));
     });
   }
-
-  // if (values.total_debit == 0 || values.total_credit == 0 || (values.total_debit != values.total_credit)) {
-  //   errors.total_debit = [
-  //     "Debit and Credit must be equal!",
-  //   ]
-  // }
   return errors;
 };
 
-// const required = (message = 'Required') =>
-//   value => value ? undefined : message;
 const ra_required = [required()];
 const dateFormatter = (v) => {
   // v is a `Date` object
@@ -107,12 +69,13 @@ const dateParser = (v) => {
   if (isNaN(d)) return;
   return d;
 };
-const VoucherEntryForm = (props) => {
+export const VoucherEntryForm = ({ ...props }) => {
   const classes = useStyles();
   const initial = [
     { coa: "", dr: 0, cr: 0 },
     { coa: "", dr: 0, cr: 0 },
   ];
+
   const vou_types = [
     { id: 1, title: "Journal Voucher" },
     { id: 2, title: "Payment Voucher" },
@@ -124,7 +87,7 @@ const VoucherEntryForm = (props) => {
   const optionRenderer = (choice) => {
     return choice && `${choice.scode || ""} ${choice.code} ${choice.title}`;
   };
-  const redirect = (basePath, id, data) => `/vouchers/${data.vou_id}/show`;
+
   const calculateSum = (values, source, field) => {
     let sum = 0;
     if (values && values.transactions) {
@@ -152,275 +115,206 @@ const VoucherEntryForm = (props) => {
   };
 
   return (
-    <FormWithRedirect
-      fullWidth
-      warnWhenUnsavedChanges
-      redirect={redirect}
-      display="flex"
-      sanitizeEmptyValues
-      validate={validateVoucherCreation}
-      subscription={{ submitting: true, valid: true, invalid: true }}
-      {...props}
-      render={(formProps) => (
-        // here starts the custom form layout
-        <form>
-          <Box p="1em" style={{ border: "1px solid #e0e0e3" }}>
-            <Typography
-              // style={{
-              //   background: "#007eff",
-              //   color: "white",
-              //   padding: "8px",
-              // }}
-              variant="h6"
-              gutterBottom
+
+    <SimpleForm
+      toolbar={<Toolbar alwaysEnableSaveButton />}
+      warnWhenUnsavedChanges validate={validateVoucherCreation} fullWidth {...props}>
+
+      <Typography
+        variant="h6"
+        gutterBottom
+      >
+        Voucher Entry {props.vou_type}
+      </Typography>
+
+      <Grid container fullWidth spacing={1} display="flex">
+        <Grid pr={8} item xs={12} sm={4} md={3}>
+          <SelectInput
+            margin="none"
+            label="Voucher Type"
+            source="vou_type"
+            initialValue={props.vou_type}
+            optionText="title"
+            optionValue="id"
+            choices={vou_types}
+            validate={ra_required}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <TextInput
+            margin="none"
+            disabled
+            source="vou_no"
+            //    resource="vouchers"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <DateInput
+            //initialValue={new Date().toLocaleDateString()}
+            margin="none"
+            source="vou_date"
+            //resource="vouchers"
+            validate={ra_required}
+            autoFocus
+            pattern="\d{4}-\d{2}-\d{2}"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            label="Project"
+            source="project"
+            optionText="title"
+            list="projects"
+            sort="title"
+            validate={ra_required}
+            fullWidth
+            initialValue={1}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            allowEmpty
+            label="Vendor"
+            list="suppliers"
+            sort="title"
+            source="supplier"
+            optionText="title"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            allowEmpty
+            label="Unit"
+            source="unit"
+            optionText="title"
+            list="units"
+            sort="title"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            allowEmpty
+            label="Stock"
+            source="stock"
+            optionText="title"
+            list="stock"
+            sort="title"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            allowEmpty
+            label="Employee"
+            source="employee"
+            optionText="title"
+            list="employees"
+            sort="title"
+            fullWidth
+          //className={classes.maxFixedWidth}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextInput
+            margin="none"
+            source="description"
+            //resource="vouchers"
+            validate={ra_required}
+            multiline
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextInput
+            margin="none"
+            label="Remarks"
+            source="remarks"
+            //resource="vouchers"
+            multiline
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Box display="flex" flexGrow={2} minWidth="800px" width="100%">
+            <ArrayInput
+              initialValue={initial}
+              //variant="standard"
+              source="transactions"
+              label="Transactions"
+              fullWidth
+
             >
-              Voucher Entry {props.vou_type}
-            </Typography>
-
-            <Grid container fullWidth spacing={2} display="flex">
-              <Grid item xs={12} sm={4} md={3}>
-                <SelectInput
-                  margin="none"
-                  label="Voucher Type"
-                  source="vou_type"
-                  initialValue={props.vou_type}
-                  optionText="title"
-                  optionValue="id"
-                  choices={vou_types}
-                  validate={ra_required}
+              <SimpleFormIterator fullWidth>
+                <FirdousSelect
+                  resettable
+                  label="Account"
+                  list="coa"
+                  source="coa"
+                  sort="title"
+                  optionText={optionRenderer}
+                  //validate={ra_required}
+                  //initialValue={1}
+                  //resource="vouchers"
                   fullWidth
+                  formClassName={classes.iteratorinput50}
                 />
-              </Grid>
-              <Grid item xs={12} sm={4} md={3}>
+
                 <TextInput
                   margin="none"
-                  disabled
-                  source="vou_no"
-                  resource="vouchers"
+                  label="Chq.no"
+                  source="chq_no"
+                  //resource="vouchers"
                   fullWidth
+                  formClassName={classes.iteratorinput50}
                 />
-              </Grid>
-              <Grid item xs={12} sm={4} md={3}>
+
                 <DateInput
-                  //initialValue={new Date().toLocaleDateString()}
                   margin="none"
-                  source="vou_date"
+                  label="Chq.date"
+                  source="chq_date"
                   resource="vouchers"
-                  validate={ra_required}
-                  autoFocus
-                  pattern="\d{4}-\d{2}-\d{2}"
                   fullWidth
+                  formClassName={classes.iteratorinput50}
                 />
-              </Grid>
-              <Grid item xs={12} sm={4} md={3}>
-                <FirdousSelect
-                  margin="none"
-                  label="Project"
-                  source="project"
-                  optionText="title"
-                  list="projects"
-                  sort="title"
-                  validate={ra_required}
-                  fullWidth
-                  initialValue={1}
-                />
-              </Grid>
-              <Grid item xs={12} sm={4} md={3}>
-                <FirdousSelect
-                  margin="none"
-                  allowEmpty
-                  label="Vendor"
-                  list="suppliers"
-                  sort="title"
-                  source="supplier"
-                  optionText="title"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={4} md={3}>
-                <FirdousSelect
-                  margin="none"
-                  allowEmpty
-                  label="Unit"
-                  source="unit"
-                  optionText="title"
-                  list="units"
-                  sort="title"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={4} md={3}>
-                <FirdousSelect
-                  margin="none"
-                  allowEmpty
-                  label="Stock"
-                  source="stock"
-                  optionText="title"
-                  list="stock"
-                  sort="title"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={4} md={3}>
-                <FirdousSelect
-                  margin="none"
-                  allowEmpty
-                  label="Employee"
-                  source="employee"
-                  optionText="title"
-                  list="employees"
-                  sort="title"
-                  fullWidth
-                  //className={classes.maxFixedWidth}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextInput
-                  margin="none"
-                  source="description"
-                  resource="vouchers"
-                  validate={ra_required}
-                  multiline
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextInput
-                  margin="none"
-                  label="Remarks"
-                  source="remarks"
-                  resource="vouchers"
-                  multiline
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Box display="flex" flexGrow={2} minWidth="800px" width="100%">
-                  <ArrayInput
-                    initialValue={initial}
-                    //variant="standard"
-                    source="transactions"
-                    label="Transactions"
-                    fullWidth
-                  >
-                    <SimpleFormIterator fullWidth>
-                      <FirdousSelect
-                        resettable
-                        label="Account"
-                        list="coa"
-                        source="coa"
-                        sort="title"
-                        optionText={optionRenderer}
-                        //validate={ra_required}
-                        initialValue={1}
-                        fullWidth
-                        formClassName={classes.iteratorinput}
-                      />
-                      <TextInput
-                        margin="none"
-                        label="Ref.no"
-                        source="refno"
-                        fullWidth
-                        formClassName={classes.iteratorinput50}
-                      />
 
-                      <TextInput
-                        margin="none"
-                        label="Chq.no"
-                        source="chq_no"
-                        resource="vouchers"
-                        fullWidth
-                        formClassName={classes.iteratorinput50}
-                      />
+                <NumberInput
+                  formClassName={classes.iteratorinput50}
+                  label="Debit"
+                  source="dr"
+                  // resource="vouchers"
+                  //validate={ra_required}
+                  fullWidth
+                />
 
-                      <DateInput
-                        margin="none"
-                        label="Chq.date"
-                        source="chq_date"
-                        resource="vouchers"
-                        fullWidth
-                        formClassName={classes.iteratorinput50}
-                      />
+                <NumberInput
+                  formClassName={classes.iteratorinput50}
+                  label="Credit"
+                  source="cr"
+                  //resource="vouchers"
+                  //validate={ra_required}
+                  fullWidth
+                />
 
-                      <NumberInput
-                        formClassName={classes.iteratorinput50}
-                        label="Debit"
-                        source="dr"
-                        resource="vouchers"
-                        //validate={ra_required}
-                        fullWidth
-                      />
-
-                      <NumberInput
-                        formClassName={classes.iteratorinput50}
-                        label="Credit"
-                        source="cr"
-                        resource="vouchers"
-                        //validate={ra_required}
-                        fullWidth
-                      />
-
-                      {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
-                    </SimpleFormIterator>
-                  </ArrayInput>
-                </Box>
-                <Grid item xs="12" align="right">
-                  <TotalInput source="total_debit" field="dr" />
-                  <TotalInput source="total_credit" field="cr" />
-                </Grid>
-              </Grid>
-            </Grid>
+                {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
+              </SimpleFormIterator>
+            </ArrayInput>
           </Box>
-          <Toolbar>
-            <Box display="flex" justifyContent="left" width="100%">
-              <Box mr="1em">
-                <SaveButton
-                  saving={formProps.saving}
-                  redirect={"show"}
-                  handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-                />
-              </Box>
-              <Box mr="1em">
-                <SaveButton
-                  label="Save and Add"
-                  saving={formProps.saving}
-                  redirect={"create"}
-                  handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-                />
-              </Box>
-            </Box>
-          </Toolbar>
-        </form>
-      )}
-    />
+          <Grid item xs="12" align="right">
+            <TotalInput source="total_debit" field="dr" />
+            <TotalInput source="total_credit" field="cr" />
+          </Grid>
+        </Grid>
+      </Grid>
+    </SimpleForm>
   );
 };
-
-// the parent component (Edit or Create) injects these props to their child
-// const VisitorForm = ({ basePath, record, save, saving, version }) => {
-//     const submit = values => {
-//         // React-final-form removes empty values from the form state.
-//         // To allow users to *delete* values, this must be taken into account
-//         save(sanitizeEmptyValues(record, values));
-//     };
-//     return (
-//         <Form
-//             initialValues={record}
-//             onSubmit={submit}
-//             mutators={{ ...arrayMutators }} // necessary for ArrayInput
-//             subscription={defaultSubscription} // don't redraw entire form each time one field changes
-//             key={version} // support for refresh button
-//             keepDirtyOnReinitialize
-//             render={formProps => (
-
-//                 <TextInput source="id"></TextInput>
-//             )}
-//         />
-//     );
-// };
-// const defaultSubscription = {
-//     submitting: true,
-//     pristine: true,
-//     valid: true,
-//     invalid: true,
-// };

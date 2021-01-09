@@ -7,56 +7,56 @@ import { Create, Datagrid, DateInput, DeleteButton, Edit, EditButton, Filter, Li
 export const ScheduleIcon = StoreIcon;
 
 export const ScheduleActions = ({ basePath, data }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
-        {/* <ShowButton basePath={basePath} record={data} /> */}
-    </TopToolbar>
+  <TopToolbar>
+    <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
+    {/* <ShowButton basePath={basePath} record={data} /> */}
+  </TopToolbar>
 );
 
 const ScheduleSearchFilter = (props) => (
 
-    <Filter {...props}>
-        <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
-        <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
-        <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
-    </Filter>
+  <Filter {...props}>
+    <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
+    <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
+    <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
+  </Filter>
 
 );
 
 export const ScheduleList = props => (
-    <List filters={<ScheduleSearchFilter />} {...props}>
-        {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
-            <SimpleList
-                primaryText={record => record.title}
-                secondaryText={record => `${record.code}`}
-                tertiaryText={record => record.id}
+  <List filters={<ScheduleSearchFilter />} {...props}>
+    {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
+      <SimpleList
+        primaryText={record => record.title}
+        secondaryText={record => `${record.code}`}
+        tertiaryText={record => record.id}
 
-            />
-        ) : (
-                <Datagrid rowClick="edit">
-                    <TextField source="id" />
-                    <TextField source="name" />
-                    <TextField source="contact" />
-                    <EditButton variant="contained" color="secondary" />
-                    <DeleteButton />
-                </Datagrid>)}
-    </List>
+      />
+    ) : (
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="name" />
+          <TextField source="contact" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>)}
+  </List>
 );
 
 const ScheduleTitle = ({ record }) => {
-    return <span>Schedule {record ? `"${record.title}"` : ''}</span>;
+  return <span>Schedule {record ? `"${record.title}"` : ''}</span>;
 };
 
 export const ScheduleEdit = (props) => (
-    <Edit undoable={false}  title={<ScheduleTitle />} {...props}>
-        <SimpleForm
+  <Edit undoable={false} title={<ScheduleTitle />} {...props}>
+    <SimpleForm
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
-    > 
-    <Grid container display="flex" fullWidth spacing={4}>
-    <Grid item xs={12} md={4}>
+    >
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={4}>
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -67,7 +67,7 @@ export const ScheduleEdit = (props) => (
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="unit" fullWidth />
-        </Grid> 
+        </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="type" fullWidth />
         </Grid>
@@ -128,22 +128,22 @@ export const ScheduleEdit = (props) => (
           <TextInput source="on_possesion" fullWidth />
         </Grid>
 
-       
-        </Grid>
-        </SimpleForm>   
-    </Edit>
+
+      </Grid>
+    </SimpleForm>
+  </Edit>
 );
 
 export const ScheduleCreate = (props) => (
-    <Create undoable={false}  title="New Schedule" {...props}>
-          <SimpleForm
+  <Create undoable={false} title="New Schedule" {...props}>
+    <SimpleForm
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
-    > 
-    <Grid container display="flex" fullWidth spacing={4}>
-    <Grid item xs={12} md={4}>
+    >
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={4}>
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -154,7 +154,7 @@ export const ScheduleCreate = (props) => (
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="unit" fullWidth />
-        </Grid> 
+        </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="type" fullWidth />
         </Grid>
@@ -215,8 +215,8 @@ export const ScheduleCreate = (props) => (
           <TextInput source="on_possesion" fullWidth />
         </Grid>
 
-       
-        </Grid>
-        </SimpleForm>   
-    </Create>
+
+      </Grid>
+    </SimpleForm>
+  </Create>
 );

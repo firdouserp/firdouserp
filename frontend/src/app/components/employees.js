@@ -2,64 +2,64 @@ import { Grid, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import StoreIcon from '@material-ui/icons/Store';
 import * as React from "react";
-import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
+import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, ReferenceInput, SearchInput, SelectInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
 
 export const EmployeesIcon = StoreIcon;
 
 export const EmployeesActions = ({ basePath, data }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
-        {/* <ShowButton basePath={basePath} record={data} /> */}
-    </TopToolbar>
+  <TopToolbar>
+    <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
+    {/* <ShowButton basePath={basePath} record={data} /> */}
+  </TopToolbar>
 );
 
 const EmployeesSearchFilter = (props) => (
 
-    <Filter {...props}>
-        <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
-        <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
-        <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
-    </Filter>
+  <Filter {...props}>
+    <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
+    <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
+    <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
+  </Filter>
 
 );
 
 export const EmployeesList = props => (
-    <List filters={<EmployeesSearchFilter />} {...props}>
-        {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
-            <SimpleList
-                primaryText={record => record.title}
-                secondaryText={record => `${record.code}`}
-                tertiaryText={record => record.id}
+  <List filters={<EmployeesSearchFilter />} {...props}>
+    {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
+      <SimpleList
+        primaryText={record => record.title}
+        secondaryText={record => `${record.code}`}
+        tertiaryText={record => record.id}
 
-            />
-        ) : (
-                <Datagrid rowClick="edit">
-                    <TextField source="id" />
-                    <TextField source="code" />
-                    <TextField source="scode" />
-                    <TextField source="title" />
-                    <TextField source="remarks" />
-                    <EditButton variant="contained" color="secondary" />
-                    <DeleteButton />
-                </Datagrid>)}
-    </List>
+      />
+    ) : (
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="code" />
+          <TextField source="scode" />
+          <TextField source="title" />
+          <TextField source="remarks" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>)}
+  </List>
 );
 
 const EmployeesTitle = ({ record }) => {
-    return <span>Employees {record ? `"${record.title}"` : ''}</span>;
+  return <span>Employees {record ? `"${record.title}"` : ''}</span>;
 };
 
 export const EmployeesEdit = (props) => (
-    <Edit undoable={false} title={<EmployeesTitle />} {...props}>
-        
-        <SimpleForm
+  <Edit undoable={false} title={<EmployeesTitle />} {...props}>
+
+    <SimpleForm
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
-    > 
-    <Grid container display="flex" fullWidth spacing={4}>
-    <Grid item xs={12} md={4}>
+    >
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={4}>
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -70,7 +70,7 @@ export const EmployeesEdit = (props) => (
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput multiline source="title" fullWidth />
-        </Grid> 
+        </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="designation" fullWidth />
         </Grid>
@@ -96,23 +96,26 @@ export const EmployeesEdit = (props) => (
           <BooleanInput source="active" fullWidth />
         </Grid>
 
-       
-        </Grid>
-        </SimpleForm>    
-        
-    </Edit>
+
+      </Grid>
+      <ReferenceInput label="Projects" source="project" reference="stock">
+        <SelectInput optionText="id" />
+      </ReferenceInput>
+    </SimpleForm>
+
+  </Edit>
 );
 
 export const EmployeesCreate = (props) => (
-    <Create undoable={false} title="New Employee" {...props}>
-         <SimpleForm
+  <Create undoable={false} title="New Employee" {...props}>
+    <SimpleForm
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
-    > 
-    <Grid container display="flex" fullWidth spacing={4}>
-    <Grid item xs={12} md={4}>
+    >
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={4}>
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -123,7 +126,7 @@ export const EmployeesCreate = (props) => (
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput multiline source="title" fullWidth />
-        </Grid> 
+        </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="designation" fullWidth />
         </Grid>
@@ -149,8 +152,8 @@ export const EmployeesCreate = (props) => (
           <BooleanInput source="active" fullWidth />
         </Grid>
 
-       
-        </Grid>
-        </SimpleForm>    
-    </Create>
+
+      </Grid>
+    </SimpleForm>
+  </Create>
 );

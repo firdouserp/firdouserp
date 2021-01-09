@@ -7,6 +7,14 @@ const {
 const { param } = require("express-validator");
 class VouchersModel {
   tableName = "vouchers";
+  vou_types = [
+    { id: 1, code: "J", title: "Journal Voucher" },
+    { id: 2, code: "P", title: "Payment Voucher" },
+    { id: 3, code: "R", title: "Reciept Voucher" },
+    { id: 4, code: "S", title: "Sales Voucher" },
+    { id: 5, code: "SLR", title: "Salary Voucher" },
+    { id: 6, code: "I", title: "Inventory Voucher" },
+  ];
   find = async (params = {}, range = {}, sort = {}) => {
     let sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}`;
     let limit = "";
@@ -37,7 +45,7 @@ class VouchersModel {
     //console.log(params);
     //let sql = `SELECT id,voucher_date as vou_date,voucher_no as vou_no,voucher_type as vou_type,amount,remarks,prepared_by,project_id as project,created_by,chq_no,chq_date FROM ${this.tableName}
     let sql =
-      `SELECT v.id,v.voucher_date as vou_date,v.voucher_no as vou_no,v.voucher_type as vou_type,v.remarks,v.prepared_by,v.created_by,l.chq_no,l.chq_date,l.description,l.supplier,l.project,l.employee,l.stock,l.unit from vouchers v,ledger l 
+      `SELECT v.id,DATE_FORMAT(v.voucher_date, "%Y-%m-%d") as vou_date,v.voucher_no as vou_no,v.voucher_type as vou_type,v.remarks,v.prepared_by,v.created_by,l.chq_no,l.chq_date,l.description,l.supplier,l.project,l.employee,l.stock,l.unit from vouchers v,ledger l 
         WHERE v.id=l.register_id 
         AND v.id=` +
       params["id"] +
@@ -58,7 +66,7 @@ class VouchersModel {
     //   return data;
     // }
 
-    sql = `SELECT  * FROM LEDGER   WHERE register_id =` + params["id"];
+    sql = `SELECT  id,refno,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d")as chq_date ,coa,cr,dr FROM LEDGER   WHERE register_id =` + params["id"];
     result = await query(sql);
     //console.log("voucher get one : " + JSON.stringify(result));
     data["transactions"] = result;
@@ -93,14 +101,7 @@ class VouchersModel {
   //     "remarks": "This is Remark"
   //   }
 
-  vou_types = [
-    { id: 1, code: "J", title: "Journal Voucher" },
-    { id: 2, code: "P", title: "Payment Voucher" },
-    { id: 3, code: "R", title: "Reciept Voucher" },
-    { id: 4, code: "S", title: "Sales Voucher" },
-    { id: 5, code: "SLR", title: "Salary Voucher" },
-    { id: 6, code: "I", title: "Inventory Voucher" },
-  ];
+
   create = async ({
     vou_date,
     vou_no,
@@ -121,10 +122,10 @@ class VouchersModel {
     total_credit,
   }) => {
     vou_no = await this.newVoucherNumber(vou_type);
-    console.log(vou_no);
+    //console.log(vou_no);
     const sql = `INSERT INTO ${this.tableName} 
         (voucher_date,voucher_no,voucher_type,amount,remarks,project_id,created_by,chq_no,chq_date) VALUES (?,?,?,?,?,?,?,?,?)`;
-    console.log(sql);
+    //console.log(sql);
     const result = await query(sql, [
       vou_date,
       vou_no,
@@ -145,6 +146,7 @@ class VouchersModel {
     for (let transaction of transactions) {
       const sql = `INSERT INTO ledger 
                     (register_id,vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+      console.log(sql);
       const result = await query(sql, [
         vou_id,
         vou_no,
@@ -160,25 +162,126 @@ class VouchersModel {
         transaction.refno,
         transaction.chq_no,
         transaction.chq_date,
-        transaction.dr || 0,
-        transaction.cr || 0,
+        transaction.dr + 0,
+        transaction.cr + 0,
         description,
         remarks,
       ]);
-      console.log("srn:" + srno);
-      console.log(sql);
+
     }
 
     return vou_id;
   };
-  update = async (params, id) => {
-    const { columnSet, values } = multipleColumnSet(params);
+  update = async ({ id, vou_date,
+    vou_no,
+    vou_type,
+    project,
+    supplier,
+    employee,
+    stock,
+    unit,
+    chq_no,
+    chq_date,
+    refno,
+    description,
+    remarks,
+    created_by,
+    transactions,
+    total_debit,
+    total_credit }) => {
 
-    const sql = `UPDATE vouchers SET ${columnSet} WHERE id = ?`;
-    console.log(values);
-    const result = await query(sql, [...values, id]);
+    console.log(vou_date,
+      vou_no,
+      vou_type,
+      project,
+      supplier,
+      employee,
+      stock,
+      unit,
+      chq_no,
+      chq_date,
+      refno,
+      description,
+      remarks,
+      created_by,
+      transactions,
+      total_debit,
+      total_credit);
 
-    return result;
+    let sql = `UPDATE vouchers SET 
+                   voucher_date = ?, voucher_no = ?, voucher_type = ?, remarks = ?, created_by =? WHERE id = ${id}`;
+    let result = await query(sql, [
+
+      vou_date,
+      vou_no,
+      vou_type,
+      remarks,
+      created_by
+    ]);
+
+    sql = `DELETE FROM  ledger where register_id = ${id}`;
+    result = await query(sql, [id]);
+
+    //=========================================
+    //LEDGER ENTRY OF VOUCHER
+    //=========================================
+    let srno = 0;
+    for (let transaction of transactions) {
+      const sql = `INSERT INTO ledger 
+                    (register_id,vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+      console.log(sql);
+      const result = await query(sql, [
+        id,
+        vou_no,
+        vou_date,
+        vou_type,
+        ++srno,
+        transaction.coa,
+        supplier,
+        project,
+        stock,
+        unit,
+        employee,
+        transaction.refno,
+        transaction.chq_no,
+        transaction.chq_date,
+        transaction.dr + 0,
+        transaction.cr + 0,
+        description,
+        remarks,
+      ]);
+
+    }
+
+
+    // for (let transaction of transactions) {
+    //   const sql = `UPDATE ledger SET
+    //   vou_date=?, vou_no =?, vou_type =?, remarks =? , chq_no =?, chq_date =?, description =?, 
+    //   supplier=?, project =?, employee =?, stock =?, unit =?,
+    //   coa=?,refno=?,dr=?,cr=?
+    //   WHERE id =?`;
+
+    //   const result = await query(sql, [
+    //     vou_date,
+    //     vou_no,
+    //     vou_type,
+    //     remarks,
+    //     transaction.chq_no,
+    //     transaction.chq_date,
+    //     description,
+    //     supplier,
+    //     project,
+    //     employee,
+    //     stock,
+    //     unit,
+    //     transaction.coa,
+    //     transaction.refno,
+    //     transaction.dr + 0,
+    //     transaction.cr + 0,
+    //     transaction.id
+    //   ]);
+    // }
+    return id;
   };
 
   delete = async (id) => {

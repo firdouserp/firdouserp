@@ -84,13 +84,7 @@ class VouchersController {
 
   updateVouchers = async (req, res, next) => {
     this.checkValidation(req);
-
-    // do the update query and get the result
-    // it can be partial edit
-    const { ...restOfUpdates } = req.body;
-    console.log(req.body);
-    const result = await VouchersModel.update(restOfUpdates, req.params.id);
-
+    const result = await VouchersModel.update(req.body);
     if (!result) {
       throw new HttpException(404, "Something went wrong");
     }
@@ -100,8 +94,8 @@ class VouchersController {
     const message = !affectedRows
       ? "Voucher not found"
       : affectedRows && changedRows
-      ? "Voucher updated successfully"
-      : "Updated faild";
+        ? "Voucher updated successfully"
+        : "Updated failed";
 
     const vouchers = await VouchersModel.findOne({ id: req.params.id });
     if (!vouchers) {

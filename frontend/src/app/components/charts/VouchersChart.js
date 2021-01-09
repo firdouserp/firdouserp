@@ -7,7 +7,7 @@ import {
   Legend,
   ResponsiveContainer,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
 const Label = (props) => {
   const { x, y, value } = props;
@@ -30,7 +30,7 @@ const Label = (props) => {
 const VouchersChart = () => {
   const { data, loading, error } = useQueryWithStore({
     type: "getList",
-    resource: "accounts/vouchers/monthly",
+    resource: "vouchers/monthly",
     payload: {
       pagination: { page: 1, perPage: 100 },
       sort: { field: "vou_date", order: "DESC" },

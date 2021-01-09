@@ -6,140 +6,140 @@ import { BooleanField, BooleanInput, Create, Datagrid, DeleteButton, Edit, EditB
 
 
 const useStyles = makeStyles({
-    inlineBlock: { display: 'inline-flex', marginRight: '1rem' },
+  inlineBlock: { display: 'inline-flex', marginRight: '1rem' },
 });
 
 export const SupplierActions = ({ basePath, data }) => (
-    <TopToolbar variant="contained" >
-        <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} variant="contained" color="secondary" />
-        {/* <ShowButton basePath={basePath} record={data} /> */}
-    </TopToolbar>
+  <TopToolbar variant="contained" >
+    <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} variant="contained" color="secondary" />
+    {/* <ShowButton basePath={basePath} record={data} /> */}
+  </TopToolbar>
 );
 
 export const SupplierIcon = TransferWithinAStationIcon;
 
 const SupplierSearchFilter = (props) => (
 
-    <Filter {...props}>
-        <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
-        <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
-        <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
-    </Filter>
+  <Filter {...props}>
+    <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
+    <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
+    <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
+  </Filter>
 
 );
 
 export const SupplierList = (props) => (
-    <List undoable={false} filters={<SupplierSearchFilter />} {...props} >
+  <List undoable={false} filters={<SupplierSearchFilter />} {...props} >
 
-        {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
-            <SimpleList
-                primaryText={record => record.title}
-                secondaryText={record => `${record.code}`}
-                tertiaryText={record => record.id}
+    {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
+      <SimpleList
+        primaryText={record => record.title}
+        secondaryText={record => `${record.code}`}
+        tertiaryText={record => record.id}
 
-            />
-        ) : (
-                <Datagrid rowClick="edit">
-                    <TextField source="id" />
-                    <TextField source="code" />
-                    <TextField source="scode" />
-                    <TextField source="title" />
-                    <BooleanField source="active" />
-                    <TextField source="nature" />
-                    <EditButton variant="contained" color="secondary" />
-                    <DeleteButton />
-                </Datagrid>)}
-    </List>
+      />
+    ) : (
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="code" />
+          <TextField source="scode" />
+          <TextField source="title" />
+          <BooleanField source="active" />
+          <TextField source="nature" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>)}
+  </List>
 );
 
 const SupplierTitle = ({ record }) => {
-    return <span>Supplier {record ? `"${record.title}"` : ''}</span>;
+  return <span>Supplier {record ? `"${record.title}"` : ''}</span>;
 };
 
 export const SupplierEdit = props => {
-return(
-        <Edit undoable={false} title={<SupplierTitle />} {...props}>
-
-  
-<SimpleForm
-      variant={"standard"}
-      sanitizeEmptyValues={false}
-      margin="none"
-      fullWidth
-    > 
-    <Grid container display="flex" fullWidth spacing={4}>
-    <Grid item xs={12} md={4}>
-          <TextInput disabled source="id" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput disabled source="code" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="scode" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput multiline source="title" fullWidth />
-        </Grid> 
-        <Grid item xs={12} md={4}>
-          <TextInput source="person" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="contact" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="address" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="country" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="city" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="email" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="fax" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="cnic" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="ntn" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="stn" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="businesstitle" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="nature" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <BooleanInput source="active" fullWidth />
-        </Grid>
-
-       
-        </Grid>
-        </SimpleForm>    
+  return (
+    <Edit undoable={false} title={<SupplierTitle />} {...props}>
 
 
+      <SimpleForm
+        variant={"standard"}
+        sanitizeEmptyValues={false}
+        margin="none"
+        fullWidth
+      >
+        <Grid container display="flex" fullWidth spacing={1}>
+          <Grid item xs={12} md={4}>
+            <TextInput disabled source="id" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput disabled source="code" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="scode" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput multiline source="title" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="person" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="contact" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="address" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="country" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="city" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="email" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="fax" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="cnic" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="ntn" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="stn" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="businesstitle" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="nature" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <BooleanInput source="active" fullWidth />
+          </Grid>
 
-        </Edit>
-)
+
+        </Grid>
+      </SimpleForm>
+
+
+
+    </Edit>
+  )
 };
 
 export const SupplierCreate = (props) => (
-    <Create title="New Suppier" {...props}>
-      <SimpleForm
+  <Create title="New Suppier" {...props}>
+    <SimpleForm
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
-    > 
-    <Grid container display="flex" fullWidth spacing={4}>
-    <Grid item xs={12} md={4}>
+    >
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={4}>
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -150,7 +150,7 @@ export const SupplierCreate = (props) => (
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput multiline source="title" fullWidth />
-        </Grid> 
+        </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="person" fullWidth />
         </Grid>
@@ -191,9 +191,9 @@ export const SupplierCreate = (props) => (
           <BooleanInput source="active" fullWidth />
         </Grid>
 
-       
-        </Grid>
-        </SimpleForm>  
-        </Create>  
+
+      </Grid>
+    </SimpleForm>
+  </Create>
 
 );

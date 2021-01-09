@@ -14,7 +14,7 @@ import {
   SimpleForm,
   SimpleList,
   TextField,
-  TextInput,
+  TextInput
 } from "react-admin";
 
 export const UnitsIcon = HomeWorkIcon;
@@ -53,19 +53,19 @@ export const UnitsList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="code" />
-        <TextField source="scode" />
-        <TextField source="title" />
-        <TextField source="ulocation" />
-        <TextField source="utype" />
-        <TextField source="remarks" />
-        <TextField source="active" />
-        <EditButton variant="contained" color="secondary" />
-        <DeleteButton />
-      </Datagrid>
-    )}
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="code" />
+          <TextField source="scode" />
+          <TextField source="title" />
+          <TextField source="ulocation" />
+          <TextField source="utype" />
+          <TextField source="remarks" />
+          <TextField source="active" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>
+      )}
   </List>
 );
 
@@ -86,7 +86,7 @@ export const UnitsEdit = (props) => (
       margin="none"
       fullWidth
     >
-      <Grid container display="flex" fullWidth spacing={4}>
+      <Grid container display="flex" fullWidth spacing={1}>
         <Grid item xs={12} md={4}>
           <TextInput disabled source="id" fullWidth />
         </Grid>

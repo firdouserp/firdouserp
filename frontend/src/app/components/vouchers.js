@@ -3,24 +3,37 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import StoreIcon from "@material-ui/icons/Store";
 import * as React from "react";
 import {
-  BooleanInput,
   Create,
   Datagrid,
-  DateInput,
+
   DeleteButton,
+
+
+
   Edit,
+
+
+
   EditButton,
   Filter,
   List,
   ListButton,
   Pagination,
   SearchInput,
-  SimpleForm,
+
   SimpleList,
   TextField,
-  TextInput,
-  TopToolbar,
+
+  TopToolbar
 } from "react-admin";
+import { useLocation } from "react-router";
+import { VoucherEntryForm } from './accounts/VoucherEntry2';
+
+
+export const useQuery = (queryParam) => {
+  const search = new URLSearchParams(useLocation().search);
+  return search.get(queryParam);
+};
 
 export const VouchersIcon = StoreIcon;
 
@@ -68,74 +81,46 @@ export const VouchersList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="voucher_no" />
-        <TextField source="project_id" />
-        <TextField source="created_by" />
-        <TextField source="chq_no" />
-        <TextField source="chq_date" />
-        <EditButton variant="contained" color="secondary" />
-        <DeleteButton />
-      </Datagrid>
-    )}
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="voucher_no" />
+          <TextField source="project_id" />
+          <TextField source="created_by" />
+          <TextField source="chq_no" />
+          <TextField source="chq_date" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>
+      )}
   </List>
 );
 
+
 const VouchersTitle = ({ record }) => {
-  return <span>Supplier {record ? `"${record.title}"` : ""}</span>;
+  return <span>Voucher {record ? `"${record.vou_no}"` : ""}</span>;
+};
+export const VouchersEdit = (props) => {
+
+  return (
+    <Edit
+      undoable={false}
+      //actions={<VouchersActions />}
+      title={<VouchersTitle />}
+      {...props}
+    >
+      <VoucherEntryForm {...props} />
+    </Edit>
+  )
 };
 
-export const VouchersEdit = (props) => (
-  <Edit
-    undoable={false}
-    actions={<VouchersActions />}
-    title={<VouchersTitle />}
-    {...props}
-  >
-    <SimpleForm variant="standard" margin="none">
-      <TextInput disabled source="id" />
-      <TextInput source="voucher_no" />
-      <DateInput
-        format={dateFormatter}
-        parse={dateParser}
-        source="voucher_date" /*options={{ multiLine: true }}*/
-      />
-      <TextInput multiline source="voucher_type" />
-      <TextInput source="amount" />
-      <TextInput source="remarks" />
-      <TextInput source="prepared_by" />
-      <TextInput source="project_id" />
-      <TextInput source="created_by" />
-      <TextInput source="chq_no" />
-      <DateInput format={dateFormatter} parse={dateParser} source="chq_date" />
-      <BooleanInput source="approved" />
-    </SimpleForm>
-  </Edit>
-);
-
-export const VouchersCreate = (props) => (
-  <Create undoable={false} title="New Voucher" {...props}>
-    <SimpleForm variant="standard" margin="none">
-      <TextInput disabled source="id" />
-      <TextInput source="voucher_no" />
-      <DateInput
-        format={dateFormatter}
-        parse={dateParser}
-        source="voucher_date" /*options={{ multiLine: true }}*/
-      />
-      <TextInput multiline source="voucher_type" />
-      <TextInput source="amount" />
-      <TextInput source="remarks" />
-      <TextInput source="prepared_by" />
-      <TextInput source="project_id" />
-      <TextInput source="created_by" />
-      <TextInput source="chq_no" />
-      <DateInput format={dateFormatter} parse={dateParser} source="chq_date" />
-      <BooleanInput source="approved" />
-    </SimpleForm>
-  </Create>
-);
+export const VouchersCreate = (props) => {
+  const vou_type = useQuery("vou_type");
+  return (
+    <Create undoable={false} title="New Voucher" {...props}>
+      <VoucherEntryForm vou_type={vou_type} {...props} />
+    </Create>
+  )
+};
 const dateFormatter = (v) => {
   // v is a `Date` object
   if (!(v instanceof Date) || isNaN(v)) return;

@@ -11,21 +11,20 @@ import {
   Layout,
   Login,
   Resource,
-  Sidebar,
+  Sidebar
 } from "react-admin";
 import "./App.css";
 // import {
 //   VoucherEdit,
 //   VoucherEntry
 // } from "./app/components/accounts/VoucherEntry";
-import {
-  VoucherEdit,
-  VoucherEntry,
-} from "./app/components/accounts/VoucherEntry2";
+// import {
+//   VoucherEntry, VouchersEdit
+// } from "./app/components/accounts/VoucherEntry2";
 import {
   BookingEdit,
   BookingIcon,
-  BookingList,
+  BookingList
 } from "./app/components/booking";
 import BookingFormWizard from "./app/components/booking/BookingFormWizard";
 import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
@@ -33,7 +32,7 @@ import {
   Coa_typeCreate,
   Coa_typeEdit,
   Coa_typeIcon,
-  Coa_typeList,
+  Coa_typeList
 } from "./app/components/coa_type";
 import Menu from "./app/components/CustomMenu";
 import customRoutes from "./app/components/customRoutes";
@@ -42,47 +41,47 @@ import {
   EmployeesCreate,
   EmployeesEdit,
   EmployeesIcon,
-  EmployeesList,
+  EmployeesList
 } from "./app/components/employees";
 import MyAppBar from "./app/components/MyAppBar";
 import {
   NotesCreate,
   NotesEdit,
   NotesIcon,
-  NotesList,
+  NotesList
 } from "./app/components/notes";
 import {
   ProjectCreate,
   ProjectEdit,
   ProjectIcon,
-  ProjectList,
+  ProjectList
 } from "./app/components/projects";
 import {
   ScheduleCreate,
   ScheduleEdit,
   ScheduleIcon,
-  ScheduleList,
+  ScheduleList
 } from "./app/components/schedule";
 import {
   StockCreate,
   StockEdit,
   StockIcon,
-  StockList,
+  StockList
 } from "./app/components/stock";
 import {
   SupplierCreate,
   SupplierEdit,
   SupplierIcon,
-  SupplierList,
+  SupplierList
 } from "./app/components/suppliers";
 import {
   UnitsCreate,
   UnitsEdit,
   UnitsIcon,
-  UnitsList,
+  UnitsList
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
-import { VouchersIcon, VouchersList } from "./app/components/vouchers";
+import { VouchersCreate, VouchersEdit, VouchersIcon, VouchersList } from "./app/components/vouchers";
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
@@ -123,12 +122,12 @@ const theme = createMuiTheme({
     },
     RaCreate: {
       noActions: {
+        marginTop: 0,
         "@media (min-width: 600px)": {
           marginTop: 0,
         },
       },
     },
-
     RaSimpleFormIterator: {
       form: {
         display: "flex",
@@ -160,9 +159,24 @@ const theme = createMuiTheme({
         color: "#fff",
         padding: "10px",
       },
+      noActions: {
+        marginTop: 0,
+        "@media (min-width: 600px)": {
+          marginTop: 0,
+        },
+      },
       RaTopToolbar: {
         root: { padding: "0px" },
       },
+    },
+    RaDatagrid: {
+      headerCell: {
+        backgroundColor: "#1976d2",
+        color: "#fff",
+        height: "2.5em",
+        boxShadow: "0 2px 0 rgba(0,0,0,0.05)",
+
+      }
     },
     MuiDivider: {
       light: { backgroundColor: "#6868681f" },
@@ -262,7 +276,7 @@ const i18nProvider = polyglotI18nProvider((locale) => messages[locale], "en", {
 const App = () => (
   <Admin
     disableTelemetry
-    //i18nProvider={i18nProvider}
+    i18nProvider={i18nProvider}
     customRoutes={customRoutes}
     theme={theme}
     layout={MyLayout}
@@ -331,11 +345,11 @@ const App = () => (
       icon={NotesIcon}
     />
     <Resource
-      name="accounts/vouchers"
+      name="vouchers"
       options={{ label: "Vouchers", menu: "false" }}
       list={VouchersList}
-      create={VoucherEntry}
-      edit={VoucherEdit}
+      create={VouchersCreate}
+      edit={VouchersEdit}
       icon={VouchersIcon}
     />
 
