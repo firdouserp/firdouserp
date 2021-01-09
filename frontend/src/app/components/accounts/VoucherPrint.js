@@ -35,9 +35,16 @@ const styles = `
 .invoice-box .voutype{
   text-align:center;
   vertical-align:top;
-  font-size:35px;
-  line-height:35px;
+  font-size:25px;
+  line-height:25px;
   color:#333;
+}
+.invoice-box .bottomline{
+  margin-top:80px;
+}
+.invoice-box .footer {
+  border-top:1px solid grey;
+  text-align:center;
 }
 
 .invoice-box table tr td:nth-child(2){
@@ -278,10 +285,21 @@ export default function Voucher({ voucher, company, notes }) {
           </table>
           {notes && (
             <div style={{ marginTop: 30 }}>
-              <div className="subheading">Notes</div>
-              {notes}
+              <div className="">Remarks: {notes}</div>
+
             </div>
           )}
+          <div className="bottomline">
+            <table cellPadding="0" cellSpacing="0">
+              <tbody>
+                <tr className="footer">
+                  <td colSpan="2" > <div className="footer">{voucher.vou_type} Prepared By</div></td>
+                  <td colSpan="2" > <div className="footer">{voucher.vou_type} Checked By</div></td>
+                  <td colSpan="2" > <div className="footer">{voucher.vou_type} Signature</div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </body>
     </html >
