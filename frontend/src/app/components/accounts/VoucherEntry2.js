@@ -1,7 +1,9 @@
 import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
+import PrintIcon from '@material-ui/icons/Print';
 import * as React from "react";
 import {
   ArrayInput,
+  Button,
   DateInput,
 
   NumberInput,
@@ -119,14 +121,16 @@ export const VoucherEntryForm = ({ ...props }) => {
     <SimpleForm
       toolbar={<Toolbar alwaysEnableSaveButton />}
       /*warnWhenUnsavedChanges*/ validate={validateVoucherCreation} fullWidth {...props}>
+      <Box display="flex" mb="1em" fullWidth justifyContent="space-between">
+        <Typography
+          variant="h6"
+          gutterBottom
+        >
+          Voucher Entry {props.vou_type}
+        </Typography>
 
-      <Typography
-        variant="h6"
-        gutterBottom
-      >
-        Voucher Entry {props.vou_type}
-      </Typography>
-
+        <Button onClick={() => { alert('Your custom action'); }} variant="contained" color="secondary" label="Print"    ><PrintIcon /></Button>
+      </Box>
       <Grid container fullWidth spacing={1} display="flex">
         <Grid pr={8} item xs={12} sm={4} md={3}>
           <SelectInput

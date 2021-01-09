@@ -106,6 +106,7 @@ export const VouchersEdit = (props) => {
       undoable={false}
       //actions={<VouchersActions />}
       title={<VouchersTitle />}
+      redirect="show"
       {...props}
     >
       <VoucherEntryForm {...props} />
@@ -116,7 +117,7 @@ export const VouchersEdit = (props) => {
 export const VouchersCreate = (props) => {
   const vou_type = useQuery("vou_type");
   return (
-    <Create undoable={false} title="New Voucher" {...props}>
+    <Create redirect="show" undoable={false} title="New Voucher" {...props}>
       <VoucherEntryForm vou_type={vou_type} {...props} />
     </Create>
   )
