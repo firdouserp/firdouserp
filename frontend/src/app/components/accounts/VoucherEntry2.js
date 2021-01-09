@@ -118,7 +118,7 @@ export const VoucherEntryForm = ({ ...props }) => {
 
     <SimpleForm
       toolbar={<Toolbar alwaysEnableSaveButton />}
-      warnWhenUnsavedChanges validate={validateVoucherCreation} fullWidth {...props}>
+      /*warnWhenUnsavedChanges*/ validate={validateVoucherCreation} fullWidth {...props}>
 
       <Typography
         variant="h6"
