@@ -285,9 +285,13 @@ class VouchersModel {
   };
 
   delete = async (id) => {
-    const sql = `DELETE FROM ${this.tableName}
+    let sql = `DELETE FROM  ledger where register_id = ${id}`;
+    let result = await query(sql, [id]);
+
+    sql = `DELETE FROM ${this.tableName}
     WHERE id = ?`;
-    const result = await query(sql, [id]);
+    result = await query(sql, [id]);
+
     const affectedRows = result ? result.affectedRows : 0;
 
     return affectedRows;
