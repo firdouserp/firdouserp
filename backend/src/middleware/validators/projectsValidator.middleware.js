@@ -67,6 +67,9 @@ exports.updateProjectsSchema = [
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
+    check('unit')
+        .exists()
+        .withMessage('Unit is required'),
     check('title')
         .exists()
         .optional()
@@ -111,7 +114,7 @@ exports.updateProjectsSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['id','code', 'scode', 'title', 'location', 'city', 'client', 'cost', 'nature', 'remarks', 'active'];
+            const allowUpdates = ['id','code', 'scode','unit', 'title', 'location', 'city', 'client', 'cost', 'nature', 'remarks', 'active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

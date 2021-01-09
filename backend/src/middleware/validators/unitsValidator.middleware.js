@@ -16,6 +16,10 @@ exports.createUnitsSchema = [
         .withMessage('Can be numerical and aplhanumerical')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
+    check('project')
+        .exists()
+        .optional()
+        .withMessage('Must be a valid project'),
     check('title')
         .exists()
         .withMessage('title must be required')
@@ -54,6 +58,10 @@ exports.updateUnitsSchema = [
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
+    check('project')
+        .exists()
+        .optional()
+        .withMessage('Must be a valid project'),
     check('title')
         .exists()
         .withMessage('Must be only alphabetical chars')
@@ -88,7 +96,7 @@ exports.updateUnitsSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['id','code','scode','title','utype','ulocation','usize','remarks','active'];
+            const allowUpdates = ['id','code','scode','project','title','utype','ulocation','usize','remarks','active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

@@ -83,88 +83,89 @@ export class BookingConfirm extends React.Component {
                             <Typography variant="h6" gutterBottom align="left">
                                 Date :{' '}  {new Date(booking.book_date).toLocaleDateString()} 
                             </Typography>
+                            
                             <Typography variant="h6" gutterBottom align="left">
-                                ID { } {(booking.id)}
+                                ID: { } {(booking.id)}
                             </Typography>
                             <Typography variant="h6" gutterBottom align="left">
-                                Code {(booking.code)}
+                                Code: {(booking.code)}
                             </Typography>
                              <Typography variant="h6" gutterBottom align="left">
-                                Scode {(booking.scode)}
+                                Scode: {(booking.scode)} 
                             </Typography>
                             <Typography variant="h6" gutterBottom align="left" >
-                                Title {(booking.title)} 
+                                Title: {(booking.title)} 
                             </Typography>
                            
                             <Typography variant="h6" gutterBottom align="left">
-                                Unit {(booking.unit)}
+                                Unit: {(booking.unit)}
                             </Typography>
                             
                             <Typography variant="h6" gutterBottom align="left">
-                                Client {(booking.client)}
+                                Client: {(booking.client)}
                             </Typography>
                            
                             <Typography variant="h6" gutterBottom align="left">
-                                Project {(booking.project)}
+                                Project: {(booking.project)}
                             </Typography>
                            
                             <Typography variant="h6" gutterBottom align="left">
-                                Sale Price {(booking.sale_price)}
+                                Sale Price: {(booking.sale_price)}
                             </Typography>
                             
                             <Typography variant="h6" gutterBottom align="left">
-                                Discount  {(booking.discount)}
+                                Discount : {(booking.discount)}
                             </Typography>
                            
                             <Typography variant="h6" gutterBottom align="left">
-                                Active  {(booking.active)}
+                                Active : {(booking.active)}
                             </Typography>
                             
                             <Typography variant="h6" gutterBottom align="left">
-                                Remarks {(booking.remarks)}
+                                Remarks : {(booking.remarks)}
+                            </Typography>
+                            
+                            <Typography  variant="h6" gutterBottom align="left">
+                                Name : {(booking.name)}
                             </Typography>
                             
                             <Typography variant="h6" gutterBottom align="left">
-                                Name  {(booking.name)}
-                            </Typography>
-                            
-                            <Typography variant="h6" gutterBottom align="left">
-                                Father's Name  {(booking.father_name)}
+                                Father's Name :  {(booking.father_name)}
                             </Typography>
                           
                             <Typography variant="h6" gutterBottom align="left">
-                                Residential Address {(booking.residential_address)}
+                                Residential Address : {(booking.residential_address)}
                             </Typography>
                             
                             <Typography variant="h6" gutterBottom align="left">
-                                Phone Number {(booking.phone_no)}
+                                Phone Number : {(booking.phone_no)}
                             </Typography>
                             
                             <Typography variant="h6" gutterBottom align="left">
-                                Occupation  {(booking.occupation)}
+                                Occupation : {(booking.occupation)}
                             </Typography>
                          
                             <Typography variant="h6" gutterBottom align="left">
-                                Nationality  {(booking.nationality)}
+                                Nationality : {(booking.nationality)}
                             </Typography> 
                             
                             <Typography variant="h6" gutterBottom align="left">
-                                CNIC  {(booking.cnic)}
+                                CNIC  : {(booking.cnic)}
                             </Typography>
                            
                             <Typography variant="h6" gutterBottom align="left">
-                                Reference Of {(booking.reference_off)}
+                                Reference Of : {(booking.reference_off)}
                             </Typography>
                           
                             <Typography variant="h6" gutterBottom align="left">
-                                Nominee's Name {(booking.nominee_name)}
+                                Nominee's Name : {(booking.nominee_name)}
                             </Typography>
                             
                             <Typography variant="h6" gutterBottom align="left">
-                                Realtion  {(booking.relation)}
+                                Realtion : {(booking.relation)}
                             </Typography>
                             <Typography variant="h6" gutterBottom align="left">
-                                Email  {(booking.email)}
+                                Email : {(booking.email)}
                             </Typography>
 
                         
@@ -274,9 +275,7 @@ export class BookingConfirm extends React.Component {
                                 On Possesion : {(schedule.on_posession)}
                             </Typography>
                             </Grid>
-                        
-                        
-                        
+                                               
                         </Grid>
                       
 
