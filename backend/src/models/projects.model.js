@@ -46,7 +46,7 @@ class ProjectsModel {
 
     create = async ({code,scode,title,location,city,client,cost,nature,remarks,active}) => {
         const sql = `INSERT INTO ${this.tableName}
-        ( code, scode, title, location, city, client, cost, nature, remarks, active) VALUES (?,?,?,?,?,?,?,?,?,?)`;
+        ( code, scode,title,location, city, client, cost, nature, remarks, active) VALUES (?,?,?,?,?,?,?,?,?,?)`;
         console.log(sql);
         const result = await query(sql, [code, scode, title, location, city, client, cost, nature, remarks, active]);
         return result.insertId;

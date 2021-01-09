@@ -16,6 +16,7 @@ import {
   TextField,
   TextInput
 } from "react-admin";
+import FirdousSelect from './accounts/FirdousSelect';
 
 export const UnitsIcon = HomeWorkIcon;
 
@@ -99,6 +100,7 @@ export const UnitsEdit = (props) => (
             /*options={{ multiLine: true }}*/ fullWidth
           />
         </Grid>
+        <FirdousSelect source="projects" list="projects" sort="title" optionText="title" fullWidth />
         <Grid item xs={12} md={4}>
           <TextInput multiline source="title" fullWidth />
         </Grid>
@@ -128,15 +130,46 @@ export const UnitsCreate = (props) => (
     title="New Unit"
     {...props}
   >
-    <SimpleForm variant="standard">
-      <TextInput source="code" />
-      <TextInput source="scode" /*options={{ multiLine: true }}*/ />
-      <TextInput multiline source="title" />
-      <TextInput source="ulocation" />
-      <TextInput source="utype" />
-      <TextInput source="usize" />
-      <TextInput source="remarks" />
-      <BooleanInput source="active" />
+      <SimpleForm
+      variant={"standard"}
+      sanitizeEmptyValues={false}
+      margin="none"
+      fullWidth
+    >
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={4}>
+          <TextInput disabled source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="code" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput
+            source="scode"
+            /*options={{ multiLine: true }}*/ fullWidth
+          />
+        </Grid>
+        <FirdousSelect source="projects" list="projects" sort="title" optionText="title" fullWidth />
+
+        <Grid item xs={12} md={4}>
+          <TextInput multiline source="title" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="ulocation" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="utype" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="usize" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="remarks" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BooleanInput source="active" fullWidth />
+        </Grid>
+      </Grid>
     </SimpleForm>
   </Create>
 );

@@ -40,12 +40,12 @@ class UnitsModel {
         return result[0];
 
     }
-    create = async ({code,scode,title,utype,ulocation=0,usize,remarks,active}) => {
+    create = async ({code,scode, project,title,utype,ulocation=0,usize,remarks,active}) => {
         const sql = `INSERT INTO ${this.tableName} 
-        (code,scode,title,utype,ulocation,usize,remarks,active) VALUES (?,?,?,?,?,?,?,?)`;
+        (code,scode, project,title,utype,ulocation,usize,remarks,active) VALUES (?,?,?,?,?,?,?,?)`;
 
         console.log(sql);
-        const result = await query(sql, [code,scode,title,utype,ulocation,usize,remarks,active]);
+        const result = await query(sql, [code,scode,project,title,utype,ulocation,usize,remarks,active]);
         return result.insertId;
 
 }
@@ -84,5 +84,5 @@ count = async (params = {}) => {
     return rows[0].total;
 }
 }
-
+ 
 module.exports = new UnitsModel;
