@@ -81,7 +81,7 @@ import {
   UnitsList
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
-import { VouchersCreate, VouchersEdit, VouchersIcon, VouchersList } from "./app/components/vouchers";
+import { VouchersCreate, VouchersEdit, VouchersIcon, VouchersList, VouchersShow } from "./app/components/vouchers";
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
@@ -350,6 +350,7 @@ const App = () => (
       list={VouchersList}
       create={VouchersCreate}
       edit={VouchersEdit}
+      show={VouchersShow}
       icon={VouchersIcon}
     />
 

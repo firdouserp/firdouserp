@@ -1,6 +1,8 @@
-//import { formatCurrency, formatDate } from "./utils";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React from "react";
+import EntityInfo from "../booking/EntityInfo";
+//import { formatCurrency, formatDate } from "./utils";
+
 export function formatDate(date) {
   return date
 }
@@ -32,19 +34,8 @@ const styles = `
 .invoice-box table td td{
   padding:0;
 }
-.invoice-box .voutype{
-  text-align:center;
-  vertical-align:top;
-  font-size:35px;
-  line-height:35px;
-  color:#333;
-}
-
 .invoice-box table tr td:nth-child(2){
   text-align:right;
-}
-.invoice-box table tr td.refno{
-  text-align:left;
 }
 .invoice-box table tr.top table td{
   padding-bottom:20px;
@@ -81,18 +72,6 @@ const styles = `
 .invoice-box table tr.item td{
   border-bottom:1px solid #eee;
 }
-.invoice-box table tr.item td.debit{
-  text-align:right;
-}
-.invoice-box table tr.heading td.credit{
-  text-align:right;
-}
-.invoice-box table tr.heading td.debit{
-  text-align:right;
-}
-.invoice-box table tr.item td.credit{
-  text-align:right;
-}
 .invoice-box table tr.item.last td{
   border-bottom:none;
 }
@@ -123,20 +102,20 @@ const styles = `
     border: 0;
   }
 }
-`
+`;
 
-export default function Voucher({ voucher, company, notes }) {
-  const { transactions } = voucher;
-  const totalAmount = transactions.reduce((sum, item) => sum + item.dr, 0);
+export default function Invoice({ invoice, company, customer, lang, notes }) {
+  const { items } = invoice;
+  const totalAmount = items.reduce((sum, item) => sum + item.amount, 0);
 
-  const voucherName = voucher.vou_type || "Voucher";
+  const invoiceName = invoice.name || "Invoice";
 
   return (
-    <html lang={"en_US"}>
+    <html lang={lang}>
       <head>
         <meta charSet="utf-8" />
         <title>
-          {company.name} {voucherName}
+          {company.name} {invoiceName}
         </title>
         <style dangerouslySetInnerHTML={{ __html: styles }} />
         <meta name="robots" content="noindex, nofollow" />
@@ -146,22 +125,13 @@ export default function Voucher({ voucher, company, notes }) {
           <table cellPadding="0" cellSpacing="0">
             <tbody>
               <tr className="top">
-                <td colSpan="6" > <div className="voutype">{voucher.vou_type} Voucher</div></td>
-              </tr>
-              <tr className="top">
-                <td colSpan="6" >
+                <td colSpan="2">
                   <table>
                     <tbody>
                       <tr>
-
                         <td>
-
-                          <div>
-                            {voucher.vou_no && <div className="subheading">Voucher No # {voucher.vou_no}</div>}
-                            {voucher.vou_date && <div>Voucher Date :{voucher.vou_date}</div>}
-                            {voucher.project && <div>Project :{voucher.project}</div>}
-
-                          </div>
+                          <div className="subheading">Voucher </div>
+                          <EntityInfo entity={company} />
                         </td>
                         <td className="title">
                           <img
@@ -183,43 +153,43 @@ export default function Voucher({ voucher, company, notes }) {
                 </td>
               </tr>
               <tr className="information">
-                <td colSpan="6">
+                <td colSpan="2">
                   <table>
                     <tbody>
                       <tr>
                         <td className="information-column">
                           <div className="subheading">To</div>
-                          {/* <EntityInfo entity={customer} /> */}
+                          <EntityInfo entity={customer} />
                         </td>
                         <td className="information-column">
                           <table className="invoice-information">
                             <tbody>
                               <tr>
-                                <td className="subheading">{"invoiceName"} #</td>
-                                <td>{"invoice.id"}</td>
+                                <td className="subheading">{invoiceName} #</td>
+                                <td>{invoice.id}</td>
                               </tr>
-                              {voucher.unit && (
+                              {invoice.paymentMethod && (
                                 <tr>
-                                  <td className="subheading">Unit</td>
-                                  <td>{voucher.unit}</td>
+                                  <td className="subheading">Payment Method</td>
+                                  <td>{invoice.paymentMethod}</td>
                                 </tr>
                               )}
-                              {voucher.supplier && (
+                              {invoice.createdDate && (
                                 <tr>
-                                  <td className="subheading">Vendor</td>
-                                  <td>{formatDate(voucher.supplier)}</td>
+                                  <td className="subheading">Created</td>
+                                  <td>{formatDate(invoice.createdDate)}</td>
                                 </tr>
                               )}
-                              {voucher.stock && (
+                              {invoice.paidDate && (
                                 <tr>
-                                  <td className="subheading">Stock</td>
-                                  <td>{formatDate(voucher.stock)}</td>
+                                  <td className="subheading">Paid</td>
+                                  <td>{formatDate(invoice.paidDate)}</td>
                                 </tr>
                               )}
-                              {voucher.employee && (
+                              {invoice.dueDate && !invoice.paidDate && (
                                 <tr>
                                   <td className="subheading">Due</td>
-                                  <td>{formatDate(voucher.employee)}</td>
+                                  <td>{formatDate(invoice.dueDate)}</td>
                                 </tr>
                               )}
                             </tbody>
@@ -230,40 +200,29 @@ export default function Voucher({ voucher, company, notes }) {
                   </table>
                 </td>
               </tr>
-              {voucher.description && [
+              {invoice.description && [
                 <tr className="heading" key="heading">
-                  <td className="subheading" colSpan="6">
+                  <td className="subheading" colSpan="2">
                     Description
                   </td>
                 </tr>,
                 <tr className="details" key="details">
-                  <td colSpan="6">{voucher.description}</td>
+                  <td colSpan="2">{invoice.description}</td>
                 </tr>,
               ]}
               <tr className="heading">
-                <td className="subheading">Transactions</td>
-                <td className="refno"> Ref.No.</td>
-                <td> Chq.No.</td>
-                <td> Chq.Date</td>
-                <td className="debit">Debit</td>
-                <td className="credit">Credit</td>
-
+                <td className="subheading">Item</td>
+                <td />
               </tr>
-              {transactions.map((item) => (
+              {items.map((item) => (
                 <tr className="item" key={item.description}>
-                  <td className="subheading"  >{item.coa}</td>
-                  <td>{item.refno}</td>
-                  <td>{item.chq_no}</td>
-                  <td>{item.chq_date}</td>
-
-                  <td className="debit">{formatCurrency(item.dr)}</td>
-                  <td className="credit">{formatCurrency(item.cr)}</td>
+                  <td>{item.description}</td>
+                  <td>{formatCurrency(item.amount)}</td>
                 </tr>
               ))}
               <tr className="total">
                 <td />
-
-                <td colSpan={"5"}>
+                <td>
                   <table>
                     <tbody>
                       <tr>
@@ -284,35 +243,27 @@ export default function Voucher({ voucher, company, notes }) {
           )}
         </div>
       </body>
-    </html >
+    </html>
   );
 }
 
-Voucher.propTypes = {
+Invoice.propTypes = {
   company: PropTypes.shape({
     name: PropTypes.string,
     logoUrl: PropTypes.string,
   }).isRequired,
-  voucher: PropTypes.shape({
-    vou_no: PropTypes.string,
+  customer: PropTypes.shape({}).isRequired,
+  invoice: PropTypes.shape({
+    createdDate: PropTypes.string,
     vou_date: PropTypes.string,
-    vou_type: PropTypes.string,
-    project: PropTypes.string,
-    supplier: PropTypes.string,
-    unit: PropTypes.string,
-    stock: PropTypes.string,
-    employee: PropTypes.string,
+    vou_no: PropTypes.string,
+    paymentMethod: PropTypes.string,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    description: PropTypes.string,
-    remarks: PropTypes.string,
-    transactions: PropTypes.arrayOf(
+    description: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
       PropTypes.shape({
-        coa: PropTypes.string.isRequired,
-        refno: PropTypes.string,
-        chq_no: PropTypes.string,
-        chq_date: PropTypes.string,
-        dr: PropTypes.number,
-        cr: PropTypes.number,
+        description: PropTypes.string.isRequired,
+        amount: PropTypes.number.isRequired,
       }).isRequired
     ).isRequired,
     name: PropTypes.string,
@@ -322,7 +273,7 @@ Voucher.propTypes = {
   notes: PropTypes.node,
 };
 
-Voucher.defaultProps = {
+Invoice.defaultProps = {
   lang: "en_US",
   notes: null,
 };

@@ -28,6 +28,7 @@ import {
 } from "react-admin";
 import { useLocation } from "react-router";
 import { VoucherEntryForm } from './accounts/VoucherEntry2';
+import VoucherShow from './accounts/VoucherShow';
 
 
 export const useQuery = (queryParam) => {
@@ -122,6 +123,14 @@ export const VouchersCreate = (props) => {
     </Create>
   )
 };
+
+export const VouchersShow = (props) => {
+  return (
+    <VoucherShow {...props} />
+  )
+};
+
+
 const dateFormatter = (v) => {
   // v is a `Date` object
   if (!(v instanceof Date) || isNaN(v)) return;
