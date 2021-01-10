@@ -1,10 +1,11 @@
 import { Box, Grid, makeStyles } from "@material-ui/core";
 import { ChevronLeft } from "@material-ui/icons";
+import PrintIcon from '@material-ui/icons/Print';
 import * as React from "react";
 import {
   ArrayInput,
 
-
+  Button,
 
   DateInput,
 
@@ -25,7 +26,9 @@ import {
   Toolbar
 } from "react-admin";
 import { useFormState } from "react-final-form";
+import ReactToPrint from "react-to-print";
 import FirdousSelect from "./FirdousSelect";
+import PrintVoucherComponent from "./PrintVoucherComponent";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -170,7 +173,7 @@ export const VoucherEntryForm = ({ ...props }) => {
           <Grid item>
             <ListButton basePath={props.basePath} label="Back" variant="contained" color="primary" size="medium" icon={<ChevronLeft />} />
           </Grid>
-          {/* <Grid item>
+          <Grid item>
 
             <ReactToPrint
               trigger={() => {
@@ -185,7 +188,7 @@ export const VoucherEntryForm = ({ ...props }) => {
               {console.log(props)}
               <PrintVoucherComponent ref={componentRef} {...props} />
             </div>
-          </Grid> */}
+          </Grid>
         </Grid>
         <DeleteButton undoable={false} />
       </Toolbar>

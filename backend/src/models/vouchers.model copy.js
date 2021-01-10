@@ -16,12 +16,9 @@ class VouchersModel {
     { id: 6, code: "I", title: "Inventory Voucher" },
   ];
   find = async (params = {}, range = {}, sort = {}) => {
-    //let sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}`;
-    let sql = "SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr)) as transactions from ledger ";
+    let sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}`;
     let limit = "";
-    let orderby = " ORDER BY id ASC ";
-    let groupby = " GROUP BY  vou_no ";
-
+    let orderby = " ORDER BY id ASC";
     if (range && range.length) {
       limit = ` LIMIT ${range[0]}, ${range[1] - range[0] + 1}`;
     }
@@ -31,7 +28,7 @@ class VouchersModel {
     }
 
     if (!Object.keys(params).length) {
-      sql += groupby + orderby + limit;
+      sql += orderby + limit;
       console.log(sql);
       return await query(sql);
     }
@@ -39,45 +36,25 @@ class VouchersModel {
     const { columnSet, values } = searchLikeColumnSet(params);
     sql += ` WHERE ${columnSet}`;
 
-    sql += groupby + orderby + limit;
+    sql += orderby + limit;
     console.log(sql);
     return await query(sql, [...values]);
   };
   findOne = async (params) => {
-    //const { columnSet, values } = multipleColumnSet(params);
-    // let sql =
-    //   `SELECT v.id,DATE_FORMAT(v.voucher_date, "%Y-%m-%d") as vou_date,v.voucher_no as vou_no,v.voucher_type as vou_type,v.remarks,v.prepared_by,v.created_by,l.chq_no,l.chq_date,l.description,l.supplier,l.project,l.employee,l.stock,l.unit from vouchers v,ledger l 
-    //     WHERE v.id=l.register_id 
-    //     AND v.id=` +
-    //   params["id"] +
-    //   ` group by l.register_id`;
+    const { columnSet, values } = multipleColumnSet(params);
+    let sql =
+      `SELECT v.id,DATE_FORMAT(v.voucher_date, "%Y-%m-%d") as vou_date,v.voucher_no as vou_no,v.voucher_type as vou_type,v.remarks,v.prepared_by,v.created_by,l.chq_no,l.chq_date,l.description,l.supplier,l.project,l.employee,l.stock,l.unit from vouchers v,ledger l 
+        WHERE v.id=l.register_id 
+        AND v.id=` +
+      params["id"] +
+      ` group by l.register_id`;
+    let result = await query(sql, [...values]);
+    let data = result[0];
+    sql = `SELECT  id,refno,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d")as chq_date ,coa,cr,dr FROM LEDGER   WHERE register_id =` + params["id"];
+    result = await query(sql);
+    data["transactions"] = result;
 
-    if (typeof params == "object") {
-      const keys = Object.keys(params);
-      const values = Object.values(params).map((v) => v == 'id' ? `'${v}'` : `${v}`);
-      const columnSet = keys.map((key) => key == 'id' ? `${'vou_no'} = ?` : `${key} = ?`).join(", ");
-      let sql = `SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, "%Y-%m-%d") vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d") as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr)) as transactions  from ledger 
-               WHERE ${columnSet} GROUP BY vou_no `;
-      console.log(sql);
-      console.log(values);
-      const result = await query(sql, [...values]);
-      return result[0];
-    }
-
-
-
-
-
-
-
-
-    // let result = await query(sql, [...values]);
-    // let data = result[0];
-    // sql = `SELECT  id,refno,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d")as chq_date ,coa,cr,dr FROM LEDGER   WHERE register_id =` + params["id"];
-    // result = await query(sql);
-    // data["transactions"] = result;
-
-    return [];
+    return data;
   };
   //   {
   //     "vou_type": "5",
@@ -176,7 +153,7 @@ class VouchersModel {
 
     }
 
-    return vou_no;
+    return vou_id;
   };
   update = async ({ id, vou_date,
     vou_no,
@@ -215,8 +192,7 @@ class VouchersModel {
       total_credit);
 
     let sql = `UPDATE vouchers SET 
-                   voucher_date = ?, voucher_no = ?, voucher_type = ?, remarks = ?, created_by =? WHERE voucher_no = '${vou_no}'`;
-    console.log(sql);
+                   voucher_date = ?, voucher_no = ?, voucher_type = ?, remarks = ?, created_by =? WHERE id = ${id}`;
     let result = await query(sql, [
 
       vou_date,
@@ -226,7 +202,7 @@ class VouchersModel {
       created_by
     ]);
 
-    sql = `DELETE FROM  ledger where vou_no = '${vou_no}'`;
+    sql = `DELETE FROM  ledger where register_id = ${id}`;
     result = await query(sql, [id]);
 
     //=========================================
@@ -235,9 +211,10 @@ class VouchersModel {
     let srno = 0;
     for (let transaction of transactions) {
       const sql = `INSERT INTO ledger 
-                    (vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+                    (register_id,vou_no,vou_date,vou_type,srno,coa,supplier,project,stock,unit,employee,refno,chq_no,chq_date,dr,cr,description,remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
       console.log(sql);
       const result = await query(sql, [
+        id,
         vou_no,
         vou_date,
         vou_type,
@@ -291,12 +268,12 @@ class VouchersModel {
   };
 
   delete = async (id) => {
-    let sql = `DELETE FROM  ledger where vou_no = '${id}'`;
+    let sql = `DELETE FROM  ledger where register_id = ${id}`;
     let result = await query(sql, [id]);
 
-    // sql = `DELETE FROM ${this.tableName}
-    // WHERE id = ?`;
-    // result = await query(sql, [id]);
+    sql = `DELETE FROM ${this.tableName}
+    WHERE id = ?`;
+    result = await query(sql, [id]);
 
     const affectedRows = result ? result.affectedRows : 0;
 

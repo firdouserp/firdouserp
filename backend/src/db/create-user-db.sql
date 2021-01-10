@@ -101,3 +101,5 @@ CREATE OR REPLACE VIEW `view_vouno` AS select `temp`.`A` AS `Voucher`,max(`temp`
 
 ALTER TABLE `firdouserp`.`units` 
 ADD COLUMN `project` INT NULL AFTER `active`;
+ALTER TABLE `firdouserp`.`ledger` 
+CHANGE COLUMN `register_id` `register_id` INT NULL ;
