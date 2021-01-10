@@ -336,8 +336,8 @@ class VouchersModel {
     year = year.toString().substr(-2);
     const month = todaysDate.getMonth() + 1;
     const day = todaysDate.getDay();
-    let voutype = this.vou_types.find((v) => (v.id = vou_type));
-
+    let voutype = this.vou_types.find(v => v.id == vou_type);
+    console.log(voutype)
     let vou_no = voutype.code + year + padStart(month, 2, 0);
 
     const sql =

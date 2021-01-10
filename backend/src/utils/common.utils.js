@@ -32,7 +32,7 @@ exports.searchLikeColumnSet = (object) => {
 
   const keys = Object.keys(object);
 
-  columnSet = keys.map((key) => `${key} like ?`).join(" OR ");
+  columnSet = keys.map((key) => `${key} like ?`).join(" AND ");
   values = Object.values(object).map((value) => `%${value}%`);
   console.log(values);
 

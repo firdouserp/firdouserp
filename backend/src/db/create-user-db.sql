@@ -103,3 +103,10 @@ ALTER TABLE `firdouserp`.`units`
 ADD COLUMN `project` INT NULL AFTER `active`;
 ALTER TABLE `firdouserp`.`ledger` 
 CHANGE COLUMN `register_id` `register_id` INT NULL ;
+
+create or replace view view_ledger_report as
+select n.id headid,n.title headtitle,c.title accounttitle,l.coa accountid ,sum(l.dr) sum_debit, sum(l.cr) sum_credit from ledger l LEFT OUTER JOIN coa c on l.coa=c.id LEFT OUTER JOIN notes n on c.notes=n.id group by l.coa
+
+create or replace view view_ledger_head_report as
+select headtitle,accounttitle, sum(sum_debit) as sum_debit_head,sum(sum_credit) sum_credit_head,
+JSON_ARRAYAGG(JSON_OBJECT('headtitle',headtitle,'accounttitle',accounttitle,'sum_debit',sum_debit,'sum_credit',sum_credit))  from view_ledger_report group by headid

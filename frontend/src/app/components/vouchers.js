@@ -64,6 +64,7 @@ const VouchersSearchFilter = (props) => (
       variant="standard"
       placeholder="Voucher Date"
       source="vou_date"
+      resettable
       alwaysOn
     />
     <SearchInput
@@ -73,17 +74,18 @@ const VouchersSearchFilter = (props) => (
       alwaysOn
     />
     <FirdousSelect
-
+      variant="standard"
       label="Project"
       source="project"
       optionText="title"
       list="projects"
       sort="title"
       resettable
+      alwaysOn
 
     />
     <FirdousSelect
-
+      variant="standard"
       label="Vendor"
       source="supplier"
       optionText="title"
@@ -93,7 +95,7 @@ const VouchersSearchFilter = (props) => (
 
     />
     <FirdousSelect
-
+      variant="standard"
       label="Units"
       source="unit"
       optionText="title"
@@ -103,17 +105,17 @@ const VouchersSearchFilter = (props) => (
 
     />
     <FirdousSelect
-
+      variant="standard"
       label="Stocks"
       source="stock"
       optionText="title"
-      list="stocks"
+      list="stock"
       sort="title"
       resettable
 
     />
     <FirdousSelect
-
+      variant="standard"
       label="Employees"
       source="employee"
       optionText="title"
