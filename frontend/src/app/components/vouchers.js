@@ -105,7 +105,7 @@ export const VouchersEdit = (props) => {
   return (
     <Edit
       undoable={false}
-      //actions={<VouchersActions />}
+      actions={null}
       title={<VouchersTitle />}
       redirect="show"
       {...props}

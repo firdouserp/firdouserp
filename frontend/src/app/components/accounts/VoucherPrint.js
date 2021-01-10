@@ -134,6 +134,7 @@ const styles = `
 
 export default function Voucher({ voucher, company, notes }) {
   const { transactions } = voucher;
+
   const totalAmount = transactions.reduce((sum, item) => sum + item.dr, 0);
 
   const voucherName = voucher.vou_type || "Voucher";

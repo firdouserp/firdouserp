@@ -1,21 +1,34 @@
-import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Box, Grid, makeStyles } from "@material-ui/core";
+import { ChevronLeft } from "@material-ui/icons";
 import PrintIcon from '@material-ui/icons/Print';
 import * as React from "react";
 import {
   ArrayInput,
+
   Button,
+
   DateInput,
+
+  DeleteButton,
+
+  ListButton,
 
   NumberInput,
   required,
+  SaveButton,
   SelectInput,
+
+
+
   SimpleForm,
   SimpleFormIterator,
   TextInput,
   Toolbar
 } from "react-admin";
 import { useFormState } from "react-final-form";
+import ReactToPrint from "react-to-print";
 import FirdousSelect from "./FirdousSelect";
+import PrintVoucherComponent from "./PrintVoucherComponent";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -31,6 +44,10 @@ const useStyles = makeStyles({
   },
   VoucherEntry: {
     border: "1px solid #ccc"
+  },
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   BorderandBackground: {
     border: "1px solid #ccc",
@@ -113,7 +130,7 @@ export const VoucherEntryForm = ({ ...props }) => {
     { id: 6, title: "Inventory Voucher" },
   ];
   const optionRenderer = (choice) => {
-    return choice && `${choice.scode || ""} ${choice.code} ${choice.title}`;
+    return choice && `${choice.scode || ""} | ${choice.code} | ${choice.title}`;
   };
 
   const calculateSum = (values, source, field) => {
@@ -142,12 +159,47 @@ export const VoucherEntryForm = ({ ...props }) => {
     );
   };
 
+
+  const CustomToolbar = props => {
+    const componentRef = React.useRef();
+    return (
+
+      <Toolbar alwaysEnableSaveButton {...props} classes={useStyles()}>
+        <Grid item>
+          <SaveButton undoable={false} {...props} />
+        </Grid>
+        <Grid container spacing={2}>
+
+          <Grid item>
+            <ListButton basePath={props.basePath} label="Back" variant="contained" color="primary" size="medium" icon={<ChevronLeft />} />
+          </Grid>
+          <Grid item>
+
+            <ReactToPrint
+              trigger={() => {
+                // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
+                // to the root node of the returned component as it will be overwritten.
+                return <Button disabled={!props.record.id} color="primary" variant="contained" label="Print" size="medium" icon={<PrintIcon />} />
+
+              }}
+              content={() => componentRef.current}
+            />
+            <div style={{ display: 'none' }}>
+              {console.log(props)}
+              <PrintVoucherComponent ref={componentRef} {...props} />
+            </div>
+          </Grid>
+        </Grid>
+        <DeleteButton undoable={false} />
+      </Toolbar>
+    )
+  };
   return (
 
-    <SimpleForm className={classes.VoucherEntry}
-      toolbar={<Toolbar alwaysEnableSaveButton />}
-      /*warnWhenUnsavedChanges*/ validate={validateVoucherCreation} fullWidth {...props}>
-      <Box display="flex" mb="1em" fullWidth justifyContent="space-between">
+    <SimpleForm toolbar={<CustomToolbar />} className={classes.VoucherEntry}
+      // toolbar={<Toolbar alwaysEnableSaveButton />}
+      /*warnWhenUnsavedChanges*/ validate={validateVoucherCreation} fullWidth redirect="show" {...props}>
+      {/* <Box display="flex" mb="1em" fullWidth justifyContent="space-between">
         <Typography
           variant="h6"
           gutterBottom
@@ -156,8 +208,8 @@ export const VoucherEntryForm = ({ ...props }) => {
           Voucher Entry {props.vou_type}
         </Typography>
 
-        <Button onClick={() => { alert('Your custom action'); }} variant="contained" color="secondary" label="Print"    ><PrintIcon /></Button>
-      </Box>
+
+      </Box> */}
       <Grid container fullWidth spacing={1} display="flex">
         <Grid pr={8} item xs={12} sm={4} md={3}>
           <SelectInput
@@ -306,6 +358,7 @@ export const VoucherEntryForm = ({ ...props }) => {
               label="Transactions"
               fullWidth
               className={classes.BorderandBackgroundIter}
+              marginTop="none"
 
             >
               <SimpleFormIterator fullWidth>
@@ -322,6 +375,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   fullWidth
                   formClassName={classes.iteratorinput}
                   className={classes.BorderandBackground}
+                  margin="none"
                 />
                 <TextInput
                   margin="none"
