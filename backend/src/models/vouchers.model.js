@@ -303,11 +303,13 @@ class VouchersModel {
     return affectedRows;
   };
   count = async (params = {}) => {
-    let sql = `select count(*) as total FROM ${this.tableName}`;
+    let sql = `select  count(distinct(vou_no)) as total FROM  ledger `;
     let result = "";
+
+
     if (Object.keys(params).length) {
       const { columnSet, values } = searchLikeColumnSet(params);
-      sql += ` WHERE ${columnSet}`;
+      sql += ` WHERE ${columnSet} `;
       console.log(sql);
       result = await query(sql, [...values]);
     } else {
@@ -317,6 +319,7 @@ class VouchersModel {
 
     return rows[0].total;
   };
+
 
   voucherThisMonth = async (params = {}) => {
     let sql = `SELECT id,vou_type,  DATE_FORMAT(vou_date,'%d/%m') as vou_date, count(*) as count FROM ledger  WHERE   vou_date BETWEEN NOW() - INTERVAL 30 DAY AND NOW() group by vou_date order by vou_date desc `;

@@ -6,6 +6,8 @@ import {
   Create,
   Datagrid,
 
+  DateInput,
+
   DeleteButton,
 
 
@@ -19,7 +21,10 @@ import {
   List,
   ListButton,
   Pagination,
+
   SearchInput,
+
+
 
   SimpleList,
   TextField,
@@ -27,6 +32,7 @@ import {
   TopToolbar
 } from "react-admin";
 import { useLocation } from "react-router";
+import FirdousSelect from "./accounts/FirdousSelect";
 import { VoucherEntryForm } from './accounts/VoucherEntry2';
 import VoucherShow from './accounts/VoucherShow';
 
@@ -49,17 +55,73 @@ const VouchersSearchFilter = (props) => (
   <Filter {...props}>
     <SearchInput
       variant="standard"
-      placeholder="Title"
-      source="title"
+      placeholder="Voucher-No"
+      source="vou_no"
+      alwaysOn
+    />
+
+    <DateInput
+      variant="standard"
+      placeholder="Voucher Date"
+      source="vou_date"
       alwaysOn
     />
     <SearchInput
       variant="standard"
-      placeholder="SCode"
-      source="scode"
+      placeholder="Chq-No"
+      source="chq_no"
       alwaysOn
     />
-    <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
+    <FirdousSelect
+
+      label="Project"
+      source="project"
+      optionText="title"
+      list="projects"
+      sort="title"
+      resettable
+
+    />
+    <FirdousSelect
+
+      label="Vendor"
+      source="supplier"
+      optionText="title"
+      list="suppliers"
+      sort="title"
+      resettable
+
+    />
+    <FirdousSelect
+
+      label="Units"
+      source="unit"
+      optionText="title"
+      list="units"
+      sort="title"
+      resettable
+
+    />
+    <FirdousSelect
+
+      label="Stocks"
+      source="stock"
+      optionText="title"
+      list="stocks"
+      sort="title"
+      resettable
+
+    />
+    <FirdousSelect
+
+      label="Employees"
+      source="employee"
+      optionText="title"
+      list="employees"
+      sort="title"
+      resettable
+
+    />
   </Filter>
 );
 const PostPagination = (props) => (
@@ -83,9 +145,10 @@ export const VouchersList = (props) => (
       />
     ) : (
         <Datagrid rowClick="edit">
-          <TextField source="id" />
-          <TextField source="voucher_no" />
-          <TextField source="project_id" />
+          <TextField source="row_id" />
+          <TextField source="vou_no" />
+          <TextField source="vou_date" />
+          <TextField source="project" />
           <TextField source="created_by" />
           <TextField source="chq_no" />
           <TextField source="chq_date" />
