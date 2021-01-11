@@ -24,7 +24,8 @@ import "./App.css";
 import {
   BookingEdit,
   BookingIcon,
-  BookingList
+  BookingList,
+  BookingsShow
 } from "./app/components/booking";
 import BookingFormWizard from "./app/components/booking/BookingFormWizard";
 import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
@@ -313,6 +314,7 @@ const App = () => (
       create={BookingFormWizard}
       edit={BookingEdit}
       icon={BookingIcon}
+      show={BookingsShow}
     />
     <Resource
       name="Suppliers"

@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import ReactToPrint from "react-to-print";
+import { BookingsShow } from '../booking';
 
 export class BookingPrint extends React.Component {
     render() {
@@ -274,6 +275,9 @@ export class BookingConfirm extends React.Component {
                             <Typography variant="h6" gutterBottom align="left">
                                 On Possesion : {(schedule.on_posession)}
                             </Typography>
+                            <BookingsShow>
+                                show
+                            </BookingsShow>
                             </Grid>
                                                
                         </Grid>
