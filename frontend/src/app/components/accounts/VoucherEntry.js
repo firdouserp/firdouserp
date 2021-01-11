@@ -107,7 +107,7 @@ const dateParser = (v) => {
   if (isNaN(d)) return;
   return d;
 };
-const VoucherEntryForm = (props) => {
+export const VoucherEntryForm = (props) => {
   const classes = useStyles();
   const initial = [
     { coa: "", dr: 0, cr: 0 },

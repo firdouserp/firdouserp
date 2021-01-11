@@ -32,8 +32,12 @@ exports.searchLikeColumnSet = (object) => {
 
   const keys = Object.keys(object);
 
-  columnSet = keys.map((key) => `${key} like ?`).join(" AND ");
-  values = Object.values(object).map((value) => `%${value}%`);
+  columnSet = keys
+    .map((key) => (key == "id" ? `${key} in (?)` : `${key} like ?`))
+    .join(" AND ");
+  values = Object.values(object).map((value) =>
+    Array.isArray(value) ? `${value}` : `%${value}%`
+  );
   console.log(values);
 
   return {

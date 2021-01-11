@@ -5,37 +5,24 @@ import * as React from "react";
 import {
   Create,
   Datagrid,
-
   DateInput,
-
   DeleteButton,
-
-
-
   Edit,
-
-
-
   EditButton,
   Filter,
   List,
   ListButton,
   Pagination,
-
+  ReferenceField,
   SearchInput,
-
-
-
   SimpleList,
   TextField,
-
-  TopToolbar
+  TopToolbar,
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "./accounts/FirdousSelect";
-import { VoucherEntryForm } from './accounts/VoucherEntry2';
-import VoucherShow from './accounts/VoucherShow';
-
+import { VoucherEntryForm } from "./accounts/VoucherEntry2";
+import VoucherShow from "./accounts/VoucherShow";
 
 export const useQuery = (queryParam) => {
   const search = new URLSearchParams(useLocation().search);
@@ -82,7 +69,6 @@ const VouchersSearchFilter = (props) => (
       sort="title"
       resettable
       alwaysOn
-
     />
     <FirdousSelect
       variant="standard"
@@ -92,7 +78,6 @@ const VouchersSearchFilter = (props) => (
       list="suppliers"
       sort="title"
       resettable
-
     />
     <FirdousSelect
       variant="standard"
@@ -102,7 +87,6 @@ const VouchersSearchFilter = (props) => (
       list="units"
       sort="title"
       resettable
-
     />
     <FirdousSelect
       variant="standard"
@@ -112,7 +96,6 @@ const VouchersSearchFilter = (props) => (
       list="stock"
       sort="title"
       resettable
-
     />
     <FirdousSelect
       variant="standard"
@@ -122,7 +105,6 @@ const VouchersSearchFilter = (props) => (
       list="employees"
       sort="title"
       resettable
-
     />
   </Filter>
 );
@@ -146,27 +128,27 @@ export const VouchersList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-        <Datagrid rowClick="edit">
-          <TextField source="row_id" />
-          <TextField source="vou_no" />
-          <TextField source="vou_date" />
-          <TextField source="project" />
-          <TextField source="created_by" />
-          <TextField source="chq_no" />
-          <TextField source="chq_date" />
-          <EditButton variant="contained" color="secondary" />
-          <DeleteButton />
-        </Datagrid>
-      )}
+      <Datagrid rowClick="edit">
+        <TextField source="row_id" />
+        <TextField source="vou_no" />
+        <TextField source="vou_date" />
+        <ReferenceField label="Project" source="project" reference="Projects">
+          <TextField source="title" />
+        </ReferenceField>
+        <TextField source="created_by" />
+        <TextField source="chq_no" />
+        <TextField source="chq_date" />
+        <EditButton variant="contained" color="secondary" />
+        <DeleteButton />
+      </Datagrid>
+    )}
   </List>
 );
-
 
 const VouchersTitle = ({ record }) => {
   return <span>Voucher {record ? `"${record.vou_no}"` : ""}</span>;
 };
 export const VouchersEdit = (props) => {
-
   return (
     <Edit
       undoable={false}
@@ -177,7 +159,7 @@ export const VouchersEdit = (props) => {
     >
       <VoucherEntryForm {...props} />
     </Edit>
-  )
+  );
 };
 
 export const VouchersCreate = (props) => {
@@ -186,15 +168,12 @@ export const VouchersCreate = (props) => {
     <Create redirect="show" undoable={false} title="New Voucher" {...props}>
       <VoucherEntryForm vou_type={vou_type} {...props} />
     </Create>
-  )
+  );
 };
 
 export const VouchersShow = (props) => {
-  return (
-    <VoucherShow {...props} />
-  )
+  return <VoucherShow {...props} />;
 };
-
 
 const dateFormatter = (v) => {
   // v is a `Date` object

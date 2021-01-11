@@ -17,9 +17,10 @@ class VouchersModel {
   ];
   find = async (params = {}, range = {}, sort = {}) => {
     //let sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}`;
-    let sql = "SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr)) as transactions from ledger ";
+    let sql =
+      "SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr)) as transactions from ledger ";
     let limit = "";
-    let orderby = " ORDER BY id ASC ";
+    let orderby = " ORDER BY row_id DESC ";
     let groupby = " GROUP BY  vou_no ";
 
     if (range && range.length) {
@@ -46,16 +47,20 @@ class VouchersModel {
   findOne = async (params) => {
     //const { columnSet, values } = multipleColumnSet(params);
     // let sql =
-    //   `SELECT v.id,DATE_FORMAT(v.voucher_date, "%Y-%m-%d") as vou_date,v.voucher_no as vou_no,v.voucher_type as vou_type,v.remarks,v.prepared_by,v.created_by,l.chq_no,l.chq_date,l.description,l.supplier,l.project,l.employee,l.stock,l.unit from vouchers v,ledger l 
-    //     WHERE v.id=l.register_id 
+    //   `SELECT v.id,DATE_FORMAT(v.voucher_date, "%Y-%m-%d") as vou_date,v.voucher_no as vou_no,v.voucher_type as vou_type,v.remarks,v.prepared_by,v.created_by,l.chq_no,l.chq_date,l.description,l.supplier,l.project,l.employee,l.stock,l.unit from vouchers v,ledger l
+    //     WHERE v.id=l.register_id
     //     AND v.id=` +
     //   params["id"] +
     //   ` group by l.register_id`;
 
     if (typeof params == "object") {
       const keys = Object.keys(params);
-      const values = Object.values(params).map((v) => v == 'id' ? `'${v}'` : `${v}`);
-      const columnSet = keys.map((key) => key == 'id' ? `${'vou_no'} = ?` : `${key} = ?`).join(", ");
+      const values = Object.values(params).map((v) =>
+        v == "id" ? `'${v}'` : `${v}`
+      );
+      const columnSet = keys
+        .map((key) => (key == "id" ? `${"vou_no"} = ?` : `${key} = ?`))
+        .join(", ");
       let sql = `SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, "%Y-%m-%d") vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d") as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr)) as transactions  from ledger 
                WHERE ${columnSet} GROUP BY vou_no `;
       console.log(sql);
@@ -63,13 +68,6 @@ class VouchersModel {
       const result = await query(sql, [...values]);
       return result[0];
     }
-
-
-
-
-
-
-
 
     // let result = await query(sql, [...values]);
     // let data = result[0];
@@ -106,7 +104,6 @@ class VouchersModel {
   //     "description": "This is Description",
   //     "remarks": "This is Remark"
   //   }
-
 
   create = async ({
     vou_date,
@@ -173,12 +170,13 @@ class VouchersModel {
         description,
         remarks,
       ]);
-
     }
 
     return vou_no;
   };
-  update = async ({ id, vou_date,
+  update = async ({
+    id,
+    vou_date,
     vou_no,
     vou_type,
     project,
@@ -194,9 +192,10 @@ class VouchersModel {
     created_by,
     transactions,
     total_debit,
-    total_credit }) => {
-
-    console.log(vou_date,
+    total_credit,
+  }) => {
+    console.log(
+      vou_date,
       vou_no,
       vou_type,
       project,
@@ -212,18 +211,18 @@ class VouchersModel {
       created_by,
       transactions,
       total_debit,
-      total_credit);
+      total_credit
+    );
 
     let sql = `UPDATE vouchers SET 
                    voucher_date = ?, voucher_no = ?, voucher_type = ?, remarks = ?, created_by =? WHERE voucher_no = '${vou_no}'`;
     console.log(sql);
     let result = await query(sql, [
-
       vou_date,
       vou_no,
       vou_type,
       remarks,
-      created_by
+      created_by,
     ]);
 
     sql = `DELETE FROM  ledger where vou_no = '${vou_no}'`;
@@ -256,13 +255,11 @@ class VouchersModel {
         description,
         remarks,
       ]);
-
     }
-
 
     // for (let transaction of transactions) {
     //   const sql = `UPDATE ledger SET
-    //   vou_date=?, vou_no =?, vou_type =?, remarks =? , chq_no =?, chq_date =?, description =?, 
+    //   vou_date=?, vou_no =?, vou_type =?, remarks =? , chq_no =?, chq_date =?, description =?,
     //   supplier=?, project =?, employee =?, stock =?, unit =?,
     //   coa=?,refno=?,dr=?,cr=?
     //   WHERE id =?`;
@@ -306,7 +303,6 @@ class VouchersModel {
     let sql = `select  count(distinct(vou_no)) as total FROM  ledger `;
     let result = "";
 
-
     if (Object.keys(params).length) {
       const { columnSet, values } = searchLikeColumnSet(params);
       sql += ` WHERE ${columnSet} `;
@@ -319,7 +315,6 @@ class VouchersModel {
 
     return rows[0].total;
   };
-
 
   voucherThisMonth = async (params = {}) => {
     let sql = `SELECT id,vou_type,  DATE_FORMAT(vou_date,'%d/%m') as vou_date, count(*) as count FROM ledger  WHERE   vou_date BETWEEN NOW() - INTERVAL 30 DAY AND NOW() group by vou_date order by vou_date desc `;
@@ -336,8 +331,8 @@ class VouchersModel {
     year = year.toString().substr(-2);
     const month = todaysDate.getMonth() + 1;
     const day = todaysDate.getDay();
-    let voutype = this.vou_types.find(v => v.id == vou_type);
-    console.log(voutype)
+    let voutype = this.vou_types.find((v) => v.id == vou_type);
+    console.log(voutype);
     let vou_no = voutype.code + year + padStart(month, 2, 0);
 
     const sql =
