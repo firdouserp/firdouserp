@@ -151,6 +151,13 @@ class BookingDetailsForm extends Component {
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
                     <TextInput
+                      source="client"
+                      defaultValue={booking.client}
+                      fullWidth onBlur={handleChange}
+                    />
+                    </Grid>
+                  <Grid item xs={xsmall} sm={small} md={medium}>
+                    <TextInput
                       source="reference_off"
                       defaultValue={booking.reference_off}
                       fullWidth onBlur={handleChange}

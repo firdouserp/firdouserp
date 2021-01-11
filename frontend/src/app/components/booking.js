@@ -2,6 +2,7 @@ import { Button, makeStyles, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
+import BookingShow from './booking/BookingShow';
 
 export const BookingIcon = ListAltIcon;
 const useStyles = makeStyles({
@@ -115,6 +116,13 @@ export const BookingCreate = (props) => (
             <TextInput source="email" />
             <BooleanInput source="active" />
             <Button source="Schedule" />
+           
         </SimpleForm>
     </Create>
 );
+
+export const BookingsShow = (props) => {
+    return (
+      <BookingShow {...props} />
+    )
+  };

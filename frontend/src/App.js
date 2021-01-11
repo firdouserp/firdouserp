@@ -25,6 +25,7 @@ import {
   BookingEdit,
   BookingIcon,
   BookingList,
+  BookingsShow,
 } from "./app/components/booking";
 import BookingFormWizard from "./app/components/booking/BookingFormWizard";
 import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
@@ -275,9 +276,9 @@ const httpClient = (url, options = {}) => {
   options.headers.set("Authorization", `Bearer ${token}`);
 
   let json = fetchUtils.fetchJson(url, options);
-//   json.then(function(result) {
-//     console.log(result) // "Some User token"
-//  })
+  //   json.then(function(result) {
+  //     console.log(result) // "Some User token"
+  //  })
   return json;
 };
 const dataProvider = simpleRestProvider(
@@ -318,6 +319,7 @@ const App = () => (
       create={BookingFormWizard}
       edit={BookingEdit}
       icon={BookingIcon}
+      show={BookingsShow}
     />
     <Resource
       name="Suppliers"
