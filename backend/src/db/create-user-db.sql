@@ -110,3 +110,26 @@ select n.id headid,n.title headtitle,c.title accounttitle,l.coa accountid ,sum(l
 create or replace view view_ledger_head_report as
 select headtitle,accounttitle, sum(sum_debit) as sum_debit_head,sum(sum_credit) sum_credit_head,
 JSON_ARRAYAGG(JSON_OBJECT('headtitle',headtitle,'accounttitle',accounttitle,'sum_debit',sum_debit,'sum_credit',sum_credit))  from view_ledger_report group by headid
+
+CREATE TABLE `firdouserp`.`purchase_order` (
+  `purchase_id` INT NOT NULL,
+  `purchase_date` DATE NULL,
+  `supplier_id` VARCHAR(45) NOT NULL,
+  `order_id` VARCHAR(45) NOT NULL,
+  `delivery_address` TEXT NULL,
+  ` created_on` DATE NULL,
+  `created_by` TEXT NULL,
+  `Status` TEXT NULL,
+  PRIMARY KEY (`purchase_id`, `supplier_id`, `order_id`));
+  ALTER TABLE `firdouserp`.`purchase_order` 
+CHANGE COLUMN `Status` `status` TEXT NULL DEFAULT NULL ;
+
+
+CREATE TABLE `firdouserp`.`purchase_details` (
+  `purchase_id` INT NOT NULL,
+  `stock_id` VARCHAR(45) NOT NULL,
+  `unit_id` VARCHAR(45) NOT NULL,
+  `qty` INT NULL,
+  `unit_price` DECIMAL NULL,
+  `subtotal` DECIMAL NULL,
+  PRIMARY KEY (`purchase_id`, `stock_id`, `unit_id`));

@@ -197,7 +197,7 @@ export default function Booking({ booking, company, notes }) {
                     <tbody>
                       <tr>
                         <td className="information-column">
-                          <div className="subheading">To</div>
+                          <div className="subheading">Allottee</div>
                           {/* <EntityInfo entity={customer} /> */}
                           <td className="subheading"></td>
                                   <td>{(booking.name)}</td>
@@ -226,31 +226,37 @@ export default function Booking({ booking, company, notes }) {
                           <table className="invoice-information">
                             <tbody>
                               <tr>
-                                <td className="subheading">{"invoiceName"} #</td>
-                                <td>{"invoice.id"}</td>
+                                <td className="subheading">{"Allottment"} #</td>
+                                <td>{"5"}</td>
                               </tr>
                               {booking.sale_price && (
                                 <tr>
-                                  <td className="subheading">Sale Price</td>
-                                  <td>{booking.sale_price}</td>
+                                  <td className="subheading">Unit Type</td>
+                                  <td>{"(1290sqfts)"}</td>
+                                </tr>
+                              )}
+                               {booking.discount && (
+                                <tr>
+                                  <td className="subheading">Unit No</td>
+                                  <td>{("A-102")}</td>
                                 </tr>
                               )}
                               {booking.discount && (
                                 <tr>
                                   <td className="subheading">Discount</td>
-                                  <td>{(booking.discount)}</td>
+                                  <td>{("5%")}</td>
                                 </tr>
                               )}
                               {booking.phone_no && (
                                 <tr>
-                                  <td className="subheading">Phone Number:</td>
-                                  <td>{(booking.phone_no)}</td>
+                                  <td className="subheading">Total Installments</td>
+                                  <td>{("10")}</td>
                                 </tr>
                               )}
                               {booking.cnic && (
                                 <tr>
-                                  <td className="subheading">Due</td>
-                                  <td>{booking.cnic}</td>
+                                  <td className="subheading">Installments Due</td>
+                                  <td>{"5"}</td>
                                 </tr>
                               )}
                             </tbody>
@@ -264,13 +270,7 @@ export default function Booking({ booking, company, notes }) {
            
             {booking.remarks && [
     
-                  <td className="subheading" colSpan="6">
-                    Description
-                  </td>,
-               
-                <tr className="details" key="details">
-                  <td colSpan="6">{booking.remarks}</td>
-                </tr>,
+                  
               ]} 
               
               
@@ -300,14 +300,14 @@ export default function Booking({ booking, company, notes }) {
               <tr className="heading">
                 <td className="subheading">Sr.no</td>
                 <td className="name"> unit type.</td>
-                <td> Booking amount.</td>
-                <td> Installment paid</td>
-                <td className="phone_no">Installment due</td>
+                <td> Area</td>
+                <td> Unit Cost</td>
+                <td className="phone_no">Booking Amount</td>
                 <td className="occupation">Amount remaining</td>
 
               </tr>
               {}  <tr className="item" key={booking.description}>
-                  <td className="subheading"  >{booking.cnic}</td>
+                  <td className="subheading"  >{"1"}</td>
                   <td>{booking.name}</td>
                   <td>{booking.father_name}</td>
                   <td>{booking.residential_address}</td>
@@ -329,6 +329,39 @@ export default function Booking({ booking, company, notes }) {
                   </table>
                 </td>
               </tr>
+              <tr className="heading">
+                <td className="subheading">Sr.no</td>
+                <td className="name"> unit type.</td>
+                <td> Area</td>
+                <td> Unit Cost</td>
+                <td className="phone_no">Booking Amount</td>
+                <td className="occupation">Amount remaining</td>
+
+              </tr>
+              {}  <tr className="item" key={booking.description}>
+                  <td className="subheading"  >{"2"}</td>
+                  <td>{booking.name}</td>
+                  <td>{booking.father_name}</td>
+                  <td>{booking.residential_address}</td>
+
+                  <td className="Phone Number">{(booking.phone_no)}</td>
+                  <td className="occupation">{(booking.occupation)}</td>
+                </tr>
+              
+              <tr className="total">
+                <td />
+
+                <td colSpan={"5"}>
+                  <table>
+                    <tbody>
+                      <tr>
+                      
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            
             </tbody>
           </table>
           {notes && (
