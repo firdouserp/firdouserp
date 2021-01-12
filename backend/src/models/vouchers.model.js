@@ -8,17 +8,18 @@ const { param } = require("express-validator");
 class VouchersModel {
   tableName = "vouchers";
   vou_types = [
-    { id: 1, code: "J", title: "Journal Voucher" },
-    { id: 2, code: "P", title: "Payment Voucher" },
-    { id: 3, code: "R", title: "Reciept Voucher" },
-    { id: 4, code: "S", title: "Sales Voucher" },
-    { id: 5, code: "SLR", title: "Salary Voucher" },
-    { id: 6, code: "I", title: "Inventory Voucher" },
+    { id: 1, code: "J", title: "Journal Voucher", dbcode: "Journal" },
+    { id: 2, code: "P", title: "Payment Voucher", dbcode: "Payment" },
+    { id: 3, code: "R", title: "Receipt Voucher", dbcode: "Reciept" },
+    { id: 4, code: "S", title: "Sales Voucher", dbcode: "" },
+    { id: 5, code: "SLR", title: "Salary Voucher", dbcode: "" },
+    { id: 6, code: "I", title: "Inventory Voucher", dbcode: "" },
   ];
   find = async (params = {}, range = {}, sort = {}) => {
     //let sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}`;
+
     let sql =
-      "SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr)) as transactions from ledger ";
+      "SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'supplier',supplier,'project',project,'unit',unit,'stock',stock,'employee',employee)) as transactions from ledger ";
     let limit = "";
     let orderby = " ORDER BY row_id DESC ";
     let groupby = " GROUP BY  vou_no ";
@@ -52,7 +53,8 @@ class VouchersModel {
     //     AND v.id=` +
     //   params["id"] +
     //   ` group by l.register_id`;
-
+    const cast_vou_type =
+      "(case when `ledger`.`vou_type`='Journal' then 1              when `ledger`.`vou_type`='Payment' then 2                when `ledger`.`vou_type`='Receipt' then 3                ELSE  `ledger`.`vou_type`          end) as vou_type";
     if (typeof params == "object") {
       const keys = Object.keys(params);
       const values = Object.values(params).map((v) =>
@@ -61,7 +63,7 @@ class VouchersModel {
       const columnSet = keys
         .map((key) => (key == "id" ? `${"vou_no"} = ?` : `${key} = ?`))
         .join(", ");
-      let sql = `SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, "%Y-%m-%d") vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d") as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr)) as transactions  from ledger 
+      let sql = `SELECT id as row_id,vou_no as id,${cast_vou_type},vou_no,DATE_FORMAT(vou_date, "%Y-%m-%d") vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d") as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'supplier',supplier,'project',project,'unit',unit,'stock',stock,'employee',employee)) as transactions  from ledger 
                WHERE ${columnSet} GROUP BY vou_no `;
       console.log(sql);
       console.log(values);
@@ -157,11 +159,11 @@ class VouchersModel {
         vou_type,
         ++srno,
         transaction.coa,
-        supplier,
-        project,
-        stock,
-        unit,
-        employee,
+        transaction.supplier,
+        transaction.project,
+        transaction.stock,
+        transaction.unit,
+        transaction.employee,
         transaction.refno,
         chq_no,
         chq_date,
@@ -242,11 +244,11 @@ class VouchersModel {
         vou_type,
         ++srno,
         transaction.coa,
-        supplier,
-        project,
-        stock,
-        unit,
-        employee,
+        transaction.supplier,
+        transaction.project,
+        transaction.stock,
+        transaction.unit,
+        transaction.employee,
         transaction.refno,
         chq_no,
         chq_date,
