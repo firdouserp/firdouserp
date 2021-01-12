@@ -147,14 +147,22 @@ const theme = createMuiTheme({
     },
     RaSimpleFormIterator: {
       form: {
-        display: "flex",
-        flexFlow: "row wrap",
+        "@media (min-width: 600px)": {
+          display: "flex",
+          flexFlow: "row wrap",
+        },
+
+        paddingBottom: "1rem",
+        paddingTop: "0.5rem",
         //justifyContent: "space-evenly",
       },
       RaFormInput: {
         input: {
           width: "100%",
         },
+      },
+      line: {
+        borderBottom: "solid 2px rgb(25 118 210)",
       },
     },
     RaLayout: {
