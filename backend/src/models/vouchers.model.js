@@ -19,7 +19,7 @@ class VouchersModel {
     //let sql = `SELECT id,voucher_date,voucher_no,voucher_type,amount,remarks,prepared_by,project_id,created_by,chq_no,chq_date FROM ${this.tableName}`;
 
     let sql =
-      "SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'supplier',supplier,'project',project,'unit',unit,'stock',stock,'employee',employee)) as transactions from ledger ";
+      "SELECT id as row_id,vou_no as id,vou_type,vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'description',description,'supplier',supplier,'project',project,'unit',unit,'stock',stock,'employee',employee)) as transactions from ledger ";
     let limit = "";
     let orderby = " ORDER BY row_id DESC ";
     let groupby = " GROUP BY  vou_no ";
@@ -63,7 +63,7 @@ class VouchersModel {
       const columnSet = keys
         .map((key) => (key == "id" ? `${"vou_no"} = ?` : `${key} = ?`))
         .join(", ");
-      let sql = `SELECT id as row_id,vou_no as id,${cast_vou_type},vou_no,DATE_FORMAT(vou_date, "%Y-%m-%d") vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d") as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'supplier',supplier,'project',project,'unit',unit,'stock',stock,'employee',employee)) as transactions  from ledger 
+      let sql = `SELECT id as row_id,vou_no as id,${cast_vou_type},vou_no,DATE_FORMAT(vou_date, "%Y-%m-%d") vou_date,supplier,project,unit,stock,employee,chq_no,DATE_FORMAT(chq_date, "%Y-%m-%d") as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'description',description,'supplier',supplier,'project',project,'unit',unit,'stock',stock,'employee',employee)) as transactions  from ledger 
                WHERE ${columnSet} GROUP BY vou_no `;
       console.log(sql);
       console.log(values);
@@ -169,7 +169,7 @@ class VouchersModel {
         chq_date,
         transaction.dr + 0,
         transaction.cr + 0,
-        description,
+        transaction.description,
         remarks,
       ]);
     }
@@ -254,7 +254,7 @@ class VouchersModel {
         chq_date,
         transaction.dr + 0,
         transaction.cr + 0,
-        description,
+        transaction.description,
         remarks,
       ]);
     }

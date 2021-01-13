@@ -15,7 +15,7 @@ import {
   SimpleForm,
   SimpleFormIterator,
   TextInput,
-  Toolbar,
+  Toolbar
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   width40: { marginRight: "0.5em", width: "40%" },
-  width50: { marginRight: "0.5em", width: "50%" },
+  width50: { marginRight: "0.5em", width: "62%" },
   alightRight: { marginRight: "0.5em", width: "20%" },
 
   maxFixedWidth: { maxWidth: "180px", boxSizing: "border-box" },
@@ -75,6 +75,9 @@ const useStyles = makeStyles({
       contained: {
         display: "none",
       },
+      marginDense: {
+        display: "none",
+      }
     },
     MuiFormControl: {
       root: { border: "1px solid #ccc" },
@@ -227,6 +230,7 @@ export const VoucherEntryForm = ({ ...props }) => {
       className={classes.VoucherEntry}
       validate={validateVoucherCreation}
       fullWidth
+
       redirect="show"
       {...props}
     >
@@ -255,12 +259,14 @@ export const VoucherEntryForm = ({ ...props }) => {
             //    resource="vouchers"
             fullWidth
             className={classes.BorderandBackground}
+            variant="outlined"
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
           <DateInput
             //initialValue={new Date().toLocaleDateString()}
             margin="none"
+            variant="outlined"
             source="vou_date"
             //resource="vouchers"
             validate={ra_required}
@@ -272,6 +278,7 @@ export const VoucherEntryForm = ({ ...props }) => {
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
           <TextInput
+            variant="outlined"
             margin="none"
             label="Chq.no"
             source="chq_no"
@@ -282,6 +289,7 @@ export const VoucherEntryForm = ({ ...props }) => {
         </Grid>
         <Grid item xs={12} sm={4}>
           <DateInput
+            variant="outlined"
             margin="none"
             label="Chq.date"
             source="chq_date"
@@ -292,10 +300,11 @@ export const VoucherEntryForm = ({ ...props }) => {
         </Grid>
         <Grid item xs={12} sm={8}>
           <TextInput
+            variant="outlined"
             margin="none"
-            source="description"
+            source="remarks"
             //resource="vouchers"
-            validate={ra_required}
+            //validate={ra_required}
             multiline
             fullWidth
             className={classes.BorderandBackground}
@@ -306,7 +315,7 @@ export const VoucherEntryForm = ({ ...props }) => {
           <Box className={classes.formBox}>
             <ArrayInput
               initialValue={initial}
-              //variant="standard"
+              variant="standard"
               source="transactions"
               label="Transactions"
               fullWidth
@@ -327,7 +336,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   fullWidth
                   formClassName={classes.width35}
                   className={classes.BorderandBackground}
-                  // margin="none"
+                // margin="none"
                 />
 
                 <FirdousSelect
@@ -375,7 +384,18 @@ export const VoucherEntryForm = ({ ...props }) => {
                   formClassName={classes.width35}
                   className={classes.BorderandBackground}
                 />
-
+                <TextInput
+                  variant="outlined"
+                  margin="none"
+                  source="description"
+                  //resource="vouchers"
+                  label="Description"
+                  validate={ra_required}
+                  multiline
+                  fullWidth
+                  formClassName={classes.width50}
+                  className={classes.BorderandBackground}
+                />
                 <FirdousSelect
                   margin="none"
                   allowEmpty
@@ -386,7 +406,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   optionText="title"
                   fullWidth
                   className={classes.BorderandBackground}
-                  formClassName={classes.width20}
+                  formClassName={classes.width35}
                 />
 
                 <FirdousSelect
@@ -425,8 +445,8 @@ export const VoucherEntryForm = ({ ...props }) => {
                   sort="title"
                   fullWidth
                   className={classes.BorderandBackground}
-                  formClassName={classes.width35}
-                  //className={classes.maxFixedWidth}
+                  formClassName={classes.width20}
+                //className={classes.maxFixedWidth}
                 />
 
                 {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
@@ -434,7 +454,7 @@ export const VoucherEntryForm = ({ ...props }) => {
             </ArrayInput>
           </Box>
           <Grid container display="flex" fullWidth>
-            <Grid item xs="6" align="right">
+            {/* <Grid item xs="6" align="right">
               <TextInput
                 margin="none"
                 label="Remarks"
@@ -444,10 +464,10 @@ export const VoucherEntryForm = ({ ...props }) => {
                 fullWidth
                 className={classes.BorderandBackground}
               />
-            </Grid>
-            <Grid item xs="6" align="right">
-              <TotalInput margin="none" source="total_debit" field="dr" />
-              <TotalInput margin="none" source="total_credit" field="cr" />
+            </Grid> */}
+            <Grid item xs="12" align="right">
+              <TotalInput variant="outlined" margin="none" source="total_debit" field="dr" />
+              <TotalInput variant="outlined" margin="none" source="total_credit" field="cr" />
             </Grid>
           </Grid>
         </Grid>
