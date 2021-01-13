@@ -2,14 +2,16 @@ const query = require("../db/db-connection");
 const {
   multipleColumnSet,
   searchLikeColumnSet,
-  autoCompleteColumnSet,
 } = require("../utils/common.utils");
-class CoaModel {
-  tableName = "coa";
+const Role = require("../utils/userRoles.utils");
+class Purchase_orderModel {
+  tableName = "purchase_order";
+
   find = async (params = {}, range = {}, sort = {}) => {
+    console.log("purchase_order find params:" + JSON.stringify(params));
     let sql = `SELECT * FROM ${this.tableName}`;
     let limit = "";
-    let orderby = " ORDER BY code ASC";
+    let orderby = " ORDER BY id ASC";
     if (range && range.length) {
       limit = ` LIMIT ${range[0]}, ${range[1] - range[0] + 1}`;
     }
@@ -31,6 +33,7 @@ class CoaModel {
     console.log(sql);
     return await query(sql, [...values]);
   };
+
   findOne = async (params) => {
     const { columnSet, values } = multipleColumnSet(params);
 
@@ -39,38 +42,40 @@ class CoaModel {
 
     const result = await query(sql, [...values]);
 
+    // return back the first row (user)
     return result[0];
   };
 
   create = async ({
-    code,
-    scode,
-    title,
-    iscashbook,
-    isbankbook,
-    notes,
-    obal,
-    active = 0,
+    purchase_id,
+    purchase_date,
+    supplier_id,
+    order_id,
+    delivery_address,
+    created_on,
+    created_by,
+    status
   }) => {
-    const sql = `INSERT INTO ${this.tableName} 
-        (code,scode,title,iscashbook,isbankbook,notes,obal,active) VALUES (?,?,?,?,?,?,?,?)`;
+    const sql = `INSERT INTO ${this.tableName}
+        ( purchase_id, purchase_date,supplier_id,order_id, delivery_address, created_on, created_by, status) VALUES (?,?,?,?,?,?,?,?)`;
     console.log(sql);
     const result = await query(sql, [
-      code,
-      scode,
-      title,
-      iscashbook,
-      isbankbook,
-      notes,
-      obal,
-      active,
+        purchase_id,
+        purchase_date,
+        supplier_id,
+        order_id,
+        delivery_address,
+        created_on,
+        created_by,
+        status
     ]);
     return result.insertId;
   };
+
   update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params);
 
-    const sql = `UPDATE coa SET ${columnSet} WHERE id = ?`;
+    const sql = `UPDATE purchase_order SET ${columnSet} WHERE id = ?`;
 
     const result = await query(sql, [...values, id]);
 
@@ -79,12 +84,13 @@ class CoaModel {
 
   delete = async (id) => {
     const sql = `DELETE FROM ${this.tableName}
-    WHERE id = ?`;
+        WHERE id = ?`;
     const result = await query(sql, [id]);
     const affectedRows = result ? result.affectedRows : 0;
 
     return affectedRows;
   };
+
   count = async (params = {}) => {
     let sql = `select count(*) as total FROM ${this.tableName}`;
     let result = "";
@@ -100,33 +106,6 @@ class CoaModel {
 
     return rows[0].total;
   };
-
-  autocomplete = async (params = {}, sort = {}) => {
-    let sql = `SELECT id,scode,code,title FROM ${this.tableName}`;
-    let orderby = " ORDER BY title ASC";
-
-    if (sort && sort.length) {
-      orderby = ` ORDER BY ${sort[0]} ${sort[1]}`;
-    }
-
-    if (!Object.keys(params).length) {
-      sql += orderby;
-      console.log(sql);
-      return await query(sql);
-    }
-
-    if (typeof params !== "object") {
-      throw new Error("Invalid input");
-    }
-
-    const searchterm = "%" + Object.values(params) + "%";
-    console.log("search term:" + searchterm);
-    sql += ` WHERE scode like '${searchterm}' or code like '${searchterm}' or title like '${searchterm}'`;
-
-    sql += orderby;
-    console.log(sql);
-    return await query(sql);
-  };
 }
 
-module.exports = new CoaModel();
+module.exports = new Purchase_orderModel();

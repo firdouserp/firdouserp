@@ -110,3 +110,35 @@ select n.id headid,n.title headtitle,c.title accounttitle,l.coa accountid ,sum(l
 create or replace view view_ledger_head_report as
 select headtitle,accounttitle, sum(sum_debit) as sum_debit_head,sum(sum_credit) sum_credit_head,
 JSON_ARRAYAGG(JSON_OBJECT('headtitle',headtitle,'accounttitle',accounttitle,'sum_debit',sum_debit,'sum_credit',sum_credit))  from view_ledger_report group by headid
+
+
+
+
+  CREATE TABLE `purchase_order` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `purchase_date` date DEFAULT NULL,
+  `project_id` int DEFAULT NULL,
+  `supplier_id` varchar(45) DEFAULT NULL,
+  `delivery_address` text,
+  ` created_on` date DEFAULT NULL,
+  `created_by` text,
+  `status` text,
+  `description` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+CREATE TABLE `purchase_details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `stock_id` varchar(45) NOT NULL,
+  `unit` varchar(45) DEFAULT NULL,
+  `qty` int NOT NULL,
+  `unit_price` decimal(10,0) DEFAULT NULL,
+  `subtotal` decimal(10,0) DEFAULT NULL,
+  `po_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;

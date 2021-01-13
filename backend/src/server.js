@@ -16,6 +16,7 @@ const vouchersRouter = require("./routes/vouchers.route");
 const bookingRouter = require("./routes/booking.route");
 const employeesRouter = require("./routes/employees.route");
 const scheduleRouter = require("./routes/schedule.route");
+const purchase_orderRouter = require("./routes/purchase_order.route");
 
 // Init express
 const app = express();
@@ -61,6 +62,8 @@ app.use(`/api/v1/vouchers`, vouchersRouter);
 app.use(`/api/v1/booking`, bookingRouter);
 app.use(`/api/v1/employees`, employeesRouter);
 app.use(`/api/v1/schedule`, scheduleRouter);
+app.use(`/api/v1/purchaseorder`, purchase_orderRouter);
+
 
 // 404 error
 app.all("*", (req, res, next) => {

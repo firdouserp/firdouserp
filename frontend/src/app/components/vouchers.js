@@ -21,7 +21,7 @@ import {
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "./accounts/FirdousSelect";
-import { VoucherEntryForm } from "./accounts/VoucherEntry2";
+import { VoucherEntryForm } from "./accounts/VoucherEntry3";
 import VoucherShow from "./accounts/VoucherShow";
 
 export const useQuery = (queryParam) => {

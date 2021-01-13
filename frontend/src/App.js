@@ -11,7 +11,7 @@ import {
   Layout,
   Login,
   Resource,
-  Sidebar,
+  Sidebar
 } from "react-admin";
 import "./App.css";
 // import {
@@ -25,7 +25,7 @@ import {
   BookingEdit,
   BookingIcon,
   BookingList,
-  BookingsShow,
+  BookingsShow
 } from "./app/components/booking";
 import BookingFormWizard from "./app/components/booking/BookingFormWizard";
 import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
@@ -33,7 +33,7 @@ import {
   Coa_typeCreate,
   Coa_typeEdit,
   Coa_typeIcon,
-  Coa_typeList,
+  Coa_typeList
 } from "./app/components/coa_type";
 import Menu from "./app/components/CustomMenu";
 import customRoutes from "./app/components/customRoutes";
@@ -42,44 +42,56 @@ import {
   EmployeesCreate,
   EmployeesEdit,
   EmployeesIcon,
-  EmployeesList,
+  EmployeesList
 } from "./app/components/employees";
 import MyAppBar from "./app/components/MyAppBar";
 import {
   NotesCreate,
   NotesEdit,
   NotesIcon,
-  NotesList,
+  NotesList
 } from "./app/components/notes";
 import {
   ProjectCreate,
   ProjectEdit,
   ProjectIcon,
-  ProjectList,
+  ProjectList
 } from "./app/components/projects";
+import {
+  Purchase_detailsCreate,
+  Purchase_detailsEdit,
+  Purchase_detailsIcon,
+  Purchase_detailsList
+} from "./app/components/purchase_details";
+import {
+  Purchase_orderCreate,
+  Purchase_orderEdit,
+  Purchase_orderIcon,
+  Purchase_orderList
+} from "./app/components/purchaseorders";
 import {
   ScheduleCreate,
   ScheduleEdit,
   ScheduleIcon,
-  ScheduleList,
+  ScheduleList
 } from "./app/components/schedule";
 import {
   StockCreate,
   StockEdit,
   StockIcon,
-  StockList,
+  StockList
 } from "./app/components/stock";
 import {
   SupplierCreate,
   SupplierEdit,
   SupplierIcon,
-  SupplierList,
+  SupplierList
 } from "./app/components/suppliers";
 import {
   UnitsCreate,
   UnitsEdit,
   UnitsIcon,
-  UnitsList,
+  UnitsList
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
 import {
@@ -87,11 +99,12 @@ import {
   VouchersEdit,
   VouchersIcon,
   VouchersList,
-  VouchersShow,
+  VouchersShow
 } from "./app/components/vouchers";
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
+
 
 const theme = createMuiTheme({
   palette: {
@@ -119,6 +132,9 @@ const theme = createMuiTheme({
       contained: {
         display: "none",
       },
+      marginDense: {
+        display: "none",
+      }
     },
 
     MuiFilledInput: {
@@ -147,14 +163,22 @@ const theme = createMuiTheme({
     },
     RaSimpleFormIterator: {
       form: {
-        display: "flex",
-        flexFlow: "row wrap",
+        "@media (min-width: 600px)": {
+          display: "flex",
+          flexFlow: "row wrap",
+        },
+
+        paddingBottom: "1rem",
+        paddingTop: "0.5rem",
         //justifyContent: "space-evenly",
       },
       RaFormInput: {
         input: {
           width: "100%",
         },
+      },
+      line: {
+        borderBottom: "solid 2px rgb(25 118 210)",
       },
     },
     RaLayout: {
@@ -323,6 +347,14 @@ const App = () => (
       icon={BookingIcon}
       show={BookingsShow}
     />
+     <Resource
+      name="Purchase_order"
+      list={Purchase_orderList}
+      create={Purchase_orderCreate}
+      edit={Purchase_orderEdit}
+      icon={Purchase_orderIcon}
+    />
+   
     <Resource
       name="Suppliers"
       list={SupplierList}
