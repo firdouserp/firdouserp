@@ -9,7 +9,7 @@ class CoaModel {
   find = async (params = {}, range = {}, sort = {}) => {
     let sql = `SELECT * FROM ${this.tableName}`;
     let limit = "";
-    let orderby = " ORDER BY id ASC";
+    let orderby = " ORDER BY code ASC";
     if (range && range.length) {
       limit = ` LIMIT ${range[0]}, ${range[1] - range[0] + 1}`;
     }

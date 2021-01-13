@@ -149,7 +149,7 @@ export const VoucherEntryForm = ({ ...props }) => {
     { id: 6, title: "Inventory Voucher" },
   ];
   const optionRenderer = (choice) => {
-    return choice && `${choice.scode || ""} | ${choice.code} | ${choice.title}`;
+    return choice && ` ${choice.title} ${choice.scode || ""}  ${choice.code}`;
   };
 
   const calculateSum = (values, source, field) => {
@@ -328,7 +328,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   label="Account"
                   list="coa"
                   source="coa"
-                  sort="title"
+                  sort="code"
                   optionText={optionRenderer}
                   //validate={ra_required}
                   //initialValue={1}
