@@ -69,7 +69,7 @@ const useStyles = makeStyles({
   BorderandBackground: {
     //border: "1px solid #ccc",
     //backgroundColor: "#1976d20f",
-    margin: "2px",
+    //margin: "2px",
     fontWeight: "bold",
     MuiFormHelperText: {
       contained: {
@@ -225,15 +225,17 @@ export const VoucherEntryForm = ({ ...props }) => {
     );
   };
   return (
+
     <SimpleForm
       toolbar={<CustomToolbar />}
       className={classes.VoucherEntry}
       validate={validateVoucherCreation}
       fullWidth
-
+      subscription={{}}
       redirect="show"
       {...props}
     >
+      {/* <FormSpy subscription={{ values: true }}>{({ values }) => <pre>{JSON.stringify(values, 0, 2)}</pre>}</FormSpy> */}
       <Grid container fullWidth spacing={1} display="flex">
         <Grid pr={8} item xs={12} sm={4} md={3}>
           <SelectInput
@@ -318,6 +320,7 @@ export const VoucherEntryForm = ({ ...props }) => {
               variant="standard"
               source="transactions"
               label="Transactions"
+              subscription={{}}
               fullWidth
               className={classes.BorderandBackgroundIter}
               marginTop="none"
@@ -385,7 +388,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   className={classes.BorderandBackground}
                 />
                 <TextInput
-                  variant="outlined"
+                  variant="standard"
                   margin="none"
                   source="description"
                   //resource="vouchers"

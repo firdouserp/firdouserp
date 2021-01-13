@@ -5,7 +5,7 @@ exports.createVouchersSchema = [
   check("vou_date").exists().withMessage("Please Enter the Voucher Date"),
   check("vou_type").exists().withMessage("Voucher type must be required"),
   check("transactions").exists().withMessage("No Transactions found"),
-  check("project").exists().withMessage("Enter the project ID"),
+  //check("project").exists().withMessage("Enter the project ID"),
 ];
 
 exports.updateVouchersSchema = [
@@ -13,7 +13,7 @@ exports.updateVouchersSchema = [
   check("vou_date").exists().withMessage("Please Enter the Voucher Date"),
   check("vou_type").exists().withMessage("Voucher type must be required"),
   check("transactions").exists().withMessage("No Transactions found"),
-  check("project").exists().withMessage("Enter the project ID"),
+  // check("project").exists().withMessage("Enter the project ID"),
   // check("voucher_date")
   //   .exists()
   //   .optional({ nullable: true })
