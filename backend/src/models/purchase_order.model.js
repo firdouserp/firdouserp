@@ -5,7 +5,7 @@ const {
 } = require("../utils/common.utils");
 const Role = require("../utils/userRoles.utils");
 class Purchase_orderModel {
-  tableName = "projects";
+  tableName = "purchase_order";
 
   find = async (params = {}, range = {}, sort = {}) => {
     console.log("purchase_order find params:" + JSON.stringify(params));
@@ -75,7 +75,7 @@ class Purchase_orderModel {
   update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params);
 
-    const sql = `UPDATE projects SET ${columnSet} WHERE id = ?`;
+    const sql = `UPDATE purchase_order SET ${columnSet} WHERE id = ?`;
 
     const result = await query(sql, [...values, id]);
 

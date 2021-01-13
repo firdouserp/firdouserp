@@ -7,37 +7,37 @@ const awaitHandlerFactory = require("../middleware/awaitHandlerFactory.middlewar
 
 const {
   createPurchase_orderSchema,
-  updatePurchaseSchema,
+  updatePurchase_orderSchema,
 } = require("../middleware/validators/purchase_orderValidator.middleware");
 
-router.get("/", auth(), awaitHandlerFactory(purchase_orderController.getAllPurchase_order)); //localhost:3000/api/v1/coa
+router.get("/", auth(), awaitHandlerFactory(purchase_orderController.getAllPurchase_order)); //localhost:3000/api/v1/purchase_order
 router.get(
   "/autocomplete",
   auth(),
   awaitHandlerFactory(purchase_orderController.autocomplete)
 ); //localhost:3000/api/v1/coa/id/1
-router.get("/:id", auth(), awaitHandlerFactory(purchase_orderController.getPurchase_orderById)); //localhost:3000/api/v1/coa/id/1
+router.get("/:id", auth(), awaitHandlerFactory(purchase_orderController.getPurchase_orderById)); //localhost:3000/api/v1/purchase_order/id/purchase_order
 router.get(
   "/code/:code",
   auth(),
   awaitHandlerFactory(purchase_orderController.getPurchase_orderBycode)
-); //localhost:3000/api/v1/coa/coacode/julia
+); //localhost:3000/api/v1/purchase_order/purchase_ordercode/julia
 router.post(
   "/",
   auth(),
   createPurchase_orderSchema,
-  awaitHandlerFactory(purchase_orderController.createPurchase)
-); // localhost:3000/api/v1/coa
+  awaitHandlerFactory(purchase_orderController.createPurchase_order)
+); // localhost:3000/api/v1/purchase_order
 router.put(
   "/:id",
   auth(),
-  updateCoaSchema,
-  awaitHandlerFactory(coaController.updateCoa)
-); //localhost:3000/api/v1/coa/id/1 , using patch for partial update
+  updatePurchase_orderSchema,
+  awaitHandlerFactory(purchase_orderController.updatePurchase_order)
+); //localhost:3000/api/v1/purchase_order/id/1 , using patch for partial update
 router.delete(
   "/:id",
   auth(Role.Admin),
-  awaitHandlerFactory(coaController.deleteCoa)
-); //localhost:3000/api/v1/coa/id/1
+  awaitHandlerFactory(purchase_orderController.deletePurchase_order)
+); //localhost:3000/api/v1/purchase_order/id/1
 
 module.exports = router;

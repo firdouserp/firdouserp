@@ -58,6 +58,18 @@ import {
   ProjectList
 } from "./app/components/projects";
 import {
+  Purchase_detailsCreate,
+  Purchase_detailsEdit,
+  Purchase_detailsIcon,
+  Purchase_detailsList
+} from "./app/components/purchase_details";
+import {
+  Purchase_orderCreate,
+  Purchase_orderEdit,
+  Purchase_orderIcon,
+  Purchase_orderList
+} from "./app/components/purchaseorders";
+import {
   ScheduleCreate,
   ScheduleEdit,
   ScheduleIcon,
@@ -92,6 +104,7 @@ import {
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
+
 
 const theme = createMuiTheme({
   palette: {
@@ -334,6 +347,14 @@ const App = () => (
       icon={BookingIcon}
       show={BookingsShow}
     />
+     <Resource
+      name="Purchase_order"
+      list={Purchase_orderList}
+      create={Purchase_orderCreate}
+      edit={Purchase_orderEdit}
+      icon={Purchase_orderIcon}
+    />
+   
     <Resource
       name="Suppliers"
       list={SupplierList}

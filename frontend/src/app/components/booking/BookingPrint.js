@@ -330,12 +330,12 @@ export default function Booking({ booking, company, notes }) {
                 </td>
               </tr>
               <tr className="heading">
-                <td className="subheading">Sr.no</td>
-                <td className="name"> unit type.</td>
-                <td> Area</td>
-                <td> Unit Cost</td>
-                <td className="phone_no">Booking Amount</td>
-                <td className="occupation">Amount remaining</td>
+                <td className="subheading"></td>
+                <td className="name"> </td>
+                <td> </td>
+                <td>  </td>
+                <td className="phone_no"></td>
+                <td className="occupation"></td>
 
               </tr>
               {}  <tr className="item" key={booking.description}>
