@@ -1,12 +1,12 @@
 //import { formatCurrency, formatDate } from "./utils";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React from "react";
 export function formatDate(date) {
-  return date
+  return date;
 }
 
 export function formatCurrency(amount) {
-  return amount
+  return amount;
 }
 const styles = `
 .invoice-box{
@@ -130,7 +130,7 @@ const styles = `
     border: 0;
   }
 }
-`
+`;
 
 export default function Voucher({ voucher, company, notes }) {
   const { transactions } = voucher;
@@ -154,21 +154,29 @@ export default function Voucher({ voucher, company, notes }) {
           <table cellPadding="0" cellSpacing="0">
             <tbody>
               <tr className="top">
-                <td colSpan="6" > <div className="voutype">{voucher.vou_type} Voucher</div></td>
+                <td colSpan="6">
+                  {" "}
+                  <div className="voutype">{voucher.vou_type} Voucher</div>
+                </td>
               </tr>
               <tr className="top">
-                <td colSpan="6" >
+                <td colSpan="6">
                   <table>
                     <tbody>
                       <tr>
-
                         <td>
-
                           <div>
-                            {voucher.vou_no && <div className="subheading">Voucher No # {voucher.vou_no}</div>}
-                            {voucher.vou_date && <div>Voucher Date :{voucher.vou_date}</div>}
-                            {voucher.project && <div>Project :{voucher.project}</div>}
-
+                            {voucher.vou_no && (
+                              <div className="subheading">
+                                Voucher No # {voucher.vou_no}
+                              </div>
+                            )}
+                            {voucher.vou_date && (
+                              <div>Voucher Date :{voucher.vou_date}</div>
+                            )}
+                            {voucher.project && (
+                              <div>Project :{voucher.project}</div>
+                            )}
                           </div>
                         </td>
                         <td className="title">
@@ -178,8 +186,8 @@ export default function Voucher({ voucher, company, notes }) {
                               display: "block",
                               width: "auto",
                               height: "auto",
-                              maxWidth: "200px",
-                              maxHeight: "100px",
+                              maxWidth: "250px",
+                              maxHeight: "150px",
                               marginLeft: "auto",
                             }}
                             alt={company.name}
@@ -203,7 +211,9 @@ export default function Voucher({ voucher, company, notes }) {
                           <table className="invoice-information">
                             <tbody>
                               <tr>
-                                <td className="subheading">{"invoiceName"} #</td>
+                                <td className="subheading">
+                                  {"invoiceName"} #
+                                </td>
                                 <td>{"invoice.id"}</td>
                               </tr>
                               {voucher.unit && (
@@ -255,11 +265,10 @@ export default function Voucher({ voucher, company, notes }) {
                 <td> Chq.Date</td>
                 <td className="debit">Debit</td>
                 <td className="credit">Credit</td>
-
               </tr>
               {transactions.map((item) => (
                 <tr className="item" key={item.description}>
-                  <td className="subheading"  >{item.coa}</td>
+                  <td className="subheading">{item.coa}</td>
                   <td>{item.refno}</td>
                   <td>{item.chq_no}</td>
                   <td>{item.chq_date}</td>
@@ -287,23 +296,31 @@ export default function Voucher({ voucher, company, notes }) {
           {notes && (
             <div style={{ marginTop: 30 }}>
               <div className="">Remarks: {notes}</div>
-
             </div>
           )}
           <div className="bottomline">
             <table cellPadding="0" cellSpacing="0">
               <tbody>
                 <tr className="footer">
-                  <td colSpan="2" > <div className="footer">{voucher.vou_type} Prepared By</div></td>
-                  <td colSpan="2" > <div className="footer">{voucher.vou_type} Checked By</div></td>
-                  <td colSpan="2" > <div className="footer">{voucher.vou_type} Signature</div></td>
+                  <td colSpan="2">
+                    {" "}
+                    <div className="footer">{voucher.vou_type} Prepared By</div>
+                  </td>
+                  <td colSpan="2">
+                    {" "}
+                    <div className="footer">{voucher.vou_type} Checked By</div>
+                  </td>
+                  <td colSpan="2">
+                    {" "}
+                    <div className="footer">{voucher.vou_type} Signature</div>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
       </body>
-    </html >
+    </html>
   );
 }
 
