@@ -343,7 +343,7 @@ const App = () => (
       show={BookingsShow}
     />
     <Resource
-      name="Purchase_order"
+      name="purchaseorder"
       list={Purchase_orderList}
       create={Purchase_orderCreate}
       edit={Purchase_orderEdit}

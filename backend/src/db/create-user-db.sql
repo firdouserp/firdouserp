@@ -142,3 +142,6 @@ CREATE TABLE `purchase_details` (
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+ALTER TABLE `firdouserp`.`purchase_order` 
+CHANGE COLUMN `supplier_id` `supplier_id` INT NULL DEFAULT NULL ;
