@@ -1,6 +1,7 @@
 import { Box, Grid, Typography } from "@material-ui/core";
 import React, { Component } from "react";
-import { Button, DateInput, TextInput, Toolbar } from "react-admin";
+import { Button, DateInput, required, TextInput, Toolbar } from "react-admin";
+import FirdousSelect from "../accounts/FirdousSelect";
 class ScheduleForm extends Component {
   continue = (e) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ class ScheduleForm extends Component {
     };
 
 
-
+    const ra_required = [required()];
     if (step == 2) {
       return (
         <Box p="1em">
@@ -48,10 +49,16 @@ class ScheduleForm extends Component {
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput
-                      source="unit"
-                      defaultValue={schedule.unit}
-                      fullWidth onBlur={handleChange}
+                    <FirdousSelect
+                       margin="units"
+                      label="units"
+                    source="units"
+                      optionText="title"
+                    list="units"
+                    sort="title"
+                  validate={ra_required}
+                    fullWidth
+                          
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>

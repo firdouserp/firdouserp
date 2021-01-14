@@ -1,7 +1,9 @@
 import { Box, Grid, Typography } from "@material-ui/core";
 import React, { Component } from "react";
-import { BooleanInput, Button, DateInput, TextInput, Toolbar } from "react-admin";
+import { BooleanInput, Button, DateInput, required, TextInput, Toolbar } from "react-admin";
+import FirdousSelect from "../accounts/FirdousSelect";
 class BookingDetailsForm extends Component {
+  
   continue = (e) => {
     e.preventDefault();
     this.props.nextStep();
@@ -17,7 +19,7 @@ class BookingDetailsForm extends Component {
         margin: 15,
       },
     };
-
+    const ra_required = [required()];
 
     if (step == 1) {
       return (
@@ -44,10 +46,16 @@ class BookingDetailsForm extends Component {
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput
-                      source="project"
-                      defaultValue={booking.project}
-                      fullWidth onBlur={handleChange}
+                     <FirdousSelect
+                       margin="projects"
+                      label="projects"
+                    source="projects"
+                      optionText="title"
+                    list="projects"
+                    sort="title"
+                  validate={ra_required}
+                    fullWidth
+                          
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
@@ -63,10 +71,16 @@ class BookingDetailsForm extends Component {
                     <TextInput fullWidth onBlur={handleChange} multiline source="title" />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium}>
-                    <TextInput
-                      fullWidth onBlur={handleChange}
-                      source="unit"
-                      defaultValue={booking.unit}
+                  <FirdousSelect
+                margin="none"
+                label="units"
+                source="unit"
+                optionText="title"
+                list="units"
+                sort="title"
+                validate={ra_required}
+                  fullWidth
+                          
                     />
                   </Grid>
                   <Grid item xs={xsmall} sm={small} md={medium} lg={medium}>

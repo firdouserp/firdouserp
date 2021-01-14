@@ -2,7 +2,8 @@ import { Grid, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import StoreIcon from '@material-ui/icons/Store';
 import * as React from "react";
-import { Create, Datagrid, DateInput, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
+import { Create, Datagrid, DateInput, DeleteButton, Edit, EditButton, Filter, List, ListButton, required, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
+import FirdousSelect from './accounts/FirdousSelect';
 export const Purchase_orderIcon = StoreIcon;
 
 export const Purchase_orderActions = ({ basePath, data }) => (
@@ -11,7 +12,7 @@ export const Purchase_orderActions = ({ basePath, data }) => (
     {/* <ShowButton basePath={basePath} record={data} /> */}
   </TopToolbar>
 );
-
+const ra_required = [required()];
 const Purchase_orderSearchFilter = (props) => (
 
   <Filter {...props}>
@@ -98,30 +99,36 @@ export const Purchase_orderCreate = (props) => (
     >
       <Grid container display="flex" fullWidth spacing={1}>
         <Grid item xs={12} md={4}>
-          <TextInput disabled source="purchase_id" fullWidth />
+          <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
           <DateInput source="purchase_date" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextInput source="supplier_id" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput disabled source="order_id" fullWidth />
+          <FirdousSelect
+            margin="none"
+            label="suppliers"
+            source="supplier_id"
+            optionText="title"
+             list="suppliers"
+            sort="title"
+            validate={ra_required}
+            fullWidth
+                          />
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="delivery_address" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextInput source="created_on" fullWidth />
+          <DateInput disabled source="created_on" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextInput source="created_by" fullWidth />
+          <TextInput disabled source="created_by" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="status" fullWidth />
         </Grid>
-
+        
       </Grid>
     </SimpleForm>
   </Create>
