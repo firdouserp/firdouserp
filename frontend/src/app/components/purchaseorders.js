@@ -3,7 +3,6 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import StoreIcon from '@material-ui/icons/Store';
 import * as React from "react";
 import { Create, Datagrid, DateInput, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
-
 export const Purchase_orderIcon = StoreIcon;
 
 export const Purchase_orderActions = ({ basePath, data }) => (
@@ -122,7 +121,6 @@ export const Purchase_orderCreate = (props) => (
         <Grid item xs={12} md={4}>
           <TextInput source="status" fullWidth />
         </Grid>
-
 
       </Grid>
     </SimpleForm>
