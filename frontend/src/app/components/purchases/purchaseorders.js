@@ -10,15 +10,17 @@ import {
   Edit,
   EditButton,
   Filter,
+  FormTab,
   List,
   ListButton,
   required,
   SearchInput,
   SimpleForm,
   SimpleList,
+  TabbedForm,
   TextField,
   TextInput,
-  TopToolbar,
+  TopToolbar
 } from "react-admin";
 import FirdousSelect from "../accounts/FirdousSelect";
 export const Purchase_orderIcon = StoreIcon;
@@ -57,17 +59,17 @@ export const Purchase_orderList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="code" />
-        <TextField source="scode" />
-        <TextField source="title" />
-        <TextField source="remarks" />
-        <TextField source="active" />
-        <EditButton variant="contained" color="secondary" />
-        <DeleteButton />
-      </Datagrid>
-    )}
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="code" />
+          <TextField source="scode" />
+          <TextField source="title" />
+          <TextField source="remarks" />
+          <TextField source="active" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>
+      )}
   </List>
 );
 
@@ -77,39 +79,41 @@ const Purchase_orderTitle = ({ record }) => {
 
 export const Purchase_orderEdit = (props) => (
   <Edit undoable={false} title={<Purchase_orderTitle />} {...props}>
-    <SimpleForm
+    <TabbedForm initialValues={{}}
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
     >
-      <Grid container display="flex" fullWidth spacing={1}>
-        <Grid item xs={12} md={4}>
-          <TextInput disabled source="purchase_id" fullWidth />
+      <FormTab label="Purchase Order">
+        <Grid container display="flex" fullWidth spacing={1}>
+          <Grid item xs={12} md={4}>
+            <TextInput disabled source="purchase_id" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <DateInput source="purchase_date" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="supplier_id" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput disabled source="order_id" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="delivery_address" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <DateInput source="created_on" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="created_by" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextInput source="status" fullWidth />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <DateInput source="purchase_date" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="supplier_id" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput disabled source="order_id" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="delivery_address" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <DateInput source="created_on" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="created_by" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="status" fullWidth />
-        </Grid>
-      </Grid>
-    </SimpleForm>
+      </FormTab>
+    </TabbedForm>
   </Edit>
 );
 

@@ -2,7 +2,7 @@ import { Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStation';
 import * as React from "react";
-import { BooleanField, BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
+import { BooleanField, BooleanInput, Create, Datagrid, DateField, DeleteButton, Edit, EditButton, Filter, FormTab, List, ListButton, ReferenceManyField, SearchInput, SimpleForm, SimpleList, TabbedForm, TextField, TextInput, TopToolbar } from 'react-admin';
 
 
 const useStyles = makeStyles({
@@ -61,68 +61,85 @@ export const SupplierEdit = props => {
     <Edit undoable={false} title={<SupplierTitle />} {...props}>
 
 
-      <SimpleForm
+      <TabbedForm initialValues={{}}
         variant={"standard"}
         sanitizeEmptyValues={false}
         margin="none"
         fullWidth
       >
-        <Grid container display="flex" fullWidth spacing={1}>
-          <Grid item xs={12} md={4}>
-            <TextInput disabled source="id" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput disabled source="code" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="scode" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput multiline source="title" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="person" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="contact" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="address" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="country" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="city" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="email" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="fax" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="cnic" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="ntn" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="stn" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="businesstitle" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="nature" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <BooleanInput source="active" fullWidth />
-          </Grid>
+        <FormTab label="Supplier Detail">
+          <Grid container display="flex" fullWidth spacing={1}>
+            <Grid item xs={12} md={4}>
+              <TextInput disabled source="id" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput disabled source="code" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="scode" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput multiline source="title" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="person" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="contact" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="address" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="country" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="city" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="email" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="fax" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="cnic" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="ntn" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="stn" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="businesstitle" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextInput source="nature" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <BooleanInput source="active" fullWidth />
+            </Grid>
 
 
-        </Grid>
-      </SimpleForm>
+          </Grid>
+        </FormTab>
+        <FormTab label="Purchase Orders">
+          <ReferenceManyField
+            reference="purchaseorder"
+            target="supplier_id"
+            addLabel={false}
+            fullWidth
+          >
+            <Datagrid>
+              <DateField source="created_on" />
+              <TextField source="supplier" />
+              <TextField source="status" />
+              <EditButton />
+            </Datagrid>
+          </ReferenceManyField>
+        </FormTab>
+      </TabbedForm>
 
 
 
