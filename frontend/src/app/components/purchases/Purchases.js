@@ -53,6 +53,13 @@ function SimplePaper() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <AccountButton
+              target="/suppliers"
+              label="Suppliers"
+              stylename={classes.JournalVoucher}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <AccountButton
               target="/purchaseorder"
               label="Purchase Orders"
               stylename={classes.JournalVoucher}
@@ -72,13 +79,7 @@ function SimplePaper() {
               stylename={classes.JournalVoucher}
             />
           </Grid>
-          <Grid item xs={12}>
-            <AccountButton
-              target="/suppliers"
-              label="Suppliers"
-              stylename={classes.JournalVoucher}
-            />
-          </Grid>
+
         </Grid>
       </Grid>
     </Grid>
