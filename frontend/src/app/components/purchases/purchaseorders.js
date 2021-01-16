@@ -25,6 +25,7 @@ import {
   TextInput,
   TopToolbar,
 } from "react-admin";
+import { useFormState } from "react-final-form";
 import FirdousSelect from "../accounts/FirdousSelect";
 export const Purchase_orderIcon = StoreIcon;
 const useStyles = makeStyles({
@@ -128,7 +129,12 @@ export const Purchase_orderEdit = (props) => (
     </TabbedForm>
   </Edit>
 );
-
+const UnitInput = (props) => {
+  const { values } = useFormState();
+  return (
+    <TextInput value={values.stock_id ? values.stock_id : ""} {...props} />
+  );
+};
 export const Purchase_orderCreate = (props) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("jwtToken"));
@@ -223,7 +229,7 @@ export const Purchase_orderCreate = (props) => {
                 formClassName={classes.iteratorinput}
               />
 
-              <TextInput
+              <UnitInput
                 label="Unit"
                 source="unit"
                 //validate={ra_required}
