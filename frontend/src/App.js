@@ -11,7 +11,7 @@ import {
   Layout,
   Login,
   Resource,
-  Sidebar
+  Sidebar,
 } from "react-admin";
 import "./App.css";
 // import {
@@ -25,15 +25,15 @@ import {
   BookingEdit,
   BookingIcon,
   BookingList,
-  BookingsShow
-} from "./app/components/booking";
-import BookingFormWizard from "./app/components/booking/BookingFormWizard";
+  BookingsShow,
+} from "./app/components/bookings/booking";
+import BookingFormWizard from "./app/components/bookings/BookingFormWizard";
 import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
 import {
   Coa_typeCreate,
   Coa_typeEdit,
   Coa_typeIcon,
-  Coa_typeList
+  Coa_typeList,
 } from "./app/components/coa_type";
 import Menu from "./app/components/CustomMenu";
 import customRoutes from "./app/components/customRoutes";
@@ -42,50 +42,50 @@ import {
   EmployeesCreate,
   EmployeesEdit,
   EmployeesIcon,
-  EmployeesList
+  EmployeesList,
 } from "./app/components/employees";
 import MyAppBar from "./app/components/MyAppBar";
 import {
   NotesCreate,
   NotesEdit,
   NotesIcon,
-  NotesList
+  NotesList,
 } from "./app/components/notes";
 import {
   ProjectCreate,
   ProjectEdit,
   ProjectIcon,
-  ProjectList
+  ProjectList,
 } from "./app/components/projects";
 import {
   Purchase_orderCreate,
   Purchase_orderEdit,
   Purchase_orderIcon,
-  Purchase_orderList
-} from "./app/components/purchaseorders";
+  Purchase_orderList,
+} from "./app/components/purchases/purchaseorders";
+import {
+  SupplierCreate,
+  SupplierEdit,
+  SupplierIcon,
+  SupplierList,
+} from "./app/components/purchases/suppliers";
 import {
   ScheduleCreate,
   ScheduleEdit,
   ScheduleIcon,
-  ScheduleList
+  ScheduleList,
 } from "./app/components/schedule";
 import {
   StockCreate,
   StockEdit,
   StockIcon,
-  StockList
+  StockList,
 } from "./app/components/stock";
-import {
-  SupplierCreate,
-  SupplierEdit,
-  SupplierIcon,
-  SupplierList
-} from "./app/components/suppliers";
 import {
   UnitsCreate,
   UnitsEdit,
   UnitsIcon,
-  UnitsList
+  UnitsList,
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
 import {
@@ -93,13 +93,11 @@ import {
   VouchersEdit,
   VouchersIcon,
   VouchersList,
-  VouchersShow
+  VouchersShow,
 } from "./app/components/vouchers";
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
-
-
 
 const theme = createMuiTheme({
   palette: {
@@ -129,7 +127,7 @@ const theme = createMuiTheme({
       },
       marginDense: {
         display: "none",
-      }
+      },
     },
 
     MuiFilledInput: {
@@ -341,6 +339,7 @@ const App = () => (
       edit={BookingEdit}
       icon={BookingIcon}
       show={BookingsShow}
+      options={{ label: "Bookings", menu: "false" }}
     />
     <Resource
       name="purchaseorder"
@@ -348,14 +347,16 @@ const App = () => (
       create={Purchase_orderCreate}
       edit={Purchase_orderEdit}
       icon={Purchase_orderIcon}
+      options={{ label: "Purchase Orders", menu: "false" }}
     />
 
     <Resource
-      name="Suppliers"
+      name="suppliers"
       list={SupplierList}
       create={SupplierCreate}
       edit={SupplierEdit}
       icon={SupplierIcon}
+      options={{ label: "Suppliers", menu: "false" }}
     />
     <Resource
       name="Units"
@@ -418,6 +419,7 @@ const App = () => (
       create={ScheduleCreate}
       edit={ScheduleEdit}
       icon={ScheduleIcon}
+      options={{ label: "Schedules", menu: "false" }}
     />
 
     <Resource name="Users" list={UserList} />

@@ -1,8 +1,10 @@
 import { useMediaQuery } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import LabelIcon from "@material-ui/icons/Label";
 import SettingsIcon from "@material-ui/icons/Settings";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import DefaultIcon from "@material-ui/icons/ViewList";
 import * as React from "react";
 import { DashboardMenuItem, getResources, MenuItemLink } from "react-admin";
@@ -23,6 +25,24 @@ const Menu = ({ onMenuClick, logout }) => {
         onClick={onMenuClick}
         sidebarIsOpen={open}
       />
+      <Divider light />
+      <MenuItemLink
+        to="/purchases"
+        primaryText="Purchases"
+        leftIcon={<ShoppingCartIcon />}
+        onClick={onMenuClick}
+        sidebarIsOpen={open}
+      />
+
+      <Divider light />
+      <MenuItemLink
+        to="/sales"
+        primaryText="Sales"
+        leftIcon={<AttachMoneyIcon />}
+        onClick={onMenuClick}
+        sidebarIsOpen={open}
+      />
+
       {resources.map((resource) => {
         if (resource.options && resource.options.menu === "false") {
           //console.log(resource);

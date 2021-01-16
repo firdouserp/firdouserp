@@ -1,9 +1,26 @@
-import { Grid, useMediaQuery } from '@material-ui/core';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import StoreIcon from '@material-ui/icons/Store';
+import { Grid, useMediaQuery } from "@material-ui/core";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import StoreIcon from "@material-ui/icons/Store";
 import * as React from "react";
-import { Create, Datagrid, DateInput, DeleteButton, Edit, EditButton, Filter, List, ListButton, required, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
-import FirdousSelect from './accounts/FirdousSelect';
+import {
+  Create,
+  Datagrid,
+  DateInput,
+  DeleteButton,
+  Edit,
+  EditButton,
+  Filter,
+  List,
+  ListButton,
+  required,
+  SearchInput,
+  SimpleForm,
+  SimpleList,
+  TextField,
+  TextInput,
+  TopToolbar,
+} from "react-admin";
+import FirdousSelect from "../accounts/FirdousSelect";
 export const Purchase_orderIcon = StoreIcon;
 
 export const Purchase_orderActions = ({ basePath, data }) => (
@@ -14,40 +31,48 @@ export const Purchase_orderActions = ({ basePath, data }) => (
 );
 const ra_required = [required()];
 const Purchase_orderSearchFilter = (props) => (
-
   <Filter {...props}>
-    <SearchInput variant="standard" placeholder="Title" source="title" alwaysOn />
-    <SearchInput variant="standard" placeholder="SCode" source="scode" alwaysOn />
+    <SearchInput
+      variant="standard"
+      placeholder="Title"
+      source="title"
+      alwaysOn
+    />
+    <SearchInput
+      variant="standard"
+      placeholder="SCode"
+      source="scode"
+      alwaysOn
+    />
     <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
   </Filter>
-
 );
 
-export const Purchase_orderList = props => (
+export const Purchase_orderList = (props) => (
   <List filters={<Purchase_orderSearchFilter />} {...props}>
-    {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
+    {useMediaQuery((theme) => theme.breakpoints.down("sm")) ? (
       <SimpleList
-        primaryText={record => record.title}
-        secondaryText={record => `${record.code}`}
-        tertiaryText={record => record.id}
-
+        primaryText={(record) => record.title}
+        secondaryText={(record) => `${record.code}`}
+        tertiaryText={(record) => record.id}
       />
     ) : (
-        <Datagrid rowClick="edit">
-          <TextField source="id" />
-          <TextField source="code" />
-          <TextField source="scode" />
-          <TextField source="title" />
-          <TextField source="remarks" />
-          <TextField source="active" />
-          <EditButton variant="contained" color="secondary" />
-          <DeleteButton />
-        </Datagrid>)}
+      <Datagrid rowClick="edit">
+        <TextField source="id" />
+        <TextField source="code" />
+        <TextField source="scode" />
+        <TextField source="title" />
+        <TextField source="remarks" />
+        <TextField source="active" />
+        <EditButton variant="contained" color="secondary" />
+        <DeleteButton />
+      </Datagrid>
+    )}
   </List>
 );
 
 const Purchase_orderTitle = ({ record }) => {
-  return <span>Order {record ? `"${record.title}"` : ''}</span>;
+  return <span>Order {record ? `"${record.title}"` : ""}</span>;
 };
 
 export const Purchase_orderEdit = (props) => (
@@ -83,7 +108,6 @@ export const Purchase_orderEdit = (props) => (
         <Grid item xs={12} md={4}>
           <TextInput source="status" fullWidth />
         </Grid>
-
       </Grid>
     </SimpleForm>
   </Edit>
@@ -110,11 +134,11 @@ export const Purchase_orderCreate = (props) => (
             label="suppliers"
             source="supplier_id"
             optionText="title"
-             list="suppliers"
+            list="suppliers"
             sort="title"
             validate={ra_required}
             fullWidth
-                          />
+          />
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="delivery_address" fullWidth />
@@ -128,7 +152,6 @@ export const Purchase_orderCreate = (props) => (
         <Grid item xs={12} md={4}>
           <TextInput source="status" fullWidth />
         </Grid>
-        
       </Grid>
     </SimpleForm>
   </Create>
