@@ -3,6 +3,7 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import StoreIcon from "@material-ui/icons/Store";
 import * as React from "react";
 import {
+  ArrayInput,
   Create,
   Datagrid,
   DateInput,
@@ -13,9 +14,11 @@ import {
   FormTab,
   List,
   ListButton,
+  NumberInput,
   required,
   SearchInput,
   SimpleForm,
+  SimpleFormIterator,
   SimpleList,
   TabbedForm,
   TextField,
@@ -51,7 +54,7 @@ const Purchase_orderSearchFilter = (props) => (
 );
 
 export const Purchase_orderList = (props) => (
-  <List filters={<Purchase_orderSearchFilter />} {...props}>
+  <List empty={false} filters={<Purchase_orderSearchFilter />} {...props}>
     {useMediaQuery((theme) => theme.breakpoints.down("sm")) ? (
       <SimpleList
         primaryText={(record) => record.title}
@@ -120,8 +123,9 @@ export const Purchase_orderEdit = (props) => (
 export const Purchase_orderCreate = (props) => (
   <Create undoable={false} title="New Purchase Order" {...props}>
     <SimpleForm
-      variant={"standard"}
-      sanitizeEmptyValues={false}
+      //variant={"outlined"}
+      variant="standard"
+      //sanitizeEmptyValues={false}
       margin="none"
       fullWidth
     >
@@ -157,6 +161,55 @@ export const Purchase_orderCreate = (props) => (
           <TextInput source="status" fullWidth />
         </Grid>
       </Grid>
+
+      <ArrayInput
+        //initialValue={initial}
+        //variant="standard"
+        source="purchase_details"
+        label="Items"
+        fullWidth
+      >
+        <SimpleFormIterator fullWidth>
+
+          <FirdousSelect
+            resettable
+            label="Item"
+            list="stock"
+            source="stock_id"
+            sort="title"
+            optionText={"title"}
+            //validate={ra_required}
+            initialValue={1}
+            fullWidth
+          />
+
+
+          <NumberInput
+
+            label="Unit"
+            source="unit"
+            //validate={ra_required}
+            fullWidth
+          />
+          <NumberInput
+
+            label="Quantity"
+            source="quantity"
+            //validate={ra_required}
+            fullWidth
+          />
+
+          <NumberInput
+
+            label="Unit Price"
+            source="unit_price"
+            //validate={ra_required}
+            fullWidth
+          />
+
+
+        </SimpleFormIterator>
+      </ArrayInput>
     </SimpleForm>
   </Create>
 );
