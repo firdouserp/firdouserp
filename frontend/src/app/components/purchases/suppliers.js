@@ -132,9 +132,11 @@ export const SupplierEdit = props => {
             fullWidth
           >
             <Datagrid>
-              <DateField source="created_on" />
-              <TextField source="supplier" />
+              <TextField source="po_no" />
+              <DateField source="purchase_date" />
+              <TextField source="project_id" />
               <TextField source="status" />
+              <DateField source="created_on" />
               <EditButton />
             </Datagrid>
           </ReferenceManyField>

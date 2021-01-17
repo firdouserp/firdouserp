@@ -12,7 +12,7 @@ class Purchase_orderModel {
     console.log("purchase_order find params:" + JSON.stringify(params));
 
 
-    let sql = `SELECT   po.id,DATE_FORMAT(po.purchase_date,"%Y-%m-%d")purchase_date,po.project_id,po.supplier_id,po.delivery_address,DATE_FORMAT(po.created_on,"%Y-%m-%d") created_on,po.created_by,po.status,po.description, pod.purchase_details  FROM  purchase_order po
+    let sql = `SELECT po.po_no,   po.id,DATE_FORMAT(po.purchase_date,"%Y-%m-%d")purchase_date,po.project_id,po.supplier_id,po.delivery_address,DATE_FORMAT(po.created_on,"%Y-%m-%d") created_on,po.created_by,po.status,po.description, pod.purchase_details  FROM  purchase_order po
               LEFT JOIN ( select po_id, 
                          JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty',qty,'unit_price', unit_price, 'subtotal', subtotal))
                           as purchase_details 
@@ -48,7 +48,7 @@ class Purchase_orderModel {
   findOne = async (params) => {
     const { columnSet, values } = multipleColumnSet(params);
 
-    let sql = `SELECT   po.id,DATE_FORMAT(po.purchase_date,"%Y-%m-%d")purchase_date,po.project_id,po.supplier_id,po.delivery_address,DATE_FORMAT(po.created_on,"%Y-%m-%d")created_on,po.created_by,po.status,po.description, pod.purchase_details  FROM  purchase_order po
+    let sql = `SELECT  po.po_no, po.id,DATE_FORMAT(po.purchase_date,"%Y-%m-%d")purchase_date,po.project_id,po.supplier_id,po.delivery_address,DATE_FORMAT(po.created_on,"%Y-%m-%d")created_on,po.created_by,po.status,po.description, pod.purchase_details  FROM  purchase_order po
               LEFT JOIN ( select po_id, 
                          JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty',qty,'unit_price', unit_price, 'subtotal', subtotal))
                           as purchase_details 

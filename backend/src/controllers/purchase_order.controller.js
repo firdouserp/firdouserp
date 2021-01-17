@@ -74,7 +74,7 @@ class Purchase_orderController {
 
     // do the update query and get the result
     // it can be partial edit
-    //const { ...restOfUpdates } = req.body;
+    const { ...restOfUpdates } = req.body;
     const result = await Purchase_orderModel.update(req.body);
 
     if (!result) {

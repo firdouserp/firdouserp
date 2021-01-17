@@ -77,11 +77,12 @@ export const Purchase_orderList = (props) => (
     ) : (
         <Datagrid rowClick="edit">
           <TextField source="id" />
-          <TextField source="code" />
-          <TextField source="scode" />
-          <TextField source="title" />
-          <TextField source="remarks" />
-          <TextField source="active" />
+          <TextField source="po_no" />
+          <TextField source="purchase_date" />
+          <TextField source="project_id" />
+          <TextField source="supplier_id" />
+          <TextField source="status" />
+          <TextField source="created_on" />
           <EditButton variant="contained" color="secondary" />
           <DeleteButton />
         </Datagrid>
@@ -107,7 +108,7 @@ const dateFormatter = (v) => {
   return `${yy}-${(pad + mm).slice(-2)}-${(pad + dd).slice(-2)}`;
 };
 const Purchase_orderTitle = ({ record }) => {
-  return <span>Order {record ? `"${record.title}"` : ""}</span>;
+  return <span>Order {record ? `"${record.po_no}"` : ""}</span>;
 };
 
 export const Purchase_orderEdit = (props) => (
@@ -166,6 +167,7 @@ const PO_FORM = () => {
           <Grid item xs={12} md={8}>
             <TextInput disabled source="id" fullWidth />
           </Grid>
+
           <Grid item xs={12} md={8}>
             <DateInput source="purchase_date" fullWidth />
           </Grid>
@@ -202,6 +204,9 @@ const PO_FORM = () => {
           </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6}>
+            <TextInput disabled source="po_no" fullWidth />
+          </Grid>
           <Grid item xs={12} md={6}>
             <DateInput
               initialValue={new Date().toISOString().substring(0, 10)}
