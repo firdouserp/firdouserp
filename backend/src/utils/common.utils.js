@@ -25,6 +25,14 @@ exports.multipleColumnSet = (object) => {
   };
 };
 
+const getKeyByValue = (obj, value) =>
+  Object.keys(obj).find(key => obj[key] === value);
+
+const idIDField = (obj, value) => {
+  const key = getKeyByValue(obj, value);
+  return key && key == "supplier_id" || key == "project_id" || key == "po_id" || key == "id"
+}
+
 exports.searchLikeColumnSet = (object) => {
   if (typeof object !== "object") {
     throw new Error("Invalid input");
@@ -33,10 +41,10 @@ exports.searchLikeColumnSet = (object) => {
   const keys = Object.keys(object);
 
   columnSet = keys
-    .map((key) => (key == "id" ? `${key} in (?)` : `${key} like ?`))
+    .map((key) => ((key == "id" || key == "supplier_id") ? `${key} in (?)` : `${key} like ?`))
     .join(" AND ");
   values = Object.values(object).map((value) =>
-    Array.isArray(value) ? `${value}` : `%${value}%`
+    (Array.isArray(value) || idIDField(object, value)) ? `${value}` : `%${value}%`
   );
   console.log(values);
 

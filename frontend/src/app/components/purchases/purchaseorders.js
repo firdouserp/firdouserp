@@ -39,14 +39,16 @@ import PrintVoucherComponent from "./PrintPOComponent";
 export const Purchase_orderIcon = StoreIcon;
 const useStyles = makeStyles({
   mr1: { marginRight: "1em" },
-  iteratorinput: { marginRight: "1em", width: "18%" },
-  iteratorinput50: { marginRight: "1em", width: "15%" },
-  iteratorinputdc: { marginRight: "1em", width: "50%" },
+  iteratorinput: { "@media (min-width: 600px)": { marginRight: "1em", width: "18%" } },
+  iteratorinput50: { "@media (min-width: 600px)": { marginRight: "1em", width: "15%" } },
+  iteratorinputdc: { "@media (min-width: 600px)": { marginRight: "1em", width: "50%" } },
   po_item: {
-    border: "1px solid #ccc",
-    width: "95%",
-    padding: "1em",
-    marginTop: "2em",
+    "@media (min-width: 600px)": {
+      border: "1px solid #ccc",
+      width: "95%",
+      padding: "1em",
+      marginTop: "2em",
+    }
   },
 });
 export const Purchase_orderActions = ({ basePath, data }) => (
@@ -112,7 +114,6 @@ export const Purchase_orderList = (props) => (
           <ReferenceField label="Supplier" source="supplier_id" reference="suppliers">
             <TextField source="title" />
           </ReferenceField>
-          <TextField source="supplier_id" />
           <TextField source="status" />
           <TextField source="created_on" />
           <EditButton variant="contained" color="secondary" />
