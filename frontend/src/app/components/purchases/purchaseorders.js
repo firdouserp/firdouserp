@@ -266,7 +266,7 @@ const PO_FORM = () => {
             />
 
 
-            <FormDataConsumer className={classes.iteratorinputdc}>
+            <FormDataConsumer subscription={{ values: true }} className={classes.iteratorinputdc}>
               {({
                 formData, // The whole form data
                 scopedFormData, // The data for this item of the ArrayInput
