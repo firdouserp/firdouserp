@@ -1,4 +1,5 @@
 const query = require("../db/db-connection");
+const padStart = require("string.prototype.padstart");
 const {
   multipleColumnSet,
   searchLikeColumnSet,
@@ -9,9 +10,18 @@ class Purchase_orderModel {
 
   find = async (params = {}, range = {}, sort = {}) => {
     console.log("purchase_order find params:" + JSON.stringify(params));
-    let sql = `SELECT * FROM ${this.tableName}`;
+
+
+    let sql = `SELECT   po.id,DATE_FORMAT(po.purchase_date,"%Y-%m-%d")purchase_date,po.project_id,po.supplier_id,po.delivery_address,DATE_FORMAT(po.created_on,"%Y-%m-%d") created_on,po.created_by,po.status,po.description, pod.purchase_details  FROM  purchase_order po
+              LEFT JOIN ( select po_id, 
+                         JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty',qty,'unit_price', unit_price, 'subtotal', subtotal))
+                          as purchase_details 
+                          from purchase_details GROUP BY po_id) 
+              pod  ON po.id =pod.po_id `
+
     let limit = "";
-    let orderby = " ORDER BY id ASC";
+    let orderby = " ORDER BY po.id desc";
+
     if (range && range.length) {
       limit = ` LIMIT ${range[0]}, ${range[1] - range[0] + 1}`;
     }
@@ -32,13 +42,19 @@ class Purchase_orderModel {
     sql += orderby + limit;
     console.log(sql);
     return await query(sql, [...values]);
+
   };
 
   findOne = async (params) => {
     const { columnSet, values } = multipleColumnSet(params);
 
-    const sql = `SELECT * FROM ${this.tableName}
-        WHERE ${columnSet}`;
+    let sql = `SELECT   po.id,DATE_FORMAT(po.purchase_date,"%Y-%m-%d")purchase_date,po.project_id,po.supplier_id,po.delivery_address,DATE_FORMAT(po.created_on,"%Y-%m-%d")created_on,po.created_by,po.status,po.description, pod.purchase_details  FROM  purchase_order po
+              LEFT JOIN ( select po_id, 
+                         JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty',qty,'unit_price', unit_price, 'subtotal', subtotal))
+                          as purchase_details 
+                          from purchase_details GROUP BY po_id) 
+              pod  ON po.id =pod.po_id 
+                WHERE ${columnSet} `
 
     const result = await query(sql, [...values]);
 
@@ -47,45 +63,108 @@ class Purchase_orderModel {
   };
 
   create = async ({
-    purchase_id,
     purchase_date,
+    project_id,
     supplier_id,
-    order_id,
     delivery_address,
     created_on,
     created_by,
-    status
+    status,
+    description,
+    purchase_details
   }) => {
+
+    const po_no = await this.newPONumber();
     const sql = `INSERT INTO ${this.tableName}
-        ( purchase_id, purchase_date,supplier_id,order_id, delivery_address, created_on, created_by, status) VALUES (?,?,?,?,?,?,?,?)`;
+        ( po_no,purchase_date,project_id,supplier_id, delivery_address, created_on, created_by, status,description) VALUES (?,?,?,?,?,?,?,?,?)`;
     console.log(sql);
     const result = await query(sql, [
-        purchase_id,
-        purchase_date,
-        supplier_id,
-        order_id,
-        delivery_address,
-        created_on,
-        created_by,
-        status
+      po_no,
+      purchase_date,
+      project_id,
+      supplier_id,
+      delivery_address,
+      created_on,
+      created_by,
+      status,
+      description
     ]);
-    return result.insertId;
+    const po_id = result.insertId;
+    for (let pod of purchase_details) {
+      const sql = `INSERT INTO purchase_details 
+                    (stock_id,unit,qty,unit_price,subtotal,po_id)
+                     VALUES (?,?,?,?,?,?)`;
+      console.log(sql);
+      const result = await query(sql, [
+        pod.stock_id,
+        pod.unit,
+        pod.qty,
+        pod.unit_price,
+        pod.subtotal,
+        po_id,
+      ]);
+    }
+
+    return po_id;
   };
 
-  update = async (params, id) => {
-    const { columnSet, values } = multipleColumnSet(params);
+  update = async ({
+    id,
+    po_no,
+    purchase_date,
+    project_id,
+    supplier_id,
+    delivery_address,
+    created_on,
+    created_by,
+    status,
+    description,
+    purchase_details }) => {
 
-    const sql = `UPDATE purchase_order SET ${columnSet} WHERE id = ?`;
+    let sql = `UPDATE purchase_order SET 
+      purchase_date = ?, project_id = ?, supplier_id = ?, delivery_address = ?,created_on=?, created_by=?,status=?, description=? WHERE id = ${id}`;
+    console.log(sql);
 
-    const result = await query(sql, [...values, id]);
+    let result = await query(sql, [
+      purchase_date,
+      project_id,
+      supplier_id,
+      delivery_address,
+      created_on,
+      created_by,
+      status,
+      description
+    ]);
 
-    return result;
+    sql = `DELETE FROM  purchase_details where po_id = ${id}`;
+    result = await query(sql, [id]);
+
+    //=========================================
+    //Purchase ORder Details ENTRY OF PO
+    //=========================================
+    let srno = 0;
+    for (let pod of purchase_details) {
+      const sql = `INSERT INTO purchase_details 
+       (stock_id,unit,qty,unit_price,subtotal,po_id) VALUES (?,?,?,?,?,?)`;
+      console.log(sql);
+      const result = await query(sql, [
+        pod.stock_id,
+        pod.unit,
+        pod.qty,
+        pod.unit_price,
+        pod.subtotal,
+        id,
+      ]);
+    }
+    return id;
   };
 
   delete = async (id) => {
-    const sql = `DELETE FROM ${this.tableName}
-        WHERE id = ?`;
-    const result = await query(sql, [id]);
+
+    let sql = `DELETE FROM purchase_details WHERE po_id = ?`;
+    let result = await query(sql, [id]);
+    sql = `DELETE FROM purchase_order WHERE id = ?`;
+    result = await query(sql, [id]);
     const affectedRows = result ? result.affectedRows : 0;
 
     return affectedRows;
@@ -106,6 +185,26 @@ class Purchase_orderModel {
 
     return rows[0].total;
   };
+  newPONumber = async () => {
+    console.log("getting new PO no");
+    const todaysDate = new Date();
+    let year = todaysDate.getFullYear();
+    year = year.toString().substr(-2);
+    const month = todaysDate.getMonth() + 1;
+    let po_no = year + padStart(month, 2, 0);
+
+    const sql = 'SELECT max(id) maxno FROM purchase_order';
+    const result = await query(sql);
+    let current_no = 1;
+    if (result.length > 0) {
+      current_no = result[0].maxno + 1;
+    }
+
+    po_no = po_no + "-" + padStart(current_no, 4, 0);
+    console.log(po_no);
+    return po_no;
+  };
+
 }
 
 module.exports = new Purchase_orderModel();

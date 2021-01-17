@@ -36,7 +36,7 @@ class Purchase_orderController {
   };
 
   getPurchase_orderById = async (req, res, next) => {
-    const purchase_order = await purchase_orderModel.findOne({ id: req.params.id });
+    const purchase_order = await Purchase_orderModel.findOne({ id: req.params.id });
     if (!purchase_order) {
       throw new HttpException(404, "Purchase Order not found");
     }
@@ -61,8 +61,8 @@ class Purchase_orderController {
       throw new HttpException(500, "Something went wrong");
     }
 
-    const  purchase_order = await  Purchase_orderModel.findOne({ id: result });
-    if (! purchase_order) {
+    const purchase_order = await Purchase_orderModel.findOne({ id: result });
+    if (!purchase_order) {
       throw new HttpException(404, "Purchase Order not found");
     }
 
@@ -74,8 +74,8 @@ class Purchase_orderController {
 
     // do the update query and get the result
     // it can be partial edit
-    const { ...restOfUpdates } = req.body;
-    const result = await  Purchase_orderModel.update(restOfUpdates, req.params.id);
+    //const { ...restOfUpdates } = req.body;
+    const result = await Purchase_orderModel.update(req.body);
 
     if (!result) {
       throw new HttpException(404, "Something went wrong");
@@ -86,9 +86,9 @@ class Purchase_orderController {
     const message = !affectedRows
       ? "Purchase Order not found"
       : affectedRows && changedRows
-      ? "Purchase Order updated successfully"
-      : "Updated faild";
-    const  purchase_order = await  Purchase_orderModel.findOne({ id: req.params.id });
+        ? "Purchase Order updated successfully"
+        : "Updated faild";
+    const purchase_order = await Purchase_orderModel.findOne({ id: req.params.id });
     if (!purchase_order) {
       throw new HttpException(404, "Project not found");
     }

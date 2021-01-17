@@ -20,40 +20,26 @@ exports.createPurchase_orderSchema = [
 ];
 
 exports.updatePurchase_orderSchema = [
-    check('purchase_id')
+    check('id')
         .exists()
-        .withMessage("Required"),
+        .withMessage("Id is Required"),
     check('purchase_date')
         .exists()
         .withMessage("Required"),
     check('supplier_id')
         .exists()
         .withMessage('Required'),
-    check('order_id')
+    check('project_id')
         .exists()
         .withMessage('Required'),
-    check('delivery_address')
+    check('purchase_details')
         .exists()
-        .withMessage('delivery address must be required'),
-    check('created_on')
-        .exists()
-        .withMessage('Required'),
-    check('created_by')
-        .exists()
-        .withMessage("Required"),
-    check('status')
-        .exists()
-        .withMessage("Required"),
+        .withMessage('Items of Purchase Details'),
+
     body()
         .custom(value => {
             return !!Object.keys(value).length;
         })
         .withMessage('Please provide required field to update')
-        .custom(value => {
-            const updates = Object.keys(value);
-            const allowUpdates = ['purchase_id', 'purchase_date', 'supplier_id', 'order_id', 'delivery_address', 'created_on', 'created_by', 'status'];
-            console.log(value);
-            return updates.every(update => allowUpdates.includes(update));
-        })
-        .withMessage('Invalid updates!')
+
 ];
