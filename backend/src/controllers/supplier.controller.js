@@ -11,28 +11,28 @@ dotenv.config();
  ******************************************************************************/
 class SupplierController {
     getAllSuppliers = async (req, res, next) => {
-       
+
         let supplierList;
         var range;
-        var sort ;
+        var sort;
         var filter;
-      
-        if(req.query && Object.keys(req.query).length){
-            var range = JSON.parse(req.query.range);
-            var sort = JSON.parse(req.query.sort);
-            var filter = JSON.parse(req.query.filter);
+
+        if (req.query && Object.keys(req.query).length) {
+            var range = req.query.range && JSON.parse(req.query.range);
+            var sort = req.query.sort && JSON.parse(req.query.sort);
+            var filter = req.query.filter && JSON.parse(req.query.filter);
             //console.log(range)
-            supplierList = await SupplierModel.find(filter,range,sort);
-        }else{
+            supplierList = await SupplierModel.find(filter, range, sort);
+        } else {
             supplierList = await SupplierModel.find();
         }
-      
-       
+
+
         let count = await SupplierModel.count(filter);
-        if(range && range.length>1){
+        if (range && range.length > 1) {
             let content_range = range[0] + '-' + range[1] + '/' + count
             console.log(content_range);
-            res.set('Content-Range',content_range);
+            res.set('Content-Range', content_range);
         }
 
         res.send(supplierList);
@@ -55,11 +55,11 @@ class SupplierController {
 
         res.send(supplier);
     };
-    
+
     createSupplier = async (req, res, next) => {
         this.checkValidation(req);
-        
-         const result = await SupplierModel.create(req.body);
+
+        const result = await SupplierModel.create(req.body);
 
         if (!result) {
             throw new HttpException(500, 'Something went wrong');
@@ -76,10 +76,10 @@ class SupplierController {
     updateSupplier = async (req, res, next) => {
         this.checkValidation(req);
 
-                
+
         // do the update query and get the result
         // it can be partial edit
-        const {...restOfUpdates } = req.body;
+        const { ...restOfUpdates } = req.body;
         const result = await SupplierModel.update(restOfUpdates, req.params.id);
 
         if (!result) {
@@ -90,12 +90,12 @@ class SupplierController {
 
         const message = !affectedRows ? 'Supplier not found' :
             affectedRows && changedRows ? 'Supplier updated successfully' : 'Updated faild';
-            const supplier = await SupplierModel.findOne({ id: req.params.id });
-            if (!supplier) {
-                throw new HttpException(404, 'Supplier not found');
-            }
-    
-            res.status(201).send(supplier);
+        const supplier = await SupplierModel.findOne({ id: req.params.id });
+        if (!supplier) {
+            throw new HttpException(404, 'Supplier not found');
+        }
+
+        res.status(201).send(supplier);
     };
 
     deleteSupplier = async (req, res, next) => {

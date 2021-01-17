@@ -46,9 +46,17 @@ class Purchase_orderModel {
   };
 
   findOne = async (params) => {
-    const { columnSet, values } = multipleColumnSet(params);
+    //const { columnSet, values } = multipleColumnSet(params);
 
-    let sql = `SELECT  po.po_no, po.id,DATE_FORMAT(po.purchase_date,"%Y-%m-%d")purchase_date,po.project_id,po.supplier_id,po.delivery_address,DATE_FORMAT(po.created_on,"%Y-%m-%d")created_on,po.created_by,po.status,po.description, pod.purchase_details  FROM  purchase_order po
+    if (typeof params == "object") {
+      const keys = Object.keys(params);
+      const values = Object.values(params).map((v) =>
+        v == "id" ? `'${v}'` : `${v}`
+      );
+      const columnSet = keys
+        .map((key) => (`${key} = ?`))
+        .join(", ");
+      let sql = `SELECT  po.po_no, po.id,DATE_FORMAT(po.purchase_date,"%Y-%m-%d")purchase_date,po.project_id,po.supplier_id,po.delivery_address,DATE_FORMAT(po.created_on,"%Y-%m-%d")created_on,po.created_by,po.status,po.description, pod.purchase_details  FROM  purchase_order po
               LEFT JOIN ( select po_id, 
                          JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty',qty,'unit_price', unit_price, 'subtotal', subtotal))
                           as purchase_details 
@@ -56,10 +64,12 @@ class Purchase_orderModel {
               pod  ON po.id =pod.po_id 
                 WHERE ${columnSet} `
 
-    const result = await query(sql, [...values]);
+      const result = await query(sql, [...values]);
 
-    // return back the first row (user)
-    return result[0];
+      // return back the first row (user)
+      return result[0];
+    }
+    return [];
   };
 
   create = async ({

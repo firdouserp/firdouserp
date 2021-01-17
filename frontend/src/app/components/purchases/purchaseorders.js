@@ -1,9 +1,11 @@
 import { Grid, makeStyles, useMediaQuery } from "@material-ui/core";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import PrintIcon from "@material-ui/icons/Print";
 import StoreIcon from "@material-ui/icons/Store";
 import * as React from "react";
 import {
   ArrayInput,
+  Button,
   Create,
   Datagrid,
   DateInput,
@@ -16,7 +18,9 @@ import {
   List,
   ListButton,
   NumberInput,
+  ReferenceField,
   required,
+  SaveButton,
   SearchInput,
   SimpleForm,
   SimpleFormIterator,
@@ -24,19 +28,23 @@ import {
   TabbedForm,
   TextField,
   TextInput,
+  Toolbar,
   TopToolbar,
   useLocale
 } from "react-admin";
 import { useFormState } from "react-final-form";
+import ReactToPrint from "react-to-print";
 import FirdousSelect from "../accounts/FirdousSelect";
+import PrintVoucherComponent from "./PrintPOComponent";
 export const Purchase_orderIcon = StoreIcon;
 const useStyles = makeStyles({
+  mr1: { marginRight: "1em" },
   iteratorinput: { marginRight: "1em", width: "18%" },
   iteratorinput50: { marginRight: "1em", width: "15%" },
   iteratorinputdc: { marginRight: "1em", width: "50%" },
   po_item: {
     border: "1px solid #ccc",
-    width: "90%",
+    width: "95%",
     padding: "1em",
     marginTop: "2em",
   },
@@ -52,17 +60,36 @@ const Purchase_orderSearchFilter = (props) => (
   <Filter {...props}>
     <SearchInput
       variant="standard"
-      placeholder="Title"
-      source="title"
+      placeholder="PO No"
+      source="po_no"
       alwaysOn
     />
-    <SearchInput
+    <DateInput
       variant="standard"
-      placeholder="SCode"
-      source="scode"
+      placeholder="Purchase Date"
+      source="purchase_date"
       alwaysOn
     />
     <SearchInput variant="standard" placeholder="Code" source="code" alwaysOn />
+    <FirdousSelect
+      variant="standard"
+      label="Project"
+      source="project_id"
+      optionText="title"
+      list="projects"
+      sort="title"
+      resettable
+      alwaysOn
+    />
+    <FirdousSelect
+      variant="standard"
+      label="Vendor"
+      source="supplier_id"
+      optionText="title"
+      list="suppliers"
+      sort="title"
+      resettable
+    />
   </Filter>
 );
 
@@ -79,7 +106,12 @@ export const Purchase_orderList = (props) => (
           <TextField source="id" />
           <TextField source="po_no" />
           <TextField source="purchase_date" />
-          <TextField source="project_id" />
+          <ReferenceField label="Project" source="project_id" reference="Projects">
+            <TextField source="title" />
+          </ReferenceField>
+          <ReferenceField label="Supplier" source="supplier_id" reference="suppliers">
+            <TextField source="title" />
+          </ReferenceField>
           <TextField source="supplier_id" />
           <TextField source="status" />
           <TextField source="created_on" />
@@ -114,6 +146,7 @@ const Purchase_orderTitle = ({ record }) => {
 export const Purchase_orderEdit = (props) => (
   <Edit undoable={false} title={<Purchase_orderTitle />} {...props}>
     <TabbedForm
+      toolbar={<CustomToolbar />}
       initialValues={{}}
       variant={"standard"}
       sanitizeEmptyValues={false}
@@ -156,82 +189,128 @@ export const Purchase_orderCreate = (props) => {
   );
 };
 
+const CustomToolbar = (props) => {
+  const componentRef = React.useRef();
+  return (
+    <Toolbar alwaysEnableSaveButton {...props} classes={useStyles()}>
+      <Grid container spacing={2}>
+        <Grid item>
+          <SaveButton undoable={false} {...props} />
+        </Grid>
+        <Grid item>
+          <ListButton
+            basePath={props.basePath}
+            label="Back"
+            variant="contained"
+            color="primary"
+            size="medium"
+            icon={<ChevronLeft />}
+          />
+        </Grid>
+        <Grid item>
+          <ReactToPrint
+            trigger={() => {
+              // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
+              // to the root node of the returned component as it will be overwritten.
+              return (
+                <Button
+                  disabled={!props.record.id}
+                  color="primary"
+                  variant="contained"
+                  label="Print"
+                  size="medium"
+                  icon={<PrintIcon />}
+                />
+              );
+            }}
+            content={() => componentRef.current}
+          />
+          <div style={{ display: "none" }}>
+            {console.log(props)}
+            <PrintVoucherComponent ref={componentRef} {...props} />
+          </div>
+        </Grid>
+      </Grid>
+      <DeleteButton undoable={false} />
+    </Toolbar>
+  );
+};
 const PO_FORM = () => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("jwtToken"));
   const locale = useLocale()
   return (
     <div>
-      <Grid container fullWidth spacing={1}>
-        <Grid item xs={12} md={6}>
-          <Grid item xs={12} md={8}>
-            <TextInput disabled source="id" fullWidth />
-          </Grid>
-
-          <Grid item xs={12} md={8}>
-            <DateInput source="purchase_date" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <FirdousSelect
-              margin="none"
-              label="Supplier"
-              source="supplier_id"
-              optionText="title"
-              list="suppliers"
-              sort="title"
-              validate={ra_required}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <FirdousSelect
-              margin="none"
-              label="Project"
-              source="project_id"
-              optionText="title"
-              list="projects"
-              sort="title"
-              validate={ra_required}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <TextInput source="delivery_address" fullWidth />
-          </Grid>
-
-          <Grid item xs={12} md={8}>
-            <TextInput source="status" fullWidth />
-          </Grid>
+      <Grid container display="flex" spacing={1}>
+        <Grid item xs={12} md={3}>
+          <TextInput variant="outlined" fullWidth className={classes.mr1} disabled source="id" />
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Grid item xs={12} md={6}>
-            <TextInput disabled source="po_no" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <DateInput
-              initialValue={new Date().toISOString().substring(0, 10)}
-              disabled
-              source="created_on"
-              fullWidth
-              locales={locale}
-            // parse={dateParser}
-            // format={dateFormatter}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextInput
-              initialValue={user && user.username}
-              disabled
-              source="created_by"
-              fullWidth
-            />
-          </Grid>
+        <Grid item xs={12} md={3}>
+          <TextInput variant="outlined" fullWidth className={classes.mr1} disabled source="po_no" />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <DateInput variant="outlined" fullWidth
+            initialValue={new Date().toISOString().substring(0, 10)}
+            disabled
+            className={classes.mr1}
+            source="created_on"
+            locales={locale}
+          // parse={dateParser}
+          // format={dateFormatter}
+          /></Grid>
+        <Grid item xs={12} md={3}>
+          <TextInput variant="outlined" fullWidth
+            className={classes.mr1}
+            initialValue={user && user.username}
+            disabled
+            source="created_by"
+
+          /></Grid></Grid>
+      <Grid container fullWidth spacing={1}>
+
+
+
+        <Grid item xs={12} md={4}>
+          <DateInput margin="none" source="purchase_date" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <FirdousSelect
+            margin="none"
+            label="Supplier"
+            source="supplier_id"
+            optionText="title"
+            list="suppliers"
+            sort="title"
+            validate={ra_required}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <FirdousSelect
+            margin="none"
+            label="Project"
+            source="project_id"
+            optionText="title"
+            list="projects"
+            sort="title"
+            validate={ra_required}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextInput source="delivery_address" fullWidth />
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          <TextInput source="status" fullWidth />
         </Grid>
       </Grid>
+
+
       <div className={classes.po_item}>
         <ArrayInput
           //initialValue={initial}
-          //variant="standard"
+          variant="standard"
           source="purchase_details"
           label="Items"
           fullWidth
