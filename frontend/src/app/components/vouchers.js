@@ -6,14 +6,12 @@ import {
   Create,
   Datagrid,
   DateInput,
-  DeleteButton,
   Edit,
   EditButton,
   Filter,
   List,
   ListButton,
   Pagination,
-  ReferenceField,
   SearchInput,
   SimpleList,
   TextField,
@@ -132,14 +130,14 @@ export const VouchersList = (props) => (
         <TextField source="row_id" />
         <TextField source="vou_no" />
         <TextField source="vou_date" />
-        <ReferenceField label="Project" source="project" reference="Projects">
+        {/* <ReferenceField label="Project" source="project" reference="Projects">
           <TextField source="title" />
-        </ReferenceField>
-        <TextField source="created_by" />
+        </ReferenceField> */}
         <TextField source="chq_no" />
         <TextField source="chq_date" />
+        <TextField source="created_by" />
         <EditButton variant="contained" color="secondary" />
-        <DeleteButton />
+        {/* <DeleteButton /> */}
       </Datagrid>
     )}
   </List>

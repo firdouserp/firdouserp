@@ -30,7 +30,7 @@ import {
   TextInput,
   Toolbar,
   TopToolbar,
-  useLocale
+  useLocale,
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";
@@ -39,16 +39,22 @@ import PrintVoucherComponent from "./PrintPOComponent";
 export const Purchase_orderIcon = StoreIcon;
 const useStyles = makeStyles({
   mr1: { marginRight: "1em" },
-  iteratorinput: { "@media (min-width: 600px)": { marginRight: "1em", width: "18%" } },
-  iteratorinput50: { "@media (min-width: 600px)": { marginRight: "1em", width: "15%" } },
-  iteratorinputdc: { "@media (min-width: 600px)": { marginRight: "1em", width: "50%" } },
+  iteratorinput: {
+    "@media (min-width: 600px)": { marginRight: "1em", width: "18%" },
+  },
+  iteratorinput50: {
+    "@media (min-width: 600px)": { marginRight: "1em", width: "15%" },
+  },
+  iteratorinputdc: {
+    "@media (min-width: 600px)": { marginRight: "1em", width: "50%" },
+  },
   po_item: {
     "@media (min-width: 600px)": {
       border: "1px solid #ccc",
       width: "95%",
       padding: "1em",
       marginTop: "2em",
-    }
+    },
   },
 });
 export const Purchase_orderActions = ({ basePath, data }) => (
@@ -104,22 +110,32 @@ export const Purchase_orderList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-        <Datagrid rowClick="edit">
-          <TextField source="id" />
-          <TextField source="po_no" />
-          <TextField source="purchase_date" />
-          <ReferenceField label="Project" source="project_id" reference="Projects">
-            <TextField source="title" />
-          </ReferenceField>
-          <ReferenceField label="Supplier" source="supplier_id" reference="suppliers">
-            <TextField source="title" />
-          </ReferenceField>
-          <FirdousSelect source="fprop" list="fprop/list" sort="value" optionText="value"  fullWidth/>
-          <TextField source="created_on" />
-          <EditButton variant="contained" color="secondary" />
-          <DeleteButton />
-        </Datagrid>
-      )}
+      <Datagrid rowClick="edit">
+        <TextField source="id" />
+        <TextField source="po_no" />
+        <TextField source="purchase_date" />
+        <ReferenceField
+          label="Project"
+          source="project_id"
+          reference="Projects"
+        >
+          <TextField source="title" />
+        </ReferenceField>
+        <ReferenceField
+          label="Supplier"
+          source="supplier_id"
+          reference="suppliers"
+        >
+          <TextField source="title" />
+        </ReferenceField>
+        <ReferenceField label="Status" source="status" reference="fprop">
+          <TextField source="value" />
+        </ReferenceField>
+        <TextField source="created_on" />
+        <EditButton variant="contained" color="secondary" />
+        <DeleteButton />
+      </Datagrid>
+    )}
   </List>
 );
 const dateParser = (v) => {
@@ -168,13 +184,14 @@ const UnitInput = (props) => {
 };
 const calcSubTotal = (scopedFormData) => {
   if (scopedFormData) {
-    const total = parseFloat(scopedFormData.unit_price || 0) * parseFloat(scopedFormData.qty || 0);
+    const total =
+      parseFloat(scopedFormData.unit_price || 0) *
+      parseFloat(scopedFormData.qty || 0);
     console.log("scope data:" + JSON.stringify(scopedFormData));
-    scopedFormData.subtotal = total
+    scopedFormData.subtotal = total;
   }
-}
+};
 export const Purchase_orderCreate = (props) => {
-
   return (
     <Create undoable="false" title="New Purchase Order" {...props}>
       <SimpleForm
@@ -238,52 +255,67 @@ const CustomToolbar = (props) => {
 };
 
 const toCurrency = (number) => {
-  const formatter = new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
+  const formatter = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
   });
-  console.log("format" + formatter.format(number))
+  console.log("format" + formatter.format(number));
   return formatter.format(number);
 };
 
 const fromCurrency = (number) => {
-  return (parseFloat(number));
+  return parseFloat(number);
 };
 const PO_FORM = () => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("jwtToken"));
-  const locale = useLocale()
+  const locale = useLocale();
   return (
     <div>
       <Grid container display="flex" spacing={1}>
         <Grid item xs={12} md={3}>
-          <TextInput variant="outlined" fullWidth className={classes.mr1} disabled source="id" />
+          <TextInput
+            variant="outlined"
+            fullWidth
+            className={classes.mr1}
+            disabled
+            source="id"
+          />
         </Grid>
         <Grid item xs={12} md={3}>
-          <TextInput variant="outlined" fullWidth className={classes.mr1} disabled source="po_no" />
+          <TextInput
+            variant="outlined"
+            fullWidth
+            className={classes.mr1}
+            disabled
+            source="po_no"
+          />
         </Grid>
         <Grid item xs={12} md={3}>
-          <DateInput variant="outlined" fullWidth
+          <DateInput
+            variant="outlined"
+            fullWidth
             initialValue={new Date().toISOString().substring(0, 10)}
             disabled
             className={classes.mr1}
             source="created_on"
             locales={locale}
-          // parse={dateParser}
-          // format={dateFormatter}
-          /></Grid>
+            // parse={dateParser}
+            // format={dateFormatter}
+          />
+        </Grid>
         <Grid item xs={12} md={3}>
-          <TextInput variant="outlined" fullWidth
+          <TextInput
+            variant="outlined"
+            fullWidth
             className={classes.mr1}
             initialValue={user && user.username}
             disabled
             source="created_by"
-
-          /></Grid></Grid>
+          />
+        </Grid>
+      </Grid>
       <Grid container fullWidth spacing={1}>
-
-
-
         <Grid item xs={12} md={4}>
           <DateInput margin="none" source="purchase_date" fullWidth />
         </Grid>
@@ -316,21 +348,22 @@ const PO_FORM = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-        <FirdousSelect
+          <FirdousSelect
+            defaultValue="1"
             label="Status"
-            source="fprop"
+            source="status"
             optionText="value"
             list="fprop"
             sort="oid"
             validate={ra_required}
             fullWidth
+            filter={{ type: "purchaseorder" }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextInput multiline source="description" fullWidth />
         </Grid>
       </Grid>
-
 
       <div className={classes.po_item}>
         <ArrayInput
@@ -369,14 +402,16 @@ const PO_FORM = () => {
               fullWidth
             />
 
-
-            <FormDataConsumer subscription={{ values: true }} className={classes.iteratorinputdc}>
+            <FormDataConsumer
+              subscription={{ values: true }}
+              className={classes.iteratorinputdc}
+            >
               {({
                 formData, // The whole form data
                 scopedFormData, // The data for this item of the ArrayInput
                 getSource, // A function to get the valid source inside an ArrayInput
                 ...rest
-              }) =>
+              }) => (
                 <NumberInput
                   {...rest}
                   label="Unit Price"
@@ -386,11 +421,9 @@ const PO_FORM = () => {
                   // format={toCurrency}
                   //parse={fromCurrency}
                   formClassName={classes.iteratorinput50}
-                //className={classes.iteratorinput}
-
+                  //className={classes.iteratorinput}
                 />
-
-              }
+              )}
             </FormDataConsumer>
             <TextInput
               disabled
@@ -400,13 +433,10 @@ const PO_FORM = () => {
               // value={scopedFormData &&  parseFloat((scopedFormData.unit_price || 0) * (scopedFormData.quantity || 0))}
               formClassName={classes.iteratorinput}
               fullWidth
-
             />
           </SimpleFormIterator>
         </ArrayInput>
       </div>
     </div>
-  )
+  );
 };
-
-
