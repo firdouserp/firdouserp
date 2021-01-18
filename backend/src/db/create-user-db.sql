@@ -114,25 +114,12 @@ JSON_ARRAYAGG(JSON_OBJECT('headtitle',headtitle,'accounttitle',accounttitle,'sum
 
 
 
-  CREATE TABLE `purchase_order` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `purchase_date` date DEFAULT NULL,
-  `project_id` int DEFAULT NULL,
-  `supplier_id` varchar(45) DEFAULT NULL,
-  `delivery_address` text,
-  ` created_on` date DEFAULT NULL,
-  `created_by` text,
-  `status` text,
-  `description` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
+ DROP TABLE IF EXISTS `purchase_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `purchase_details` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `stock_id` varchar(45) NOT NULL,
+  `stock_id` int NOT NULL,
   `unit` varchar(45) DEFAULT NULL,
   `qty` int NOT NULL,
   `unit_price` decimal(10,0) DEFAULT NULL,
@@ -140,8 +127,22 @@ CREATE TABLE `purchase_details` (
   `po_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) 
 
-ALTER TABLE `firdouserp`.`purchase_order` 
-CHANGE COLUMN `supplier_id` `supplier_id` INT NULL DEFAULT NULL ;
+DROP TABLE IF EXISTS `purchase_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `purchase_order` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `purchase_date` date DEFAULT NULL,
+  `project_id` int DEFAULT NULL,
+  `supplier_id` int NOT NULL,
+  `delivery_address` text,
+  `created_on` date DEFAULT NULL,
+  `created_by` text,
+  `status` text,
+  `description` text,
+  `po_no` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+)
