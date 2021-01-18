@@ -132,19 +132,23 @@ const styles = `
 }
 `;
 
-export default function Voucher({ voucher, company, notes }) {
-  const { transactions } = voucher;
+export default function PurchaseOrder({ purchaseorder, company, notes }) {
+  console.log(JSON.stringify(purchaseorder));
+  const { purchase_details } = purchaseorder;
 
-  const totalAmount = transactions.reduce((sum, item) => sum + item.dr, 0);
+  const totalAmount = purchase_details.reduce(
+    (sum, item) => sum + item.subtotal,
+    0
+  );
 
-  const voucherName = voucher.vou_type || "Voucher";
+  const POName = "Purchase Order " + purchaseorder.po_no;
 
   return (
     <html lang={"en_US"}>
       <head>
         <meta charSet="utf-8" />
         <title>
-          {company.name} {voucherName}
+          {company.name} {POName}
         </title>
         <style dangerouslySetInnerHTML={{ __html: styles }} />
         <meta name="robots" content="noindex, nofollow" />
@@ -156,7 +160,7 @@ export default function Voucher({ voucher, company, notes }) {
               <tr className="top">
                 <td colSpan="6">
                   {" "}
-                  <div className="voutype">{voucher.vou_type} Voucher</div>
+                  <div className="voutype">{purchaseorder.po_no} </div>
                 </td>
               </tr>
               <tr className="top">
@@ -166,16 +170,18 @@ export default function Voucher({ voucher, company, notes }) {
                       <tr>
                         <td>
                           <div>
-                            {voucher.vou_no && (
+                            {purchaseorder.vou_no && (
                               <div className="subheading">
-                                Voucher No # {voucher.vou_no}
+                                Purchase Order No # {purchaseorder.po_no}
                               </div>
                             )}
-                            {voucher.vou_date && (
-                              <div>Voucher Date :{voucher.vou_date}</div>
+                            {purchaseorder.vou_date && (
+                              <div>
+                                purchaseorder Date :{purchaseorder.vou_date}
+                              </div>
                             )}
-                            {voucher.project && (
-                              <div>Project :{voucher.project}</div>
+                            {purchaseorder.project && (
+                              <div>Project :{purchaseorder.project}</div>
                             )}
                           </div>
                         </td>
@@ -216,28 +222,28 @@ export default function Voucher({ voucher, company, notes }) {
                                 </td>
                                 <td>{"invoice.id"}</td>
                               </tr>
-                              {voucher.unit && (
+                              {purchaseorder.unit && (
                                 <tr>
                                   <td className="subheading">Unit</td>
-                                  <td>{voucher.unit}</td>
+                                  <td>{purchaseorder.unit}</td>
                                 </tr>
                               )}
-                              {voucher.supplier && (
+                              {purchaseorder.supplier && (
                                 <tr>
                                   <td className="subheading">Vendor</td>
-                                  <td>{formatDate(voucher.supplier)}</td>
+                                  <td>{formatDate(purchaseorder.supplier)}</td>
                                 </tr>
                               )}
-                              {voucher.stock && (
+                              {purchaseorder.stock && (
                                 <tr>
                                   <td className="subheading">Stock</td>
-                                  <td>{formatDate(voucher.stock)}</td>
+                                  <td>{formatDate(purchaseorder.stock)}</td>
                                 </tr>
                               )}
-                              {voucher.employee && (
+                              {purchaseorder.employee && (
                                 <tr>
                                   <td className="subheading">Due</td>
-                                  <td>{formatDate(voucher.employee)}</td>
+                                  <td>{formatDate(purchaseorder.employee)}</td>
                                 </tr>
                               )}
                             </tbody>
@@ -248,14 +254,14 @@ export default function Voucher({ voucher, company, notes }) {
                   </table>
                 </td>
               </tr>
-              {voucher.description && [
+              {purchaseorder.description && [
                 <tr className="heading" key="heading">
                   <td className="subheading" colSpan="6">
                     Description
                   </td>
                 </tr>,
                 <tr className="details" key="details">
-                  <td colSpan="6">{voucher.description}</td>
+                  <td colSpan="6">{purchaseorder.description}</td>
                 </tr>,
               ]}
               <tr className="heading">
@@ -266,7 +272,7 @@ export default function Voucher({ voucher, company, notes }) {
                 <td className="debit">Debit</td>
                 <td className="credit">Credit</td>
               </tr>
-              {transactions.map((item) => (
+              {purchase_details.map((item) => (
                 <tr className="item" key={item.description}>
                   <td className="subheading">{item.coa}</td>
                   <td>{item.refno}</td>
@@ -304,15 +310,21 @@ export default function Voucher({ voucher, company, notes }) {
                 <tr className="footer">
                   <td colSpan="2">
                     {" "}
-                    <div className="footer">{voucher.vou_type} Prepared By</div>
+                    <div className="footer">
+                      {purchaseorder.vou_type} Prepared By
+                    </div>
                   </td>
                   <td colSpan="2">
                     {" "}
-                    <div className="footer">{voucher.vou_type} Checked By</div>
+                    <div className="footer">
+                      {purchaseorder.vou_type} Checked By
+                    </div>
                   </td>
                   <td colSpan="2">
                     {" "}
-                    <div className="footer">{voucher.vou_type} Signature</div>
+                    <div className="footer">
+                      {purchaseorder.vou_type} Signature
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -324,31 +336,27 @@ export default function Voucher({ voucher, company, notes }) {
   );
 }
 
-Voucher.propTypes = {
+PurchaseOrder.propTypes = {
   company: PropTypes.shape({
     name: PropTypes.string,
     logoUrl: PropTypes.string,
   }).isRequired,
-  voucher: PropTypes.shape({
-    vou_no: PropTypes.string,
-    vou_date: PropTypes.string,
-    vou_type: PropTypes.string,
+  purchaseorder: PropTypes.shape({
+    po_no: PropTypes.string,
+    purchaes_date: PropTypes.string,
     project: PropTypes.string,
     supplier: PropTypes.string,
-    unit: PropTypes.string,
-    stock: PropTypes.string,
-    employee: PropTypes.string,
+    deliver_address: PropTypes.string,
+    staus: PropTypes.string,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     description: PropTypes.string,
-    remarks: PropTypes.string,
-    transactions: PropTypes.arrayOf(
+    purchase_details: PropTypes.arrayOf(
       PropTypes.shape({
-        coa: PropTypes.string.isRequired,
-        refno: PropTypes.string,
-        chq_no: PropTypes.string,
-        chq_date: PropTypes.string,
-        dr: PropTypes.number,
-        cr: PropTypes.number,
+        stock: PropTypes.string.isRequired,
+        unit: PropTypes.string,
+        qty: PropTypes.string,
+        unit_price: PropTypes.string,
+        subtotal: PropTypes.number,
       }).isRequired
     ).isRequired,
     name: PropTypes.string,
@@ -358,7 +366,7 @@ Voucher.propTypes = {
   notes: PropTypes.node,
 };
 
-Voucher.defaultProps = {
+PurchaseOrder.defaultProps = {
   lang: "en_US",
   notes: null,
 };

@@ -35,7 +35,7 @@ import {
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";
 import FirdousSelect from "../accounts/FirdousSelect";
-import PrintVoucherComponent from "./PrintPOComponent";
+import PrintPOComponent from "./PrintPOComponent";
 export const Purchase_orderIcon = StoreIcon;
 const useStyles = makeStyles({
   mr1: { marginRight: "1em" },
@@ -245,7 +245,7 @@ const CustomToolbar = (props) => {
           />
           <div style={{ display: "none" }}>
             {console.log(props)}
-            <PrintVoucherComponent ref={componentRef} {...props} />
+            <PrintPOComponent ref={componentRef} {...props} />
           </div>
         </Grid>
       </Grid>
