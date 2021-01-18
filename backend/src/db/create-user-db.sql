@@ -146,3 +146,11 @@ CREATE TABLE `purchase_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 )
+
+CREATE TABLE `fprop` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) NOT NULL,
+  `oid` int NOT NULL,
+  `value` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+)

@@ -114,7 +114,7 @@ export const Purchase_orderList = (props) => (
           <ReferenceField label="Supplier" source="supplier_id" reference="suppliers">
             <TextField source="title" />
           </ReferenceField>
-          <TextField source="status" />
+          <FirdousSelect source="fprop" list="fprop/list" sort="value" optionText="value"  fullWidth/>
           <TextField source="created_on" />
           <EditButton variant="contained" color="secondary" />
           <DeleteButton />
@@ -316,7 +316,15 @@ const PO_FORM = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <TextInput source="status" fullWidth />
+        <FirdousSelect
+            label="Status"
+            source="fprop"
+            optionText="value"
+            list="fprop"
+            sort="oid"
+            validate={ra_required}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12}>
           <TextInput multiline source="description" fullWidth />

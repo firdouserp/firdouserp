@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@material-ui/core';
+import { Grid, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import * as React from "react";
@@ -53,15 +53,17 @@ const CoaTitle = ({ record }) => {
 export const CoaEdit = (props) => (
     <Edit undoable={false}  title={<CoaTitle />} {...props}>
         <SimpleForm variant="standard" margin="none"    >
-            <TextInput disabled source="id" />
-            <TextInput source="code" />
-            <TextInput source="scode" /*options={{ multiLine: true }}*/ />
-            <TextInput multiline source="title" />
-            <TextInput source="iscashbook" />
-            <TextInput source="isbankbook" />
-            <FirdousSelect source="notes" list="notes" sort="title" optionText="title" />
-            <TextInput source="obal" />
-            <BooleanInput source="active" />
+        <Grid container display="flex" fullWidth spacing={1}>
+          <Grid item xs={12} md={4}>
+            <TextInput disabled source="code" fullWidth />           
+            <FirdousSelect source="notes" list="notes/list" sort="value" optionText="value"  fullWidth/>
+            <TextInput  source="obal" fullWidth />
+            <BooleanInput  source="iscashbook" fullWidth />
+            <BooleanInput  source="isbankbook" fullWidth />
+            <BooleanInput source="active" fullWidth />
+       
+               </Grid> 
+               </Grid>
         </SimpleForm>
     </Edit>
 );
@@ -70,18 +72,17 @@ export const CoaCreate = (props) => {
     return (
         <Create  title="New Coa" {...props}>
             <SimpleForm variant="standard">
-                <TextInput source="code" />
-                <TextInput multiline source="title" />
-                <TextInput source="iscashbook" />
-                <TextInput source="isbankbook" />
-                <FirdousSelect source="notes" list="notes/list" sort="value" optionText="value" />
-                <BooleanInput source="iscashbook" />
-                <BooleanInput source="isbankbook" />
-                {/* < ReferenceInput label="notes" source="notes" reference="notes" validate={[required()]}>
-            <SelectInput optionText="code" />
-            </ReferenceInput> */}
-                <TextInput source="obal" />
-                <BooleanInput source="active" />
+            <Grid container display="flex" fullWidth spacing={1}>
+          <Grid item xs={12} md={4}>
+            <TextInput disabled source="code" fullWidth />           
+            <FirdousSelect source="notes" list="notes/list" sort="value" optionText="value"  fullWidth/>
+            <TextInput  source="obal" fullWidth />
+            <BooleanInput  source="iscashbook" fullWidth />
+            <BooleanInput  source="isbankbook" fullWidth />
+            <BooleanInput source="active" fullWidth />
+       
+               </Grid> 
+               </Grid>
             </SimpleForm>
         </Create>
     )
