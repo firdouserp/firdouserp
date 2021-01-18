@@ -236,6 +236,19 @@ const CustomToolbar = (props) => {
     </Toolbar>
   );
 };
+
+const toCurrency = (number) => {
+  const formatter = new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+  });
+  console.log("format" + formatter.format(number))
+  return formatter.format(number);
+};
+
+const fromCurrency = (number) => {
+  return (parseFloat(number));
+};
 const PO_FORM = () => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("jwtToken"));
@@ -305,6 +318,9 @@ const PO_FORM = () => {
         <Grid item xs={12} md={4}>
           <TextInput source="status" fullWidth />
         </Grid>
+        <Grid item xs={12}>
+          <TextInput multiline source="description" fullWidth />
+        </Grid>
       </Grid>
 
 
@@ -359,7 +375,8 @@ const PO_FORM = () => {
                   source={getSource("unit_price")}
                   //validate={ra_required}
                   onChange={calcSubTotal(scopedFormData)}
-
+                  // format={toCurrency}
+                  //parse={fromCurrency}
                   formClassName={classes.iteratorinput50}
                 //className={classes.iteratorinput}
 

@@ -201,7 +201,7 @@ class Purchase_orderModel {
     let year = todaysDate.getFullYear();
     year = year.toString().substr(-2);
     const month = todaysDate.getMonth() + 1;
-    let po_no = year + padStart(month, 2, 0);
+    let po_no = "PO" + year + padStart(month, 2, 0);
 
     const sql = 'SELECT max(id) maxno FROM purchase_order';
     const result = await query(sql);
