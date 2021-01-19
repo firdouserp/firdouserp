@@ -50,6 +50,12 @@ import {
   FpropIcon,
   FpropList
 } from "./app/components/Fprop";
+import {
+  GrnCreate,
+  GrnEdit,
+  GrnIcon,
+  GrnList
+} from "./app/components/grn";
 import MyAppBar from "./app/components/MyAppBar";
 import {
   NotesCreate,
@@ -337,6 +343,13 @@ const App = () => (
       create={ProjectCreate}
       edit={ProjectEdit}
       icon={ProjectIcon}
+    />
+     <Resource
+      name="Grn"
+      list={GrnList}
+      create={GrnCreate}
+      edit={GrnEdit}
+      icon={GrnIcon}
     />
     <Resource
       name="Booking"
