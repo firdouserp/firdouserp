@@ -63,7 +63,7 @@ class FpropModel {
     const sql = `UPDATE fprop SET ${columnSet} WHERE id = ?`;
 
     const result = await query(sql, [...values, id]);
-
+    console.log(result);
     return result;
   };
 
@@ -92,7 +92,7 @@ class FpropModel {
   };
 
   autocomplete = async (params = {}, sort = {}) => {
-    let sql = `SELECT id,scode,code,title FROM ${this.tableName}`;
+    let sql = `SELECT id,type,oid,value FROM ${this.tableName}`;
     let orderby = " ORDER BY title ASC";
 
     if (sort && sort.length) {

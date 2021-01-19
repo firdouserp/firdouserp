@@ -5,12 +5,12 @@ const Role = require('../../utils/userRoles.utils');
 exports.createFpropSchema = [
     check('type')
         .exists()
-        .withMessage('code is required'),
+        .withMessage('type is required'),
       
     
     check('value')
         .exists()
-        .withMessage('Your title is required')
+        .withMessage('Your value is required')
       
         
 ];
