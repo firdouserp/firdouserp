@@ -11,9 +11,34 @@ import {
   Layout,
   Login,
   Resource,
-  Sidebar
+  Sidebar,
 } from "react-admin";
 import "./App.css";
+import {
+  CoaCreate,
+  CoaEdit,
+  CoaIcon,
+  CoaList,
+} from "./app/components/accounts/coa";
+import {
+  Coa_typeCreate,
+  Coa_typeEdit,
+  Coa_typeIcon,
+  Coa_typeList,
+} from "./app/components/accounts/coa_type";
+import {
+  NotesCreate,
+  NotesEdit,
+  NotesIcon,
+  NotesList,
+} from "./app/components/accounts/notes";
+import {
+  VouchersCreate,
+  VouchersEdit,
+  VouchersIcon,
+  VouchersList,
+  VouchersShow,
+} from "./app/components/accounts/vouchers";
 // import {
 //   VoucherEdit,
 //   VoucherEntry
@@ -25,88 +50,68 @@ import {
   BookingEdit,
   BookingIcon,
   BookingList,
-  BookingsShow
+  BookingsShow,
 } from "./app/components/bookings/booking";
 import BookingFormWizard from "./app/components/bookings/BookingFormWizard";
-import { CoaCreate, CoaEdit, CoaIcon, CoaList } from "./app/components/coa";
 import {
-  Coa_typeCreate,
-  Coa_typeEdit,
-  Coa_typeIcon,
-  Coa_typeList
-} from "./app/components/coa_type";
-import Menu from "./app/components/CustomMenu";
-import customRoutes from "./app/components/customRoutes";
+  ScheduleCreate,
+  ScheduleEdit,
+  ScheduleIcon,
+  ScheduleList,
+} from "./app/components/bookings/schedule";
+import Menu from "./app/components/custom/CustomMenu";
+import customRoutes from "./app/components/custom/customRoutes";
 import Dashboard from "./app/components/Dashboard";
+import {
+  StockCreate,
+  StockEdit,
+  StockIcon,
+  StockList,
+} from "./app/components/inventory/stock";
+import MyAppBar from "./app/components/MyAppBar";
 import {
   EmployeesCreate,
   EmployeesEdit,
   EmployeesIcon,
-  EmployeesList
-} from "./app/components/employees";
-import {
-  FpropCreate,
-  FpropEdit,
-  FpropIcon,
-  FpropList
-} from "./app/components/Fprop";
-import {
-  GrnCreate,
-  GrnEdit,
-  GrnIcon,
-  GrnList
-} from "./app/components/grn";
-import MyAppBar from "./app/components/MyAppBar";
-import {
-  NotesCreate,
-  NotesEdit,
-  NotesIcon,
-  NotesList
-} from "./app/components/notes";
+  EmployeesList,
+} from "./app/components/payroll/employees";
 import {
   ProjectCreate,
   ProjectEdit,
   ProjectIcon,
-  ProjectList
+  ProjectList,
 } from "./app/components/projects";
+import {
+  GrnCreate,
+  GrnEdit,
+  GrnIcon,
+  GrnList,
+} from "./app/components/purchases/grn";
 import {
   Purchase_orderCreate,
   Purchase_orderEdit,
   Purchase_orderIcon,
-  Purchase_orderList
+  Purchase_orderList,
 } from "./app/components/purchases/purchaseorders";
 import {
   SupplierCreate,
   SupplierEdit,
   SupplierIcon,
-  SupplierList
+  SupplierList,
 } from "./app/components/purchases/suppliers";
 import {
-  ScheduleCreate,
-  ScheduleEdit,
-  ScheduleIcon,
-  ScheduleList
-} from "./app/components/schedule";
-import {
-  StockCreate,
-  StockEdit,
-  StockIcon,
-  StockList
-} from "./app/components/stock";
+  FpropCreate,
+  FpropEdit,
+  FpropIcon,
+  FpropList,
+} from "./app/components/settings/Fprop";
 import {
   UnitsCreate,
   UnitsEdit,
   UnitsIcon,
-  UnitsList
+  UnitsList,
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
-import {
-  VouchersCreate,
-  VouchersEdit,
-  VouchersIcon,
-  VouchersList,
-  VouchersShow
-} from "./app/components/vouchers";
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
@@ -344,8 +349,8 @@ const App = () => (
       edit={ProjectEdit}
       icon={ProjectIcon}
     />
-     <Resource
-      name="Grn"
+    <Resource
+      name="grn"
       list={GrnList}
       create={GrnCreate}
       edit={GrnEdit}
@@ -366,8 +371,6 @@ const App = () => (
       create={FpropCreate}
       edit={FpropEdit}
       icon={FpropIcon}
-
-      
       options={{ label: "Properties", menu: "true" }}
     />
     <Resource
@@ -450,7 +453,6 @@ const App = () => (
       icon={ScheduleIcon}
       options={{ label: "Schedules", menu: "false" }}
     />
-   
 
     <Resource name="Users" list={UserList} />
     <Resource name="Userform" />

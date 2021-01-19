@@ -3,7 +3,7 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import * as React from "react";
 import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
-import FirdousSelect from './accounts/FirdousSelect';
+import FirdousSelect from './FirdousSelect';
 export const CoaIcon = ListAltIcon;
 
 export const CoaActions = ({ basePath, data }) => (

@@ -19,7 +19,7 @@ import {
   TextInput,
   TopToolbar
 } from "react-admin";
-import FirdousSelect from "./accounts/FirdousSelect";
+import FirdousSelect from "./FirdousSelect";
 export const NotesIcon = StoreIcon;
 
 export const NotesActions = ({ basePath, data }) => (

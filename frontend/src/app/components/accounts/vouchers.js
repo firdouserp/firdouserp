@@ -18,9 +18,9 @@ import {
   TopToolbar,
 } from "react-admin";
 import { useLocation } from "react-router";
-import FirdousSelect from "./accounts/FirdousSelect";
-import { VoucherEntryForm } from "./accounts/VoucherEntry3";
-import VoucherShow from "./accounts/VoucherShow";
+import FirdousSelect from "./FirdousSelect";
+import { VoucherEntryForm } from "./VoucherEntry3";
+import VoucherShow from "./VoucherShow";
 
 export const useQuery = (queryParam) => {
   const search = new URLSearchParams(useLocation().search);
