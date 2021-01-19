@@ -23,7 +23,7 @@ export const FpropSearchFilter = (props) => (
 
 );
 
-export const FpropLList = props => (
+export const FpropList = props => (
   <List filters={<FpropSearchFilter />} {...props}>
     {useMediaQuery(theme => theme.breakpoints.down("sm")) ? (
       <SimpleList
@@ -103,3 +103,4 @@ export const FpropCreate = (props) => (
     </SimpleForm>
   </Create>
 );
+
