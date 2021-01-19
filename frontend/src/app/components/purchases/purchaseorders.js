@@ -173,6 +173,8 @@ export const Purchase_orderEdit = (props) => (
       <FormTab label="Purchase Order">
         <PO_FORM />
       </FormTab>
+      <FormTab label="Goods Reciepts"></FormTab>
+      <FormTab label="Supplier Bills"></FormTab>
     </TabbedForm>
   </Edit>
 );
