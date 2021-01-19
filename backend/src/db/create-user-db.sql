@@ -125,9 +125,10 @@ CREATE TABLE `purchase_details` (
   `unit_price` decimal(10,0) DEFAULT NULL,
   `subtotal` decimal(10,0) DEFAULT NULL,
   `po_id` int DEFAULT NULL,
+  `qty_received` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) 
+);
 
 DROP TABLE IF EXISTS `purchase_order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -140,12 +141,14 @@ CREATE TABLE `purchase_order` (
   `delivery_address` text,
   `created_on` date DEFAULT NULL,
   `created_by` text,
-  `status` text,
+  `status` int DEFAULT NULL,
   `description` text,
   `po_no` varchar(45) NOT NULL,
+  `grn_no` varchar(45) DEFAULT NULL,
+  `refno` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-)
+);
 
 CREATE TABLE `fprop` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -153,4 +156,32 @@ CREATE TABLE `fprop` (
   `oid` int NOT NULL,
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-)
+);
+
+CREATE TABLE `grn` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `grn_no` varchar(45) DEFAULT NULL,
+  `grn_date` date DEFAULT NULL,
+  `po_id` int DEFAULT NULL,
+  `po_no` varchar(45) NOT NULL,
+  `created_on` date DEFAULT NULL,
+  `created_by` text,
+  `status` int DEFAULT NULL,
+  `remarks` text,
+  `refno` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+);
+
+CREATE TABLE `grn_details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `stock_id` int NOT NULL,
+  `unit` varchar(45) DEFAULT NULL,
+  `qty_ord` int NOT NULL,
+  `qty_rec` int NOT NULL,
+  `unit_price` decimal(10,0) DEFAULT NULL,
+  `subtotal` decimal(10,0) DEFAULT NULL,
+  `grn_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+);
