@@ -33,9 +33,11 @@ import {
   useLocale,
 } from "react-admin";
 import { useFormState } from "react-final-form";
+import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import FirdousSelect from "../accounts/FirdousSelect";
 import PrintPOComponent from "./PrintPOComponent";
+
 export const Purchase_orderIcon = StoreIcon;
 const useStyles = makeStyles({
   mr1: { marginRight: "1em" },
@@ -249,6 +251,26 @@ const CustomToolbar = (props) => {
             {console.log(props)}
             <PrintPOComponent ref={componentRef} {...props} />
           </div>
+        </Grid>
+        <Grid item>
+          <Button
+            component={Link}
+            to={{
+              pathname: "/grn/create",
+              state: {
+                record: {
+                  po_no: props.record.po_no,
+                  po_id: props.record.id,
+                  grn_details: props.record.purchase_details,
+                },
+              },
+            }}
+            label="Add Goods Receipt"
+            variant="contained"
+            color="primary"
+            size="medium"
+            icon={<ChevronLeft />}
+          />
         </Grid>
       </Grid>
       <DeleteButton undoable={false} />

@@ -355,6 +355,7 @@ const App = () => (
       create={GrnCreate}
       edit={GrnEdit}
       icon={GrnIcon}
+      options={{ label: "GRN", menu: "false" }}
     />
     <Resource
       name="Booking"

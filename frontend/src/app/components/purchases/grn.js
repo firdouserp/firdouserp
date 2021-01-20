@@ -1,8 +1,12 @@
-import { Grid, useMediaQuery } from "@material-ui/core";
+import { Grid, makeStyles, Toolbar, useMediaQuery } from "@material-ui/core";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import PrintIcon from "@material-ui/icons/Print";
 import * as React from "react";
 import {
+  ArrayInput,
+  BooleanInput,
+  Button,
   Create,
   Datagrid,
   DateInput,
@@ -10,12 +14,16 @@ import {
   Edit,
   EditButton,
   Filter,
+  FormTab,
   List,
   ListButton,
   NumberInput,
+  SaveButton,
   SearchInput,
   SimpleForm,
+  SimpleFormIterator,
   SimpleList,
+  TabbedForm,
   TextField,
   TextInput,
   TopToolbar,
@@ -23,9 +31,26 @@ import {
   useRedirect,
   useRefresh,
 } from "react-admin";
+import { Link } from "react-router-dom";
+import ReactToPrint from "react-to-print";
+import FirdousSelect from "../accounts/FirdousSelect";
+import PrintPOComponent from "./PrintPOComponent";
 
 export const GrnIcon = ApartmentIcon;
+const useStyles = makeStyles({
+  iteratorinput50: {
+    "@media (min-width: 600px)": { marginRight: "1em", width: "12%" },
+  },
 
+  po_item: {
+    "@media (min-width: 600px)": {
+      border: "1px solid #ccc",
+      width: "95%",
+      padding: "1em",
+      marginTop: "2em",
+    },
+  },
+});
 export const GrnActions = ({ basePath, data }) => (
   <TopToolbar>
     <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
@@ -80,6 +105,73 @@ const GrnTitle = ({ record }) => {
   return <span>Grn {record ? `"${record.title}"` : ""}</span>;
 };
 
+const CustomToolbar = (props) => {
+  const componentRef = React.useRef();
+  return (
+    <Toolbar alwaysEnableSaveButton {...props} classes={useStyles()}>
+      <Grid container spacing={2}>
+        <Grid item>
+          <SaveButton undoable={false} {...props} />
+        </Grid>
+        <Grid item>
+          <ListButton
+            basePath={props.record.po_id ?"/purchaseorder/"+props.record.po_id:props.basePath}
+            label="Back"
+            variant="contained"
+            color="primary"
+            size="medium"
+            icon={<ChevronLeft />}
+          />
+        </Grid>
+        <Grid item>
+          <ReactToPrint
+            trigger={() => {
+              // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
+              // to the root node of the returned component as it will be overwritten.
+              return (
+                <Button
+                  disabled={!props.record.id}
+                  color="primary"
+                  variant="contained"
+                  label="Print"
+                  size="medium"
+                  icon={<PrintIcon />}
+                />
+              );
+            }}
+            content={() => componentRef.current}
+          />
+          <div style={{ display: "none" }}>
+            {console.log(props)}
+            <PrintPOComponent ref={componentRef} {...props} />
+          </div>
+        </Grid>
+        <Grid item>
+          <Button
+            component={Link}
+            to={{
+              pathname: "/bill/create",
+              state: {
+                record: {
+                  po_no: props.record.po_no,
+                  po_id: props.record.po_id,
+                  grn_details: props.record.purchase_details,
+                },
+              },
+            }}
+            label="Add Bills"
+            variant="contained"
+            color="primary"
+            size="medium"
+            icon={<ChevronLeft />}
+          />
+        </Grid>
+      </Grid>
+      <DeleteButton undoable={false} />
+    </Toolbar>
+  );
+};
+
 export const GrnEdit = (props) => (
   <Edit undoable={false} title={<GrnTitle />} {...props}>
     <SimpleForm
@@ -88,32 +180,7 @@ export const GrnEdit = (props) => (
       margin="none"
       fullWidth
     >
-      <Grid container display="flex" fullWidth spacing={1}>
-        <Grid item xs={12} md={4}>
-          <TextInput disabled source="id" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="grn_no" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <DateInput source="grn_date" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <NumberInput multiline source="po_id" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <DateInput source="created_on" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="created by" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="ref_no" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextInput source="remarks" fullWidth />
-        </Grid>
-      </Grid>
+      <GRN_FORM />
     </SimpleForm>
   </Edit>
 );
@@ -126,44 +193,152 @@ export const GrnCreate = (props) => {
     notify(`Could not edit post: ${error}`);
   };
 
+  console.log(JSON.stringify(props));
   return (
-    <Create title="New Grn" {...props}>
-      <SimpleForm
+    <Create title="New Goods Reciept" {...props}>
+      <TabbedForm
+        toolbar={<CustomToolbar />}
+        initialValues={{}}
         variant={"standard"}
         sanitizeEmptyValues={false}
         margin="none"
         fullWidth
+        {...props}
       >
-        <Grid container display="flex" fullWidth spacing={1}>
-          <Grid item xs={12} md={4}>
-            <TextInput disabled source="id" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="grn_no" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <DateInput source="grn_date" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <NumberInput multiline source="po_id" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <DateInput source="created_on" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="created by" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="ref_no" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="remarks" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TextInput source="status" fullWidth />
-          </Grid>
-        </Grid>
-      </SimpleForm>
+        <FormTab label="Goods Receipt">
+          <GRN_FORM {...props} />
+        </FormTab>
+        <FormTab label="Bills"></FormTab>
+      </TabbedForm>
     </Create>
+  );
+};
+
+export const GRN_FORM = (props) => {
+  const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem("jwtToken"));
+
+  return (
+    <div>
+      <Grid container display="flex" fullWidth spacing={1}>
+        <Grid item xs={12} md={3}>
+          <TextInput disabled variant="outlined" source="id" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <DateInput
+            disabled
+            variant="outlined"
+            source="created_on"
+            initialValue={new Date().toISOString().substring(0, 10)}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextInput
+            disabled
+            initialValue={user && user.username}
+            variant="outlined"
+            source="created by"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextInput disabled variant="outlined" source="grn_no" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <DateInput
+            initialValue={new Date().toISOString().substring(0, 10)}
+            variant="outlined"
+            source="grn_date"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextInput
+            variant="outlined"
+            defaultValue={props.po_no}
+            source="po_no"
+            fullWidth
+          />
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          <TextInput variant="outlined" source="ref_no" fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <TextInput source="remarks" fullWidth />
+        </Grid>
+      </Grid>
+      <div className={classes.po_item}>
+        <ArrayInput
+          //initialValue={initial}
+
+          variant="standard"
+          source="grn_details"
+          label="Items"
+          fullWidth
+        >
+          <SimpleFormIterator fullWidth>
+            <BooleanInput
+              label=""
+              width="10px"
+              source="complete"
+              className={classes.iteratorinput50}
+              fullWidth
+            />
+            <FirdousSelect
+              label="Item"
+              list="stock"
+              source="stock_id"
+              sort="title"
+              optionText={"title"}
+              //validate={ra_required}
+              initialValue={1}
+              fullWidth
+              formClassName={classes.iteratorinput50}
+            />
+
+            <TextInput
+              label="Unit"
+              source="unit"
+              //validate={ra_required}
+              formClassName={classes.iteratorinput50}
+              fullWidth
+            />
+            <NumberInput
+              label="Quantity"
+              source="qty"
+              //validate={ra_required}
+              formClassName={classes.iteratorinput50}
+              fullWidth
+            />
+            <NumberInput
+              label="Unit Price"
+              source="unit_price"
+              formClassName={classes.iteratorinput50}
+              fullWidth
+            />
+            <TextInput
+              label="Sub Total"
+              source="subtotal"
+              //validate={ra_required}
+              // value={scopedFormData &&  parseFloat((scopedFormData.unit_price || 0) * (scopedFormData.quantity || 0))}
+              formClassName={classes.iteratorinput50}
+              fullWidth
+            />
+
+            <TextInput
+              disabled
+              label="Qty Received"
+              source="qty_rec"
+              //validate={ra_required}
+              // value={scopedFormData &&  parseFloat((scopedFormData.unit_price || 0) * (scopedFormData.quantity || 0))}
+              formClassName={classes.iteratorinput50}
+              fullWidth
+            />
+          </SimpleFormIterator>
+        </ArrayInput>
+      </div>
+    </div>
   );
 };
