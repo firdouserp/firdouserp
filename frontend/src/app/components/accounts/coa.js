@@ -2,7 +2,7 @@ import { Grid, useMediaQuery } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import * as React from "react";
-import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
+import { BooleanInput, Create, Datagrid, Edit, EditButton, Filter, List, ListButton, ReferenceField, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
 import FirdousSelect from './FirdousSelect';
 export const CoaIcon = ListAltIcon;
 
@@ -38,10 +38,20 @@ export const CoaList = props => (
                     <TextField source="code" />
                     <TextField source="scode" />
                     <TextField source="title" />
-                    <TextField source="notes" />
+                    <ReferenceField
+                        label="Account Head"
+                        source="notes"
+                        reference="notes"
+                    >
+                        <TextField source="title" />
+                    </ReferenceField>
+                    {/* <TextField source="debit" />
+                    <TextField source="credit" />
+                    <TextField source="balance" /> */}
+                    {/* <TextField source="notes" /> */}
                     <TextField source="active" />
                     <EditButton variant="contained" color="secondary" />
-                    <DeleteButton />
+                    {/* <DeleteButton /> */}
                 </Datagrid>)}
     </List>
 );
@@ -51,38 +61,42 @@ const CoaTitle = ({ record }) => {
 };
 
 export const CoaEdit = (props) => (
-    <Edit undoable={false}  title={<CoaTitle />} {...props}>
+    <Edit undoable={false} title={<CoaTitle />} {...props}>
         <SimpleForm variant="standard" margin="none"    >
-        <Grid container display="flex" fullWidth spacing={1}>
-          <Grid item xs={12} md={4}>
-            <TextInput disabled source="code" fullWidth />           
-            <FirdousSelect source="notes" list="notes/list" sort="value" optionText="value"  fullWidth/>
-            <TextInput  source="obal" fullWidth />
-            <BooleanInput  source="iscashbook" fullWidth />
-            <BooleanInput  source="isbankbook" fullWidth />
-            <BooleanInput source="active" fullWidth />
-       
-               </Grid> 
-               </Grid>
+            <Grid container display="flex" fullWidth spacing={1}>
+                <Grid item xs={12} md={4}>
+                    <TextInput source="code" fullWidth />
+                    <TextInput source="scode" fullWidth />
+                    <TextInput source="title" fullWidth />
+                    <FirdousSelect label="Account Head" source="notes" list="notes/list" sort="value" optionText="value" fullWidth />
+                    <TextInput label="Opening Balance" source="obal" fullWidth />
+                    <BooleanInput source="iscashbook" fullWidth />
+                    <BooleanInput source="isbankbook" fullWidth />
+                    <BooleanInput source="active" fullWidth />
+
+                </Grid>
+            </Grid>
         </SimpleForm>
     </Edit>
 );
 
 export const CoaCreate = (props) => {
     return (
-        <Create  title="New Coa" {...props}>
+        <Create title="New Coa" {...props}>
             <SimpleForm variant="standard">
-            <Grid container display="flex" fullWidth spacing={1}>
-          <Grid item xs={12} md={4}>
-            <TextInput disabled source="code" fullWidth />           
-            <FirdousSelect source="notes" list="notes/list" sort="value" optionText="value"  fullWidth/>
-            <TextInput  source="obal" fullWidth />
-            <BooleanInput  source="iscashbook" fullWidth />
-            <BooleanInput  source="isbankbook" fullWidth />
-            <BooleanInput source="active" fullWidth />
-       
-               </Grid> 
-               </Grid>
+                <Grid container display="flex" fullWidth spacing={1}>
+                    <Grid item xs={12} md={4}>
+                        <TextInput source="code" fullWidth />
+                        <TextInput source="scode" fullWidth />
+                        <TextInput source="title" fullWidth />
+                        <FirdousSelect label="Account Head" source="notes" list="notes/list" sort="value" optionText="value" fullWidth />
+                        <TextInput label="Opening Balance" source="obal" fullWidth />
+                        <BooleanInput label="Cash Book" source="iscashbook" fullWidth />
+                        <BooleanInput label="Bank Book" source="isbankbook" fullWidth />
+                        <BooleanInput source="active" fullWidth />
+
+                    </Grid>
+                </Grid>
             </SimpleForm>
         </Create>
     )

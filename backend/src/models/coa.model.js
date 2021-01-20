@@ -7,9 +7,12 @@ const {
 class CoaModel {
   tableName = "coa";
   find = async (params = {}, range = {}, sort = {}) => {
+    // let sql = `select coa.* , sum(ledger.dr) debit, sum(ledger.cr) credit,abs(sum(ledger.dr)- sum(ledger.cr)) balance 
+    //           from coa left outer  join ledger on coa.id=ledger.coa `
     let sql = `SELECT * FROM ${this.tableName}`;
     let limit = "";
     let orderby = " ORDER BY code ASC";
+    let groupby = " group by coa.id"
     if (range && range.length) {
       limit = ` LIMIT ${range[0]}, ${range[1] - range[0] + 1}`;
     }
@@ -19,7 +22,7 @@ class CoaModel {
     }
 
     if (!Object.keys(params).length) {
-      sql += orderby + limit;
+      sql += groupby + orderby + limit;
       console.log(sql);
       return await query(sql);
     }
@@ -27,7 +30,7 @@ class CoaModel {
     const { columnSet, values } = searchLikeColumnSet(params);
     sql += ` WHERE ${columnSet}`;
 
-    sql += orderby + limit;
+    sql += groupby + orderby + limit;
     console.log(sql);
     return await query(sql, [...values]);
   };

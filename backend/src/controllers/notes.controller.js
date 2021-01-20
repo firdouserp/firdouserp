@@ -11,41 +11,41 @@ dotenv.config();
  ******************************************************************************/
 class NotesController {
     getAllNotes = async (req, res, next) => {
-       
+
         let notesList;
         var range;
-        var sort ;
+        var sort;
         var filter;
-      
-        if(req.query && Object.keys(req.query).length){
-            var range = JSON.parse(req.query.range);
-            var sort = JSON.parse(req.query.sort);
-            var filter = JSON.parse(req.query.filter);
+
+        if (req.query && Object.keys(req.query).length) {
+            var range = req.query.range && JSON.parse(req.query.range);
+            var sort = req.query.sort && JSON.parse(req.query.sort);
+            var filter = req.query.filter && JSON.parse(req.query.filter);
             //console.log(range)
-            notesList = await NotesModel.find(filter,range,sort);
-        }else{
+            notesList = await NotesModel.find(filter, range, sort);
+        } else {
             notesList = await NotesModel.find();
         }
-      
-       
+
+
         let count = await NotesModel.count(filter);
-        if(range && range.length>1){
+        if (range && range.length > 1) {
             let content_range = range[0] + '-' + range[1] + '/' + count
             console.log(content_range);
-            res.set('Content-Range',content_range);
+            res.set('Content-Range', content_range);
         }
 
         res.send(notesList);
     };
 
     ListAllNotes = async (req, res, next) => {
-        console.log("List All Notes");  
+        console.log("List All Notes");
         let notesList = await NotesModel.list();
-          console.log(notesList);   
-          let count = await NotesModel.count();
-          let content_range = '1-'  +count+ '/' + count;
-          console.log(content_range);
-          res.set('Content-Range',content_range);
+        console.log(notesList);
+        let count = await NotesModel.count();
+        let content_range = '1-' + count + '/' + count;
+        console.log(content_range);
+        res.set('Content-Range', content_range);
         res.send(notesList);
     };
 
@@ -55,7 +55,7 @@ class NotesController {
             throw new HttpException(404, 'Unit not found');
         }
         res.send(notes);
-        
+
     };
 
     getNotesByNotesName = async (req, res, next) => {
@@ -64,32 +64,32 @@ class NotesController {
             throw new HttpException(404, 'Note not found');
         }
 
-        };
-    
-        createNotes = async (req, res, next) => {
-            this.checkValidation(req);
-            
-             const result = await NotesModel.create(req.body);
-    
-            if (!result) {
-                throw new HttpException(500, 'Something went wrong');
-            }
-    
-            const notes = await NotesModel.findOne({ id: result });
-            if (!notes) {
-                throw new HttpException(404, 'Notes not found');
-            }
-    
-            res.status(201).send(notes);
-        };
-    
+    };
+
+    createNotes = async (req, res, next) => {
+        this.checkValidation(req);
+
+        const result = await NotesModel.create(req.body);
+
+        if (!result) {
+            throw new HttpException(500, 'Something went wrong');
+        }
+
+        const notes = await NotesModel.findOne({ id: result });
+        if (!notes) {
+            throw new HttpException(404, 'Notes not found');
+        }
+
+        res.status(201).send(notes);
+    };
+
     updateNotes = async (req, res, next) => {
         this.checkValidation(req);
 
-                
+
         // do the update query and get the result
         // it can be partial edit
-        const {...restOfUpdates } = req.body;
+        const { ...restOfUpdates } = req.body;
         console.log(req.body);
         const result = await NotesModel.update(restOfUpdates, req.params.id);
 
@@ -102,12 +102,12 @@ class NotesController {
         const message = !affectedRows ? 'Note not found' :
             affectedRows && changedRows ? 'Note updated successfully' : 'Updated faild';
 
-            const notes = await NotesModel.findOne({ id : req.params.id });
-            if (!notes) {
-                throw new HttpException(404, 'Notes not found');
-            }
-    
-            res.status(201).send(notes);
+        const notes = await NotesModel.findOne({ id: req.params.id });
+        if (!notes) {
+            throw new HttpException(404, 'Notes not found');
+        }
+
+        res.status(201).send(notes);
     };
 
     deleteNotes = async (req, res, next) => {

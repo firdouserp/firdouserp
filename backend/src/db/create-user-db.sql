@@ -185,3 +185,5 @@ CREATE TABLE `grn_details` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 );
+ALTER TABLE `firdouserp`.`purchase_order` 
+CHANGE COLUMN `status` `status` INT NULL DEFAULT NULL ;
