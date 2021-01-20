@@ -19,6 +19,7 @@ const scheduleRouter = require("./routes/schedule.route");
 const purchase_orderRouter = require("./routes/purchase_order.route");
 const fpropRouter = require("./routes/fprop.route");
 const grnRouter = require("./routes/grn.route");
+const reportsRouter = require("./routes/reports.route");
 
 // Init express
 const app = express();
@@ -38,11 +39,11 @@ app.use(function (req, res, next) {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept,authorization"
   );
+  res.header("Access-Control-Allow-Credentials", "true");
   res.header(
-    "Access-Control-Allow-Credentials",
-    "true"
+    "Access-Control-Expose-Headers",
+    "X-Total-Count, Content-Range,content-length"
   );
-  res.header("Access-Control-Expose-Headers", "X-Total-Count, Content-Range,content-length");
   //   res.header('Content-Range','bytes : 0-9/*');
   next();
 });
@@ -67,7 +68,7 @@ app.use(`/api/v1/schedule`, scheduleRouter);
 app.use(`/api/v1/purchaseorder`, purchase_orderRouter);
 app.use(`/api/v1/fprop`, fpropRouter);
 app.use(`/api/v1/grn`, grnRouter);
-
+app.use(`/api/v1/reports`, reportsRouter);
 
 // 404 error
 app.all("*", (req, res, next) => {
