@@ -9,7 +9,7 @@ import DefaultIcon from "@material-ui/icons/ViewList";
 import * as React from "react";
 import { DashboardMenuItem, getResources, MenuItemLink } from "react-admin";
 import { useSelector } from "react-redux";
-
+import AssessmentIcon from '@material-ui/icons/Assessment';
 const Menu = ({ onMenuClick, logout }) => {
   const isXSmall = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const open = useSelector((state) => state.admin.ui.sidebarOpen);
@@ -74,6 +74,14 @@ const Menu = ({ onMenuClick, logout }) => {
         onClick={onMenuClick}
         sidebarIsOpen={open}
       />
+      <MenuItemLink
+        to="/reports"
+        primaryText="Reports"
+        leftIcon={<AssessmentIcon />}
+        onClick={onMenuClick}
+        sidebarIsOpen={open}
+      />
+
       <MenuItemLink
         to="/help-center"
         primaryText="Settings"
