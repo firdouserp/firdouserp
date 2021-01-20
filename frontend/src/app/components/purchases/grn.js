@@ -39,7 +39,11 @@ import PrintPOComponent from "./PrintPOComponent";
 export const GrnIcon = ApartmentIcon;
 const useStyles = makeStyles({
   iteratorinput50: {
-    "@media (min-width: 600px)": { marginRight: "1em", width: "12%" },
+    "@media (min-width: 600px)": {
+      marginRight: "1em",
+      width: "12%",
+      MuiSwitch: { root: { top: "1em" } },
+    },
   },
 
   po_item: {
@@ -115,7 +119,11 @@ const CustomToolbar = (props) => {
         </Grid>
         <Grid item>
           <ListButton
-            basePath={props.record.po_id ?"/purchaseorder/"+props.record.po_id:props.basePath}
+            basePath={
+              props.record.po_id
+                ? "/purchaseorder/" + props.record.po_id
+                : props.basePath
+            }
             label="Back"
             variant="contained"
             color="primary"
@@ -261,12 +269,26 @@ export const GRN_FORM = (props) => {
             fullWidth
           />
         </Grid>
+        <Grid item xs={12} md={3}>
+          <FirdousSelect
+            variant="outlined"
+            label="Supplier"
+            list="suppliers"
+            source="supplier_id"
+            sort="title"
+            optionText={"title"}
+            //validate={ra_required}
+            initialValue={1}
+            fullWidth
+            formClassName={classes.iteratorinput50}
+          />
+        </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <TextInput variant="outlined" source="ref_no" fullWidth />
         </Grid>
         <Grid item xs={12}>
-          <TextInput source="remarks" fullWidth />
+          <TextInput multiline source="remarks" fullWidth />
         </Grid>
       </Grid>
       <div className={classes.po_item}>
@@ -283,7 +305,7 @@ export const GRN_FORM = (props) => {
               label=""
               width="10px"
               source="complete"
-              className={classes.iteratorinput50}
+              formClassName={classes.iteratorinput50}
               fullWidth
             />
             <FirdousSelect

@@ -261,6 +261,7 @@ const CustomToolbar = (props) => {
                 record: {
                   po_no: props.record.po_no,
                   po_id: props.record.id,
+                  supplier_id: props.record.supplier_id,
                   grn_details: props.record.purchase_details,
                 },
               },
