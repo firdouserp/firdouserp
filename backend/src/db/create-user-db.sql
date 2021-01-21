@@ -191,6 +191,7 @@ CHANGE COLUMN `status` `status` INT NULL DEFAULT NULL ;
 CREATE VIEW view_project_ledger
 AS
 SELECT 
+       id,
        DATE (Vou_Date) AS Vou_Date, 
        Vou_No,ledger.Description|| " " || Chq_No AS Description, 
        DR, 
