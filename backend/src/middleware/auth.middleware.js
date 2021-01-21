@@ -40,7 +40,11 @@ const auth = (...roles) => {
             next();
 
         } catch (e) {
+            if (e instanceof jwt.TokenExpiredError) {
+                e.status = 401;
+            }
             //e.status = 401;
+            console.log(e);
             next(e);
         }
     }
