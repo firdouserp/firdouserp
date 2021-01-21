@@ -123,7 +123,7 @@ const projectledger = (records) => {
                   if (record.id) {
                     return (
                       <tr>
-                        <td className="account">{record.coa_title}</td>
+                        <td className="account">{record.COA_TITLE}</td>
                         <td className="debit">{formatCurrency(record.debit)}</td>
                         <td className="credit">{formatCurrency(record.credit)}</td>
                         <td className="balance">{formatCurrency(record.balance)}</td>

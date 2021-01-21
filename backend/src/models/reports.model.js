@@ -1,4 +1,7 @@
 const query = require("../db/db-connection");
+const {
+  multipleColumnSet,
+} = require("../utils/common.utils");
 class ReportsModel {
   accountbalances = async (params = {}) => {
     let sql = `select coa.* , sum(ledger.dr) debit, sum(ledger.cr) credit,abs(sum(ledger.dr)- sum(ledger.cr)) balance 
@@ -8,7 +11,7 @@ class ReportsModel {
   };
 
   projectledger = async (params = {}) => {
-    let sql = `SELECT *, sum(dr) debit,sum(cr) credit,abs(sum(ledger.dr)- sum(ledger.cr)) balance FROM firdouserp.view_project_ledger`
+    let sql = `SELECT *, sum(dr) debit,sum(cr) credit,abs(sum(dr)- sum(cr)) balance FROM firdouserp.view_project_ledger`
     let groupby = " group by coa "
     let orderby = " order by coa_code"
 

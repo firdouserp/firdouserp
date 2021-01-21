@@ -21,7 +21,12 @@ class ReportsController {
     res.send(accountBalanceList);
   };
   getProjectLedger = async (req, res, next) => {
-    let projectledgerList = await ReportsModel.projectledger();
+    var filter;
+    if (req.query && Object.keys(req.query).length) {
+      filter = req.query.filter && JSON.parse(req.query.filter);
+    }
+
+    let projectledgerList = await ReportsModel.projectledger(filter);
     if (!projectledgerList.length) {
       throw new HttpException(404, "Users not found");
     }
