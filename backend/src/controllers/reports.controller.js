@@ -20,6 +20,19 @@ class ReportsController {
 
     res.send(accountBalanceList);
   };
+  getProjectLedger = async (req, res, next) => {
+    let projectledgerList = await ReportsModel.projectledger();
+    if (!projectledgerList.length) {
+      throw new HttpException(404, "Users not found");
+    }
+
+    let content_range =
+      "1-" + projectledgerList.length + "/" + projectledgerList.length;
+
+    res.set("Content-Range", content_range);
+
+    res.send(projectledgerList);
+  };
 }
 
 /******************************************************************************

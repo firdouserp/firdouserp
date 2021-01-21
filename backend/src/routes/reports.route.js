@@ -10,5 +10,9 @@ router.get(
   auth(),
   awaitHandlerFactory(ReportsController.getAccountBalances)
 ); // localhost:3000/api/v1/users/whoami
-
+router.get(
+  "/projectledger",
+  auth(),
+  awaitHandlerFactory(ReportsController.getProjectLedger)
+); // loc
 module.exports = router;

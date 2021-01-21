@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Accounts from "../accounts/Accounts";
 import Purchases from "../purchases/Purchases";
 import AccountBalancePrintable from "../reports/Accountbalances";
+import ProjectLedgerPrintable from "../reports/ProjectLedger";
 import Reports from "../reports/Reports";
 import Sales from "../sales/Sales";
 
@@ -12,6 +13,7 @@ export default [
   <Route exact path="/sales" component={Sales} />,
   <Route exact path="/reports" component={Reports} />,
   <Route exact path="/accbal" component={AccountBalancePrintable} />,
+  <Route exact path="/projectledger" component={ProjectLedgerPrintable} />,
   //<Route exact path="/accounts/vouchers/create" component={VoucherEntry} />,
   //<Route exact path="/accounts/voucherentry/:id" component={VoucherEdit} />,
   //<Route exact path="/userform" component={Userform} />,

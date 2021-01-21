@@ -57,6 +57,14 @@ function SimplePaper() {
               stylename={classes.JournalVoucher}
             />
           </Grid>
+
+          <Grid item xs={12}>
+            <AccountButton
+              target="/projectledger"
+              label="Project Ledger"
+              stylename={classes.JournalVoucher}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
