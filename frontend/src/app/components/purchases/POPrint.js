@@ -257,25 +257,30 @@ export default function PurchaseOrder({ purchaseorder, company, notes }) {
               {purchaseorder.description && [
                 <tr className="heading" key="heading">
                   <td className="subheading" colSpan="6">
-                    Description
+                    Information
                   </td>
                 </tr>,
                 <tr className="details" key="details">
-                  <td colSpan="6">{purchaseorder.description}</td>
+                  <td colSpan="6"> Abdullah Iqbal {purchaseorder.supplier}</td>
                 </tr>,
+                 
+                 <td className="chq_date"> Jf-5555 {purchaseorder.supplier}</td>
+             
+              
+               
               ]}
               <tr className="heading">
-                <td className="subheading">Transactions</td>
-                <td className="refno"> Ref.No.</td>
-                <td> Chq.No.</td>
-                <td> Chq.Date</td>
-                <td className="debit">Debit</td>
-                <td className="credit">Credit</td>
+                <td className="subheading">Sr.no</td>
+                <td className="refno"> Particulars.</td>
+                <td> Qty.</td>
+                <td className="chq_date"> Cheque No</td>
+                <td className="debit">Rate</td>
+                <td className="credit">Amount</td>
               </tr>
               {purchase_details.map((item) => (
-                <tr className="item" key={item.description}>
-                  <td className="subheading">{item.coa}</td>
-                  <td>{item.refno}</td>
+                <tr className="item" key={item.id}>
+                  <td className="subheading">{item.supplier}</td>
+                  <td>{item.qty}</td>
                   <td>{item.chq_no}</td>
                   <td>{item.chq_date}</td>
 
@@ -336,7 +341,7 @@ export default function PurchaseOrder({ purchaseorder, company, notes }) {
   );
 }
 
-PurchaseOrder.propTypes = {
+PurchaseOrder.propTypes = { 
   company: PropTypes.shape({
     name: PropTypes.string,
     logoUrl: PropTypes.string,
