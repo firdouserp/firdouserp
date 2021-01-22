@@ -15,7 +15,7 @@ import {
   SimpleForm,
   SimpleFormIterator,
   TextInput,
-  Toolbar,
+  Toolbar
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";
@@ -314,7 +314,7 @@ export const VoucherEntryForm = ({ ...props }) => {
           <Box className={classes.formBox}>
             <ArrayInput
               initialValue={initial}
-              variant="standard"
+              variant="outlined"
               source="transactions"
               label="Transactions"
               fullWidth
@@ -335,7 +335,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   fullWidth
                   formClassName={classes.width35}
                   className={classes.BorderandBackground}
-                  // margin="none"
+                // margin="none"
                 />
 
                 <FirdousSelect
@@ -445,7 +445,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   fullWidth
                   className={classes.BorderandBackground}
                   formClassName={classes.width20}
-                  //className={classes.maxFixedWidth}
+                //className={classes.maxFixedWidth}
                 />
 
                 {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}

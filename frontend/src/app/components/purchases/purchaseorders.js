@@ -30,7 +30,7 @@ import {
   TextInput,
   Toolbar,
   TopToolbar,
-  useLocale,
+  useLocale
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import { Link } from "react-router-dom";
@@ -112,32 +112,32 @@ export const Purchase_orderList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="po_no" />
-        <TextField source="purchase_date" />
-        <ReferenceField
-          label="Project"
-          source="project_id"
-          reference="Projects"
-        >
-          <TextField source="title" />
-        </ReferenceField>
-        <ReferenceField
-          label="Supplier"
-          source="supplier_id"
-          reference="suppliers"
-        >
-          <TextField source="title" />
-        </ReferenceField>
-        <ReferenceField label="Status" source="status" reference="fprop">
-          <TextField source="value" />
-        </ReferenceField>
-        <TextField source="created_on" />
-        <EditButton variant="contained" color="secondary" />
-        <DeleteButton />
-      </Datagrid>
-    )}
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="po_no" />
+          <TextField source="purchase_date" />
+          <ReferenceField
+            label="Project"
+            source="project_id"
+            reference="Projects"
+          >
+            <TextField source="title" />
+          </ReferenceField>
+          <ReferenceField
+            label="Supplier"
+            source="supplier_id"
+            reference="suppliers"
+          >
+            <TextField source="title" />
+          </ReferenceField>
+          <ReferenceField label="Status" source="status" reference="fprop">
+            <TextField source="value" />
+          </ReferenceField>
+          <TextField source="created_on" />
+          <EditButton variant="contained" color="secondary" />
+          <DeleteButton />
+        </Datagrid>
+      )}
   </List>
 );
 const dateParser = (v) => {
@@ -167,12 +167,12 @@ export const Purchase_orderEdit = (props) => (
     <TabbedForm
       toolbar={<CustomToolbar />}
       initialValues={{}}
-      variant={"standard"}
+      variant={"outlined"}
       sanitizeEmptyValues={false}
       margin="none"
       fullWidth
     >
-      <FormTab label="Purchase Order">
+      <FormTab variant={"outlined"} label="Purchase Order">
         <PO_FORM />
       </FormTab>
       <FormTab label="Goods Reciepts"></FormTab>
@@ -325,8 +325,8 @@ const PO_FORM = () => {
             className={classes.mr1}
             source="created_on"
             locales={locale}
-            // parse={dateParser}
-            // format={dateFormatter}
+          // parse={dateParser}
+          // format={dateFormatter}
           />
         </Grid>
         <Grid item xs={12} md={3}>
@@ -342,7 +342,7 @@ const PO_FORM = () => {
       </Grid>
       <Grid container fullWidth spacing={1}>
         <Grid item xs={12} md={4}>
-          <DateInput margin="none" source="purchase_date" fullWidth />
+          <DateInput margin="none" source="purchase_date" fullWidth variant={"outlined"} />
         </Grid>
         <Grid item xs={12} md={4}>
           <FirdousSelect
@@ -354,6 +354,7 @@ const PO_FORM = () => {
             sort="title"
             validate={ra_required}
             fullWidth
+            variant={"outlined"}
           />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -366,10 +367,11 @@ const PO_FORM = () => {
             sort="title"
             validate={ra_required}
             fullWidth
+            variant={"outlined"}
           />
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextInput source="delivery_address" fullWidth />
+          <TextInput source="delivery_address" fullWidth variant={"outlined"} />
         </Grid>
 
         <Grid item xs={12} md={4}>
@@ -382,18 +384,18 @@ const PO_FORM = () => {
             sort="oid"
             validate={ra_required}
             fullWidth
-            filter={{ type: "purchaseorder" }}
+            filter={{ type: "purchaseorder" }} variant={"outlined"}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextInput multiline source="description" fullWidth />
+          <TextInput multiline source="description" fullWidth variant={"outlined"} />
         </Grid>
       </Grid>
 
       <div className={classes.po_item}>
         <ArrayInput
           //initialValue={initial}
-          variant="standard"
+          variant="outlined"
           source="purchase_details"
           label="Items"
           fullWidth
@@ -446,7 +448,7 @@ const PO_FORM = () => {
                   // format={toCurrency}
                   //parse={fromCurrency}
                   formClassName={classes.iteratorinput50}
-                  //className={classes.iteratorinput}
+                //className={classes.iteratorinput}
                 />
               )}
             </FormDataConsumer>
