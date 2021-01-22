@@ -62,6 +62,7 @@ app.use(`/api/v1/ledger`, ledgerRouter);
 app.use(`/api/v1/notes`, notesRouter);
 app.use(`/api/v1/noteslist`, notesRouter);
 app.use(`/api/v1/vouchers`, vouchersRouter);
+app.use(`/api/v1/vouchers/voudetail`, vouchersRouter);
 app.use(`/api/v1/booking`, bookingRouter);
 app.use(`/api/v1/employees`, employeesRouter);
 app.use(`/api/v1/schedule`, scheduleRouter);

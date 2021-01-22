@@ -325,7 +325,15 @@ class VouchersModel {
     console.log(result);
     return result;
   };
-
+  voucherDetail = async (params = {}) => {
+    let sql = `SELECT * FROM view_vou_detail`;
+    let limit = "";
+    let orderby = " ORDER BY srno ASC";
+    const { columnSet, values } = multipleColumnSet(params);
+    sql += ` WHERE ${columnSet}`;
+    console.log(sql);
+    return await query(sql, [...values]);
+  };
   newVoucherNumber = async (vou_type) => {
     console.log("getting new voucher no");
     const todaysDate = new Date();

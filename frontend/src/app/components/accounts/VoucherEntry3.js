@@ -15,7 +15,7 @@ import {
   SimpleForm,
   SimpleFormIterator,
   TextInput,
-  Toolbar
+  Toolbar,
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";
@@ -231,6 +231,7 @@ export const VoucherEntryForm = ({ ...props }) => {
       validate={validateVoucherCreation}
       fullWidth
       redirect="show"
+      subscription={{}}
       {...props}
     >
       <Grid container fullWidth spacing={1} display="flex">
@@ -319,6 +320,7 @@ export const VoucherEntryForm = ({ ...props }) => {
               label="Transactions"
               fullWidth
               className={classes.BorderandBackgroundIter}
+              subscription={{}}
               marginTop="none"
             >
               <SimpleFormIterator fullWidth>
@@ -335,7 +337,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   fullWidth
                   formClassName={classes.width35}
                   className={classes.BorderandBackground}
-                // margin="none"
+                  // margin="none"
                 />
 
                 <FirdousSelect
@@ -445,7 +447,7 @@ export const VoucherEntryForm = ({ ...props }) => {
                   fullWidth
                   className={classes.BorderandBackground}
                   formClassName={classes.width20}
-                //className={classes.maxFixedWidth}
+                  //className={classes.maxFixedWidth}
                 />
 
                 {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}
