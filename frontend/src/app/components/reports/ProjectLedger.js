@@ -1,11 +1,24 @@
 import { CircularProgress, Toolbar } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
 import PrintIcon from "@material-ui/icons/Print";
-import React, { Component } from "react";
-import { Button, Error, useQueryWithStore } from "react-admin";
+import * as React from "react";
+import  { cloneElement, Component } from "react";
+import {
+  BulkActionsToolbar,
+  Button,
+  Datagrid,
+  Error,
+  ListBase,
+  ListToolbar,
+  Pagination,
+  useQueryWithStore,
+} from "react-admin";
 import ReactToPrint from "react-to-print";
+import FirdousSelect from "../accounts/FirdousSelect";
 export function formatCurrency(amount) {
-  return Number.parseFloat(amount).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-
+  return Number.parseFloat(amount)
+    .toFixed(2)
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
 const styles = `
 .invoice-box{
@@ -54,27 +67,20 @@ thead td,tfoot td{
 }
 `;
 
-
-
 export class PrintProjectLedgerComponent extends Component {
   render() {
-    return (
-      <ProjectLedegerReport />
-    );
+    return <ProjectLedegerReport />;
   }
 }
 
-
-
 export const ProjectLedegerReport = () => {
-  const componentRef = React.useRef();
   const { data, loaded, error } = useQueryWithStore({
     type: "getList",
     resource: "reports/projectledger",
     payload: {
       pagination: { page: 1, perPage: 500 },
       sort: { field: "coa_code", order: "ASC" },
-      filter: { "project": 13 },
+      filter: { project: 13 },
     },
   });
 
@@ -89,13 +95,12 @@ export const ProjectLedegerReport = () => {
     return null;
   }
 
-  return (
-    projectledger(data))
-}
+  return projectledger(data);
+};
 const projectledger = (records) => {
   console.log("records:" + JSON.stringify(records));
-  let sum_debit = 0.00;
-  let sum_credit = 0.00;
+  let sum_debit = 0.0;
+  let sum_credit = 0.0;
   return (
     <div>
       <html lang={"en_US"}>
@@ -106,10 +111,8 @@ const projectledger = (records) => {
           <meta name="robots" content="noindex, nofollow" />
         </head>
         <body>
-
           <div className="invoice-box">
             <table width="100%" cellPadding="0" cellSpacing="0">
-
               <thead>
                 <td>Account Name</td>
                 <td className="debit">Debit</td>
@@ -124,9 +127,15 @@ const projectledger = (records) => {
                     return (
                       <tr>
                         <td className="account">{record.COA_TITLE}</td>
-                        <td className="debit">{formatCurrency(record.debit)}</td>
-                        <td className="credit">{formatCurrency(record.credit)}</td>
-                        <td className="balance">{formatCurrency(record.balance)}</td>
+                        <td className="debit">
+                          {formatCurrency(record.debit)}
+                        </td>
+                        <td className="credit">
+                          {formatCurrency(record.credit)}
+                        </td>
+                        <td className="balance">
+                          {formatCurrency(record.balance)}
+                        </td>
                       </tr>
                     );
                   }
@@ -134,7 +143,6 @@ const projectledger = (records) => {
               </tbody>
               <tfoot>
                 <tr>
-
                   <td className="account">Totals</td>
 
                   <td className="debit">{formatCurrency(sum_debit)}</td>
@@ -156,14 +164,14 @@ const ProjectLedgerPrintable = () => {
   return (
     <div>
       <Toolbar style={{ justifyContent: "spance-between" }}>
-        <h1 style={{ paddingRight: "15px" }}> Account Balance (Trial)</h1>
+        <h1 style={{ paddingRight: "15px" }}> Project Ledger</h1>
+
         <ReactToPrint
           trigger={() => {
             // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
             // to the root node of the returned component as it will be overwritten.
             return (
               <Button
-
                 color="primary"
                 variant="contained"
                 label="Print"
@@ -175,11 +183,34 @@ const ProjectLedgerPrintable = () => {
           content={() => componentRef.current}
         />
 
+       
       </Toolbar>
       <div>
+        
         <PrintProjectLedgerComponent ref={componentRef} />
       </div>
     </div>
-  )
-}
+  );
+};
+
+const PostList = (props) => (
+  <MyList {...props}>
+    <Datagrid>...</Datagrid>
+  </MyList>
+);
+
+const MyList = ({ children, ...props }) => (
+  <ListBase {...props}>
+    <h1>{props.title}</h1>
+    <ListToolbar filters={props.filters} actions={props.actions} />
+    <Card>
+      <BulkActionsToolbar>{props.bulkActionButtons}</BulkActionsToolbar>
+      {cloneElement(children, {
+        hasBulkActions: props.bulkActionButtons !== false,
+      })}
+      <Pagination />
+    </Card>
+  </ListBase>
+);
+
 export default ProjectLedgerPrintable;
