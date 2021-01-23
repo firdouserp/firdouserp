@@ -293,6 +293,9 @@ class VouchersModel {
     let sql = `DELETE FROM  ledger where vou_no = '${id}'`;
     let result = await query(sql, [id]);
 
+    sql = `DELETE FROM  vouchers where voucher_no = '${id}'`;
+    result = await query(sql, [id]);
+
     // sql = `DELETE FROM ${this.tableName}
     // WHERE id = ?`;
     // result = await query(sql, [id]);

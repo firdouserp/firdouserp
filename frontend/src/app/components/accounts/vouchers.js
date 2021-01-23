@@ -118,6 +118,7 @@ export const VouchersList = (props) => (
     empty={false}
     filters={<VouchersSearchFilter />}
     {...props}
+    undoable={false}
   >
     {useMediaQuery((theme) => theme.breakpoints.down("sm")) ? (
       <SimpleList
@@ -136,7 +137,7 @@ export const VouchersList = (props) => (
         <TextField source="chq_no" />
         <TextField source="chq_date" />
         <TextField source="created_by" />
-        <EditButton variant="contained" color="secondary" />
+        <EditButton undoable={false} variant="contained" color="secondary" />
         {/* <DeleteButton /> */}
       </Datagrid>
     )}
@@ -182,13 +183,7 @@ const VouchersTitle = ({ record }) => {
 };
 export const VouchersEdit = (props) => {
   return (
-    <Edit
-      undoable={false}
-      actions={null}
-      title={<VouchersTitle />}
-      redirect="show"
-      {...props}
-    >
+    <Edit undoable={false} actions={null} title={<VouchersTitle />} {...props}>
       <VoucherEntryForm {...props} />
     </Edit>
   );
@@ -197,7 +192,7 @@ export const VouchersEdit = (props) => {
 export const VouchersCreate = (props) => {
   const vou_type = useQuery("vou_type");
   return (
-    <Create redirect="show" undoable={false} title="New Voucher" {...props}>
+    <Create undoable={false} title="New Voucher" {...props}>
       <VoucherEntryForm vou_type={vou_type} {...props} />
     </Create>
   );

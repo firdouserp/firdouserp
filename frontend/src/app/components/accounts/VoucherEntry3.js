@@ -230,7 +230,6 @@ export const VoucherEntryForm = ({ ...props }) => {
       className={classes.VoucherEntry}
       validate={validateVoucherCreation}
       fullWidth
-      redirect="show"
       subscription={{}}
       {...props}
     >
