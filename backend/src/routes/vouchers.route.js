@@ -11,14 +11,23 @@ const {
 } = require("../middleware/validators/vouchersValidator.middleware");
 
 router.get("/", auth(), awaitHandlerFactory(vouchersController.getAllVouchers)); //localhost:3000/api/v1/vouchers
-router.get("/monthly",
+router.get(
+  "/monthly",
   auth(),
   awaitHandlerFactory(vouchersController.getVouchersThisMonth)
 ); //localhost:3000/api/v1/notes/id/1
-router.get("/voudetail", auth(),
+router.get(
+  "/voudetail",
+  auth(),
   awaitHandlerFactory(vouchersController.getVoucherDetail)
 ); //localhost:3000/api/v1/notes/id/1
-router.get("/:id",
+router.get(
+  "/invalidvou",
+  auth(),
+  awaitHandlerFactory(vouchersController.getInvalidVouchers)
+);
+router.get(
+  "/:id",
   auth(),
   awaitHandlerFactory(vouchersController.getVouchersById)
 ); //localhost:3000/api/v1/notes/id/1

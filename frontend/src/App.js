@@ -457,6 +457,7 @@ const App = () => (
 
     <Resource name="Users" list={UserList} />
     <Resource name="Userform" />
+    <Resource name="vouchers/invalidvou" />
   </Admin>
 );
 

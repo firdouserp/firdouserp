@@ -112,7 +112,7 @@ const PostPagination = (props) => (
 
 export const VouchersList = (props) => (
   <List
-    sort={{ field: "id", order: "DESC" }}
+    sort={{ field: "row_id", order: "DESC" }}
     perPage={25}
     pagination={<PostPagination />}
     empty={false}
@@ -136,6 +136,40 @@ export const VouchersList = (props) => (
         <TextField source="chq_no" />
         <TextField source="chq_date" />
         <TextField source="created_by" />
+        <EditButton variant="contained" color="secondary" />
+        {/* <DeleteButton /> */}
+      </Datagrid>
+    )}
+  </List>
+);
+
+export const InvalidVouchersList = (props) => (
+  <List
+    sort={{ field: "row_id", order: "DESC" }}
+    perPage={25}
+    pagination={<PostPagination />}
+    empty={false}
+    basePath="/vouchers"
+    resource="vouchers/invalidvou"
+    filters={<VouchersSearchFilter />}
+    {...props}
+  >
+    {useMediaQuery((theme) => theme.breakpoints.down("sm")) ? (
+      <SimpleList
+        primaryText={(record) => record.title}
+        secondaryText={(record) => `${record.code}`}
+        tertiaryText={(record) => record.id}
+      />
+    ) : (
+      <Datagrid rowClick="edit">
+        <TextField source="row_id" />
+        <TextField source="vou_no" />
+        <TextField source="vou_date" />
+        {/* <ReferenceField label="Project" source="project" reference="Projects">
+          <TextField source="title" />
+        </ReferenceField> */}
+        <TextField source="debit" />
+        <TextField source="credit" />
         <EditButton variant="contained" color="secondary" />
         {/* <DeleteButton /> */}
       </Datagrid>

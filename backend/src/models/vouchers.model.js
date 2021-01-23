@@ -359,6 +359,11 @@ class VouchersModel {
     console.log(vou_no);
     return vou_no;
   };
+
+  invalidVoucher = async () => {
+    let sql = `select  vou_no as id, id as row_id,vou_date, vou_no,sum(dr) as debit,sum(cr) as credit from ledger   group by vou_no HAVING  debit!=credit`;
+    return await query(sql);
+  };
 }
 
 module.exports = new VouchersModel();
