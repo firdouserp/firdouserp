@@ -13,12 +13,13 @@ import {
   DeleteButton,
   Edit,
   EditButton,
+  ExportButton,
   Filter,
   FormTab,
   List,
   ListButton,
   NumberInput,
-  SaveButton,
+  required, SaveButton,
   SearchInput,
   SimpleForm,
   SimpleFormIterator,
@@ -29,7 +30,7 @@ import {
   TopToolbar,
   useNotify,
   useRedirect,
-  useRefresh,
+  useRefresh
 } from "react-admin";
 import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
@@ -55,10 +56,15 @@ const useStyles = makeStyles({
     },
   },
 });
-export const GrnActions = ({ basePath, data }) => (
+export const GrnActions = ({ basePath, resource, currentSort, maxResults, filterValues, data }) => (
   <TopToolbar>
-    <ListButton basePath={basePath} label="Back" icon={<ChevronLeft />} />
-    {/* <ShowButton basePath={basePath} record={data} /> */}
+    <ExportButton
+      disabled={data.size === 0}
+      resource={resource}
+      sort={currentSort}
+      filterValues={filterValues}
+      maxResults={maxResults}
+    />
   </TopToolbar>
 );
 
@@ -81,7 +87,7 @@ const GrnSearchFilter = (props) => (
 );
 
 export const GrnList = (props) => (
-  <List empty={false} filters={<GrnSearchFilter />} {...props}>
+  <List empty={false} actions={<GrnActions />} filters={<GrnSearchFilter />} {...props}>
     {useMediaQuery((theme) => theme.breakpoints.down("sm")) ? (
       <SimpleList
         primaryText={(record) => record.title}
@@ -89,19 +95,18 @@ export const GrnList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="grn_no" />
-        <TextField source="grn_date" />
-        <TextField source="po_id" />
-        <TextField source="created_on" />
-        <TextField source="created_by" />
-        <TextField source="ref_no" />
-        <TextField source="remarks" />
-        <EditButton variant="contained" color="secondary" />
-        <DeleteButton />
-      </Datagrid>
-    )}
+        <Datagrid rowClick="edit">
+          <TextField source="id" />
+          <TextField source="grn_no" />
+          <TextField source="grn_date" />
+          <TextField source="po_id" />
+          <TextField source="created_on" />
+          <TextField source="created_by" />
+          <TextField source="refno" />
+          <TextField source="remarks" />
+          <EditButton variant="contained" color="secondary" />
+        </Datagrid>
+      )}
   </List>
 );
 
@@ -221,7 +226,7 @@ export const GrnCreate = (props) => {
     </Create>
   );
 };
-
+const ra_required = [required()];
 export const GRN_FORM = (props) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("jwtToken"));
@@ -246,7 +251,7 @@ export const GRN_FORM = (props) => {
             disabled
             initialValue={user && user.username}
             variant="outlined"
-            source="created by"
+            source="created_by"
             fullWidth
           />
         </Grid>
@@ -267,6 +272,8 @@ export const GRN_FORM = (props) => {
             defaultValue={props.po_no}
             source="po_no"
             fullWidth
+            disabled
+            validate={ra_required}
           />
         </Grid>
         <Grid item xs={12} md={3}>
@@ -277,7 +284,7 @@ export const GRN_FORM = (props) => {
             source="supplier_id"
             sort="title"
             optionText={"title"}
-            //validate={ra_required}
+            validate={ra_required}
             initialValue={1}
             fullWidth
             formClassName={classes.iteratorinput50}
@@ -294,7 +301,7 @@ export const GRN_FORM = (props) => {
       <div className={classes.po_item}>
         <ArrayInput
           //initialValue={initial}
-
+          validate={ra_required}
           variant="standard"
           source="grn_details"
           label="Items"
@@ -353,7 +360,7 @@ export const GRN_FORM = (props) => {
               disabled
               label="Qty Received"
               source="qty_rec"
-              //validate={ra_required}
+              validate={ra_required}
               // value={scopedFormData &&  parseFloat((scopedFormData.unit_price || 0) * (scopedFormData.quantity || 0))}
               formClassName={classes.iteratorinput50}
               fullWidth
