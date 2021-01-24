@@ -264,6 +264,7 @@ export const VoucherEntryForm = ({ ...props }) => {
         <Grid item xs={12} sm={4} md={3}>
           <DateInput
             //initialValue={new Date().toLocaleDateString()}
+            initialValue={new Date().toISOString().substring(0, 10)}
             margin="none"
             variant="outlined"
             source="vou_date"
