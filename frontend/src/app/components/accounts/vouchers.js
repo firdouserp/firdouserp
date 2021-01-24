@@ -11,12 +11,13 @@ import {
   Filter,
   List,
   ListButton,
+
   Pagination,
   SearchInput,
   SelectInput,
   SimpleList,
   TextField,
-  TopToolbar,
+  TopToolbar
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
@@ -139,6 +140,44 @@ const PostPagination = (props) => (
   <Pagination rowsPerPageOptions={[10, 25, 50, 100]} {...props} />
 );
 
+const TransactionList = ({ id, record, resource }) => {
+  console.log(JSON.stringify(record))
+  return (
+
+
+    <table width="100%" cellPadding="0" cellSpacing="0">
+      <tr>
+        <th>Account</th>
+        <th>Description</th>
+        <th>Debit</th>
+        <th>Credit</th>
+      </tr>
+      <tbody>
+        {record.transactions.map(t => {
+          return (
+            <tr className="top">
+              <td width="20%">
+                {t.coa}
+              </td>
+              <td width="40%">
+                {t.description}
+              </td>
+              <td width="20%">
+                {t.dr}
+              </td>
+              <td width="20%">
+                {t.cr}
+              </td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+    // <div><span>{t.coa}</span><span>{t.description}</span> <span>{t.dr}</span> <span>{t.cr}</span></div>
+
+
+  )
+}
 export const VouchersList = (props) => (
   <List
     sort={{ field: "row_id", order: "DESC" }}
@@ -156,20 +195,20 @@ export const VouchersList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="row_id" />
-        <TextField source="vou_no" />
-        <TextField source="vou_date" />
-        {/* <ReferenceField label="Project" source="project" reference="Projects">
+        <Datagrid rowClick="edit" expand={<TransactionList />}>
+          <TextField source="row_id" />
+          <TextField source="vou_no" />
+          <TextField source="vou_date" />
+          {/* <ReferenceField label="Project" source="project" reference="Projects">
           <TextField source="title" />
         </ReferenceField> */}
-        <TextField source="chq_no" />
-        <TextField source="chq_date" />
-        <TextField source="created_by" />
-        <EditButton undoable={false} variant="contained" color="secondary" />
-        {/* <DeleteButton /> */}
-      </Datagrid>
-    )}
+          <TextField source="chq_no" />
+          <TextField source="chq_date" />
+          <TextField source="created_by" />
+          <EditButton undoable={false} variant="contained" color="secondary" />
+          {/* <DeleteButton /> */}
+        </Datagrid>
+      )}
   </List>
 );
 
@@ -191,19 +230,19 @@ export const InvalidVouchersList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="row_id" />
-        <TextField source="vou_no" />
-        <TextField source="vou_date" />
-        {/* <ReferenceField label="Project" source="project" reference="Projects">
+        <Datagrid rowClick="edit">
+          <TextField source="row_id" />
+          <TextField source="vou_no" />
+          <TextField source="vou_date" />
+          {/* <ReferenceField label="Project" source="project" reference="Projects">
           <TextField source="title" />
         </ReferenceField> */}
-        <TextField source="debit" />
-        <TextField source="credit" />
-        <EditButton variant="contained" color="secondary" />
-        {/* <DeleteButton /> */}
-      </Datagrid>
-    )}
+          <TextField source="debit" />
+          <TextField source="credit" />
+          <EditButton variant="contained" color="secondary" />
+          {/* <DeleteButton /> */}
+        </Datagrid>
+      )}
   </List>
 );
 
