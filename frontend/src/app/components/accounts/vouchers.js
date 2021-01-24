@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@material-ui/core";
+import { Chip, makeStyles, useMediaQuery } from "@material-ui/core";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import StoreIcon from "@material-ui/icons/Store";
 import * as React from "react";
@@ -13,6 +13,7 @@ import {
   ListButton,
   Pagination,
   SearchInput,
+  SelectInput,
   SimpleList,
   TextField,
   TopToolbar,
@@ -21,7 +22,6 @@ import { useLocation } from "react-router";
 import FirdousSelect from "./FirdousSelect";
 import { VoucherEntryForm } from "./VoucherEntry3";
 import VoucherShow from "./VoucherShow";
-
 export const useQuery = (queryParam) => {
   const search = new URLSearchParams(useLocation().search);
   return search.get(queryParam);
@@ -35,6 +35,25 @@ export const VouchersActions = ({ basePath, data }) => (
     {/* <ShowButton basePath={basePath} record={data} /> */}
   </TopToolbar>
 );
+
+const vou_types = [
+  { id: 1, title: "Journal Voucher" },
+  { id: 2, title: "Payment Voucher" },
+  { id: 3, title: "Reciept Voucher" },
+  { id: 4, title: "Sales Voucher" },
+  { id: 5, title: "Salary Voucher" },
+  { id: 6, title: "Inventory Voucher" },
+];
+
+const useQuickFilterStyles = makeStyles((theme) => ({
+  chip: {
+    marginBottom: theme.spacing(1),
+  },
+}));
+const QuickFilter = ({ label }) => {
+  const classes = useQuickFilterStyles();
+  return <Chip className={classes.chip} label={label} />;
+};
 
 const VouchersSearchFilter = (props) => (
   <Filter {...props}>
@@ -103,6 +122,16 @@ const VouchersSearchFilter = (props) => (
       list="employees"
       sort="title"
       resettable
+    />
+    <SelectInput
+      variant="standard"
+      margin="none"
+      label="Voucher Type"
+      source="vou_type"
+      optionText="title"
+      optionValue="id"
+      choices={vou_types}
+      fullWidth
     />
   </Filter>
 );
