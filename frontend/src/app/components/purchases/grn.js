@@ -99,7 +99,7 @@ export const GrnList = (props) => (
           <TextField source="id" />
           <TextField source="grn_no" />
           <TextField source="grn_date" />
-          <TextField source="po_id" />
+          <TextField source="po_no" />
           <TextField source="created_on" />
           <TextField source="created_by" />
           <TextField source="refno" />
@@ -111,7 +111,7 @@ export const GrnList = (props) => (
 );
 
 const GrnTitle = ({ record }) => {
-  return <span>Grn {record ? `"${record.title}"` : ""}</span>;
+  return <span>Grn {record ? `"${record.grn_no}"` : ""}</span>;
 };
 
 const CustomToolbar = (props) => {
@@ -188,6 +188,7 @@ const CustomToolbar = (props) => {
 export const GrnEdit = (props) => (
   <Edit undoable={false} title={<GrnTitle />} {...props}>
     <SimpleForm
+      toolbar={<CustomToolbar />}
       variant={"standard"}
       sanitizeEmptyValues={false}
       margin="none"
@@ -296,6 +297,9 @@ export const GRN_FORM = (props) => {
         </Grid>
         <Grid item xs={12}>
           <TextInput multiline source="remarks" fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <BooleanInput label="Post Ledger Entry" source="postledger" fullWidth />
         </Grid>
       </Grid>
       <div className={classes.po_item}>

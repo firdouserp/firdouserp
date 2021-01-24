@@ -8,6 +8,7 @@ import {
   Button,
   Create,
   Datagrid,
+  DateField,
   DateInput,
   DeleteButton,
   Edit,
@@ -19,6 +20,7 @@ import {
   ListButton,
   NumberInput,
   ReferenceField,
+  ReferenceManyField,
   required,
   SaveButton,
   SearchInput,
@@ -175,7 +177,24 @@ export const Purchase_orderEdit = (props) => (
       <FormTab variant={"outlined"} label="Purchase Order">
         <PO_FORM />
       </FormTab>
-      <FormTab label="Goods Reciepts"></FormTab>
+      <FormTab label="Goods Reciepts">
+
+        <ReferenceManyField
+          reference="grn"
+          target="po_no"
+          addLabel={false}
+          fullWidth
+        >
+          <Datagrid>
+            <TextField source="grn_no" />
+            <DateField source="grn_date" />
+            <TextField source="ref_no" />
+            <TextField source="created_by" />
+            <DateField source="created_on" />
+            <EditButton />
+          </Datagrid>
+        </ReferenceManyField>
+      </FormTab>
       <FormTab label="Supplier Bills"></FormTab>
     </TabbedForm>
   </Edit>
