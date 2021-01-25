@@ -90,6 +90,13 @@ function SimplePaper() {
               stylename={classes.JournalVoucher}
             />
           </Grid>
+          <Grid item xs={12}>
+            <AccountButton
+              target="/invalidvou"
+              label="Invalid Vouchers"
+              stylename={classes.JournalVoucher}
+            />
+          </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12} sm={3}>

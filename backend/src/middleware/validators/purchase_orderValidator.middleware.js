@@ -15,7 +15,7 @@ exports.createPurchase_orderSchema = [
         .withMessage('delivery address must be required'),
     check('status')
         .exists()
-        .withMessage("Required"),
+        .withMessage("Status is Required"),
 
 ];
 
@@ -34,6 +34,8 @@ exports.updatePurchase_orderSchema = [
         .withMessage('Required'),
     check('purchase_details')
         .exists()
+        .isArray()
+        .not().isEmpty()
         .withMessage('Items of Purchase Details'),
 
     body()

@@ -136,7 +136,7 @@ export default function PurchaseOrder({ purchaseorder, company, notes }) {
   console.log(JSON.stringify(purchaseorder));
   const { purchase_details } = purchaseorder;
 
-  const totalAmount = purchase_details.reduce(
+  const totalAmount = purchase_details && purchase_details.reduce(
     (sum, item) => sum + item.subtotal,
     0
   );
@@ -263,11 +263,11 @@ export default function PurchaseOrder({ purchaseorder, company, notes }) {
                 <tr className="details" key="details">
                   <td colSpan="6"> Abdullah Iqbal {purchaseorder.supplier}</td>
                 </tr>,
-                 
-                 <td className="chq_date"> Jf-5555 {purchaseorder.supplier}</td>
-             
-              
-               
+
+                <td className="chq_date"> Jf-5555 {purchaseorder.supplier}</td>
+
+
+
               ]}
               <tr className="heading">
                 <td className="subheading">Sr.no</td>
@@ -277,7 +277,7 @@ export default function PurchaseOrder({ purchaseorder, company, notes }) {
                 <td className="debit">Rate</td>
                 <td className="credit">Amount</td>
               </tr>
-              {purchase_details.map((item) => (
+              {purchase_details && purchase_details.map((item) => (
                 <tr className="item" key={item.id}>
                   <td className="subheading">{item.supplier}</td>
                   <td>{item.qty}</td>
@@ -341,7 +341,7 @@ export default function PurchaseOrder({ purchaseorder, company, notes }) {
   );
 }
 
-PurchaseOrder.propTypes = { 
+PurchaseOrder.propTypes = {
   company: PropTypes.shape({
     name: PropTypes.string,
     logoUrl: PropTypes.string,

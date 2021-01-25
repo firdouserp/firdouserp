@@ -157,7 +157,9 @@ CREATE TABLE `fprop` (
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 );
-
+DROP TABLE IF EXISTS `grn`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `grn` (
   `id` int NOT NULL AUTO_INCREMENT,
   `grn_no` varchar(45) DEFAULT NULL,
@@ -169,22 +171,28 @@ CREATE TABLE `grn` (
   `status` int DEFAULT NULL,
   `remarks` text,
   `refno` varchar(45) DEFAULT NULL,
+  `supplier_id` int NOT NULL,
+  `postledger` int DEFAULT '0',
+  `vou_no` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 );
 
+DROP TABLE IF EXISTS `grn_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `grn_details` (
   `id` int NOT NULL AUTO_INCREMENT,
   `stock_id` int NOT NULL,
   `unit` varchar(45) DEFAULT NULL,
-  `qty_ord` int NOT NULL,
+  `qty` int NOT NULL,
   `qty_rec` int NOT NULL,
   `unit_price` decimal(10,0) DEFAULT NULL,
   `subtotal` decimal(10,0) DEFAULT NULL,
   `grn_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-);
+) ;
 ALTER TABLE `firdouserp`.`purchase_order` 
 CHANGE COLUMN `status` `status` INT NULL DEFAULT NULL ;
 

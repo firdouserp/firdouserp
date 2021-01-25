@@ -293,6 +293,9 @@ class VouchersModel {
     let sql = `DELETE FROM  ledger where vou_no = '${id}'`;
     let result = await query(sql, [id]);
 
+    sql = `DELETE FROM  vouchers where voucher_no = '${id}'`;
+    result = await query(sql, [id]);
+
     // sql = `DELETE FROM ${this.tableName}
     // WHERE id = ?`;
     // result = await query(sql, [id]);
@@ -358,6 +361,11 @@ class VouchersModel {
     vou_no = vou_no + "-" + padStart(current_no, 4, 0);
     console.log(vou_no);
     return vou_no;
+  };
+
+  invalidVoucher = async () => {
+    let sql = `select  vou_no as id, id as row_id,vou_date, vou_no,sum(dr) as debit,sum(cr) as credit from ledger   group by vou_no HAVING  debit!=credit`;
+    return await query(sql);
   };
 }
 

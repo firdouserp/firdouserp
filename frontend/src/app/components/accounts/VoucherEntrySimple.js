@@ -230,6 +230,7 @@ export const VoucherEntryForm = ({ ...props }) => {
       className={classes.VoucherEntry}
       validate={validateVoucherCreation}
       fullWidth
+      redirect="show"
       subscription={{}}
       {...props}
     >
@@ -264,7 +265,6 @@ export const VoucherEntryForm = ({ ...props }) => {
         <Grid item xs={12} sm={4} md={3}>
           <DateInput
             //initialValue={new Date().toLocaleDateString()}
-            initialValue={new Date().toISOString().substring(0, 10)}
             margin="none"
             variant="outlined"
             source="vou_date"
@@ -274,6 +274,77 @@ export const VoucherEntryForm = ({ ...props }) => {
             pattern="\d{4}-\d{2}-\d{2}"
             fullWidth
             className={classes.BorderandBackground}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <TextInput
+            variant="outlined"
+            margin="none"
+            source="description"
+            //resource="vouchers"
+            label="Description"
+            validate={ra_required}
+            multiline
+            fullWidth
+            formClassName={classes.width50}
+            className={classes.BorderandBackground}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            allowEmpty
+            label="Vendor"
+            list="suppliers"
+            sort="title"
+            source="supplier"
+            optionText="title"
+            fullWidth
+            className={classes.BorderandBackground}
+            formClassName={classes.width35}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            allowEmpty
+            label="Unit"
+            source="unit"
+            optionText="title"
+            list="units"
+            sort="title"
+            fullWidth
+            className={classes.BorderandBackground}
+            formClassName={classes.width20}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            allowEmpty
+            label="Stock"
+            source="stock"
+            optionText="title"
+            list="stock"
+            sort="title"
+            fullWidth
+            className={classes.BorderandBackground}
+            formClassName={classes.width20}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} md={3}>
+          <FirdousSelect
+            margin="none"
+            allowEmpty
+            label="Employee"
+            source="employee"
+            optionText="title"
+            list="employees"
+            sort="title"
+            fullWidth
+            className={classes.BorderandBackground}
+            formClassName={classes.width20}
+            //className={classes.maxFixedWidth}
           />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
@@ -384,70 +455,6 @@ export const VoucherEntryForm = ({ ...props }) => {
                   fullWidth
                   formClassName={classes.width35}
                   className={classes.BorderandBackground}
-                />
-                <TextInput
-                  variant="outlined"
-                  margin="none"
-                  source="description"
-                  //resource="vouchers"
-                  label="Description"
-                  validate={ra_required}
-                  multiline
-                  fullWidth
-                  formClassName={classes.width50}
-                  className={classes.BorderandBackground}
-                />
-                <FirdousSelect
-                  margin="none"
-                  allowEmpty
-                  label="Vendor"
-                  list="suppliers"
-                  sort="title"
-                  source="supplier"
-                  optionText="title"
-                  fullWidth
-                  className={classes.BorderandBackground}
-                  formClassName={classes.width35}
-                />
-
-                <FirdousSelect
-                  margin="none"
-                  allowEmpty
-                  label="Unit"
-                  source="unit"
-                  optionText="title"
-                  list="units"
-                  sort="title"
-                  fullWidth
-                  className={classes.BorderandBackground}
-                  formClassName={classes.width20}
-                />
-
-                <FirdousSelect
-                  margin="none"
-                  allowEmpty
-                  label="Stock"
-                  source="stock"
-                  optionText="title"
-                  list="stock"
-                  sort="title"
-                  fullWidth
-                  className={classes.BorderandBackground}
-                  formClassName={classes.width20}
-                />
-
-                <FirdousSelect
-                  margin="none"
-                  allowEmpty
-                  label="Employee"
-                  source="employee"
-                  optionText="title"
-                  list="employees"
-                  sort="title"
-                  fullWidth
-                  className={classes.BorderandBackground}
-                  formClassName={classes.width20}
-                  //className={classes.maxFixedWidth}
                 />
 
                 {/* <TextInput formClassName={classes.inlineBlock} label ="Description" source="description" resource="vouchers" multiline fullWidth margin="none"/> */}

@@ -66,6 +66,17 @@ class VouchersController {
     res.set("Content-Range", content_range);
     res.send(vouchers);
   };
+  getInvalidVouchers = async (req, res, next) => {
+    console.log("get Invalid Vouchers");
+    const vouchers = await VouchersModel.invalidVoucher();
+    if (!vouchers) {
+      throw new HttpException(404, "Voucher not found");
+    }
+    let content_range = "1-" + vouchers.length + "/" + vouchers.length;
+    console.log(content_range);
+    res.set("Content-Range", content_range);
+    res.send(vouchers);
+  };
 
   getVouchersByVouchersName = async (req, res, next) => {
     const vouchers = await VouchersModel.findOne({
@@ -105,8 +116,8 @@ class VouchersController {
     const message = !affectedRows
       ? "Voucher not found"
       : affectedRows && changedRows
-      ? "Voucher updated successfully"
-      : "Updated failed";
+        ? "Voucher updated successfully"
+        : "Updated failed";
 
     const vouchers = await VouchersModel.findOne({ id: req.params.id });
     if (!vouchers) {
