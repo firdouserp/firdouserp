@@ -11,33 +11,33 @@ import {
   Layout,
   Login,
   Resource,
-  Sidebar,
+  Sidebar
 } from "react-admin";
 import "./App.css";
 import {
   CoaCreate,
   CoaEdit,
   CoaIcon,
-  CoaList,
+  CoaList
 } from "./app/components/accounts/coa";
 import {
   Coa_typeCreate,
   Coa_typeEdit,
   Coa_typeIcon,
-  Coa_typeList,
+  Coa_typeList
 } from "./app/components/accounts/coa_type";
 import {
   NotesCreate,
   NotesEdit,
   NotesIcon,
-  NotesList,
+  NotesList
 } from "./app/components/accounts/notes";
 import {
   VouchersCreate,
   VouchersEdit,
   VouchersIcon,
   VouchersList,
-  VouchersShow,
+  VouchersShow
 } from "./app/components/accounts/vouchers";
 // import {
 //   VoucherEdit,
@@ -50,14 +50,14 @@ import {
   BookingEdit,
   BookingIcon,
   BookingList,
-  BookingsShow,
+  BookingsShow
 } from "./app/components/bookings/booking";
 import BookingFormWizard from "./app/components/bookings/BookingFormWizard";
 import {
   ScheduleCreate,
   ScheduleEdit,
   ScheduleIcon,
-  ScheduleList,
+  ScheduleList
 } from "./app/components/bookings/schedule";
 import Menu from "./app/components/custom/CustomMenu";
 import customRoutes from "./app/components/custom/customRoutes";
@@ -66,56 +66,63 @@ import {
   StockCreate,
   StockEdit,
   StockIcon,
-  StockList,
+  StockList
 } from "./app/components/inventory/stock";
 import MyAppBar from "./app/components/MyAppBar";
 import {
   EmployeesCreate,
   EmployeesEdit,
   EmployeesIcon,
-  EmployeesList,
+  EmployeesList
 } from "./app/components/payroll/employees";
 import {
   ProjectCreate,
   ProjectEdit,
   ProjectIcon,
-  ProjectList,
+  ProjectList
 } from "./app/components/projects";
 import {
   GrnCreate,
   GrnEdit,
   GrnIcon,
-  GrnList,
+  GrnList
 } from "./app/components/purchases/grn";
 import {
   Purchase_orderCreate,
   Purchase_orderEdit,
   Purchase_orderIcon,
-  Purchase_orderList,
+  Purchase_orderList
 } from "./app/components/purchases/purchaseorders";
 import {
   SupplierCreate,
   SupplierEdit,
   SupplierIcon,
-  SupplierList,
+  SupplierList
 } from "./app/components/purchases/suppliers";
 import {
   FpropCreate,
   FpropEdit,
   FpropIcon,
-  FpropList,
+  FpropList
 } from "./app/components/settings/Fprop";
+import {
+  SettingCreate,
+  SettingEdit,
+  SettingIcon,
+  SettingList,
+  SettingShow
+} from "./app/components/settings/setting";
 import {
   UnitsCreate,
   UnitsEdit,
   UnitsIcon,
-  UnitsList,
+  UnitsList
 } from "./app/components/units";
 import { UserList } from "./app/components/users";
 //import myDataProvider from './app/auth/dataProvider';
 //import authProvider from './app/auth/authProvider';
 import basicAuthProvider from "./app/providers/basicAuth";
-
+ 
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -365,6 +372,15 @@ const App = () => (
       icon={BookingIcon}
       show={BookingsShow}
       options={{ label: "Bookings", menu: "false" }}
+    />
+    <Resource
+      name="Setting"
+      list={SettingList}
+      create={SettingCreate}
+      edit={SettingEdit}
+      icon={SettingIcon}
+      show={SettingShow}
+      options={{ label: "Setting", menu: "true" }}
     />
     <Resource
       name="fprop"

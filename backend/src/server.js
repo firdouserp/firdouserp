@@ -19,6 +19,7 @@ const scheduleRouter = require("./routes/schedule.route");
 const purchase_orderRouter = require("./routes/purchase_order.route");
 const fpropRouter = require("./routes/fprop.route");
 const grnRouter = require("./routes/grn.route");
+const settingRouter = require("./routes/setting.route");
 const reportsRouter = require("./routes/reports.route");
 
 // Init express
@@ -69,6 +70,7 @@ app.use(`/api/v1/schedule`, scheduleRouter);
 app.use(`/api/v1/purchaseorder`, purchase_orderRouter);
 app.use(`/api/v1/fprop`, fpropRouter);
 app.use(`/api/v1/grn`, grnRouter);
+app.use(`/api/v1/setting`, settingRouter);
 app.use(`/api/v1/reports`, reportsRouter);
 
 // 404 error
