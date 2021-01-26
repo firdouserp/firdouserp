@@ -138,6 +138,11 @@ const theme = createMuiTheme({
         height: 20,
       },
     },
+    MuiTableCell: {
+      root: {
+        borderRight: "1px solid rgba(224, 224, 224, 1)",
+      },
+    },
     MuiFormHelperText: {
       contained: {
         display: "none",
@@ -224,9 +229,10 @@ const theme = createMuiTheme({
     },
     RaDatagrid: {
       headerCell: {
-        backgroundColor: "#1976d2",
-        color: "#fff",
+        backgroundColor: "#1976d24a",
+        color: "#0000008a",
         height: "2.5em",
+        textTransform: "uppercase",
         boxShadow: "0 2px 0 rgba(0,0,0,0.05)",
       },
     },
@@ -307,7 +313,7 @@ const httpClient = (url, options = {}) => {
   if (!options.headers) {
     options.headers = new Headers({ Accept: "application/json" });
   }
-  const { token } = JSON.parse(localStorage.getItem("jwtToken"));
+  const { token } = JSON.parse(localStorage.getItem("jwtToken") || {});
 
   options.headers.set("Authorization", `Bearer ${token}`);
 
