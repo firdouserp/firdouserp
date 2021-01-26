@@ -69,7 +69,7 @@ class SettingController {
     res.status(201).send(setting);
   };
 
-  updateCoa = async (req, res, next) => {
+  updateSetting = async (req, res, next) => {
     this.checkValidation(req);
 
     // do the update query and get the result
