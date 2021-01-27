@@ -83,7 +83,7 @@ const Menu = ({ onMenuClick, logout }) => {
       />
 
       <MenuItemLink
-        to="/help-center"
+        to="/setting"
         primaryText="Settings"
         leftIcon={<SettingsIcon />}
         onClick={onMenuClick}

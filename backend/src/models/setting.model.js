@@ -43,7 +43,7 @@ class SettingModel {
     
   
     
-    create = async ({code,title}) => {
+    create = async ({org_name,grn_account,org_address,company_logo}) => {
         const sql = `INSERT INTO ${this.tableName} 
         (org_name,org_address,company_logo,grn_account) VALUES (?,?,?,?)`;
         console.log(sql);

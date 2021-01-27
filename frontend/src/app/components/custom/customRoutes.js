@@ -7,6 +7,7 @@ import AccountBalancePrintable from "../reports/Accountbalances";
 import ProjectLedgerPrintable from "../reports/ProjectLedger";
 import Reports from "../reports/Reports";
 import Sales from "../sales/Sales";
+import { SettingList } from "../settings/setting";
 
 export default [
   <Route exact path="/accounts" component={Accounts} />,
@@ -16,6 +17,7 @@ export default [
   <Route exact path="/accbal" component={AccountBalancePrintable} />,
   <Route exact path="/projectledger" component={ProjectLedgerPrintable} />,
   <Route exact path="/invalidvou" component={InvalidVouchersList} />,
+
   //<Route exact path="/accounts/vouchers/create" component={VoucherEntry} />,
   //<Route exact path="/accounts/voucherentry/:id" component={VoucherEdit} />,
   //<Route exact path="/userform" component={Userform} />,
