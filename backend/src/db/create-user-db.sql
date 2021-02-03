@@ -230,3 +230,11 @@ ORDER  BY
           Supplier,
           COA,
           Unit
+
+          CREATE TABLE `setting` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `org_name` text,
+  `org_address` text,
+  `company_logo` varchar(45) DEFAULT NULL,
+  `grn_account` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
