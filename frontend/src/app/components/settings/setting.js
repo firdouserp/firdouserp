@@ -58,11 +58,11 @@ export const SettingList = (props) => (
       />
     ) : (
       <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="org_name" />
-        <TextField source="org_address" />
-        <TextField source="company_logo" />
-        <TextField source="grn_account" />
+        <TextInput source="id" />
+        <TextInput source="org_name" />
+        <TextInput source="org_address" />
+        <TextInput source="company_logo" />
+        <TextInput source="grn_account" />
         <EditButton variant="contained" color="secondary" />
         <DeleteButton />
       </Datagrid>
@@ -86,7 +86,7 @@ export const SettingEdit = (props) => {
           formClassName={classes.inlineBlock}
         />
         <TextInput multiline source="company_logo" />
-      </SimpleForm>
+      </SimpleForm> 
     </Edit>
   );
 };
@@ -95,10 +95,10 @@ export const SettingCreate = (props) => (
   <Create undoable={false} title="Setting" {...props}>
     <SimpleForm variant="standard">
     <TextField source="id" />
-        <TextField source="org_name" />
-        <TextField source="org_address" />
-        <TextField source="company_logo" />
-        <TextField source="grn_account" />
+        <TextInput source="org_name" />
+        <TextInput source="org_address" />
+        <TextInput source="company_logo" />
+        <TextInput source="grn_account" />
     </SimpleForm>
   </Create>
 );

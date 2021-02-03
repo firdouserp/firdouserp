@@ -380,13 +380,13 @@ const App = () => (
       options={{ label: "Bookings", menu: "false" }}
     />
     <Resource
-      name="Setting"
+      name="setting"
       list={SettingList}
       create={SettingCreate}
       edit={SettingEdit}
       icon={SettingIcon}
       show={SettingShow}
-      options={{ label: "Setting", menu: "true" }}
+      options={{ label: "Setting", menu: "false" }}
     />
     <Resource
       name="fprop"
