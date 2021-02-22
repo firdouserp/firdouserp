@@ -160,7 +160,7 @@ export default function Booking({ booking, company, notes }) {
                     <tbody>
                       <tr>
                       
-
+                          
                         <td>
 
                           <div>
@@ -200,20 +200,20 @@ export default function Booking({ booking, company, notes }) {
                           <div className="subheading">Allottee</div>
                           {/* <EntityInfo entity={customer} /> */}
                           <td className="subheading"></td>
-                                  <td>{(booking.name)}</td>
+                                  <td>Name : {(booking.name)}</td>
                                   <div>
                                   <td>
-                                  <td>{(booking.phone_no)}</td>
+                                  <td>Phone no: {(booking.phone_no)}</td>
                                   </td>
                                   </div>
                                   <div>
                                   <td>
-                                  <td>{(booking.cnic)}</td>
+                                  <td>Cnic : {(booking.cnic)}</td>
                                   </td>
                                   </div>
                                   <div>
                                   <td>
-                                  <td>{(booking.residential_address)}</td>
+                                  <td>Residential Address : {(booking.residential_address)}</td>
                                   </td>
                                   </div>
                                  
@@ -232,7 +232,13 @@ export default function Booking({ booking, company, notes }) {
                               {booking.sale_price && (
                                 <tr>
                                   <td className="subheading">Unit Type</td>
-                                  <td>{"(1290sqfts)"}</td>
+                                  <td>{"Flat/Shop"}</td>
+                                </tr>
+                              )}
+                              {booking.sale_price && (
+                                <tr>
+                                  <td className="subheading">Covered Area</td>
+                                  <td>{"1290sq.ft"}</td>
                                 </tr>
                               )}
                                {booking.discount && (
@@ -241,12 +247,12 @@ export default function Booking({ booking, company, notes }) {
                                   <td>{("A-102")}</td>
                                 </tr>
                               )}
-                              {booking.discount && (
+                              {/* {booking.discount && (
                                 <tr>
                                   <td className="subheading">Discount</td>
                                   <td>{("5%")}</td>
                                 </tr>
-                              )}
+                              )} */}
                               {booking.phone_no && (
                                 <tr>
                                   <td className="subheading">Total Installments</td>
@@ -260,7 +266,7 @@ export default function Booking({ booking, company, notes }) {
                                 </tr>
                               )}
                             </tbody>
-                          </table>
+                          </table> 
                         </td>
                       </tr>
                     </tbody>
@@ -283,7 +289,7 @@ export default function Booking({ booking, company, notes }) {
                       <tr>
                       
                       </tr>
-                    </tbody>
+                    </tbody>  
                   </table>
                 </td>
               </tr>
@@ -299,27 +305,29 @@ export default function Booking({ booking, company, notes }) {
               ]} 
               <tr className="heading">
                 <td className="subheading">Sr.no</td>
-                <td className="name"> unit type.</td>
+                <td className="name"> unit No.</td>
                 <td> Area</td>
                 <td> Unit Cost</td>
+                <td>Discount</td> 
+                <td>Discounted Cost</td> 
                 <td className="phone_no">Booking Amount</td>
-                <td className="occupation">Amount remaining</td>
+                <td className="occupation">Balance remaining</td>
 
               </tr>
               {}  <tr className="item" key={booking.description}>
                   <td className="subheading"  >{"1"}</td>
-                  <td>{booking.name}</td>
-                  <td>{booking.father_name}</td>
-                  <td>{booking.residential_address}</td>
+                  <td>C-607</td>
+                  <td>1280sq.ft</td>
+                  <td>11,200,285</td>
 
-                  <td className="Phone Number">{(booking.phone_no)}</td>
-                  <td className="occupation">{(booking.occupation)}</td>
+                  <td className="Phone Number">300,000</td>
+                  <td className="occupation">10,000,00</td>
                 </tr>
               
               <tr className="total">
                 <td />
 
-                <td colSpan={"5"}>
+                <td colSpan={"10"}>
                   <table>
                     <tbody>
                       <tr>
@@ -329,6 +337,7 @@ export default function Booking({ booking, company, notes }) {
                   </table>
                 </td>
               </tr>
+              <tr  ></tr>
               <tr className="heading">
                 <td className="subheading"></td>
                 <td className="name"> </td>
@@ -340,13 +349,15 @@ export default function Booking({ booking, company, notes }) {
               </tr>
               {}  <tr className="item" key={booking.description}>
                   <td className="subheading"  >{"2"}</td>
-                  <td>{booking.name}</td>
-                  <td>{booking.father_name}</td>
-                  <td>{booking.residential_address}</td>
+                  <td>A-102</td>
+                  <td>1870sq.ft</td>
+                  <td>12,400,000</td>
+                  <td className="Discount">12221</td>
 
-                  <td className="Phone Number">{(booking.phone_no)}</td>
-                  <td className="occupation">{(booking.occupation)}</td>
+                  <td className="Phone Number">450,000</td>
+                  <td className="occupation">112,000,21</td>
                 </tr>
+                
               
               <tr className="total">
                 <td />

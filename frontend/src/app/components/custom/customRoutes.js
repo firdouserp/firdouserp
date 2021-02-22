@@ -13,6 +13,7 @@ export default [
   <Route exact path="/accounts" component={Accounts} />,
   <Route exact path="/purchases" component={Purchases} />,
   <Route exact path="/sales" component={Sales} />,
+  
   <Route exact path="/reports" component={Reports} />,
   <Route exact path="/accbal" component={AccountBalancePrintable} />,
   <Route exact path="/projectledger" component={ProjectLedgerPrintable} />,
