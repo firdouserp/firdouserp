@@ -227,7 +227,7 @@ export const TransactionEntryForm = ({ ...props }) => {
             margin="none"
             label="Voucher Type"
             source="vou_type"
-            initialValue={props.vou_type}
+            initialValue={props.vou_type || 1}
             optionText="title"
             optionValue="id"
             choices={vou_types}
