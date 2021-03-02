@@ -238,3 +238,7 @@ ORDER  BY
   `company_logo` varchar(45) DEFAULT NULL,
   `grn_account` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
+
+
+
+  aCREATE OR REPLACE VIEW `view_trans_vouno` AS select `temp`.`A` AS `Voucher`,max(`temp`.`D`) AS `MaxNo` from (select `transactions`.`vou_no` AS `Vou_No`,substr(`transactions`.`vou_no`,1,5) AS `A`,substr(`transactions`.`vou_no`,1,1) AS `B`,substr(`transactions`.`vou_no`,2,4) AS `C`,cast(substr(`transactions`.`vou_no`,7,4) as double) AS `D` from `transactions`) `temp` group by `temp`.`A`
