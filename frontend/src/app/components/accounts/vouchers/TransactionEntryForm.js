@@ -93,9 +93,14 @@ const useStyles = makeStyles({
 const validateVoucherCreation = (values) => {
   const errors = {};
   console.log("values:" + JSON.stringify(values));
+  if (!values.total_debit != values.total_debit) {
+    errors.total_debit = ["debit != credit"];
+    errors.total_credit = ["debit != credit"];
+  }
 
-  if (!values.transactions || values.transactions.length == 0) {
+  if (!values.transactions || values.transactions.length < 2) {
     errors.total_debit = ["Please Enter the Transactions"];
+    errors.total_credit = ["Please Enter the Transactions"];
   } else {
     values.transactions.map((transaction) => {
       (!transaction &&
@@ -352,7 +357,7 @@ export const TransactionEntryForm = ({ ...props }) => {
                   source="coa"
                   sort="code"
                   optionText={optionRenderer}
-                  //validate={ra_required}
+                  validate={ra_required}
                   //initialValue={1}
                   //resource="vouchers"
                   fullWidth
@@ -395,8 +400,8 @@ export const TransactionEntryForm = ({ ...props }) => {
               </SimpleFormIterator>
             </ArrayInput>
           </Box>
-          <Grid container display="flex" fullWidth>
-            <Grid item xs="6" align="right">
+          <Grid container display="flex" fullWidth spacing={2}>
+            <Grid item xs="6" align="left">
               <TextInput
                 margin="none"
                 label="Remarks"
@@ -407,7 +412,7 @@ export const TransactionEntryForm = ({ ...props }) => {
                 className={classes.BorderandBackground}
               />
             </Grid>
-            <Grid item xs="12" align="right">
+            <Grid item xs="6" align="right">
               <TotalInput
                 variant="outlined"
                 margin="none"

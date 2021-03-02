@@ -198,7 +198,7 @@ const theme = createMuiTheme({
         },
 
         paddingBottom: "1rem",
-        paddingTop: "0.5rem",
+        paddingTop: "1rem",
         //justifyContent: "space-evenly",
       },
       RaFormInput: {
