@@ -5,10 +5,7 @@ const Role = require('../../utils/userRoles.utils');
 exports.createProjectsSchema = [
     check('code')
         .exists()
-        .isAlphanumeric()
-        .withMessage('code is required')
-        .isLength({min: 3})
-        .withMessage('Must be at least 3 chars long'),
+        .withMessage('code is required'),
     check('scode')
         .exists()
         .isAlphanumeric()
@@ -25,7 +22,6 @@ exports.createProjectsSchema = [
         .withMessage('Location is required'),
     check('client')
         .exists()
-        .isAlphanumeric()
         .withMessage('client must be required')
         .isLength({min : 1}),
     check('city')
@@ -41,7 +37,6 @@ exports.createProjectsSchema = [
     check('nature')
         .exists()
         .withMessage('Enter nature')
-        .isAlphanumeric()
         .isLength({min : 1}),
     check('remarks')
         .exists()

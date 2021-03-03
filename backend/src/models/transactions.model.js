@@ -8,16 +8,16 @@ const { param } = require("express-validator");
 class TransactionsModel {
   tableName = "transactions";
   vou_types = [
-    { id: 1, code: "J", title: "Journal Voucher", dbcode: "Journal" },
-    { id: 2, code: "P", title: "Payment Voucher", dbcode: "Payment" },
-    { id: 3, code: "R", title: "Receipt Voucher", dbcode: "Reciept" },
-    { id: 4, code: "S", title: "Sales Voucher", dbcode: "" },
-    { id: 5, code: "SLR", title: "Salary Voucher", dbcode: "" },
-    { id: 6, code: "I", title: "Inventory Voucher", dbcode: "" },
+    { id: 1, code: "JV", title: "Journal Voucher", dbcode: "Journal" },
+    { id: 2, code: "PV", title: "Payment Voucher", dbcode: "Payment" },
+    { id: 3, code: "RV", title: "Receipt Voucher", dbcode: "Reciept" },
+    { id: 4, code: "SV", title: "Sales Voucher", dbcode: "" },
+    { id: 5, code: "SLRV", title: "Salary Voucher", dbcode: "" },
+    { id: 6, code: "IV", title: "Inventory Voucher", dbcode: "" },
   ];
   find = async (params = {}, range = {}, sort = {}) => {
     let sql =
-      "SELECT vou_no as id,id as row_id,vou_type,vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'project',project)) as transactions from transactions";
+      "SELECT vou_no as id,id as row_id,vou_type,vou_no,project,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'project',project)) as transactions from transactions";
     let limit = "";
     let orderby = " ORDER BY row_id DESC ";
     let groupby = " GROUP BY  vou_no ";
@@ -55,7 +55,7 @@ class TransactionsModel {
       const columnSet = keys
         .map((key) => (key == "id" ? `${"vou_no"} = ?` : `${key} = ?`))
         .join(", ");
-      let sql = `SELECT vou_no as id,id as row_id,${cast_vou_type},vou_no,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'project',project)) as transactions from transactions 
+      let sql = `SELECT vou_no as id,id as row_id,${cast_vou_type},vou_no,project,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'project',project)) as transactions from transactions 
                WHERE ${columnSet} GROUP BY vou_no `;
 
       console.log(sql);

@@ -67,7 +67,7 @@ export const ProjectEdit = (props) => (
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextInput disabled source="code" fullWidth />
+          <TextInput source="code" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="scode" fullWidth />
@@ -131,7 +131,7 @@ export const ProjectCreate = (props) => {
             <TextInput disabled source="id" fullWidth />
           </Grid>
           <Grid item xs={12} md={4}>
-            <TextInput disabled source="code" fullWidth />
+            <TextInput  source="code" fullWidth />
           </Grid>
           <Grid item xs={12} md={4}>
             <TextInput source="scode" fullWidth />

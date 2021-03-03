@@ -2,7 +2,7 @@ import { CircularProgress, Toolbar } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import PrintIcon from "@material-ui/icons/Print";
 import * as React from "react";
-import  { cloneElement, Component } from "react";
+import { cloneElement, Component } from "react";
 import {
   BulkActionsToolbar,
   Button,
@@ -11,10 +11,9 @@ import {
   ListBase,
   ListToolbar,
   Pagination,
-  useQueryWithStore,
+  useQueryWithStore
 } from "react-admin";
 import ReactToPrint from "react-to-print";
-import FirdousSelect from "../accounts/FirdousSelect";
 export function formatCurrency(amount) {
   return Number.parseFloat(amount)
     .toFixed(2)
@@ -80,7 +79,7 @@ export const ProjectLedegerReport = () => {
     payload: {
       pagination: { page: 1, perPage: 500 },
       sort: { field: "coa_code", order: "ASC" },
-      filter: { project: 13 },
+      filter: { project: 47 },
     },
   });
 
