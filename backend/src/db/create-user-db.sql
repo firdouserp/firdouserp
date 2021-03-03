@@ -238,3 +238,31 @@ ORDER  BY
   `company_logo` varchar(45) DEFAULT NULL,
   `grn_account` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
+
+
+
+  aCREATE OR REPLACE VIEW `view_trans_vouno` AS select `temp`.`A` AS `Voucher`,max(`temp`.`D`) AS `MaxNo` from (select `transactions`.`vou_no` AS `Vou_No`,substr(`transactions`.`vou_no`,1,5) AS `A`,substr(`transactions`.`vou_no`,1,1) AS `B`,substr(`transactions`.`vou_no`,2,4) AS `C`,cast(substr(`transactions`.`vou_no`,7,4) as double) AS `D` from `transactions`) `temp` group by `temp`.`A`
+
+  CREATE TABLE `transactions` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `vou_id` int NOT NULL DEFAULT '0',
+  `vou_no` varchar(15) NOT NULL,
+  `vou_date` date NOT NULL,
+  `vou_type` longtext NOT NULL,
+  `tran_type` int NOT NULL DEFAULT '0',
+  `srno` int NOT NULL DEFAULT '0',
+  `coa` int NOT NULL DEFAULT '0',
+  `project` int DEFAULT '0',
+  `refno` longtext,
+  `chq_no` longtext,
+  `chq_date` date DEFAULT NULL,
+  `dr` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `cr` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `description` longtext NOT NULL,
+  `remarks` longtext,
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_transaction_coa` (`coa`),
+  CONSTRAINT `fk_transaction_coa` FOREIGN KEY (`coa`) REFERENCES `coa` (`id`)
+)

@@ -21,7 +21,7 @@ const fpropRouter = require("./routes/fprop.route");
 const grnRouter = require("./routes/grn.route");
 const settingRouter = require("./routes/setting.route");
 const reportsRouter = require("./routes/reports.route");
-
+const transactionsRouter = require("./routes/transactions.route");
 // Init express
 const app = express();
 // Init environment
@@ -72,6 +72,7 @@ app.use(`/api/v1/fprop`, fpropRouter);
 app.use(`/api/v1/grn`, grnRouter);
 app.use(`/api/v1/setting`, settingRouter);
 app.use(`/api/v1/reports`, reportsRouter);
+app.use(`/api/v1/transactions`, transactionsRouter);
 
 // 404 error
 app.all("*", (req, res, next) => {
