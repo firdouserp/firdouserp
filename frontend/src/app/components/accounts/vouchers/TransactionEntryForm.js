@@ -15,7 +15,7 @@ import {
   SimpleForm,
   SimpleFormIterator,
   TextInput,
-  Toolbar
+  Toolbar,
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";
@@ -93,16 +93,14 @@ const useStyles = makeStyles({
 const validateVoucherCreation = (values) => {
   const errors = {};
   console.log("values:" + JSON.stringify(values));
-  if (values.total_debit != values.total_credit) {
+  if (values.total_debit != values.total_debit) {
     errors.total_debit = ["debit != credit"];
     errors.total_credit = ["debit != credit"];
-    console.log("debit!=credit");
   }
 
   if (!values.transactions || values.transactions.length < 2) {
     errors.total_debit = ["Please Enter the Transactions"];
     errors.total_credit = ["Please Enter the Transactions"];
-    console.log("transactions less then required");
   } else {
     values.transactions.map((transaction) => {
       (!transaction &&
@@ -116,7 +114,6 @@ const validateVoucherCreation = (values) => {
           ]));
     });
   }
-  console.log(JSON.stringify(errors));
   return errors;
 };
 

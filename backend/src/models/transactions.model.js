@@ -84,7 +84,7 @@ class TransactionsModel {
     id
   ) => {
     if (!id) {
-      vou_no = await this.newVoucherNumber(vou_type);
+      vou_no = await this.newVoucherNumber(vou_type, vou_date);
     }
 
     //=========================================
@@ -219,9 +219,9 @@ class TransactionsModel {
     return await query(sql, [...values]);
   };
 
-  newVoucherNumber = async (vou_type) => {
-    console.log("getting new voucher no");
-    const todaysDate = new Date();
+  newVoucherNumber = async (vou_type, vou_date) => {
+    console.log("getting new voucher no for date " + vou_date);
+    const todaysDate = new Date(vou_date);
     let year = todaysDate.getFullYear();
     year = year.toString().substr(-2);
     const month = todaysDate.getMonth() + 1;
@@ -231,9 +231,7 @@ class TransactionsModel {
     let vou_no = voutype.code + year + padStart(month, 2, 0);
 
     const sql =
-      'SELECT maxno  FROM firdouserp.view_trans_vouno where voucher="' +
-      vou_no +
-      '"';
+      'SELECT maxno  FROM view_trans_vouno where voucher="' + vou_no + '"';
     const result = await query(sql);
     console.log(sql);
     console.log(result);
