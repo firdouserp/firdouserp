@@ -11,7 +11,7 @@ import {
   ListBase,
   ListToolbar,
   Pagination,
-  useQueryWithStore
+  useQueryWithStore,
 } from "react-admin";
 import ReactToPrint from "react-to-print";
 export function formatCurrency(amount) {
@@ -89,6 +89,7 @@ export const ProjectLedegerReport = () => {
   if (error) {
     return <Error />;
   }
+
   if (!data) {
     console.log("return null");
     return null;
@@ -181,11 +182,8 @@ const ProjectLedgerPrintable = () => {
           }}
           content={() => componentRef.current}
         />
-
-       
       </Toolbar>
       <div>
-        
         <PrintProjectLedgerComponent ref={componentRef} />
       </div>
     </div>
