@@ -9,9 +9,6 @@ dotenv.config();
 class ReportsController {
   getAccountBalances = async (req, res, next) => {
     let accountBalanceList = await ReportsModel.accountbalances();
-    if (!accountBalanceList.length) {
-      throw new HttpException(404, "Users not found");
-    }
 
     let content_range =
       "1-" + accountBalanceList.length + "/" + accountBalanceList.length;
@@ -27,9 +24,6 @@ class ReportsController {
     }
 
     let projectledgerList = await ReportsModel.projectledger(filter);
-    if (!projectledgerList.length) {
-      throw new HttpException(404, "Users not found");
-    }
 
     let content_range =
       "1-" + projectledgerList.length + "/" + projectledgerList.length;

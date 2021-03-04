@@ -106,6 +106,7 @@ import {
   SupplierIcon,
   SupplierList,
 } from "./app/components/purchases/suppliers";
+import { ProjectLedgerList } from "./app/components/reports/ProjectLedger";
 import {
   FpropCreate,
   FpropEdit,
@@ -397,6 +398,12 @@ const App = () => (
       show={SettingShow}
       options={{ label: "Setting", menu: "false" }}
     />
+    <Resource
+      name="reports/projectledger"
+      list={ProjectLedgerList}
+      options={{ label: "Setting", menu: "false" }}
+    />
+
     <Resource
       name="fprop"
       list={FpropList}

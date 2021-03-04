@@ -60,7 +60,7 @@ function SimplePaper() {
 
           <Grid item xs={12}>
             <AccountButton
-              target="/projectledger"
+              target="/reports/projectledger"
               label="Project Ledger"
               stylename={classes.JournalVoucher}
             />

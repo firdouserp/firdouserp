@@ -19,7 +19,20 @@ class ReportsModel {
       return await query(sql);
     }
 
-    const { columnSet, values } = multipleColumnSet(params);
+    const keys = Object.keys(params);
+    const values = Object.values(params);
+    const columnSet = keys
+      .map((key) => {
+        if (key == "vou_date_from") {
+          return `vou_date>=?`;
+        } else if (key == "vou_date_to") {
+          return ` vou_date<=?`;
+        } else {
+          return `${key}=?`;
+        }
+      })
+      .join(" and ");
+
     sql += ` WHERE ${columnSet}`;
 
     sql += groupby + orderby;

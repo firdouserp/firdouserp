@@ -7,13 +7,19 @@ import {
   BulkActionsToolbar,
   Button,
   Datagrid,
+  DateInput,
   Error,
+  Filter,
+  List,
   ListBase,
   ListToolbar,
   Pagination,
+  ShowButton,
+  TextField,
   useQueryWithStore,
 } from "react-admin";
 import ReactToPrint from "react-to-print";
+import FirdousSelect from "../accounts/FirdousSelect";
 export function formatCurrency(amount) {
   return Number.parseFloat(amount)
     .toFixed(2)
@@ -79,7 +85,7 @@ export const ProjectLedegerReport = () => {
     payload: {
       pagination: { page: 1, perPage: 500 },
       sort: { field: "coa_code", order: "ASC" },
-      filter: { project: 47 },
+      filter: { project: 1 },
     },
   });
 
@@ -208,6 +214,60 @@ const MyList = ({ children, ...props }) => (
       <Pagination />
     </Card>
   </ListBase>
+);
+
+const ProjectLedgerSearchFilter = (props) => (
+  <Filter {...props}>
+    <FirdousSelect
+      variant="standard"
+      label="Projects"
+      source="project"
+      optionText="title"
+      list="projects"
+      sort="title"
+      alwaysOn
+    />
+
+    <FirdousSelect
+      variant="standard"
+      label="Accounts"
+      source="coa"
+      optionText="title"
+      list="coa"
+      sort="title"
+      alwaysOn
+    />
+    <DateInput
+      variant="standard"
+      placeholder="Voucher Date"
+      source="vou_date_from"
+      resettable
+      alwaysOn
+    />
+    <DateInput
+      variant="standard"
+      placeholder="Voucher Date"
+      source="vou_date_to"
+      resettable
+      alwaysOn
+    />
+  </Filter>
+);
+
+export const ProjectLedgerList = (props) => (
+  <List filters={<ProjectLedgerSearchFilter />} {...props}>
+    {
+      <Datagrid rowClick="edit">
+        <TextField source="COA_TITLE" />
+        <TextField source="debit" />
+        <TextField source="credit" />
+        <TextField source="balance" />
+        <TextField source="active" />
+        <ShowButton variant="contained" color="secondary" />
+        {/* <DeleteButton /> */}
+      </Datagrid>
+    }
+  </List>
 );
 
 export default ProjectLedgerPrintable;
