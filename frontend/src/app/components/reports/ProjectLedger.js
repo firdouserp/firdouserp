@@ -1,6 +1,13 @@
-import { CircularProgress, Toolbar } from "@material-ui/core";
+import { CardContent, CircularProgress, Toolbar } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import PrintIcon from "@material-ui/icons/Print";
+import {
+  endOfYesterday,
+  startOfMonth,
+  startOfWeek,
+  subMonths,
+  subWeeks,
+} from "date-fns";
 import * as React from "react";
 import { cloneElement, Component } from "react";
 import {
@@ -10,10 +17,13 @@ import {
   DateInput,
   Error,
   Filter,
+  FilterList,
+  FilterListItem,
   List,
   ListBase,
   ListToolbar,
   Pagination,
+  SearchInput,
   ShowButton,
   TextField,
   useQueryWithStore,
@@ -218,6 +228,13 @@ const MyList = ({ children, ...props }) => (
 
 const ProjectLedgerSearchFilter = (props) => (
   <Filter {...props}>
+    <SearchInput
+      variant="standard"
+      placeholder="Account"
+      source="coa_title"
+      alwaysOn
+    />
+
     <FirdousSelect
       variant="standard"
       label="Projects"
@@ -227,16 +244,12 @@ const ProjectLedgerSearchFilter = (props) => (
       sort="title"
       alwaysOn
     />
+    {/*     <ReferenceArrayInput reference="coa" source="coa" alwaysOn>
+      <SelectArrayInput optionText="title">
+        <ChipField source="coa" optionText="title" />
+      </SelectArrayInput>
+    </ReferenceArrayInput> */}
 
-    <FirdousSelect
-      variant="standard"
-      label="Accounts"
-      source="coa"
-      optionText="title"
-      list="coa"
-      sort="title"
-      alwaysOn
-    />
     <DateInput
       variant="standard"
       placeholder="Voucher Date"
@@ -254,11 +267,69 @@ const ProjectLedgerSearchFilter = (props) => (
   </Filter>
 );
 
+const LastVisitedFilter = () => (
+  <FilterList label="Filter By Voucher Date">
+    <FilterListItem
+      label="Today"
+      value={{
+        vou_date_from: endOfYesterday().toISOString(),
+        vou_date_to: undefined,
+      }}
+    />
+    <FilterListItem
+      label="This week"
+      value={{
+        vou_date_from: startOfWeek(new Date()).toISOString(),
+        vou_date_to: undefined,
+      }}
+    />
+    <FilterListItem
+      label="Last week"
+      value={{
+        vou_date_from: subWeeks(startOfWeek(new Date()), 1).toISOString(),
+        vou_date_to: startOfWeek(new Date()).toISOString(),
+      }}
+    />
+    <FilterListItem
+      label="This month"
+      value={{
+        vou_date_from: startOfMonth(new Date()).toISOString(),
+        vou_date_to: undefined,
+      }}
+    />
+    <FilterListItem
+      label="Last month"
+      value={{
+        vou_date_from: subMonths(startOfMonth(new Date()), 1).toISOString(),
+        vou_date_to: startOfMonth(new Date()).toISOString(),
+      }}
+    />
+    <FilterListItem
+      label="Earlier"
+      value={{
+        vou_date_from: undefined,
+        vou_date_to: subMonths(startOfMonth(new Date()), 1).toISOString(),
+      }}
+    />
+  </FilterList>
+);
+const FilterSidebar = () => (
+  <Card>
+    <CardContent>
+      <LastVisitedFilter />
+    </CardContent>
+  </Card>
+);
 export const ProjectLedgerList = (props) => (
-  <List filters={<ProjectLedgerSearchFilter />} {...props}>
+  <List
+    aside={<FilterSidebar />}
+    filters={<ProjectLedgerSearchFilter />}
+    {...props}
+  >
     {
       <Datagrid rowClick="edit">
-        <TextField source="COA_TITLE" />
+        <TextField source="COA_TITLE" te="Account" />
+        <TextField source="COA_Obal" title="Opening Bal" />
         <TextField source="debit" />
         <TextField source="credit" />
         <TextField source="balance" />

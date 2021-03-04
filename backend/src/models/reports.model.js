@@ -1,4 +1,5 @@
 const query = require("../db/db-connection");
+const { param } = require("../routes/coa.route");
 const { multipleColumnSet } = require("../utils/common.utils");
 class ReportsModel {
   accountbalances = async (params = {}) => {
@@ -20,23 +21,36 @@ class ReportsModel {
     }
 
     const keys = Object.keys(params);
-    const values = Object.values(params);
+    let values = Object.values(params);
     const columnSet = keys
       .map((key) => {
         if (key == "vou_date_from") {
           return `vou_date>=?`;
         } else if (key == "vou_date_to") {
           return ` vou_date<=?`;
+        } else if (key == "coa_title") {
+          return ` coa_title like ? `;
         } else {
           return `${key}=?`;
         }
       })
       .join(" and ");
 
+    values = values.map((value) => {
+      let mkey = keys.find((key) => params[key] === value);
+      if (mkey == "coa_title") {
+        return `%${value}%`;
+      } else {
+        return value;
+      }
+    });
+
     sql += ` WHERE ${columnSet}`;
 
     sql += groupby + orderby;
     console.log(sql);
+    console.log(JSON.stringify(keys));
+    console.log(JSON.stringify(values));
     return await query(sql, [...values]);
   };
 }
