@@ -10,7 +10,7 @@ class ReportsModel {
   };
 
   projectledger = async (params = {}) => {
-    let sql = `SELECT *, sum(dr) debit,sum(cr) credit,abs(sum(dr)- sum(cr)) balance FROM view_project_ledger`;
+    let sql = `SELECT id,coa_title,coa_code,coa_obal,count(*) as vou_count, sum(dr) debit,sum(cr) credit,abs(sum(dr)- sum(cr) + coa_obal) balance FROM view_project_ledger`;
     let groupby = " group by coa ";
     let orderby = " order by coa_code";
 
@@ -52,6 +52,12 @@ class ReportsModel {
     console.log(JSON.stringify(keys));
     console.log(JSON.stringify(values));
     return await query(sql, [...values]);
+  };
+
+  projectledgerByAccount = async (id) => {
+    let sql = `SELECT * from view_project_ledger where coa=${id}`;
+    console.log(sql);
+    return await query(sql);
   };
 }
 

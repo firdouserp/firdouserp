@@ -266,3 +266,33 @@ ORDER  BY
   KEY `fk_transaction_coa` (`coa`),
   CONSTRAINT `fk_transaction_coa` FOREIGN KEY (`coa`) REFERENCES `coa` (`id`)
 )
+
+CREATE 
+     OR REPLACE ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `view_project_ledger` AS
+    SELECT 
+        `transactions`.`coa`  AS `id`,
+        CAST(`transactions`.`vou_date` AS DATE) AS `Vou_Date`,
+        `transactions`.`vou_no` AS `Vou_No`,
+        ((0 <> `transactions`.`description`)
+            OR (0 <> ' ')
+            OR (0 <> `transactions`.`chq_no`)) AS `Description`,
+        `transactions`.`dr` AS `DR`,
+        `transactions`.`cr` AS `CR`,
+        `transactions`.`chq_no` AS `Chq_No`,
+        `transactions`.`chq_date` AS `Chq_Date`,
+        `transactions`.`refno` AS `RefNo`,
+        `transactions`.`project` AS `Project`,
+        `projects`.`code` AS `Project_Code`,
+        `projects`.`title` AS `Project_Title`,
+        `transactions`.`coa` AS `COA`,
+        `coa`.`code` AS `COA_Code`,
+        `coa`.`obal` AS `coa_obal`,
+        `coa`.`title` AS `COA_TITLE`
+    FROM
+        ((`transactions`
+        LEFT JOIN `coa` ON ((`transactions`.`coa` = `coa`.`id`)))
+        LEFT JOIN `projects` ON ((`transactions`.`project` = `projects`.`id`)))
+    ORDER BY CAST(`transactions`.`vou_date` AS DATE) , `transactions`.`project` , `transactions`.`coa`;

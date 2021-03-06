@@ -32,6 +32,22 @@ class ReportsController {
 
     res.send(projectledgerList);
   };
+
+  getProjectLedgerByAccount = async (req, res, next) => {
+    var filter;
+    if (req.query && Object.keys(req.query).length) {
+      filter = req.query.filter && JSON.parse(req.query.filter);
+    }
+
+    let projectledgerList = await ReportsModel.projectledgerByAccount(req.params.id);
+
+    let content_range =
+      "1-" + projectledgerList.length + "/" + projectledgerList.length;
+
+    res.set("Content-Range", content_range);
+
+    res.send(projectledgerList);
+  };
 }
 
 /******************************************************************************

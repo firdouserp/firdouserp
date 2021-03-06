@@ -15,4 +15,9 @@ router.get(
   auth(),
   awaitHandlerFactory(ReportsController.getProjectLedger)
 ); // loc
+router.get(
+  "/projectledger/:id",
+  auth(),
+  awaitHandlerFactory(ReportsController.getProjectLedgerByAccount)
+);
 module.exports = router;

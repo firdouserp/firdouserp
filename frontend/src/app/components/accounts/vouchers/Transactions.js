@@ -16,7 +16,7 @@ import {
   SelectInput,
   SimpleList,
   TextField,
-  TopToolbar,
+  TopToolbar
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "../FirdousSelect";
@@ -184,31 +184,33 @@ export const TransactionsList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit" expand={<TransactionList />}>
-        <TextField source="row_id" />
-        <TextField source="vou_no" />
-        <TextField source="vou_date" />
-        {/* <ReferenceField label="Project" source="project" reference="Projects">
+        <Datagrid rowClick="edit" expand={<TransactionList />}>
+          {/* <TextField source="row_id" /> */}
+          <TextField source="vou_no" />
+          <TextField source="vou_date" />
+          {/* <ReferenceField label="Project" source="project" reference="Projects">
           <TextField source="title" />
         </ReferenceField> */}
-        <TextField source="chq_no" />
-        <TextField source="chq_date" />
-        <TextField source="created_by" />
-        {/* <EditButton
+          <TextField source="description" />
+
+          <TextField source="chq_no" />
+          <TextField source="chq_date" />
+          <TextField source="created_by" />
+          {/* <EditButton
           label=""
           undoable={false}
           // variant="contained"
           color="secondary"
         /> */}
-        {/* <DeleteButton /> */}
-      </Datagrid>
-    )}
+          {/* <DeleteButton /> */}
+        </Datagrid>
+      )}
   </List>
 );
 
 export const InvalidTransactionsList = (props) => (
   <List
-    sort={{ field: "row_id", order: "DESC" }}
+    sort={{ field: "vou_no", order: "DESC" }}
     perPage={25}
     pagination={<PostPagination />}
     empty={false}
@@ -224,19 +226,19 @@ export const InvalidTransactionsList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit">
-        <TextField source="row_id" />
-        <TextField source="vou_no" />
-        <TextField source="vou_date" />
-        {/* <ReferenceField label="Project" source="project" reference="Projects">
+        <Datagrid rowClick="edit">
+          <TextField source="row_id" />
+          <TextField source="vou_no" />
+          <TextField source="vou_date" />
+          {/* <ReferenceField label="Project" source="project" reference="Projects">
           <TextField source="title" />
         </ReferenceField> */}
-        <TextField source="debit" />
-        <TextField source="credit" />
-        <EditButton variant="standard" color="secondary" />
-        {/* <DeleteButton /> */}
-      </Datagrid>
-    )}
+          <TextField source="debit" />
+          <TextField source="credit" />
+          <EditButton variant="standard" color="secondary" />
+          {/* <DeleteButton /> */}
+        </Datagrid>
+      )}
   </List>
 );
 
