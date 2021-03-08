@@ -520,7 +520,7 @@ export const ProjectLedgerList = (props) => (
         <TextField source="vou_count" />
         {/* <ShowButton variant="contained" color="secondary" /> */}
         {/* <DeleteButton /> */}
-        <TextField source="active" />
+
       </Datagrid>
     }
   </List>

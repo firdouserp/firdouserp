@@ -9,6 +9,7 @@ import {
   Edit,
   EditButton,
   Filter,
+  FunctionField,
   List,
   ListButton,
   Pagination,
@@ -144,21 +145,19 @@ const PostPagination = (props) => (
 const TransactionList = ({ id, record, resource }) => {
   console.log(JSON.stringify(record));
   return (
-    <table width="100%" cellPadding="0" cellSpacing="0">
+    <table align="center" width="500px%" cellPadding="0" cellSpacing="0">
       <tr>
         <th>Account</th>
-        <th>Description</th>
         <th>Debit</th>
         <th>Credit</th>
       </tr>
       <tbody>
         {record.transactions.map((t) => {
           return (
-            <tr className="top">
-              <td width="20%">{t.coa}</td>
-              <td width="40%">{t.description}</td>
-              <td width="20%">{t.dr}</td>
-              <td width="20%">{t.cr}</td>
+            <tr className="">
+              <td width="300px">{t.account}</td>
+              <td width="100px">{t.dr}</td>
+              <td width="100px">{t.cr}</td>
             </tr>
           );
         })}
@@ -196,6 +195,8 @@ export const TransactionsList = (props) => (
           <TextField source="chq_no" />
           <TextField source="chq_date" />
           <TextField source="created_by" />
+          
+          {/* <FunctionField label="Amount" render={record => parseFloat(record.transactions.reduce((t,sum=0) => sum=sum+ parseFloat(t.dr), 0))} /> */}
           {/* <EditButton
           label=""
           undoable={false}
