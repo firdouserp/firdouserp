@@ -39,8 +39,9 @@ const styles = `
 }
 
 .invoice-box .footer {
-  border-top:1px solid grey;
+  border-top:1px solid #ccc;
   text-align:center;
+  color : #ccc;
 }
 
 .invoice-box table tr td:nth-child(2){
@@ -98,9 +99,14 @@ const styles = `
 }
 .bottomline{
     margin-top:80px;
+    position: fixed;
+  left: 0;
+  bottom: 10;
+  width: 100%;
 }
 .description{
   margin-bottom:5px;
+  color:#ccc;
 }
 @media only screen and (max-width: 600px) {
   .invoice-box table tr.top table td{
@@ -187,7 +193,10 @@ export default function Voucher({ voucher, company, notes }) {
                               <div>CHQ # :{voucher.chq_no}</div>
                             )}
                              {voucher.chq_date && (
-                              <div>CHQ # :{voucher.chq_date}</div>
+                              <div>CHQ Date :{voucher.chq_date}</div>
+                            )}
+                            {voucher.created_by && (
+                              <div>Created By :{voucher.created_by}</div>
                             )}
                           </div>
                         </td>
@@ -262,15 +271,15 @@ export default function Voucher({ voucher, company, notes }) {
                 <tr className="footer">
                   <td colSpan="2">
                     {" "}
-                    <div className="footer">{voucher.vou_type} Prepared By</div>
+                    <div className="footer">Prepared By</div>
                   </td>
                   <td colSpan="2">
                     {" "}
-                    <div className="footer">{voucher.vou_type} Checked By</div>
+                    <div className="footer"> Checked By</div>
                   </td>
                   <td colSpan="2">
                     {" "}
-                    <div className="footer">{voucher.vou_type} Signature</div>
+                    <div className="footer"> Signature</div>
                   </td>
                 </tr>
               </tbody>

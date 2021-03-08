@@ -73,7 +73,13 @@ thead td,.totals{
     border: 1px solid #ddd;
     
 }
-.report-title{
+.totals{
+
+  text-align:right;
+}
+h2 .report-title{
+  text-align:center;
+  background:#81c684;
   text-align:center;
 }
 
@@ -113,12 +119,25 @@ td .footer{
   font-size:90%;
   float:right;
 }
+h2.report-title {
+  background: #4caf50;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  margin: 0;
+}
+
+
+
+
 @media print {
   body{font-family: 'Helvetica', 'Arial', sans-serif;}
-  
+  h2{
+    margin:0
+  }
   @page{
     size: A4;
-    margin:2em;
+    margin:1.5em;
     padding:0;
     width:100%;
     
@@ -138,15 +157,12 @@ td .footer{
     box-shadow: none;
     border: 0;
     page-break-before: always;
-
-    @bottom-left {
-      content: counter(page);
-    }
-    @bottom-right {
-      content: counter(page);
-    }
+    padding:0;
+    margin:0;
+    
    
   }
+  
   h1{
     font-size:10pt;
   }
