@@ -59,6 +59,7 @@ const styles = `
     padding: 10px;
     text-align:right;
     border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
 }
 thead td,tfoot td,.totals{
     font-weight:bold;
@@ -66,26 +67,34 @@ thead td,tfoot td,.totals{
     background-color: #4CAF50;
     color: white;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
+    
 }
 .account{
   font-weight:bold;
   border-bottom: 1px solid #ddd;
   padding: 10px;
+  border-left: 1px solid #ddd;
 }
 .vou_date{
   min-width:100px;
   border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  text-align:center;
 }
 .vou_no{
   min-width:120px;
   font-weight:bold;
   border-bottom: 1px solid #ddd;
   padding-left: 10px;
+  border-left: 1px solid #ddd;
 }
 .description{
   border-bottom: 1px solid #ddd;
   min-width:400px;
+  border-left: 1px solid #ddd;
+  text-align:left;
+  padding-left:3px;
 }
 .obal{
   font-size:90%;

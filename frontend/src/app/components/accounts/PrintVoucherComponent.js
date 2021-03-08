@@ -16,7 +16,6 @@ export class PrintVoucherComponent extends Component {
               name: "Firdous ERP",
               logoUrl: logo,
             }}
-            notes={"Here comes the Remarks"}
           />
         </div>
       );

@@ -17,7 +17,7 @@ class TransactionsModel {
   ];
   find = async (params = {}, range = {}, sort = {}) => {
     let sql =
-      "SELECT vou_no as id,id as row_id,vou_type,vou_no,project,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'project',project)) as transactions from transactions";
+      "SELECT t.vou_no as id,t.id as row_id,t.vou_type,t.vou_no,t.project,DATE_FORMAT(t.vou_date, '%Y-%m-%d')as vou_date,t.chq_no,DATE_FORMAT(t.chq_date, '%Y-%m-%d') as chq_date,t.description,t.remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',t.coa,'id',t.id,'vu_no',t.vou_no,'refno',t.refno,'dr', t.dr, 'cr', t.cr,'project',t.project,'account',coa.title)) as transactions ,coa.title from transactions t left outer join coa on t.coa=coa.id"
     let limit = "";
     let orderby = " ORDER BY row_id DESC ";
     let groupby = " GROUP BY  vou_no ";
@@ -55,7 +55,7 @@ class TransactionsModel {
       const columnSet = keys
         .map((key) => (key == "id" ? `${"vou_no"} = ?` : `${key} = ?`))
         .join(", ");
-      let sql = `SELECT vou_no as id,id as row_id,${cast_vou_type},vou_no,project,DATE_FORMAT(vou_date, '%Y-%m-%d')as vou_date,chq_no,DATE_FORMAT(chq_date, '%Y-%m-%d') as chq_date,description,remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',coa,'id',id,'vu_no',vou_no,'refno',refno,'dr', dr, 'cr', cr,'project',project)) as transactions from transactions 
+      let sql = `SELECT t.vou_no as id,t.id as row_id,t.vou_type,t.vou_no,t.project,DATE_FORMAT(t.vou_date, '%Y-%m-%d')as vou_date,t.chq_no,DATE_FORMAT(t.chq_date, '%Y-%m-%d') as chq_date,t.description,t.remarks ,JSON_ARRAYAGG(JSON_OBJECT('coa',t.coa,'id',t.id,'vu_no',t.vou_no,'refno',t.refno,'dr', t.dr, 'cr', t.cr,'project',t.project,'account',coa.title)) as transactions ,coa.title from transactions t left outer join coa on t.coa=coa.id 
                WHERE ${columnSet} GROUP BY vou_no `;
 
       console.log(sql);

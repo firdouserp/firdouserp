@@ -5,18 +5,12 @@ export function formatDate(date) {
   return date;
 }
 
-export function formatCurrency(amount) {
-  return amount;
-}
 const styles = `
 .invoice-box{
   max-width:800px;
   margin:auto;
-  padding:30px;
-  border:1px solid #eee;
+  border:1px solid #ccc;
   box-shadow:0 0 10px rgba(0, 0, 0, .15);
-  font-size:16px;
-  line-height:24px;
   font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
   color:#555;
 }
@@ -32,16 +26,18 @@ const styles = `
 .invoice-box table td td{
   padding:0;
 }
-.invoice-box .voutype{
+.voutype{
   text-align:center;
   vertical-align:top;
-  font-size:25px;
-  line-height:25px;
   color:#333;
+  font-size:16px;
+  font-weight:bold;
+  width:100%;
+  background:#ccc;
+  padding:0.5em;
+  margin-top: 0.5em;
 }
-.invoice-box .bottomline{
-  margin-top:80px;
-}
+
 .invoice-box .footer {
   border-top:1px solid grey;
   text-align:center;
@@ -53,17 +49,7 @@ const styles = `
 .invoice-box table tr td.refno{
   text-align:left;
 }
-.invoice-box table tr.top table td{
-  padding-bottom:20px;
-}
-.invoice-box table tr.top table td.title{
-  font-size:35px;
-  line-height:35px;
-  color:#333;
-}
-.invoice-box table tr.information table td{
-  padding-bottom:40px;
-}
+
 .invoice-box table tr.information table td.information-column{
   width:50%;
 }
@@ -81,10 +67,9 @@ const styles = `
   background:#eee;
   border-bottom:1px solid #ddd;
   font-weight:bold;
+
 }
-.invoice-box table tr.details td{
-  padding-bottom:20px;
-}
+
 .invoice-box table tr.item td{
   border-bottom:1px solid #eee;
 }
@@ -109,8 +94,13 @@ const styles = `
 }
 .invoice-box .subheading {
   font-weight: bold;
-  font-size: 14px;
-  text-transform: uppercase;
+   text-transform: uppercase;
+}
+.bottomline{
+    margin-top:80px;
+}
+.description{
+  margin-bottom:5px;
 }
 @media only screen and (max-width: 600px) {
   .invoice-box table tr.top table td{
@@ -123,21 +113,42 @@ const styles = `
     display:block;
     text-align:center;
   }
+  
 }
 @media print {
+  @Page{
+   
+  }
   .invoice-box {
     box-shadow: none;
-    border: 0;
+    border:0;
+    margin:1em;
+  }
+  *{
+    font-size:10pt;
   }
 }
 `;
 
+export function formatCurrency(amount) {
+  return Number.parseFloat(amount)
+    .toFixed(2)
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+const vou_types = [
+  { id: 1, title: "Journal Voucher" },
+  { id: 2, title: "Payment Voucher" },
+  { id: 3, title: "Reciept Voucher" },
+  { id: 4, title: "Sales Voucher" },
+  { id: 5, title: "Salary Voucher" },
+  { id: 6, title: "Inventory Voucher" },
+];
 export default function Voucher({ voucher, company, notes }) {
   const { transactions } = voucher;
 
   const totalAmount = transactions.reduce((sum, item) => sum + item.dr, 0);
-
-  const voucherName = voucher.vou_type || "Voucher";
+  let voutype = vou_types.find((v) => v.id == voucher.vou_type);
+  const voucherName = voutype.title || "Voucher";
 
   return (
     <html lang={"en_US"}>
@@ -150,15 +161,10 @@ export default function Voucher({ voucher, company, notes }) {
         <meta name="robots" content="noindex, nofollow" />
       </head>
       <body>
+      <div className="voutype">{voucherName}</div>
         <div className="invoice-box">
           <table cellPadding="0" cellSpacing="0">
             <tbody>
-              <tr className="top">
-                <td colSpan="6">
-                  {" "}
-                  <div className="voutype">{voucher.vou_type} Voucher</div>
-                </td>
-              </tr>
               <tr className="top">
                 <td colSpan="6">
                   <table>
@@ -176,6 +182,12 @@ export default function Voucher({ voucher, company, notes }) {
                             )}
                             {voucher.project && (
                               <div> Project :Infinity One</div>
+                            )}
+                             {voucher.chq_no && (
+                              <div>CHQ # :{voucher.chq_no}</div>
+                            )}
+                             {voucher.chq_date && (
+                              <div>CHQ # :{voucher.chq_date}</div>
                             )}
                           </div>
                         </td>
@@ -198,58 +210,8 @@ export default function Voucher({ voucher, company, notes }) {
                   </table>
                 </td>
               </tr>
-              <tr className="information">
-                <td colSpan="6">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td className="information-column">
-                          <div className="subheading">To</div>
-                          {/* <EntityInfo entity={customer} /> */}
-                        </td>
-                        <td className="information-column">
-                          <table className="invoice-information">
-                            <tbody>
-                              <tr>
-                                <td className="subheading">
-                                  {"invoiceName"} #
-                                </td>
-                                <td>{"invoice.id"}</td>
-                              </tr>
-                              {voucher.unit && (
-                                <tr>
-                                  <td className="subheading">Unit</td>
-                                  <td>{voucher.unit}</td>
-                                </tr>
-                              )}
-                              {voucher.supplier && (
-                                <tr>
-                                  <td className="subheading">Vendor</td>
-                                  <td>{formatDate(voucher.supplier)}</td>
-                                </tr>
-                              )}
-                              {voucher.stock && (
-                                <tr>
-                                  <td className="subheading">Stock</td>
-                                  <td>{formatDate(voucher.stock)}</td>
-                                </tr>
-                              )}
-                              {voucher.employee && (
-                                <tr>
-                                  <td className="subheading">Due</td>
-                                  <td>{formatDate(voucher.employee)}</td>
-                                </tr>
-                              )}
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
               {voucher.description && [
-                <tr className="heading" key="heading">
+                <tr className="description" key="heading">
                   <td className="subheading" colSpan="6">
                     Description
                   </td>
@@ -261,18 +223,14 @@ export default function Voucher({ voucher, company, notes }) {
               <tr className="heading">
                 <td className="subheading">Transactions</td>
                 <td className="refno"> Ref.No.</td>
-                <td> Chq.No.</td>
-                <td> Chq.Date</td>
-                <td className="debit">Debit</td>
+                 <td className="debit">Debit</td>
                 <td className="credit">Credit</td>
               </tr>
               {transactions.map((item) => (
                 <tr className="item" key={item.description}>
-                  <td className="subheading">{item.coa}</td>
+                  <td className="account">{item.account}</td>
                   <td>{item.refno}</td>
-                  <td>{item.chq_no}</td>
-                  <td>{item.chq_date}</td>
-
+                  
                   <td className="debit">{formatCurrency(item.dr)}</td>
                   <td className="credit">{formatCurrency(item.cr)}</td>
                 </tr>
@@ -293,9 +251,9 @@ export default function Voucher({ voucher, company, notes }) {
               </tr>
             </tbody>
           </table>
-          {notes && (
+          {voucher.remarks && (
             <div style={{ marginTop: 30 }}>
-              <div className="">Remarks: {notes}</div>
+              <div className="">Remarks: {voucher.remarks}</div>
             </div>
           )}
           <div className="bottomline">
@@ -349,13 +307,14 @@ Voucher.propTypes = {
         chq_date: PropTypes.string,
         dr: PropTypes.number,
         cr: PropTypes.number,
+        account:PropTypes.string,
       }).isRequired
     ).isRequired,
     name: PropTypes.string,
   }).isRequired,
 
   lang: PropTypes.string,
-  notes: PropTypes.node,
+
 };
 
 Voucher.defaultProps = {
