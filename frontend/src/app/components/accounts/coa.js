@@ -70,6 +70,7 @@ export const CoaEdit = (props) => (
                     <TextInput source="title" fullWidth />
                     <FirdousSelect label="Account Head" source="notes" list="notes/list" sort="value" optionText="value" fullWidth />
                     <TextInput label="Opening Balance" source="obal" fullWidth />
+                    <BooleanInput label=" isCredit" source="iscredit" fullWidth />
                     <BooleanInput source="iscashbook" fullWidth />
                     <BooleanInput source="isbankbook" fullWidth />
                     <BooleanInput source="active" fullWidth />
@@ -93,6 +94,7 @@ export const CoaCreate = (props) => {
                         <TextInput label="Opening Balance" source="obal" fullWidth />
                         <BooleanInput label="Cash Book" source="iscashbook" fullWidth />
                         <BooleanInput label="Bank Book" source="isbankbook" fullWidth />
+                        <BooleanInput label="Debit or Credit" source="iscredit" fullWidth />
                         <BooleanInput source="active" fullWidth />
 
                     </Grid>

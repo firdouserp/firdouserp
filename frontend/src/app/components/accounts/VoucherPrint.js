@@ -175,7 +175,7 @@ export default function Voucher({ voucher, company, notes }) {
                               <div>Voucher Date :{voucher.vou_date}</div>
                             )}
                             {voucher.project && (
-                              <div>Project :{voucher.project}</div>
+                              <div> Project :Infinity One</div>
                             )}
                           </div>
                         </td>

@@ -2,7 +2,7 @@ import {
   CardContent,
   CircularProgress,
   Toolbar,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import PrintIcon from "@material-ui/icons/Print";
@@ -11,7 +11,7 @@ import {
   startOfMonth,
   startOfWeek,
   subMonths,
-  subWeeks,
+  subWeeks
 } from "date-fns";
 import * as React from "react";
 import { cloneElement, Component } from "react";
@@ -31,7 +31,7 @@ import {
   SearchInput,
   TextField,
   useListContext,
-  useQueryWithStore,
+  useQueryWithStore
 } from "react-admin";
 import ReactToPrint from "react-to-print";
 import FirdousSelect from "../accounts/FirdousSelect";
@@ -85,6 +85,7 @@ thead td,tfoot td{
 }
 .description{
   border-bottom: 1px solid #ddd;
+  min-width:400px;
 }
 .obal{
   font-size:90%;
