@@ -54,6 +54,9 @@ const styles = `
     font-weight:bold;
     font-size: "120%";
 }
+.balance{
+  border-right: 1px solid #ddd;
+}
 .debit, .credit, .balance{
     width: 150px;
     padding: 10px;
@@ -61,7 +64,7 @@ const styles = `
     border-bottom: 1px solid #ddd;
     border-left: 1px solid #ddd;
 }
-thead td,tfoot td,.totals{
+thead td,.totals{
     font-weight:bold;
     text-align: left;
     background-color: #4CAF50;
@@ -69,6 +72,13 @@ thead td,tfoot td,.totals{
     padding: 10px;
     border: 1px solid #ddd;
     
+}
+.report-title{
+  text-align:center;
+}
+
+td .footer{
+  visibility : hidden;
 }
 .account{
   font-weight:bold;
@@ -84,17 +94,20 @@ thead td,tfoot td,.totals{
 }
 .vou_no{
   min-width:120px;
-  font-weight:bold;
   border-bottom: 1px solid #ddd;
   padding-left: 10px;
   border-left: 1px solid #ddd;
+}
+.vou_no a{
+  text-decoration: none;
 }
 .description{
   border-bottom: 1px solid #ddd;
   min-width:400px;
   border-left: 1px solid #ddd;
   text-align:left;
-  padding-left:3px;
+  padding:5px;
+  font-size:80%;
 }
 .obal{
   font-size:90%;
@@ -104,22 +117,40 @@ thead td,tfoot td,.totals{
   body{font-family: 'Helvetica', 'Arial', sans-serif;}
   
   @page{
-    
+    size: A4;
     margin:2em;
     padding:0;
     width:100%;
+    
+  }
+  @page:right{
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+  
+  @page:left{
+    @bottom-left {
+      content: counter(page);
+    }
   }
   .invoice-box{
     box-shadow: none;
     border: 0;
     page-break-before: always;
-    font-size:5pt;
+
+    @bottom-left {
+      content: counter(page);
+    }
+    @bottom-right {
+      content: counter(page);
+    }
    
   }
   h1{
     font-size:10pt;
   }
-  thead td,tfoot td{
+  thead td{
     font-weight:bold;
     text-align: left;
     background-color: transparent;
@@ -130,7 +161,16 @@ thead td,tfoot td,.totals{
     font-weight:bold;
     font-size:9pt;
 }
-
+.footer{
+  visibility:visible;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size:8pt;
+  content: counter(page) ' of ' counter(pages);
+}
 }
 @page {
   size: auto;
@@ -175,6 +215,7 @@ export const ProjectLedegerReport = (props) => {
 
   return projectledger(data);
 };
+const user = JSON.parse(localStorage.getItem("jwtToken"));
 const projectledger = (records) => {
   console.log("records:" + JSON.stringify(records));
   let sum_debit = 0.0;
@@ -192,15 +233,15 @@ const projectledger = (records) => {
         <body>
           <div className="invoice-box">
             <div>
-              <h2 style={{ margin: "15px" }}>
-                Accoutnt Ledger{" "}
-                <span class="obal">{new Date().toISOString()}</span>
+              <h2 className="report-title">
+                Accoutnt Ledger  FGS INFINITY ONE
+
               </h2>
             </div>
             <div class="heading-title">
               <h2 style={{ margin: "15px" }}>
                 {records[0] && records[0].COA_Code + "-" + records[0].COA_TITLE}{" "}
-                <span class="obal">Opening Balance :{formatCurrency(records[0].coa_obal)}</span>
+                <span class="obal">Opening Balance : {formatCurrency(records[0].coa_obal)}</span>
               </h2>
             </div>
             <table width="100%" cellPadding="0" cellSpacing="0">
@@ -254,16 +295,13 @@ const projectledger = (records) => {
                   <td className="totals">{formatCurrency(sum_obal)}</td>
                 </tr>
               </tbody>
-              {/*               <tfoot>
+              <tfoot>
                 <tr>
-                  <td />
-                  <td />
-                  <td className="account">Totals</td>
-                  <td className="debit">{formatCurrency(sum_debit)}</td>
-                  <td className="credit">{formatCurrency(sum_credit)}</td>
-                  <td className="credit">{formatCurrency(sum_obal)}</td>
+                  
+                  <td colspan="6" className="footer">Printed By {user && user.username} on {new Date().toISOString()}</td>
+
                 </tr>
-              </tfoot> */}
+              </tfoot>
             </table>
           </div>
         </body>

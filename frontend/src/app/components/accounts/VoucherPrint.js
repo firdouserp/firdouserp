@@ -117,7 +117,7 @@ const styles = `
 }
 @media print {
   @Page{
-   
+    size: A5
   }
   .invoice-box {
     box-shadow: none;
