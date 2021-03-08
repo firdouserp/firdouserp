@@ -1,4 +1,9 @@
-import { CardContent, CircularProgress, Toolbar, Typography } from "@material-ui/core";
+import {
+  CardContent,
+  CircularProgress,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import PrintIcon from "@material-ui/icons/Print";
 import {
@@ -6,7 +11,7 @@ import {
   startOfMonth,
   startOfWeek,
   subMonths,
-  subWeeks
+  subWeeks,
 } from "date-fns";
 import * as React from "react";
 import { cloneElement, Component } from "react";
@@ -15,9 +20,6 @@ import {
   Button,
   Datagrid,
   DateInput,
-
-
-
   Error,
   Filter,
   FilterList,
@@ -27,11 +29,9 @@ import {
   ListToolbar,
   Pagination,
   SearchInput,
-
-
   TextField,
   useListContext,
-  useQueryWithStore
+  useQueryWithStore,
 } from "react-admin";
 import ReactToPrint from "react-to-print";
 import FirdousSelect from "../accounts/FirdousSelect";
@@ -66,6 +66,7 @@ thead td,tfoot td{
     background-color: #4CAF50;
     color: white;
     padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 .account{
   font-weight:bold;
@@ -86,7 +87,7 @@ thead td,tfoot td{
   border-bottom: 1px solid #ddd;
 }
 .obal{
-
+  font-size:90%;
   float:right;
 }
 @media print {
@@ -94,18 +95,37 @@ thead td,tfoot td{
     box-shadow: none;
     border: 0;
     page-break-before: always;
+    font-size:5pt;
+   
   }
+  h1{
+    font-size:10pt;
+  }
+  thead td,tfoot td{
+    font-weight:bold;
+    text-align: left;
+    background-color: transparent;
+    color: #000;
+    padding: 5px;
+}
+  .heading-title{
+    font-weight:bold;
+    font-size:10pt;
+}
 
 }
 @page {
   size: auto;
   margin-top: 10mm;
   margin-bottom: 10mm;
+  font-size:5pt;
+  @bottom-left {
+    content: counter(page) ' of ' counter(pages);
+  }
 }
 `;
 
 export class PrintProjectLedgerComponent extends Component {
-
   render() {
     const { id } = this.props;
     return <ProjectLedegerReport coa={id} />;
@@ -141,7 +161,7 @@ const projectledger = (records) => {
   console.log("records:" + JSON.stringify(records));
   let sum_debit = 0.0;
   let sum_credit = 0.0;
-  let sum_obal=0.0;
+  let sum_obal = 0.0;
   return (
     <div>
       <html lang={"en_US"}>
@@ -152,9 +172,19 @@ const projectledger = (records) => {
           <meta name="robots" content="noindex, nofollow" />
         </head>
         <body>
-
           <div className="invoice-box">
-            <h1 style={{ margin: "15px" }}>{records[0] && records[0].COA_Code + "-" +records[0].COA_TITLE} <span  class="obal">{formatCurrency(records[0].coa_obal)}</span></h1>
+            <div>
+              <h2 style={{ margin: "15px" }}>
+                Accoutnt Ledger{" "}
+                <span class="obal">{new Date().toISOString()}</span>
+              </h2>
+            </div>
+            <div class="heading-title">
+              <h2 style={{ margin: "15px" }}>
+                {records[0] && records[0].COA_Code + "-" + records[0].COA_TITLE}{" "}
+                <span class="obal">{formatCurrency(records[0].coa_obal)}</span>
+              </h2>
+            </div>
             <table width="100%" cellPadding="0" cellSpacing="0">
               <thead>
                 <td>Voucher #</td>
@@ -162,29 +192,34 @@ const projectledger = (records) => {
                 <td className="description">Description</td>
                 <td className="debit">Debit</td>
                 <td className="credit">Credit</td>
-                 <td className="balance">Balance</td> 
+                <td className="balance">Balance</td>
               </thead>
               <tbody>
-                
-                {
-                
-                records.map((record) => {
+                {records.map((record) => {
                   sum_debit = sum_debit + parseFloat(record.DR || 0);
                   sum_credit = sum_credit + parseFloat(record.CR || 0);
-                  sum_obal = sum_obal+sum_debit-sum_credit;
+                  sum_obal = sum_obal + sum_debit - sum_credit;
                   if (record.id) {
                     return (
                       <tr>
-                        <td className="vou_no"><a href={"/#/transactions/"+record.Vou_No}>{record.Vou_No}</a></td>
-                        <td className="vou_date">{new Date(record.Vou_Date).toISOString().substring(0, 10)}</td>
+                        <td className="vou_no">
+                          <a href={"/#/transactions/" + record.Vou_No}>
+                            {record.Vou_No}
+                          </a>
+                        </td>
+                        <td className="vou_date">
+                          {new Date(record.Vou_Date)
+                            .toISOString()
+                            .substring(0, 10)}
+                        </td>
                         <td className="description">{record.Description}</td>
-                        <td className="debit">
-                          {formatCurrency(record.DR)}
-                        </td>
+                        <td className="debit">{formatCurrency(record.DR)}</td>
+                        <td className="credit">{formatCurrency(record.CR)}</td>
                         <td className="credit">
-                          {formatCurrency(record.CR)}
+                          {formatCurrency(
+                            sum_obal + parseFloat(records[0].coa_obal || 0)
+                          )}
                         </td>
-                        <td className="credit">{formatCurrency(sum_obal+ parseFloat(records[0].coa_obal || 0))}</td>
                         {/* <td className="balance">
                           {formatCurrency(record.balance)}
                         </td> */}
@@ -192,8 +227,16 @@ const projectledger = (records) => {
                     );
                   }
                 })}
+                <tr class="totals">
+                  <td />
+                  <td />
+                  <td className="account">Totals</td>
+                  <td className="debit">{formatCurrency(sum_debit)}</td>
+                  <td className="credit">{formatCurrency(sum_credit)}</td>
+                  <td className="credit">{formatCurrency(sum_obal)}</td>
+                </tr>
               </tbody>
-              <tfoot>
+              {/*               <tfoot>
                 <tr>
                   <td />
                   <td />
@@ -201,10 +244,8 @@ const projectledger = (records) => {
                   <td className="debit">{formatCurrency(sum_debit)}</td>
                   <td className="credit">{formatCurrency(sum_credit)}</td>
                   <td className="credit">{formatCurrency(sum_obal)}</td>
-                  
-
                 </tr>
-              </tfoot>
+              </tfoot> */}
             </table>
           </div>
         </body>
@@ -356,12 +397,23 @@ const LastVisitedFilter = () => (
 const Totals = () => {
   const { data, ids } = useListContext();
   return (
-    <div style={{ textAlign: 'right', width: '99%', margin: '0.5em' }}>
+    <div style={{ textAlign: "right", width: "99%", margin: "0.5em" }}>
       <Typography variant="h6">
-        <span style={{ textAlign: 'right', width: '90%', margin: '1em' }}>Total Debit: Rs. {formatCurrency(ids.map(id => data[id]).reduce((sum, rec) => sum + parseFloat(rec.debit || 0), 0))}</span>
-        Total Credit: Rs.{formatCurrency(ids.map(id => data[id]).reduce((sum, rec) => sum + parseFloat(rec.credit || 0), 0))}
+        <span style={{ textAlign: "right", width: "90%", margin: "1em" }}>
+          Total Debit: Rs.{" "}
+          {formatCurrency(
+            ids
+              .map((id) => data[id])
+              .reduce((sum, rec) => sum + parseFloat(rec.debit || 0), 0)
+          )}
+        </span>
+        Total Credit: Rs.
+        {formatCurrency(
+          ids
+            .map((id) => data[id])
+            .reduce((sum, rec) => sum + parseFloat(rec.credit || 0), 0)
+        )}
       </Typography>
-
     </div>
   );
 };
@@ -370,14 +422,13 @@ const FilterSidebar = () => (
     <CardContent>
       <LastVisitedFilter />
     </CardContent>
-  </Card >
+  </Card>
 );
 const ProjectLedgerPagination = (props) => (
   <div>
     <Pagination rowsPerPageOptions={[10, 25, 50, 100]} {...props} />
     <Totals />
   </div>
-
 );
 export const ProjectLedgerList = (props) => (
   <List
@@ -388,7 +439,6 @@ export const ProjectLedgerList = (props) => (
     {...props}
   >
     {
-
       <Datagrid rowClick="edit">
         <TextField source="COA_TITLE" te="Account" />
         <TextField source="coa_obal" title="Opening Bal" />
@@ -400,13 +450,10 @@ export const ProjectLedgerList = (props) => (
         {/* <DeleteButton /> */}
         <TextField source="active" />
       </Datagrid>
-
-
     }
   </List>
 );
 export const ProjectLedgerDetail = (props) => (
   <ProjectLedgerPrintable {...props}></ProjectLedgerPrintable>
-
 );
 export default ProjectLedgerPrintable;
