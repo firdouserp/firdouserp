@@ -72,6 +72,23 @@ thead td,tfoot td{
   border-bottom: 1px solid #ddd;
   padding: 10px;
 }
+.vou_date{
+  min-width:100px;
+  border-bottom: 1px solid #ddd;
+}
+.vou_no{
+  min-width:120px;
+  font-weight:bold;
+  border-bottom: 1px solid #ddd;
+  padding-left: 10px;
+}
+.description{
+  border-bottom: 1px solid #ddd;
+}
+.obal{
+
+  float:right;
+}
 @media print {
   .invoice-box{
     box-shadow: none;
@@ -124,6 +141,7 @@ const projectledger = (records) => {
   console.log("records:" + JSON.stringify(records));
   let sum_debit = 0.0;
   let sum_credit = 0.0;
+  let sum_obal=0.0;
   return (
     <div>
       <html lang={"en_US"}>
@@ -136,32 +154,37 @@ const projectledger = (records) => {
         <body>
 
           <div className="invoice-box">
-            <h1 style={{ margin: "15px" }}>{records[0] && records[0].COA_TITLE}</h1>
+            <h1 style={{ margin: "15px" }}>{records[0] && records[0].COA_Code + "-" +records[0].COA_TITLE} <span  class="obal">{formatCurrency(records[0].coa_obal)}</span></h1>
             <table width="100%" cellPadding="0" cellSpacing="0">
               <thead>
-                <td>Account Name</td>
+                <td>Voucher #</td>
                 <td className="vou_date">Vou Date</td>
                 <td className="description">Description</td>
                 <td className="debit">Debit</td>
                 <td className="credit">Credit</td>
-                {/* <td className="balance">Balance</td> */}
+                 <td className="balance">Balance</td> 
               </thead>
               <tbody>
-                {records.map((record) => {
+                
+                {
+                
+                records.map((record) => {
                   sum_debit = sum_debit + parseFloat(record.DR || 0);
                   sum_credit = sum_credit + parseFloat(record.CR || 0);
+                  sum_obal = sum_obal+sum_debit-sum_credit;
                   if (record.id) {
                     return (
                       <tr>
-                        <td className="account">{record.Vou_No}</td>
-                        <td className="account">{new Date(record.Vou_Date).toISOString().substring(0, 10)}</td>
-                        <td className="account">{record.Description}</td>
+                        <td className="vou_no"><a href={"/#/transactions/"+record.Vou_No}>{record.Vou_No}</a></td>
+                        <td className="vou_date">{new Date(record.Vou_Date).toISOString().substring(0, 10)}</td>
+                        <td className="description">{record.Description}</td>
                         <td className="debit">
                           {formatCurrency(record.DR)}
                         </td>
                         <td className="credit">
                           {formatCurrency(record.CR)}
                         </td>
+                        <td className="credit">{formatCurrency(sum_obal+ parseFloat(records[0].coa_obal || 0))}</td>
                         {/* <td className="balance">
                           {formatCurrency(record.balance)}
                         </td> */}
@@ -177,6 +200,8 @@ const projectledger = (records) => {
                   <td className="account">Totals</td>
                   <td className="debit">{formatCurrency(sum_debit)}</td>
                   <td className="credit">{formatCurrency(sum_credit)}</td>
+                  <td className="credit">{formatCurrency(sum_obal)}</td>
+                  
 
                 </tr>
               </tfoot>
