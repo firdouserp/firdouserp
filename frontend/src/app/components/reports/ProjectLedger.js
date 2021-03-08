@@ -60,7 +60,7 @@ const styles = `
     text-align:right;
     border-bottom: 1px solid #ddd;
 }
-thead td,tfoot td{
+thead td,tfoot td,.totals{
     font-weight:bold;
     text-align: left;
     background-color: #4CAF50;
@@ -92,6 +92,14 @@ thead td,tfoot td{
   float:right;
 }
 @media print {
+  body{font-family: 'Helvetica', 'Arial', sans-serif;}
+  
+  @page{
+    
+    margin:2em;
+    padding:0;
+    width:100%;
+  }
   .invoice-box{
     box-shadow: none;
     border: 0;
@@ -111,7 +119,7 @@ thead td,tfoot td{
 }
   .heading-title{
     font-weight:bold;
-    font-size:10pt;
+    font-size:9pt;
 }
 
 }
@@ -162,7 +170,7 @@ const projectledger = (records) => {
   console.log("records:" + JSON.stringify(records));
   let sum_debit = 0.0;
   let sum_credit = 0.0;
-  let sum_obal = 0.0;
+  let sum_obal = parseFloat(records[0] && records[0].coa_obal || 0);
   return (
     <div>
       <html lang={"en_US"}>
@@ -183,7 +191,7 @@ const projectledger = (records) => {
             <div class="heading-title">
               <h2 style={{ margin: "15px" }}>
                 {records[0] && records[0].COA_Code + "-" + records[0].COA_TITLE}{" "}
-                <span class="obal">{formatCurrency(records[0].coa_obal)}</span>
+                <span class="obal">Opening Balance :{formatCurrency(records[0].coa_obal)}</span>
               </h2>
             </div>
             <table width="100%" cellPadding="0" cellSpacing="0">
@@ -199,7 +207,7 @@ const projectledger = (records) => {
                 {records.map((record) => {
                   sum_debit = sum_debit + parseFloat(record.DR || 0);
                   sum_credit = sum_credit + parseFloat(record.CR || 0);
-                  sum_obal = sum_obal + sum_debit - sum_credit;
+                  sum_obal = sum_obal + parseFloat(record.DR || 0) - parseFloat(record.CR || 0);
                   if (record.id) {
                     return (
                       <tr>
@@ -216,9 +224,9 @@ const projectledger = (records) => {
                         <td className="description">{record.Description}</td>
                         <td className="debit">{formatCurrency(record.DR)}</td>
                         <td className="credit">{formatCurrency(record.CR)}</td>
-                        <td className="credit">
+                        <td className="balance">
                           {formatCurrency(
-                            sum_obal + parseFloat(records[0].coa_obal || 0)
+                            sum_obal 
                           )}
                         </td>
                         {/* <td className="balance">
@@ -231,10 +239,10 @@ const projectledger = (records) => {
                 <tr class="totals">
                   <td />
                   <td />
-                  <td className="account">Totals</td>
-                  <td className="debit">{formatCurrency(sum_debit)}</td>
-                  <td className="credit">{formatCurrency(sum_credit)}</td>
-                  <td className="credit">{formatCurrency(sum_obal)}</td>
+                  <td className="totals">Totals</td>
+                  <td className="totals">{formatCurrency(sum_debit)}</td>
+                  <td className="totals">{formatCurrency(sum_credit)}</td>
+                  <td className="totals">{formatCurrency(sum_obal)}</td>
                 </tr>
               </tbody>
               {/*               <tfoot>

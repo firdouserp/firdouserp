@@ -69,8 +69,8 @@ export const CoaEdit = (props) => (
                     <TextInput source="scode" fullWidth />
                     <TextInput source="title" fullWidth />
                     <FirdousSelect label="Account Head" source="notes" list="notes/list" sort="value" optionText="value" fullWidth />
-                    <TextInput label="Opening Balance" source="obal" fullWidth />
-                    <BooleanInput label=" isCredit" source="iscredit" fullWidth />
+                    <div ><TextInput  label="Opening Balance" source="obal" fullWidth /><BooleanInput label=" is Op-Bal Credit" source="iscredit" fullWidth /></div>
+                    
                     <BooleanInput source="iscashbook" fullWidth />
                     <BooleanInput source="isbankbook" fullWidth />
                     <BooleanInput source="active" fullWidth />
