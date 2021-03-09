@@ -57,7 +57,7 @@ function SimplePaper() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <AccountButton
-              target="/vouchers"
+              target="/transactions"
               label="Voucher Listing"
               stylename={classes.JournalVoucher}
             />
@@ -83,7 +83,7 @@ function SimplePaper() {
               stylename={classes.JournalVoucher}
             />
           </Grid>
-          <Grid item xs={12}>
+{/*           <Grid item xs={12}>
             <AccountButton
               target="/deleted"
               label="Deleted Vouchers"
@@ -96,7 +96,7 @@ function SimplePaper() {
               label="Invalid Vouchers"
               stylename={classes.JournalVoucher}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
       <Grid item xs={12} sm={3}>
@@ -106,35 +106,35 @@ function SimplePaper() {
               Create Vocuchers
             </Typography>
             <AccountButton
-              target="/vouchers/create?vou_type=1"
+              target="/transactions/create?vou_type=1"
               label="Journal Voucher"
               stylename={classes.JournalVoucher}
             />
           </Grid>
           <Grid item xs={12}>
             <AccountButton
-              target="/vouchers/create?vou_type=2"
+              target="/transactions/create?vou_type=2"
               label="Payment Voucher"
               stylename={classes.PaymentVoucher}
             />
           </Grid>
           <Grid item xs={12}>
             <AccountButton
-              target="/vouchers/create?vou_type=4"
+              target="/transactions/create?vou_type=4"
               label="Sales Voucher"
               stylename={classes.SalesVoucher}
             />
           </Grid>
           <Grid item xs={12}>
             <AccountButton
-              target="/vouchers/create?vou_type=3"
+              target="/transactions/create?vou_type=3"
               label="Reciept Voucher"
               stylename={classes.RecieptVoucher}
             />
           </Grid>
           <Grid item xs={12}>
             <AccountButton
-              target="/vouchers/create?vou_type=5"
+              target="/transactions/create?vou_type=5"
               label="Salary Voucher"
               stylename={classes.SalaryVoucher}
             />

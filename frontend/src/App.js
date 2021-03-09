@@ -398,6 +398,7 @@ const App = () => (
       show={SettingShow}
       options={{ label: "Setting", menu: "false" }}
     />
+
     <Resource
       name="reports/projectledger"
       list={ProjectLedgerList}
@@ -405,14 +406,7 @@ const App = () => (
       options={{ label: "Setting", menu: "false" }}
     />
 
-    <Resource
-      name="fprop"
-      list={FpropList}
-      create={FpropCreate}
-      edit={FpropEdit}
-      icon={FpropIcon}
-      options={{ label: "Properties", menu: "true" }}
-    />
+
     <Resource
       name="purchaseorder"
       list={Purchase_orderList}
@@ -479,7 +473,7 @@ const App = () => (
     />
     <Resource
       name="transactions"
-      options={{ label: "Vouchers", menu: "true" }}
+      options={{ label: "Vouchers", menu: "false" }}
       list={TransactionsList}
       create={TransactionsCreate}
       edit={TransactionsEdit}
@@ -500,6 +494,14 @@ const App = () => (
       edit={ScheduleEdit}
       icon={ScheduleIcon}
       options={{ label: "Schedules", menu: "false" }}
+    />
+            <Resource
+      name="fprop"
+      list={FpropList}
+      create={FpropCreate}
+      edit={FpropEdit}
+      icon={FpropIcon}
+      options={{ label: "Properties", menu: "true" }}
     />
 
     <Resource name="Users" list={UserList} />
