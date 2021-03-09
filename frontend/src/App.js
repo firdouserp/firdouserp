@@ -160,10 +160,10 @@ const theme = createMuiTheme({
     },
     MuiFormHelperText: {
       contained: {
-        display: "none",
+        //display: "none",
       },
       marginDense: {
-        display: "none",
+        //display: "none",
       },
     },
 

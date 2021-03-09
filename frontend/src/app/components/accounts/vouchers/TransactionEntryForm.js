@@ -15,7 +15,7 @@ import {
   SimpleForm,
   SimpleFormIterator,
   TextInput,
-  Toolbar,
+  Toolbar
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";
@@ -74,10 +74,10 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     MuiFormHelperText: {
       contained: {
-        display: "none",
+       // display: "none",
       },
       marginDense: {
-        display: "none",
+       // display: "none",
       },
     },
     MuiFormControl: {
@@ -97,6 +97,18 @@ const validateVoucherCreation = (values) => {
     errors.total_debit = ["debit != credit"];
     errors.total_credit = ["debit != credit"];
     console.log("debit!=credit");
+  }
+
+  if(values.vou_no && values.vou_date){
+     let year_month =values.vou_no.substring(2,6);
+     let date_year_month=values.vou_date.substring(2,7).replace("-","")
+     
+     console.log(year_month);
+     console.log(date_year_month);
+     
+     if(year_month != date_year_month){
+       errors.vou_date=["Date can only be changed within voucher month and year"]
+     }
   }
 
   if (!values.transactions || values.transactions.length < 2) {
@@ -236,6 +248,7 @@ export const TransactionEntryForm = ({ ...props }) => {
             choices={vou_types}
             validate={ra_required}
             fullWidth
+            disabled
             className={classes.BorderandBackground}
           />
         </Grid>

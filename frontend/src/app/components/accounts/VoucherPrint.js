@@ -108,6 +108,10 @@ const styles = `
   margin-bottom:5px;
   color:#ccc;
 }
+.details{
+  margin-bottom:5em;
+  height:80px;
+}
 @media only screen and (max-width: 600px) {
   .invoice-box table tr.top table td{
     width:100%;
@@ -123,7 +127,7 @@ const styles = `
 }
 @media print {
   @Page{
-    size: A5
+   
   }
   .invoice-box {
     box-shadow: none;
@@ -150,9 +154,11 @@ const vou_types = [
   { id: 6, title: "Inventory Voucher" },
 ];
 export default function Voucher({ voucher, company, notes }) {
-  const { transactions } = voucher;
+  let { transactions } = voucher;
 
   const totalAmount = transactions.reduce((sum, item) => sum + item.dr, 0);
+  transactions=transactions.sort(function(t1, t2){return t1.dr>0?-1:1});
+
   let voutype = vou_types.find((v) => v.id == voucher.vou_type);
   const voucherName = voutype.title || "Voucher";
 
@@ -225,8 +231,8 @@ export default function Voucher({ voucher, company, notes }) {
                     Description
                   </td>
                 </tr>,
-                <tr className="details" key="details">
-                  <td colSpan="6">{voucher.description}</td>
+                <tr className="details-row" key="details">
+                  <td className="details" colSpan="6">{voucher.description}</td>
                 </tr>,
               ]}
               <tr className="heading">
@@ -279,7 +285,7 @@ export default function Voucher({ voucher, company, notes }) {
                   </td>
                   <td colSpan="2">
                     {" "}
-                    <div className="footer"> Signature</div>
+                    <div className="footer"> Recieved By</div>
                   </td>
                 </tr>
               </tbody>

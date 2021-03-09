@@ -502,6 +502,8 @@ const ProjectLedgerPagination = (props) => (
     <Totals />
   </div>
 );
+
+
 export const ProjectLedgerList = (props) => (
   <List
     aside={<FilterSidebar />}
