@@ -676,3 +676,10 @@ CREATE TABLE `vouchers` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2021-03-09 15:30:30
+
+
+
+/* NEW CHANAGES FROM HERE  11.03.2021*/
+
+ALTER TABLE `firdouserp`.`transactions` 
+ADD COLUMN `particulars` LONGTEXT NULL AFTER `created_by`;

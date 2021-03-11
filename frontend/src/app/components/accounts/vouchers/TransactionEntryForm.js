@@ -15,7 +15,7 @@ import {
   SimpleForm,
   SimpleFormIterator,
   TextInput,
-  Toolbar
+  Toolbar,
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";
@@ -35,6 +35,12 @@ const useStyles = makeStyles({
       width: "20%",
     },
   },
+  width12: {
+    "@media (min-width: 600px)": {
+      marginRight: "0.5em",
+      width: "12%",
+    },
+  },
   width25: { marginRight: "0.5em", width: "25%" },
   width30: { marginRight: "0.5em", width: "30%" },
   width35: {
@@ -49,6 +55,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   width40: { marginRight: "0.5em", width: "40%" },
+  width45: { marginRight: "0.5em", width: "46%" },
   width50: { marginRight: "0.5em", width: "62%" },
   alightRight: { marginRight: "0.5em", width: "20%" },
 
@@ -61,7 +68,7 @@ const useStyles = makeStyles({
   VoucherEntry: {
     border: "1px solid #ccc",
     minWidth: "870px",
-    maxWidth: "1000px",
+    maxWidth: "1200px",
   },
   toolbar: {
     display: "flex",
@@ -74,10 +81,10 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     MuiFormHelperText: {
       contained: {
-       // display: "none",
+        // display: "none",
       },
       marginDense: {
-       // display: "none",
+        // display: "none",
       },
     },
     MuiFormControl: {
@@ -93,22 +100,30 @@ const useStyles = makeStyles({
 const validateVoucherCreation = (values) => {
   const errors = {};
   console.log("values:" + JSON.stringify(values));
-  if (values.total_debit != values.total_credit) {
+  console.log(
+    parseFloat(values.total_debit) != parseFloat(values.total_credit)
+  );
+  console.log(
+    parseFloat(values.total_debit) + " and " + parseFloat(values.total_credit)
+  );
+  if (parseFloat(values.total_debit) != parseFloat(values.total_credit)) {
     errors.total_debit = ["debit != credit"];
     errors.total_credit = ["debit != credit"];
     console.log("debit!=credit");
   }
 
-  if(values.vou_no && values.vou_date){
-     let year_month =values.vou_no.substring(2,6);
-     let date_year_month=values.vou_date.substring(2,7).replace("-","")
-     
-     console.log(year_month);
-     console.log(date_year_month);
-     
-     if(year_month != date_year_month){
-       errors.vou_date=["Date can only be changed within voucher month and year"]
-     }
+  if (values.vou_no && values.vou_date) {
+    let year_month = values.vou_no.substring(2, 6);
+    let date_year_month = values.vou_date.substring(2, 7).replace("-", "");
+
+    console.log(year_month);
+    console.log(date_year_month);
+
+    if (year_month != date_year_month) {
+      errors.vou_date = [
+        "Date can only be changed within voucher month and year",
+      ];
+    }
   }
 
   if (!values.transactions || values.transactions.length < 2) {
@@ -232,7 +247,8 @@ export const TransactionEntryForm = ({ ...props }) => {
       className={classes.VoucherEntry}
       validate={validateVoucherCreation}
       fullWidth
-      subscription={{}}
+      validateOnBlur
+      subscription={{ dirtyFields: true }}
       {...props}
     >
       <Grid container fullWidth spacing={1} display="flex">
@@ -362,7 +378,7 @@ export const TransactionEntryForm = ({ ...props }) => {
               label="Transactions"
               fullWidth
               className={classes.BorderandBackgroundIter}
-              subscription={{}}
+              subscription={{ dirtyFields: true }}
               marginTop="none"
             >
               <SimpleFormIterator fullWidth>
@@ -377,11 +393,22 @@ export const TransactionEntryForm = ({ ...props }) => {
                   //initialValue={1}
                   //resource="vouchers"
                   fullWidth
-                  formClassName={classes.width35}
+                  formClassName={classes.width25}
                   className={classes.BorderandBackground}
                   // margin="none"
                 />
                 <TextInput
+                  variant="outlined"
+                  margin="none"
+                  source="particulars"
+                  //resource="vouchers"
+                  label="Particulars"
+                  multiline
+                  fullWidth
+                  formClassName={classes.width45}
+                  className={classes.BorderandBackground}
+                />
+                {/* <TextInput
                   margin="none"
                   label="RefNo."
                   source="refno"
@@ -389,7 +416,8 @@ export const TransactionEntryForm = ({ ...props }) => {
                   fullWidth
                   formClassName={classes.width20}
                   className={classes.BorderandBackground}
-                />
+                /> */}
+
                 <NumberInput
                   //formClassName={classes.iteratorinput50}
                   //className={classes.fixedWidth}
@@ -399,7 +427,7 @@ export const TransactionEntryForm = ({ ...props }) => {
                   //validate={ra_required}
 
                   className={classes.BorderandBackground}
-                  formClassName={classes.width20}
+                  formClassName={classes.width12}
                   fullWidth
                 />
 
@@ -410,7 +438,7 @@ export const TransactionEntryForm = ({ ...props }) => {
                   //resource="vouchers"
                   //validate={ra_required}
                   className={classes.BorderandBackground}
-                  formClassName={classes.width20}
+                  formClassName={classes.width12}
                   fullWidth
                 />
               </SimpleFormIterator>

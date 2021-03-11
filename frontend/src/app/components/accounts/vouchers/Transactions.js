@@ -9,7 +9,6 @@ import {
   Edit,
   EditButton,
   Filter,
-  FunctionField,
   List,
   ListButton,
   Pagination,
@@ -17,7 +16,7 @@ import {
   SelectInput,
   SimpleList,
   TextField,
-  TopToolbar
+  TopToolbar,
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "../FirdousSelect";
@@ -145,9 +144,10 @@ const PostPagination = (props) => (
 const TransactionList = ({ id, record, resource }) => {
   console.log(JSON.stringify(record));
   return (
-    <table align="center" width="500px%" cellPadding="0" cellSpacing="0">
+    <table align="center" width="900px" cellPadding="0" cellSpacing="0">
       <tr>
         <th>Account</th>
+        <th>Particulars</th>
         <th>Debit</th>
         <th>Credit</th>
       </tr>
@@ -155,7 +155,8 @@ const TransactionList = ({ id, record, resource }) => {
         {record.transactions.map((t) => {
           return (
             <tr className="">
-              <td width="300px">{t.account}</td>
+              <td width="200px">{t.account}</td>
+              <td width="500px">{t.particulars}</td>
               <td width="100px">{t.dr}</td>
               <td width="100px">{t.cr}</td>
             </tr>
@@ -183,29 +184,29 @@ export const TransactionsList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-        <Datagrid rowClick="edit" expand={<TransactionList />}>
-          {/* <TextField source="row_id" /> */}
-          <TextField source="vou_no" />
-          <TextField source="vou_date" />
-          {/* <ReferenceField label="Project" source="project" reference="Projects">
+      <Datagrid rowClick="edit" expand={<TransactionList />}>
+        {/* <TextField source="row_id" /> */}
+        <TextField source="vou_no" />
+        <TextField source="vou_date" />
+        {/* <ReferenceField label="Project" source="project" reference="Projects">
           <TextField source="title" />
         </ReferenceField> */}
-          <TextField source="description" />
+        <TextField source="description" />
 
-          <TextField source="chq_no" />
-          <TextField source="chq_date" />
-          <TextField source="created_by" />
-          
-          {/* <FunctionField label="Amount" render={record => parseFloat(record.transactions.reduce((t,sum=0) => sum=sum+ parseFloat(t.dr), 0))} /> */}
-          {/* <EditButton
+        <TextField source="chq_no" />
+        <TextField source="chq_date" />
+        <TextField source="created_by" />
+
+        {/* <FunctionField label="Amount" render={record => parseFloat(record.transactions.reduce((t,sum=0) => sum=sum+ parseFloat(t.dr), 0))} /> */}
+        {/* <EditButton
           label=""
           undoable={false}
           // variant="contained"
           color="secondary"
         /> */}
-          {/* <DeleteButton /> */}
-        </Datagrid>
-      )}
+        {/* <DeleteButton /> */}
+      </Datagrid>
+    )}
   </List>
 );
 
@@ -227,19 +228,19 @@ export const InvalidTransactionsList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-        <Datagrid rowClick="edit">
-          <TextField source="row_id" />
-          <TextField source="vou_no" />
-          <TextField source="vou_date" />
-          {/* <ReferenceField label="Project" source="project" reference="Projects">
+      <Datagrid rowClick="edit">
+        <TextField source="row_id" />
+        <TextField source="vou_no" />
+        <TextField source="vou_date" />
+        {/* <ReferenceField label="Project" source="project" reference="Projects">
           <TextField source="title" />
         </ReferenceField> */}
-          <TextField source="debit" />
-          <TextField source="credit" />
-          <EditButton variant="standard" color="secondary" />
-          {/* <DeleteButton /> */}
-        </Datagrid>
-      )}
+        <TextField source="debit" />
+        <TextField source="credit" />
+        <EditButton variant="standard" color="secondary" />
+        {/* <DeleteButton /> */}
+      </Datagrid>
+    )}
   </List>
 );
 
