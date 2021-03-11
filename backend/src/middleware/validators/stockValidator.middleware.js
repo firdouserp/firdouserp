@@ -97,7 +97,7 @@ exports.updateStockSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['id','code','scode','title','uom','qty','avg_rate','adv_cost','remarks','active'];
+            const allowUpdates = ['id','code','scode','title','uom','qty','avg_rate','adv_cost','coa','remarks','active'];
             console.log(value);
             return updates.every(update => allowUpdates.includes(update));
         })

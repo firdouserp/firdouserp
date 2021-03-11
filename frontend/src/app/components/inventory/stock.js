@@ -3,7 +3,7 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import StoreIcon from '@material-ui/icons/Store';
 import * as React from "react";
 import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, SearchInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
-
+import FirdousSelect from '../accounts/FirdousSelect';
 export const StockIcon = StoreIcon;
 
 export const StockActions = ({ basePath, data }) => (
@@ -39,8 +39,10 @@ export const StockList = props => (
           <TextField source="scode" />
           <TextField source="title" />
           <TextField source="remarks" />
+          <TextField source = "coa"/>
           <TextField source="active" />
           <EditButton variant="contained" color="secondary" />
+          
           <DeleteButton />
         </Datagrid>)}
   </List>
@@ -84,6 +86,17 @@ export const StockEdit = (props) => (
           <TextInput source="avg_cost" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
+        <FirdousSelect
+          variant="standard"
+          label="Coa"
+          source="coa"
+          optionText="title"
+          list="coa"
+          sort="title"
+          fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
           <TextInput source="remarks" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -98,6 +111,7 @@ export const StockEdit = (props) => (
 
 export const StockCreate = (props) => (
   <Create undoable={false} title="New Stock" {...props}>
+    
     <SimpleForm
       variant={"standard"}
       sanitizeEmptyValues={false}
@@ -109,7 +123,7 @@ export const StockCreate = (props) => (
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextInput disabled source="code" fullWidth />
+          <TextInput  source="code" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="scode" fullWidth />
@@ -127,7 +141,18 @@ export const StockCreate = (props) => (
           <TextInput source="avg_rate" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextInput source="avg_cost" fullWidth />
+          <TextInput source="adv_cost" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+        <FirdousSelect
+          variant="standard"
+          label="Coa"
+          source="coa"
+          optionText="title"
+          list="coa"
+          sort="title"
+          fullWidth
+          />
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="remarks" fullWidth />

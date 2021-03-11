@@ -43,9 +43,9 @@ class StockModel {
     }
     create = async ({code,scode,title,uom,qty,avg_rate,adv_cost,remarks,active=0}) => {
         const sql = `INSERT INTO ${this.tableName} 
-        (code,scode,title,uom,qty,avg_rate,adv_cost,remarks,active) VALUES (?,?,?,?,?,?,?,?,?)`;
+        (code,scode,title,uom,qty,avg_rate,adv_cost,coa,remarks,active) VALUES (?,?,?,?,?,?,?,?,?,?)`;
         console.log(sql);
-        const result = await query(sql, [code,scode,title,uom,qty,avg_rate,adv_cost,remarks,active]);
+        const result = await query(sql, [code,scode,title,uom,qty,avg_rate,adv_cost,coa,remarks,active]);
         return result.insertId;
 
 }
