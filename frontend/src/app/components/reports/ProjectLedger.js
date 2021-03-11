@@ -2,7 +2,7 @@ import {
   CardContent,
   CircularProgress,
   Toolbar,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import PrintIcon from "@material-ui/icons/Print";
@@ -11,7 +11,7 @@ import {
   startOfMonth,
   startOfWeek,
   subMonths,
-  subWeeks
+  subWeeks,
 } from "date-fns";
 import * as React from "react";
 import { cloneElement, Component } from "react";
@@ -31,7 +31,7 @@ import {
   SearchInput,
   TextField,
   useListContext,
-  useQueryWithStore
+  useQueryWithStore,
 } from "react-admin";
 import ReactToPrint from "react-to-print";
 import FirdousSelect from "../accounts/FirdousSelect";
@@ -236,7 +236,7 @@ const projectledger = (records) => {
   console.log("records:" + JSON.stringify(records));
   let sum_debit = 0.0;
   let sum_credit = 0.0;
-  let sum_obal = parseFloat(records[0] && records[0].coa_obal || 0);
+  let sum_obal = parseFloat((records[0] && records[0].coa_obal) || 0);
   return (
     <div>
       <html lang={"en_US"}>
@@ -249,15 +249,14 @@ const projectledger = (records) => {
         <body>
           <div className="invoice-box">
             <div>
-              <h2 className="report-title">
-                Accoutnt Ledger  FGS INFINITY ONE
-
-              </h2>
+              <h2 className="report-title">Accoutnt Ledger FGS INFINITY ONE</h2>
             </div>
             <div class="heading-title">
               <h2 style={{ margin: "15px" }}>
                 {records[0] && records[0].COA_Code + "-" + records[0].COA_TITLE}{" "}
-                <span class="obal">Opening Balance : {formatCurrency(records[0].coa_obal)}</span>
+                <span class="obal">
+                  Opening Balance : {formatCurrency(records[0].coa_obal)}
+                </span>
               </h2>
             </div>
             <table width="100%" cellPadding="0" cellSpacing="0">
@@ -273,7 +272,10 @@ const projectledger = (records) => {
                 {records.map((record) => {
                   sum_debit = sum_debit + parseFloat(record.DR || 0);
                   sum_credit = sum_credit + parseFloat(record.CR || 0);
-                  sum_obal = sum_obal + parseFloat(record.DR || 0) - parseFloat(record.CR || 0);
+                  sum_obal =
+                    sum_obal +
+                    parseFloat(record.DR || 0) -
+                    parseFloat(record.CR || 0);
                   if (record.id) {
                     return (
                       <tr>
@@ -287,14 +289,12 @@ const projectledger = (records) => {
                             .toISOString()
                             .substring(0, 10)}
                         </td>
-                        <td className="description">{record.Description}</td>
+                        <td className="description">
+                          {record.Description}<br /> {record.Particulars} 
+                        </td>
                         <td className="debit">{formatCurrency(record.DR)}</td>
                         <td className="credit">{formatCurrency(record.CR)}</td>
-                        <td className="balance">
-                          {formatCurrency(
-                            sum_obal 
-                          )}
-                        </td>
+                        <td className="balance">{formatCurrency(sum_obal)}</td>
                         {/* <td className="balance">
                           {formatCurrency(record.balance)}
                         </td> */}
@@ -313,9 +313,10 @@ const projectledger = (records) => {
               </tbody>
               <tfoot>
                 <tr>
-                  
-                  <td colspan="6" className="footer">Printed By {user && user.username} on {new Date().toISOString()}</td>
-
+                  <td colspan="6" className="footer">
+                    Printed By {user && user.username} on{" "}
+                    {new Date().toISOString()}
+                  </td>
                 </tr>
               </tfoot>
             </table>
@@ -503,7 +504,6 @@ const ProjectLedgerPagination = (props) => (
   </div>
 );
 
-
 export const ProjectLedgerList = (props) => (
   <List
     aside={<FilterSidebar />}
@@ -522,7 +522,6 @@ export const ProjectLedgerList = (props) => (
         <TextField source="vou_count" />
         {/* <ShowButton variant="contained" color="secondary" /> */}
         {/* <DeleteButton /> */}
-
       </Datagrid>
     }
   </List>

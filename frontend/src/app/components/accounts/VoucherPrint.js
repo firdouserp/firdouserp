@@ -37,11 +37,15 @@ const styles = `
   padding:0.5em;
   margin-top: 0.5em;
 }
+.particulars{
+  word-wrap: break-word;
+  text-align:left !important;
+}
 
 .invoice-box .footer {
   border-top:1px solid #ccc;
   text-align:center;
-  color : #ccc;
+  color : #c0c0c0;
 }
 
 .invoice-box table tr td:nth-child(2){
@@ -70,8 +74,7 @@ const styles = `
   font-weight:bold;
 
 }
-
-.invoice-box table tr.item td{
+invoice-box table tr.item td{
   border-bottom:1px solid #eee;
 }
 .invoice-box table tr.item td.debit{
@@ -105,11 +108,11 @@ const styles = `
   width: 100%;
 }
 .description{
-  margin-bottom:5px;
+  margin-top:5px;
   color:#ccc;
 }
 .details{
-  margin-bottom:5em;
+  margin-top:5em;
   height:80px;
 }
 @media only screen and (max-width: 600px) {
@@ -125,17 +128,38 @@ const styles = `
   }
   
 }
+.page
+    {
+     -webkit-transform: rotate(-90deg); 
+     -moz-transform:rotate(-90deg);
+     filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    }
 @media print {
+
   @Page{
-   
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    // margin: 0;
+    // padding: 0;
+    // border: none;
+    // background: none;
+    // transform: rotate(270deg) translate(-210mm, 0);
+    // transform-origin: 0 0;
   }
   .invoice-box {
+    font-family: sans-serif;
+    // width: 200mm;
+    // height: 120mm;
     box-shadow: none;
     border:0;
     margin:1em;
+
+    
   }
   *{
-    font-size:10pt;
+    font-size:8pt;
   }
 }
 `;
@@ -157,7 +181,9 @@ export default function Voucher({ voucher, company, notes }) {
   let { transactions } = voucher;
 
   const totalAmount = transactions.reduce((sum, item) => sum + item.dr, 0);
-  transactions=transactions.sort(function(t1, t2){return t1.dr>0?-1:1});
+  transactions = transactions.sort(function (t1, t2) {
+    return t1.dr > 0 ? -1 : 1;
+  });
 
   let voutype = vou_types.find((v) => v.id == voucher.vou_type);
   const voucherName = voutype.title || "Voucher";
@@ -173,7 +199,7 @@ export default function Voucher({ voucher, company, notes }) {
         <meta name="robots" content="noindex, nofollow" />
       </head>
       <body>
-      <div className="voutype">{voucherName}</div>
+        <div className="voutype">{voucherName}</div>
         <div className="invoice-box">
           <table cellPadding="0" cellSpacing="0">
             <tbody>
@@ -195,10 +221,10 @@ export default function Voucher({ voucher, company, notes }) {
                             {voucher.project && (
                               <div> Project :Infinity One</div>
                             )}
-                             {voucher.chq_no && (
+                            {voucher.chq_no && (
                               <div>CHQ # :{voucher.chq_no}</div>
                             )}
-                             {voucher.chq_date && (
+                            {voucher.chq_date && (
                               <div>CHQ Date :{voucher.chq_date}</div>
                             )}
                             {voucher.created_by && (
@@ -214,7 +240,7 @@ export default function Voucher({ voucher, company, notes }) {
                               width: "auto",
                               height: "auto",
                               maxWidth: "250px",
-                              maxHeight: "150px",
+                              maxHeight: "120px",
                               marginLeft: "auto",
                             }}
                             alt={company.name}
@@ -225,27 +251,18 @@ export default function Voucher({ voucher, company, notes }) {
                   </table>
                 </td>
               </tr>
-              {voucher.description && [
-                <tr className="description" key="heading">
-                  <td className="subheading" colSpan="6">
-                    Description
-                  </td>
-                </tr>,
-                <tr className="details-row" key="details">
-                  <td className="details" colSpan="6">{voucher.description}</td>
-                </tr>,
-              ]}
+
               <tr className="heading">
                 <td className="subheading">Transactions</td>
-                <td className="refno"> Ref.No.</td>
-                 <td className="debit">Debit</td>
+                <td className="refno"> Particulars</td>
+                <td className="debit">Debit</td>
                 <td className="credit">Credit</td>
               </tr>
               {transactions.map((item) => (
                 <tr className="item" key={item.description}>
                   <td className="account">{item.account}</td>
-                  <td>{item.refno}</td>
-                  
+                  <td className="particulars">{item.particulars}</td>
+
                   <td className="debit">{formatCurrency(item.dr)}</td>
                   <td className="credit">{formatCurrency(item.cr)}</td>
                 </tr>
@@ -264,6 +281,18 @@ export default function Voucher({ voucher, company, notes }) {
                   </table>
                 </td>
               </tr>
+              {voucher.description && [
+                <tr className="description" key="heading">
+                  <td className="subheading" colSpan="6">
+                    Description
+                  </td>
+                </tr>,
+                <tr className="details-row" key="details">
+                  <td className="details" colSpan="6">
+                    {voucher.description}
+                  </td>
+                </tr>,
+              ]}
             </tbody>
           </table>
           {voucher.remarks && (
@@ -322,14 +351,13 @@ Voucher.propTypes = {
         chq_date: PropTypes.string,
         dr: PropTypes.number,
         cr: PropTypes.number,
-        account:PropTypes.string,
+        account: PropTypes.string,
       }).isRequired
     ).isRequired,
     name: PropTypes.string,
   }).isRequired,
 
   lang: PropTypes.string,
-
 };
 
 Voucher.defaultProps = {
