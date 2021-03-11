@@ -2,7 +2,7 @@ import {
   CardContent,
   CircularProgress,
   Toolbar,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import PrintIcon from "@material-ui/icons/Print";
@@ -11,7 +11,7 @@ import {
   startOfMonth,
   startOfWeek,
   subMonths,
-  subWeeks,
+  subWeeks
 } from "date-fns";
 import * as React from "react";
 import { cloneElement, Component } from "react";
@@ -31,7 +31,7 @@ import {
   SearchInput,
   TextField,
   useListContext,
-  useQueryWithStore,
+  useQueryWithStore
 } from "react-admin";
 import ReactToPrint from "react-to-print";
 import FirdousSelect from "../accounts/FirdousSelect";
@@ -67,8 +67,8 @@ const styles = `
 thead td,.totals{
     font-weight:bold;
     text-align: left;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #1976d24a;
+   // color: white;
     padding: 10px;
     border: 1px solid #ddd;
     
@@ -79,7 +79,7 @@ thead td,.totals{
 }
 h2 .report-title{
   text-align:center;
-  background:#81c684;
+  background:#1976d24a;
   text-align:center;
 }
 
@@ -115,13 +115,16 @@ td .footer{
   padding:5px;
   font-size:80%;
 }
+.title_ledger{
+  font-size:80%;
+}
 .obal{
   font-size:90%;
   float:right;
 }
 h2.report-title {
-  background: #4caf50;
-  color: white;
+  background: #1976d24a;
+
   padding: 5px;
   text-align: center;
   margin: 0;
@@ -249,7 +252,7 @@ const projectledger = (records) => {
         <body>
           <div className="invoice-box">
             <div>
-              <h2 className="report-title">Accoutnt Ledger FGS INFINITY ONE</h2>
+              <h2 className="report-title"> FGS INFINITY ONE <br/><span class="title_ledger">Accoutnt Ledger</span></h2>
             </div>
             <div class="heading-title">
               <h2 style={{ margin: "15px" }}>
@@ -303,8 +306,8 @@ const projectledger = (records) => {
                   }
                 })}
                 <tr class="totals">
-                  <td />
-                  <td />
+                  <td className="totals"/>
+                  <td className="totals"/>
                   <td className="totals">Totals</td>
                   <td className="totals">{formatCurrency(sum_debit)}</td>
                   <td className="totals">{formatCurrency(sum_credit)}</td>

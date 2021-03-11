@@ -681,5 +681,5 @@ CREATE TABLE `vouchers` (
 
 /* NEW CHANAGES FROM HERE  11.03.2021*/
 
-ALTER TABLE `firdouserp`.`transactions` 
+ALTER TABLE `transactions` 
 ADD COLUMN `particulars` LONGTEXT NULL AFTER `created_by`;
