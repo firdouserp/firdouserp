@@ -41,7 +41,9 @@ const styles = `
   word-wrap: break-word;
   text-align:left !important;
 }
-
+.particulars{
+  width:50%;
+}
 .invoice-box .footer {
   border-top:1px solid #ccc;
   text-align:center;
@@ -74,6 +76,9 @@ const styles = `
   font-weight:bold;
 
 }
+.totals td{
+  text-align:right;
+}
 invoice-box table tr.item td{
   border-bottom:1px solid #eee;
 }
@@ -92,17 +97,20 @@ invoice-box table tr.item td{
 .invoice-box table tr.item.last td{
   border-bottom:none;
 }
-.invoice-box table tr.total td:nth-child(2){
+.invoice-box table tr.total td{
   background:#eee;
   font-weight:bold;
+  text-align:right;
 }
 .invoice-box .subheading {
   font-weight: bold;
    text-transform: uppercase;
+   
+
 }
 .bottomline{
     margin-top:80px;
-    position: fixed;
+    position: relative;
   left: 0;
   bottom: 10;
   width: 100%;
@@ -130,9 +138,9 @@ invoice-box table tr.item td{
 }
 .page
     {
-     -webkit-transform: rotate(-90deg); 
-     -moz-transform:rotate(-90deg);
-     filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    //  -webkit-transform: rotate(-90deg); 
+    //  -moz-transform:rotate(-90deg);
+    //  filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     }
 @media print {
 
@@ -153,11 +161,14 @@ invoice-box table tr.item td{
     // width: 200mm;
     // height: 120mm;
     box-shadow: none;
+   // page-break-before: always;
     border:0;
     margin:1em;
 
+
     
   }
+  .item{orphans: 5; padding-top:10px;}
   *{
     font-size:8pt;
   }
@@ -179,8 +190,12 @@ const vou_types = [
 ];
 export default function Voucher({ voucher, company, notes }) {
   let { transactions } = voucher;
-
-  const totalAmount = transactions.reduce((sum, item) => sum + item.dr, 0);
+  // for(let i=0;i<10;i++)
+	// {
+	// 	transactions.push({account:'ABC',particulars:'TEST PARTICLULARS', dr:89,cr:0});
+	// }
+  const totalAmount_DR = transactions.reduce((sum, item) => sum + item.dr, 0);
+  const totalAmount_CR = transactions.reduce((sum, item) => sum + item.cr, 0);
   transactions = transactions.sort(function (t1, t2) {
     return t1.dr > 0 ? -1 : 1;
   });
@@ -202,7 +217,7 @@ export default function Voucher({ voucher, company, notes }) {
         <div className="voutype">{voucherName}</div>
         <div className="invoice-box">
           <table cellPadding="0" cellSpacing="0">
-            <tbody>
+            <tbody className="mainBody">
               <tr className="top">
                 <td colSpan="6">
                   <table>
@@ -268,14 +283,17 @@ export default function Voucher({ voucher, company, notes }) {
                 </tr>
               ))}
               <tr className="total">
-                <td />
+                <td className="total" />
 
                 <td colSpan={"5"}>
                   <table>
                     <tbody>
-                      <tr>
+                      <tr className="totals">
+                        <td width = "%"/>
                         <td className="subheading">Total</td>
-                        <td>{formatCurrency(totalAmount)}</td>
+                        <td width="59%"/>
+                        <td>{formatCurrency(totalAmount_DR)}</td>
+                        <td>{formatCurrency(totalAmount_CR)}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -293,7 +311,12 @@ export default function Voucher({ voucher, company, notes }) {
                   </td>
                 </tr>,
               ]}
+             
             </tbody>
+            <tfoot>
+              
+         
+          </tfoot>
           </table>
           {voucher.remarks && (
             <div style={{ marginTop: 30 }}>
@@ -319,7 +342,8 @@ export default function Voucher({ voucher, company, notes }) {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> 
+        
         </div>
       </body>
     </html>
