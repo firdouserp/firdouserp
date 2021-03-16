@@ -6,7 +6,7 @@ class GrnModel {
     find = async (params = {}, range = {}, sort = {}) => {
         let sql = `SELECT grn.grn_no, grn.id,DATE_FORMAT(grn.grn_date,"%Y-%m-%d")grn_date,grn.po_id,grn.po_no,grn.supplier_id,grn.remarks,grn.refno,grn.postledger,grn.vou_no,DATE_FORMAT(grn.created_on,"%Y-%m-%d")created_on,grn.created_by,grnd.grn_details  FROM  grn
         LEFT JOIN ( select grn_id, 
-                   JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty',qty,'unit_price', unit_price, 'grn_id', grn_id, 'qty_rec', qty_rec, 'subtotal', subtotal))
+                   JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty_ord',qty_ord,'unit_price', unit_price, 'grn_id', grn_id, 'qty_rec', qty_rec, 'subtotal', subtotal))
                     as grn_details 
                     from grn_details GROUP BY grn_id) as
         grnd  ON grn.id =grnd.grn_id `;
@@ -47,7 +47,7 @@ class GrnModel {
                 .join(", ");
             let sql = `SELECT grn.grn_no, grn.id,DATE_FORMAT(grn.grn_date,"%Y-%m-%d")grn_date,grn.po_id,grn.po_no,grn.supplier_id,grn.remarks,grn.refno,grn.postledger,grn.vou_no,DATE_FORMAT(grn.created_on,"%Y-%m-%d") as created_on,grn.created_by,grnd.grn_details  FROM  grn
                     LEFT JOIN ( select grn_id, 
-                               JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty',qty,'unit_price', unit_price, 'grn_id', grn_id, 'qty_rec', qty_rec, 'subtotal', subtotal))
+                               JSON_ARRAYAGG(JSON_OBJECT('id',id,'stock_id',stock_id,'unit',unit,'qty_ord',qty_ord,'unit_price', unit_price, 'grn_id', grn_id, 'qty_rec', qty_rec, 'subtotal', subtotal))
                                 as grn_details 
                                 from grn_details GROUP BY grn_id) 
                     grnd ON grn.id =grnd.grn_id 
@@ -80,13 +80,13 @@ class GrnModel {
         const grn_id = result.insertId;
         for (let grnd of grn_details) {
             const sql = `INSERT INTO grn_details 
-                        (stock_id,unit,qty,unit_price,subtotal,qty_rec,grn_id)
+                        (stock_id,unit,qty_ord,unit_price,subtotal,qty_rec,grn_id)
                          VALUES (?,?,?,?,?,?,?)`;
             console.log(sql);
             const result = await query(sql, [
                 grnd.stock_id,
                 grnd.unit,
-                grnd.qty,
+                grnd.qty_ord,
                 grnd.unit_price,
                 grnd.subtotal,
                 grnd.qty_rec,
@@ -117,13 +117,13 @@ class GrnModel {
         //=========================================
         for (let grnd of grn_details) {
             const sql = `INSERT INTO grn_details 
-                        (stock_id,unit,qty,unit_price,subtotal,qty_rec,grn_id)
+                        (stock_id,unit,qty_ord,unit_price,subtotal,qty_rec,grn_id)
                          VALUES (?,?,?,?,?,?,?)`;
             console.log(sql);
             const result = await query(sql, [
                 grnd.stock_id,
                 grnd.unit,
-                grnd.qty,
+                grnd.qty_ord,
                 grnd.unit_price,
                 grnd.subtotal,
                 grnd.qty_rec,

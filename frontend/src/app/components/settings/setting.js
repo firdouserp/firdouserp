@@ -17,6 +17,7 @@ import {
   TextInput,
   TopToolbar
 } from "react-admin";
+import FirdousSelect from '../accounts/FirdousSelect';
 
 export const SettingIcon = ListAltIcon;
 const useStyles = makeStyles({
@@ -98,7 +99,9 @@ export const SettingCreate = (props) => (
         <TextInput source="org_name" />
         <TextInput source="org_address" />
         <TextInput source="company_logo" />
-        <TextInput source="grn_account" />
+        
+        <FirdousSelect source="grn Account" list="coa" sort="title" optionText="title"  />
+      
     </SimpleForm>
   </Create>
 );

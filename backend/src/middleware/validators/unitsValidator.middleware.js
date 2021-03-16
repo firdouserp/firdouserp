@@ -27,11 +27,16 @@ exports.createUnitsSchema = [
     check('utype')
         .exists()
         .withMessage('Unit type is required'),
+        check('coa')
+        .exists()
+        .optional({nullable:true})
+        .withMessage('Unit type is required'),
     check('ulocation')
         .exists()
         .withMessage('Unit location must be required'),
     check('usize')
-        .exists(),
+        .exists()
+        .optional({nullable:true}),
     check('remarks')
         .exists()
         .withMessage('Enter remarks')
@@ -47,47 +52,43 @@ exports.createUnitsSchema = [
 exports.updateUnitsSchema = [
     check('code')
     .exists()
-    .optional()    
-    .isAlphanumeric()
-        .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long'),
+    .optional({nullable:true})
+    .isAlphanumeric(),
     check('scode')
         .exists()
-        .optional()
+        .optional({nullable:true})
         .isAlphanumeric()
-        .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
         .withMessage('Must be at least 3 chars long'),
     check('project')
         .exists()
-        .optional()
+        .optional({nullable:true})
         .withMessage('Must be a valid project'),
     check('title')
         .exists()
-        .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long'),
+        .optional({nullable:true})
+        .withMessage('Must be only alphabetical chars'),
     check('ulocation')
         .exists()
-        .optional()
+        .optional({nullable:true})
         .withMessage('Must be a valid location'),
     check('utype')
         .exists()
-        .optional(),
+        .optional({nullable:true}),
     check('usize')
         .exists()
-        .optional()
-        .isLength({ min: 3})
-        .withMessage('Select City')
-        .isLength({ max: 10 })
+        .optional({nullable:true})
         .withMessage('City can contain max 10 characters'),
+        check('coa')
+        .exists()
+        .optional({nullable:true})
+        .withMessage('Unit type is required'),
     check('remarks')
         .exists()
         .optional({nullable:true})
         .withMessage('Any remarks'),
     check('active')
         .exists()
-        .optional()
+        .optional({nullable:true})
         .withMessage('Define state'),
     body()
         .custom(value => {
@@ -96,7 +97,7 @@ exports.updateUnitsSchema = [
         .withMessage('Please provide required field to update')
         .custom(value => {
             const updates = Object.keys(value);
-            const allowUpdates = ['id','code','scode','project','title','utype','ulocation','usize','remarks','active'];
+            const allowUpdates = ['id','code','scode','project','title','utype','ulocation','usize','coa','remarks','active'];
             return updates.every(update => allowUpdates.includes(update));
         })
         .withMessage('Invalid updates!')

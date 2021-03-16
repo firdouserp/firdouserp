@@ -114,6 +114,9 @@ export const UnitsEdit = (props) => (
           <TextInput source="usize" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
+        <FirdousSelect source="coa" list="coa" sort="title" optionText="title" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
           <TextInput source="remarks" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -166,6 +169,7 @@ export const UnitsCreate = (props) => (
         <Grid item xs={12} md={4}>
           <TextInput source="remarks" fullWidth />
         </Grid>
+        <FirdousSelect source="coa" list="coa" sort="title" optionText="title" fullWidth />
         <Grid item xs={12} md={4}>
           <BooleanInput source="active" fullWidth />
         </Grid>

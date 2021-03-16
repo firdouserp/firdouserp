@@ -11,29 +11,22 @@ exports.createStockSchema = [
         .withMessage('Must be at least 3 chars long'),
     check('scode')
         .exists()
-        .isAlphanumeric()
-        .withMessage('Your short code is required')
-        .isLength({ min: 1})
+        .optional({nullable:true})
         .withMessage('Must be at least 3 chars long'),
     check('title')
         .exists()
-        .withMessage('title must be required')
-        .isLength({ min: 1 })
-        .withMessage('Must be at least 3 chars long'),
+        .optional({nullable:true})
+        .withMessage('title must be required'),
     check('uom')
         .exists()
-        .isAlphanumeric()
-        .withMessage('UOM is required'),
+        .optional({nullable:true}),
     check('remarks')
         .exists()
         .optional({nullable:true})
         .withMessage('remarks must be required'),
     check('qty')
         .exists()
-        .isAlphanumeric()
-        .withMessage('Enter quantity')
-        .isLength({ min: 1})
-        .optional(),
+        .optional({nullable:true}),
      check('avg_rate')
         .exists()
         .withMessage('Enter Average Rate')
@@ -41,9 +34,10 @@ exports.createStockSchema = [
         .isLength({ min: 1 }),
      check('adv_cost')
         .exists()
-        .isLength({ min: 1 })
-        .isAlphanumeric()
-        .withMessage('Enter advance cost'),
+        .optional({nullable:true}),
+        check('coa')
+        .exists()
+        .withMessage('COA is required')
         
 ];
 
@@ -61,9 +55,7 @@ exports.updateStockSchema = [
         .withMessage('Must be at least 3 chars long'),
     check('title')
         .exists()
-        .withMessage('Must be only alphabetical chars')
-        .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long'),
+        .withMessage('Must be only alphabetical chars'),
     check('uom')
         .exists()
         .optional({nullable:true})
@@ -76,20 +68,15 @@ exports.updateStockSchema = [
     check('qty')
         .exists()
         .optional({nullable:true})
-        .isLength({ min: 1})
-        .withMessage('Select Quantity')
-        .isLength({ max: 10 })
-        .withMessage('City can contain max 10 characters'),
+        .withMessage('Select Quantity'),
     check('avg_rate')
         .exists()
-        .isAlphanumeric()
-        .isLength({ min: 1})
-        .withMessage('Select average rates'),
-    check('adv_cost')
+        .optional({nullable:true})
+        .isAlphanumeric(),
+     check('adv_cost')
          .exists()
-        .isAlphanumeric()
-        .isLength({ min: 1})
-        .withMessage('Select advance cost'),
+         .optional({nullable:true}),
+        
     body()
         .custom(value => {
             return !!Object.keys(value).length;

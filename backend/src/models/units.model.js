@@ -42,10 +42,10 @@ class UnitsModel {
     }
     create = async ({code,scode, project,title,utype,ulocation=0,usize,remarks,active}) => {
         const sql = `INSERT INTO ${this.tableName} 
-        (code,scode, project,title,utype,ulocation,usize,remarks,active) VALUES (?,?,?,?,?,?,?,?)`;
+        (code,scode, project,title,utype,ulocation,usize,coa,remarks,active) VALUES (?,?,?,?,?,?,?,?,?,?)`;
 
         console.log(sql);
-        const result = await query(sql, [code,scode,project,title,utype,ulocation,usize,remarks,active]);
+        const result = await query(sql, [code,scode,project,title,utype,ulocation,usize,coa,remarks,active]);
         return result.insertId;
 
 }

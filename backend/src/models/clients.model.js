@@ -1,8 +1,8 @@
 
 const query = require('../db/db-connection');
 const { multipleColumnSet,searchLikeColumnSet } = require('../utils/common.utils');
-class StockModel {
-    tableName = 'stock';
+class ClientsModel {
+    tableName = 'clients';
     find = async (params = {},range={},sort={}) => {
         let sql = `SELECT * FROM ${this.tableName}`;
         let limit = "";
@@ -41,11 +41,11 @@ class StockModel {
         return result[0];
 
     }
-    create = async ({code,scode,title,uom,qty,avg_rate,adv_cost,coa,remarks,active=0}) => {
+    create = async ({code,name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email}) => {
         const sql = `INSERT INTO ${this.tableName} 
-        (code,scode,title,uom,qty,avg_rate,adv_cost,coa,remarks,active) VALUES (?,?,?,?,?,?,?,?,?,?)`;
+        (code,name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         console.log(sql);
-        const result = await query(sql, [code,scode,title,uom,qty,avg_rate,adv_cost,coa,remarks,active]);
+        const result = await query(sql, [code,name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email]);
         return result.insertId;
 
 }
@@ -86,4 +86,4 @@ count = async (params = {}) => {
 }
 }
 
-module.exports = new StockModel;
+module.exports = new ClientsModel;

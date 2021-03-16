@@ -16,12 +16,16 @@ import {
   SelectInput,
   SimpleList,
   TextField,
-  TopToolbar,
+  TopToolbar
 } from "react-admin";
 import { useLocation } from "react-router";
 import FirdousSelect from "../FirdousSelect";
 import VoucherShow from "../VoucherShow";
 import { TransactionEntryForm } from "./TransactionEntryForm";
+
+const useStyles = makeStyles({
+  description:{maxWidth: "600px", float:"left"}
+});
 
 export const useQuery = (queryParam) => {
   const search = new URLSearchParams(useLocation().search);
@@ -167,7 +171,12 @@ const TransactionList = ({ id, record, resource }) => {
     // <div><span>{t.coa}</span><span>{t.description}</span> <span>{t.dr}</span> <span>{t.cr}</span></div>
   );
 };
-export const TransactionsList = (props) => (
+
+
+export const TransactionsList = (props) => {
+  const classes = useStyles();
+  return (
+  
   <List
     sort={{ field: "row_id", order: "DESC" }}
     perPage={25}
@@ -184,14 +193,14 @@ export const TransactionsList = (props) => (
         tertiaryText={(record) => record.id}
       />
     ) : (
-      <Datagrid rowClick="edit" expand={<TransactionList />}>
+      <Datagrid  rowClick="edit" expand={<TransactionList />}>
         {/* <TextField source="row_id" /> */}
         <TextField source="vou_no" />
         <TextField source="vou_date" />
         {/* <ReferenceField label="Project" source="project" reference="Projects">
           <TextField source="title" />
         </ReferenceField> */}
-        <TextField source="description" />
+        <TextField  className={classes.description} source="description" />
 
         <TextField source="chq_no" />
         <TextField source="chq_date" />
@@ -208,7 +217,7 @@ export const TransactionsList = (props) => (
       </Datagrid>
     )}
   </List>
-);
+)}
 
 export const InvalidTransactionsList = (props) => (
   <List

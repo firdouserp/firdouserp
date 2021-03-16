@@ -28,34 +28,31 @@ exports.createEmployeesSchema = [
         .withMessage('designation is required'),
     check('grade')
         .exists()
-        .isLength({min : 1})
+       .optional({nullable:true})
         .withMessage('grade must be required'),
     check('department')
         .exists()
         .withMessage('department is required')
-        .optional()
-        .isLength({ min: 1 })
-        .withMessage('min 1 characters'),
-
+        .optional({nullable:true}),
      check('address')
         .exists()
         .withMessage('address is required')
-        .optional()
-        .isLength({ min: 1 }),
+        .optional({nullable:true}),
         check('city')
         .exists()
-        .optional()
-        .isLength({min : 1})
-        .withMessage('City is required'),
+        .optional({nullable:true}),
         check('cnic')
         .exists()
-        .optional()
-        .isLength({min : 1})
+        .optional({nullable:true})
         .withMessage('CNIC required'),
+        check('coa')
+        .exists()
+        .optional({nullable:true})
+        .withMessage('COA required'),
         check('remarks')
         .exists()
-        .optional()
-        .isLength({min : 1})
+        .optional({nullable:true})
+        
         .withMessage('Remarks required'),
 
         check('active')
@@ -69,64 +66,62 @@ exports.createEmployeesSchema = [
 exports.updateEmployeesSchema = [
     check('code')
         .exists()
+        .optional({nullable:true})
+        .isAlphanumeric()
         .withMessage('code is required')
         .isLength({min: 3})
-        .withMessage('Must be at least 3 chars long')
-        .optional(),
+        .withMessage('Must be at least 3 chars long'),
     check('scode')
         .exists()
+        .optional({nullable:true})
+        .isAlphanumeric()
         .withMessage('Your short code is required')
         .withMessage('Can be numerical and aplhanumerical')
         .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long')
-        .optional(),
+        .withMessage('Must be at least 3 chars long'),
     check('title')
         .exists()
+        .optional({nullable:true})
         .withMessage('title must be required')
         .withMessage('Must be only alphabetical chars')
         .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long')
-        .optional(),
+        .withMessage('Must be at least 3 chars long'),
     check('designation')
         .exists()
+        .optional({nullable:true})
         .isLength({min : 1})
-        .withMessage('designation is required')
-        .optional(),
+        .withMessage('designation is required'),
     check('grade')
         .exists()
-        .isLength({min : 1})
-        .withMessage('grade must be required')
-        .optional(),
+       .optional({nullable:true})
+        .withMessage('grade must be required'),
     check('department')
         .exists()
         .withMessage('department is required')
-        .optional()
-        .isLength({ min: 1 })
-        .withMessage('min 1 characters'),
-
-    check('address')
+        .optional({nullable:true}),
+     check('address')
         .exists()
         .withMessage('address is required')
-        .optional()
-        .isLength({ min: 1 }),
-    check('city')
+        .optional({nullable:true}),
+        check('city')
         .exists()
-        .optional()
-        .isLength({min : 1})
-        .withMessage('City is required'),
-    check('cnic')
+        .optional({nullable:true}),
+        check('cnic')
         .exists()
-        .optional()
-        .isLength({min : 1})
+        .optional({nullable:true})
         .withMessage('CNIC required'),
-    check('remarks')
+        check('coa')
         .exists()
-        .optional()
-        .isLength({min : 1})
+        .optional({nullable:true})
+        .withMessage('COA required'),
+        check('remarks')
+        .exists()
+        .optional({nullable:true})
         .withMessage('Remarks required'),
 
-    check('active')
+        check('active')
         .exists()
+        .optional({nullable:true})
         .optional()
         .isLength({min : 1})
         .withMessage('State required'),

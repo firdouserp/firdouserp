@@ -15,7 +15,7 @@ import {
   SimpleForm,
   SimpleFormIterator,
   TextInput,
-  Toolbar,
+  Toolbar
 } from "react-admin";
 import { useFormState } from "react-final-form";
 import ReactToPrint from "react-to-print";

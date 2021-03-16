@@ -52,6 +52,7 @@ class EmployeesModel {
     address,
     city,
     cnic,
+    coa,
     remarks,
     active = 0,
   }) => {
@@ -68,6 +69,7 @@ class EmployeesModel {
     address,
     city,
     cnic,
+    coa,
     remarks,
     active, 
     ]);

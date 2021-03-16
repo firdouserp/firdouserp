@@ -3,7 +3,7 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import StoreIcon from '@material-ui/icons/Store';
 import * as React from "react";
 import { BooleanInput, Create, Datagrid, DeleteButton, Edit, EditButton, Filter, List, ListButton, ReferenceInput, SearchInput, SelectInput, SimpleForm, SimpleList, TextField, TextInput, TopToolbar } from 'react-admin';
-
+import FirdousSelect from '../accounts/FirdousSelect';
 export const EmployeesIcon = StoreIcon;
 
 export const EmployeesActions = ({ basePath, data }) => (
@@ -90,6 +90,9 @@ export const EmployeesEdit = (props) => (
           <TextInput source="cnic" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
+        <FirdousSelect source="coa" list="coa" sort="title" optionText="title" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
           <TextInput source="remarks" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -98,9 +101,8 @@ export const EmployeesEdit = (props) => (
 
 
       </Grid>
-      <ReferenceInput label="Projects" source="project" reference="stock">
-        <SelectInput optionText="id" />
-      </ReferenceInput>
+     
+        
     </SimpleForm>
 
   </Edit>
@@ -119,7 +121,7 @@ export const EmployeesCreate = (props) => (
           <TextInput disabled source="id" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextInput disabled source="code" fullWidth />
+          <TextInput  source="code" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="scode" fullWidth />
@@ -144,6 +146,9 @@ export const EmployeesCreate = (props) => (
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="cnic" fullWidth />
+        </Grid>
+        <Grid item xs={12} md={4}>
+        <FirdousSelect source="coa" list="coa" sort="title" optionText="title" fullWidth />
         </Grid>
         <Grid item xs={12} md={4}>
           <TextInput source="remarks" fullWidth />

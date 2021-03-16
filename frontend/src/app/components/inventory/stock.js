@@ -94,6 +94,7 @@ export const StockEdit = (props) => (
           list="coa"
           sort="title"
           fullWidth
+          Required
           />
         </Grid>
         <Grid item xs={12} md={4}>

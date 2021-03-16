@@ -44,7 +44,7 @@ const styles = `
 .invoice-box{
   margin-left:2em;
   margin-right:2em;
-  max-width:1000px;
+  --max-width:1000px;
   border:1px solid #ccc;
   box-shadow:0 0 10px rgba(0, 0, 0, .15);
   color:#555;
@@ -252,7 +252,7 @@ const projectledger = (records) => {
         <body>
           <div className="invoice-box">
             <div>
-              <h2 className="report-title"> FGS INFINITY ONE <br/><span class="title_ledger">Accoutnt Ledger</span></h2>
+              <h2 className="report-title"> FGS INFINITY ONE <br/><span class="title_ledger">Account Ledger</span></h2>
             </div>
             <div class="heading-title">
               <h2 style={{ margin: "15px" }}>
@@ -288,12 +288,10 @@ const projectledger = (records) => {
                           </a>
                         </td>
                         <td className="vou_date">
-                          {new Date(record.Vou_Date)
-                            .toISOString()
-                            .substring(0, 10)}
+                          {record.vou_date_string}
                         </td>
                         <td className="description">
-                          {record.Description}<br /> {record.Particulars} 
+                           {record.Particulars} 
                         </td>
                         <td className="debit">{formatCurrency(record.DR)}</td>
                         <td className="credit">{formatCurrency(record.CR)}</td>

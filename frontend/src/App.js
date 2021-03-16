@@ -61,6 +61,12 @@ import {
 } from "./app/components/bookings/booking";
 import BookingFormWizard from "./app/components/bookings/BookingFormWizard";
 import {
+  ClientsCreate,
+  ClientsEdit,
+  ClientsIcon,
+  ClientsList
+} from "./app/components/bookings/clients";
+import {
   ScheduleCreate,
   ScheduleEdit,
   ScheduleIcon,
@@ -387,6 +393,14 @@ const App = () => (
       edit={BookingEdit}
       icon={BookingIcon}
       show={BookingsShow}
+      options={{ label: "Bookings", menu: "false" }}
+    />
+    <Resource
+      name="Clients"
+      list={ClientsList}
+      create={ClientsCreate}
+      edit={ClientsEdit}
+      icon={ClientsIcon}
       options={{ label: "Bookings", menu: "false" }}
     />
     <Resource
