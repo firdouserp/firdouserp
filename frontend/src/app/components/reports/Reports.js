@@ -65,6 +65,14 @@ function SimplePaper() {
               stylename={classes.JournalVoucher}
             />
           </Grid>
+
+          <Grid item xs={12}>
+            <AccountButton
+              target="/reports/trialbalance"
+              label="Trial Balance"
+              stylename={classes.JournalVoucher}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

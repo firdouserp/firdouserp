@@ -113,6 +113,7 @@ import {
   SupplierList
 } from "./app/components/purchases/suppliers";
 import { ProjectLedgerDetail, ProjectLedgerList } from "./app/components/reports/ProjectLedger";
+import TrialBalanceList from "./app/components/reports/TrialBalance";
 import {
   FpropCreate,
   FpropEdit,
@@ -417,6 +418,12 @@ const App = () => (
       name="reports/projectledger"
       list={ProjectLedgerList}
       edit={ProjectLedgerDetail}
+      options={{ label: "Setting", menu: "false" }}
+    />
+
+  <Resource
+      name="reports/trialbalance"
+      list={TrialBalanceList}
       options={{ label: "Setting", menu: "false" }}
     />
 

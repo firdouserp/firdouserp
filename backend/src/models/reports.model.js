@@ -59,6 +59,39 @@ class ReportsModel {
     console.log(sql);
     return await query(sql);
   };
+
+  trialBalanceByPeriod = async ({ vou_date_from, vou_date_to }) => {
+    console.log("vou_date_from:" + vou_date_from);
+    console.log("vou_date_to:" + vou_date_to);
+    let sql = `select tbd.coa_id as id,ct_code,n_code,coa_code,ct_title,n_title,tbd.coa_id,coa_code,coa_title,coa_obal,
+                sum(tbd.dr) ob_dr,sum(tbd.cr) ob_cr,pl_dr as period_less_dr,pl_cr as period_less_cr,period.p_dr,period.p_cr from trial_balance_detail tbd
+               left outer join 
+                (select coa_id as coaid,sum(dr) p_dr,sum(cr) p_cr from trial_balance_detail  where vou_date>='${vou_date_from}' and vou_date<='${vou_date_to}' group by coa_id ) as period on tbd.coa_id=period.coaid
+               left outer join
+                (select coa_id as pl_coaid,sum(dr) pl_dr,sum(cr) pl_cr from trial_balance_detail  where vou_date<'${vou_date_from}'group by coa_id) as periodl on tbd.coa_id=periodl.pl_coaid
+              group by tbd.coa_id order by ct_code,n_code,coa_code;`;
+
+    console.log(sql);
+    const result = await query(sql);
+    const idMapping = result.reduce((acc, el, i) => {
+      acc[el.id] = i;
+      return acc;
+    }, {});
+    let root;
+    result.forEach((el) => {
+      // Handle the root element
+      if (el.parentId === null) {
+        root = el;
+        return;
+      }
+      // Use our mapping to locate the parent element in our data array
+      const parentEl = result[idMapping[el.parentId]];
+      // Add our current el to its parent's `children` array
+      parentEl.children = [...(parentEl.children || []), el];
+    });
+    console.log(root);
+    return result;
+  };
 }
 
 module.exports = new ReportsModel();

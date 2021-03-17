@@ -683,3 +683,19 @@ CREATE TABLE `vouchers` (
 
 ALTER TABLE `transactions` 
 ADD COLUMN `particulars` LONGTEXT NULL AFTER `created_by`;
+
+create view trial_balance_detail as select ct.id as ct_id,ct.code as ct_code,ct.title as ct_title,n.id as n_id,n.code as n_code,n.title as n_title,coa.id as coa_id,coa.code as coa_code,coa.title as coa_title, coa.obal as coa_obal,t.*
+from coa_type ct 
+left outer join notes n on n.coa_type=ct.id
+left outer join coa on coa.notes=n.id
+left outer join  transactions t on coa.id=t.coa
+order by ct.code
+
+
+select ct_code,n_code,coa_code,ct_title,n_title,coa_id,coa_code,coa_title,coa_obal, sum(tbd.dr) total_dr,sum(tbd.cr)total_cr,pl_dr as period_less_dr,pl_cr as period_less_cr,period.p_dr,period.p_cr from trial_balance_detail tbd
+ left outer join 
+ (select coa_id as coaid,sum(dr) p_dr,sum(cr) p_cr from trial_balance_detail  where vou_date>='2021-02-15' and vou_date<='2021-02-28' group by coa_id ) as period on tbd.coa_id=period.coaid
+ left outer join
+ (select coa_id as pl_coaid,sum(dr) pl_dr,sum(cr) pl_cr from trial_balance_detail  where vou_date<'2021-02-15'group by coa_id) as periodl on tbd.coa_id=periodl.pl_coaid
+  
+  group by tbd.coa_id order by ct_code,n_code,coa_code;
