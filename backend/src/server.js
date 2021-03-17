@@ -25,6 +25,7 @@ const transactionsRouter = require("./routes/transactions.route");
 const clientsRouter = require("./routes/clients.route");
 // Init express
 const app = express();
+
 // Init environment
 dotenv.config();
 // parse requests of content-type: application/json

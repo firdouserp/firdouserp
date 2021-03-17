@@ -16,8 +16,14 @@ router.get(
   awaitHandlerFactory(ReportsController.getProjectLedger)
 ); // loc
 router.get(
+  "/trialbalance",
+  auth(),
+  awaitHandlerFactory(ReportsController.getTrialBalanceByPeriod)
+);
+router.get(
   "/projectledger/:id",
   auth(),
   awaitHandlerFactory(ReportsController.getProjectLedgerByAccount)
 );
+
 module.exports = router;

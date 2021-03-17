@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "../../assets/firdouslogo.png";
+import logo from "../../assets/infinitylogo.png";
 import Voucher from "./VoucherPrint";
 export class PrintVoucherComponent extends Component {
   render() {
