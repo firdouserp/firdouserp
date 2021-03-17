@@ -1,4 +1,4 @@
-const ClientsModel = require('../models/stock.model');
+const ClientsModel = require('../models/clients.model');
 const HttpException = require('../utils/HttpException.utils');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 /******************************************************************************
- *                              Clients Controller
+ *                              Supplier Controller
  ******************************************************************************/
 class ClientsController {
     getAllClients = async (req, res, next) => {
@@ -44,13 +44,13 @@ class ClientsController {
             throw new HttpException(404, 'Clients not found');
         }
 
-            res.send(stock)
+            res.send(clients)
     };
 
-    getByClientsName = async (req, res, next) => {
-        const stock = await ClientsModel.findOne({ stockname: req.params.stockname });
+    getClientsByClientsName = async (req, res, next) => {
+        const clients = await ClientsModel.findOne({ clientsname: req.params.clientsname });
         if (!clients) {
-            throw new HttpException(404, 'Stock not found');
+            throw new HttpException(404, 'Clients not found');
         }
 
         };
@@ -66,7 +66,7 @@ class ClientsController {
     
             const clients = await ClientsModel.findOne({ id: result });
             if (!clients) {
-                throw new HttpException(404, 'client not found');
+                throw new HttpException(404, 'Clients not found');
             }
     
             res.status(201).send(clients);
@@ -103,9 +103,9 @@ class ClientsController {
     deleteClients = async (req, res, next) => {
         const result = await ClientsModel.delete(req.params.id);
         if (!result) {
-            throw new HttpException(404, 'Client not found');
+            throw new HttpException(404, 'Clients not found');
         }
-        res.send('Client has been deleted');
+        res.send('Clients has been deleted');
     };
 
     checkValidation = (req) => {
