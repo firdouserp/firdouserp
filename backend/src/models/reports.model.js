@@ -55,7 +55,7 @@ class ReportsModel {
   };
 
   projectledgerByAccount = async (id) => {
-    let sql = `SELECT *, DATE_FORMAT(Vou_Date, '%d-%m-%Y') as vou_date_string from view_project_ledger where coa=${id}`;
+    let sql = `SELECT *, DATE_FORMAT(Vou_Date, '%d-%m-%Y') as vou_date_string from view_project_ledger where coa=${id} order by vou_date,vou_no`;
     console.log(sql);
     return await query(sql);
   };

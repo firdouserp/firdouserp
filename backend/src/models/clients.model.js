@@ -41,18 +41,18 @@ class ClientsModel {
         return result[0];
 
     }
-    create = async ({code,name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email}) => {
+    create = async ({name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email=0}) => {
         const sql = `INSERT INTO ${this.tableName} 
-        (code,name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+        (name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         console.log(sql);
-        const result = await query(sql, [code,name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email]);
+        const result = await query(sql, [name,father_name,postal_address,residential_address,phone_office,phone_residential,phone_mobile,occupation,age,nationality,reference_of,nominee_name,nominee_relation,nominee_address,email]);
         return result.insertId;
 
 }
 update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params)
 
-    const sql = `UPDATE stock SET ${columnSet} WHERE id = ?`;
+    const sql = `UPDATE clients SET ${columnSet} WHERE id = ?`;
     console.log(sql);
     console.log(values);
     const result = await query(sql, [...values, id]);

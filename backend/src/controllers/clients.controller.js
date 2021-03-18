@@ -12,7 +12,7 @@ dotenv.config();
 class ClientsController {
     getAllClients = async (req, res, next) => {
        
-        let stockList;
+        let clientsList;
         var range;
         var sort ;
         var filter;
