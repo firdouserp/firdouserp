@@ -113,7 +113,7 @@ h1{
   text-align:left;
 }
 .accountcode{
-  width: 50px;
+  width: 65px;
 }
 th.account, th.accountcode {
   border-bottom: 1px solid #ccc;
