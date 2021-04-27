@@ -1,15 +1,13 @@
-import { Checkbox, TableCell, TableRow } from "@material-ui/core";
 import * as React from "react";
 import {
-  Datagrid,
-  DatagridBody,
   DateInput,
   Filter,
   List,
   SearchInput,
-  TextField,
+  useListContext,
 } from "react-admin";
 import FirdousSelect from "../accounts/FirdousSelect";
+
 export function formatCurrency(amount) {
   return Number.parseFloat(amount)
     .toFixed(2)
@@ -57,59 +55,114 @@ const TrialBalanceSearchFilter = (props) => (
   </Filter>
 );
 
-const MyDatagridRow = ({
-  record,
-  resource,
-  id,
-  onToggleItem,
-  children,
-  selected,
-  basePath,
-}) => (
-  <TableRow key={id}>
-    {/* first column: selection checkbox */}
-    <TableCell padding="none">
-      <Checkbox
-        disabled={record.selectable}
-        checked={selected}
-        onClick={() => onToggleItem(id)}
-      />
-    </TableCell>
-    {/* data columns based on children */}
-    {React.Children.map(children, (field) => (
-      <TableCell key={`${id}-${field.props.source}`}>
-        {
-        
-        
-        
-        
-        React.cloneElement(field, {
-          record,
-          basePath,
-          resource,
-        })}
-      </TableCell>
-    ))}
-  </TableRow>
-);
+const styles = `
 
-const MyDatagridBody = (props) => (
-  <DatagridBody {...props} row={<MyDatagridRow />} />
-);
-const MyDatagrid = (props) => <Datagrid {...props} body={<MyDatagridBody />} />;
+h1{
+  font-size:14pt !important;
+}
+.container-main{
+  font-family: Helvetica, Sans-Serif;
+  font-size:9pt;
+  margin:0.5em;
+}
+.types{
+
+  border-bottom:1px solid #ccc;
+  padding: 1em;
+}
+.headtitle{
+  font-weight:bold;
+  width: 250px;
+  
+  padding-left:2em;
+  padding-top:1em;
+  border-bottom:0px solid #ccc;
+  
+}
+.ct-title{
+  font-size:14pt !important;
+}
+
+.subheads{
+  border-bottom:1px solid #ccc;
+  padding-top : 1em;
+}
+.topheads{
+  
+}
+.MuiToolbar-root{
+  
+}
+`;
+const CommentGrid = () => {
+  const { ids, data, basePath } = useListContext();
+  const types = [];
+  const heads = [];
+  const grouping = {};
+  return (
+    <html lang={"en_US"}>
+      <head>
+        <meta charSet="utf-8" />
+        <title>Trial Balance</title>
+        <style dangerouslySetInnerHTML={{ __html: styles }} />
+        <meta name="robots" content="noindex, nofollow" />
+      </head>
+      <body>
+        <div className="container-main">
+          <table width="100%">
+            <thead>
+              <th>Account</th>
+              <th>Account No</th>
+              <th>Account Title</th>
+              <th>Opening Balance</th>
+              <th>Activity during Period</th>
+              <th>Closing Balance</th>
+            </thead>
+
+            {ids.map((id) => {
+              var record = data[id];
+              var closingdr;
+              return (
+                (types.indexOf(record.ct_id) === -1 &&
+                  types.push(record.ct_id) && (
+                    <tr>
+                      <td colspan="7" className="types">
+                        <span className="ct-title">{record.ct_title}</span>
+                      </td>
+                    </tr>
+                  )) || (
+                  <tr className="topheads">
+                    <td className="headtitle">
+                      {heads.indexOf(record.n_id) === -1 &&
+                        heads.push(record.n_id) && (
+                          <span>{record.n_title}</span>
+                        )}
+                    </td>
+                    <td className="subheads">{record.coa_code}</td>
+                    <td className="subheads">{record.coa_title}</td>
+                    <td className="subheads">{record.period_less_dr}</td>
+                    <td className="subheads">{record.period_less_cr}</td>
+                    <td className="subheads">{record.p_dr}</td>
+                    <td className="subheads">{record.p_cr}</td>
+                    <td className="subheads">
+                      {formatCurrency((closingdr = closingdr + record.p_cr))}
+                    </td>
+                  </tr>
+                )
+              );
+
+              // return RenderElements(data[id], types, heads);
+            })}
+          </table>
+        </div>
+      </body>
+    </html>
+  );
+};
 
 export const TrialBalanceList = (props) => (
-  <List perPage={100} {...props} filters={<TrialBalanceSearchFilter />}>
-    {
-      <MyDatagrid>
-        <TextField source="ct_title" title="Main Account" />
-        <TextField source="n_title" title="Sub Account" />
-        <TextField source="coa_code" title="Account #" />
-        <TextField source="coa_title" title="'Account Title" />
-        <TextField source="ob_dr" />
-        <TextField source="ob_cr" />
-      </MyDatagrid>
-    }
+  <List pagination={false} {...props} filters={<TrialBalanceSearchFilter />}>
+    {<CommentGrid />}
   </List>
 );
 
