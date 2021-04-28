@@ -112,13 +112,20 @@ h1{
 .accountcode{
   width: 65px;
 }
-th.account, th.accountcode,th.accounttitle {
+.twocolumn{
+  width:200px;
+}
+th.account, th.accountcode,th.accounttitle,th.twocolumn {
   border-bottom: 1px solid #ccc;
   font-size: 10pt;
   background: #e0e0e3;
   height: 25px;
-  text-transform:uppercase;
+  text-transform: uppercase;
+  padding-left: 2px;
+  border: 1px solid #00000014;
+  border-right: none;
 }
+
 .grouptotal{
   font-size:10pt;
   font-weight:bold;
@@ -129,6 +136,12 @@ th.account, th.accountcode,th.accounttitle {
 .periodlist td{
   border-left:1px solid #ccc;
   border-bottom:1px solid #ccc;
+}
+.t-center{
+  text-align:center;
+}
+.width100{
+  width:100px;
 }
 `;
 
@@ -177,12 +190,12 @@ const CommentGrid = () => {
     );
     subhead.total_pl_dr = children.reduce(
       (sum, item) =>
-        sum + ((item.period_less_dr && parseFloat(item.period_less_dr)) || 0),
+        sum + ((item.open_balance >= 0 && parseFloat(item.open_balance)) || 0),
       0
     );
     subhead.total_pl_cr = children.reduce(
       (sum, item) =>
-        sum + ((item.period_less_cr && parseFloat(item.period_less_cr)) || 0),
+        sum + ((item.open_balance < 0 && parseFloat(item.open_balance)) || 0),
       0
     );
 
@@ -203,17 +216,33 @@ const CommentGrid = () => {
       </head>
       <body>
         <div className="container-main">
-          <table width="100%">
+          <table cellspacing="0" width="100%">
             <thead>
               <th className="account">Account</th>
               <th className="accountcode">Account No.</th>
               <th className="accounttitle">Account Title</th>
-              <th className="account">Opening Bal (DR)</th>
-              <th className="account">Opening Bal (CR)</th>
-              <th className="account">Current Period (DR)</th>
-              <th className="account">Current Period (CR)</th>
-              <th className="account">Closing (DR)</th>
-              <th className="account">Closing (CR)</th>
+              <th colspan="2" className="twocolumn">
+                Opening Balance
+              </th>
+
+              <th colspan="2" className="twocolumn">
+                Current Period{" "}
+              </th>
+
+              <th colspan="2" className="twocolumn">
+                Closing{" "}
+              </th>
+            </thead>
+            <thead>
+              <th width="100px"></th>
+              <th width="65px"></th>
+              <th width="200px"></th>
+              <th className="width100">Debit</th>
+              <th className="width100">Credit</th>
+              <th className="width100">Debit</th>
+              <th className="width100">Credit</th>
+              <th className="width100">Debit</th>
+              <th className="width100">Credit</th>
             </thead>
 
             {Object.keys(groupTypes).map((key, index) => {
@@ -240,11 +269,12 @@ const CommentGrid = () => {
                               </td>
 
                               <td className="account_r">
-                                {formatCurrency(account.period_less_dr)}
+                                {account.open_balance >= 0 &&
+                                  formatCurrency(account.open_balance)}
                               </td>
                               <td className="account_r">
-                                {" "}
-                                {formatCurrency(account.period_less_cr)}
+                                {account.open_balance < 0 &&
+                                  formatCurrency(account.open_balance)}
                               </td>
                               <td className="account_r">
                                 {formatCurrency(account.p_dr)}
@@ -252,8 +282,14 @@ const CommentGrid = () => {
                               <td className="account_r">
                                 {formatCurrency(account.p_cr)}
                               </td>
-                              <td className="account_r"></td>
-                              <td className="account_r"></td>
+                              <td className="account_r">
+                                {account.close_balance >= 0 &&
+                                  formatCurrency(account.close_balance)}
+                              </td>
+                              <td className="account_r">
+                                {account.close_balance < 0 &&
+                                  formatCurrency(account.close_balance)}
+                              </td>
                             </tr>
                           );
                         })}
