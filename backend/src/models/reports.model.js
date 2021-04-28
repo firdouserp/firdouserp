@@ -66,8 +66,8 @@ class ReportsModel {
     let result = {};
     if (vou_date_from && vou_date_to) {
       let sql = `select tbd.coa_id as id,ct_code,n_code,coa_code,ct_id,ct_title,n_id,n_title,tbd.coa_id,coa_code,coa_title,coa_obal,
-                sum(tbd.dr) ob_dr,sum(tbd.cr) ob_cr,pl_dr as period_less_dr,pl_cr as period_less_cr,period.p_dr,period.p_cr from trial_balance_detail tbd
-               left  join 
+                (coa_obal+ pl_dr -pl_cr) open_balance, (coa_obal+ pl_dr-pl_cr+period.p_dr-period.p_cr ) as close_balance, pl_dr as period_less_dr,pl_cr as period_less_cr,period.p_dr,period.p_cr from trial_balance_detail tbd
+                inner join 
                 (select coa_id as coaid,sum(dr) p_dr,sum(cr) p_cr from trial_balance_detail  where vou_date>='${vou_date_from}' and vou_date<='${vou_date_to}' group by coa_id ) as period on tbd.coa_id=period.coaid
                left  join
                 (select coa_id as pl_coaid,sum(dr) pl_dr,sum(cr) pl_cr from trial_balance_detail  where vou_date<'${vou_date_from}'group by coa_id) as periodl on tbd.coa_id=periodl.pl_coaid
