@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  DateInput,
-  Filter,
-  List,
-  SearchInput,
-  useListContext,
-} from "react-admin";
-import FirdousSelect from "../accounts/FirdousSelect";
+import { DateInput, Filter, List, useListContext } from "react-admin";
 
 export function formatCurrency(amount) {
   return !amount
@@ -18,14 +11,14 @@ export function formatCurrency(amount) {
 
 const TrialBalanceSearchFilter = (props) => (
   <Filter {...props}>
-    <SearchInput
+    {/* <SearchInput
       variant="standard"
       placeholder="Account"
       source="coa_title"
       alwaysOn
-    />
+    /> */}
 
-    <FirdousSelect
+    {/* <FirdousSelect
       variant="standard"
       label="Projects"
       source="project"
@@ -33,7 +26,7 @@ const TrialBalanceSearchFilter = (props) => (
       list="projects"
       sort="title"
       alwaysOn
-    />
+    /> */}
     {/*     <ReferenceArrayInput reference="coa" source="coa" alwaysOn>
         <SelectArrayInput optionText="title">
           <ChipField source="coa" optionText="title" />
@@ -42,14 +35,14 @@ const TrialBalanceSearchFilter = (props) => (
 
     <DateInput
       variant="standard"
-      placeholder="Voucher Date"
+      label="Period from"
       source="vou_date_from"
       resettable
       alwaysOn
     />
     <DateInput
       variant="standard"
-      placeholder="Voucher Date"
+      label="Period To"
       source="vou_date_to"
       resettable
       alwaysOn
@@ -112,10 +105,14 @@ h1{
   width: 100px;
   text-align:left;
 }
+.accounttitle{
+  width : 200px;
+  text-align:left;
+}
 .accountcode{
   width: 65px;
 }
-th.account, th.accountcode {
+th.account, th.accountcode,th.accounttitle {
   border-bottom: 1px solid #ccc;
   font-size: 10pt;
   background: #e0e0e3;
@@ -178,6 +175,16 @@ const CommentGrid = () => {
       (sum, item) => sum + ((item.p_cr && parseFloat(item.p_cr)) || 0),
       0
     );
+    subhead.total_pl_dr = children.reduce(
+      (sum, item) =>
+        sum + ((item.period_less_dr && parseFloat(item.period_less_dr)) || 0),
+      0
+    );
+    subhead.total_pl_cr = children.reduce(
+      (sum, item) =>
+        sum + ((item.period_less_cr && parseFloat(item.period_less_cr)) || 0),
+      0
+    );
 
     const head = groupTypes[subhead.head];
     console.log(head);
@@ -200,7 +207,7 @@ const CommentGrid = () => {
             <thead>
               <th className="account">Account</th>
               <th className="accountcode">Account No.</th>
-              <th className="account">Account Title</th>
+              <th className="accounttitle">Account Title</th>
               <th className="account">Opening Bal (DR)</th>
               <th className="account">Opening Bal (CR)</th>
               <th className="account">Current Period (DR)</th>
@@ -228,18 +235,16 @@ const CommentGrid = () => {
                               <td className="accountcode">
                                 {account.coa_code}
                               </td>
-                              <td className="account_l">{account.coa_title}</td>
+                              <td className="accounttitle">
+                                {account.coa_title}
+                              </td>
+
                               <td className="account_r">
                                 {formatCurrency(account.period_less_dr)}
                               </td>
                               <td className="account_r">
+                                {" "}
                                 {formatCurrency(account.period_less_cr)}
-                              </td>
-                              <td className="account_r">
-                                {formatCurrency(account.p_dr)}
-                              </td>
-                              <td className="account_r">
-                                {formatCurrency(account.p_dr)}
                               </td>
                               <td className="account_r">
                                 {formatCurrency(account.p_dr)}
@@ -247,6 +252,8 @@ const CommentGrid = () => {
                               <td className="account_r">
                                 {formatCurrency(account.p_cr)}
                               </td>
+                              <td className="account_r"></td>
+                              <td className="account_r"></td>
                             </tr>
                           );
                         })}
@@ -254,16 +261,22 @@ const CommentGrid = () => {
                           <td />
                           <td />
                           <td className="grouptotal">Group Totals</td>
-                          <td />
-                          <td />
-                          <td />
-                          <td />
+
+                          <td className="grouptotal">
+                            {formatCurrency(subhead.total_pl_dr)}
+                          </td>
+
+                          <td className="grouptotal">
+                            {formatCurrency(subhead.total_pl_cr)}
+                          </td>
                           <td className="grouptotal">
                             {formatCurrency(subhead.total_p_dr)}
                           </td>
                           <td className="grouptotal">
                             {formatCurrency(subhead.total_p_cr)}
                           </td>
+                          <td className="grouptotal"></td>
+                          <td className="grouptotal"></td>
                         </tr>
                       </table>
                     </td>
