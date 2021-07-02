@@ -143,6 +143,49 @@ th.account, th.accountcode,th.accounttitle,th.twocolumn {
 .width100{
   width:100px;
 }
+
+@media print {
+  
+  @Page{
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+
+    // margin: 0;
+    // padding: 0;
+    // border: none;
+    // background: none;
+    // transform: rotate(270deg) translate(-210mm, 0);
+    // transform-origin: 0 0;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print, #section-to-print * {
+    font-family: sans-serif;
+    visibility: visible;
+    font-size:6pt;
+  }
+  #section-to-print {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    padding:0;
+    padding-top:10px;
+    margin-top:10px;
+   
+  }
+  th.account, th.accountcode,th.accounttitle,th.twocolumn,td {
+        border-right: 1px solid #00000014;
+  }
+  .subheads{
+    font-size:8pt !important;
+  }
+h1{
+  font-size:8pt !important;
+}
+}
 `;
 
 const CommentGrid = () => {
@@ -199,6 +242,18 @@ const CommentGrid = () => {
       0
     );
 
+    subhead.total_closing_dr = children.reduce(
+      (sum, item) =>
+        sum + ((item.close_balance >= 0 && parseFloat(item.close_balance)) || 0),
+      0
+    );
+
+    subhead.total_closing_cr = children.reduce(
+      (sum, item) =>
+        sum + ((item.close_balance < 0 && parseFloat(item.close_balance)) || 0),
+      0
+    );
+
     const head = groupTypes[subhead.head];
     console.log(head);
     head.children = [...(head.children || []), subhead];
@@ -214,8 +269,8 @@ const CommentGrid = () => {
         <style dangerouslySetInnerHTML={{ __html: styles }} />
         <meta name="robots" content="noindex, nofollow" />
       </head>
-      <body>
-        <div className="container-main">
+      <body id="section-to-print">
+        <div  className="container-main">
           <table cellspacing="0" width="100%">
             <thead>
               <th className="account">Account</th>
@@ -311,8 +366,8 @@ const CommentGrid = () => {
                           <td className="grouptotal">
                             {formatCurrency(subhead.total_p_cr)}
                           </td>
-                          <td className="grouptotal"></td>
-                          <td className="grouptotal"></td>
+                          <td className="grouptotal">{formatCurrency(subhead.total_closing_dr)}</td>
+                          <td className="grouptotal">{formatCurrency(subhead.total_closing_cr)}</td>
                         </tr>
                       </table>
                     </td>

@@ -55,7 +55,8 @@ class ReportsModel {
   };
 
   projectledgerByAccount = async (id) => {
-    let sql = `SELECT *, DATE_FORMAT(Vou_Date, '%d-%m-%Y') as vou_date_string from view_project_ledger where coa=${id} order by vou_date,vou_no`;
+    let sql = `SELECT *, DATE_FORMAT(Vou_Date, '%d-%m-%Y') as vou_date_string from view_project_ledger where coa=${id} and vou_date>='2021-06-01' and vou_date<='2021-06-30' order by vou_date,vou_no`;
+    //let sql = `SELECT *, DATE_FORMAT(Vou_Date, '%d-%m-%Y') as vou_date_string from view_project_ledger where coa=${id}  order by vou_date,vou_no`;
     console.log(sql);
     return await query(sql);
   };
@@ -65,12 +66,12 @@ class ReportsModel {
     console.log("vou_date_to:" + vou_date_to);
     let result = {};
     if (vou_date_from && vou_date_to) {
-      let sql = `select tbd.coa_id as id,ct_code,n_code,coa_code,ct_id,ct_title,n_id,n_title,tbd.coa_id,coa_code,coa_title,coa_obal,
-                (coa_obal+ pl_dr -pl_cr) open_balance, (coa_obal+ pl_dr-pl_cr+period.p_dr-period.p_cr ) as close_balance, pl_dr as period_less_dr,pl_cr as period_less_cr,period.p_dr,period.p_cr from trial_balance_detail tbd
-                left join 
-                (select coa_id as coaid,sum(dr) p_dr,sum(cr) p_cr from trial_balance_detail  where vou_date>='${vou_date_from}' and vou_date<='${vou_date_to}' group by coa_id ) as period on tbd.coa_id=period.coaid
+      let sql = `select tbd.coa_id as id,ct_code,n_code,coa_code,ct_id,ct_title,n_id,n_title,tbd.coa_id,coa_code,coa_title,IFNULL(coa_obal, 0) as coa_obal,
+                (IFNULL(coa_obal, 0)+ IFNULL(pl_dr,0)  - IFNULL(pl_cr,0)) open_balance, (IFNULL(coa_obal,0) + IFNULL(pl_dr,0) - IFNULL(pl_cr,0) + IFNULL(period.p_dr,0) - IFNULL(period.p_cr,0) ) as close_balance, IFNULL(pl_dr,0) as period_less_dr,IFNULL(pl_cr,0) as period_less_cr,IFNULL(period.p_dr,0) as p_dr,IFNULL(period.p_cr,0) as p_cr from trial_balance_detail tbd
+                 left join 
+                (select coa_id as coaid,sum(IFNULL(dr,0)) p_dr,sum(IFNULL(cr,0)) p_cr from trial_balance_detail  where vou_date>='${vou_date_from}' and vou_date<='${vou_date_to}' group by coa_id ) as period on tbd.coa_id=period.coaid
                left  join
-                (select coa_id as pl_coaid,sum(dr) pl_dr,sum(cr) pl_cr from trial_balance_detail  where vou_date<'${vou_date_from}'group by coa_id) as periodl on tbd.coa_id=periodl.pl_coaid
+                (select coa_id as pl_coaid,sum(IFNULL(dr,0)) pl_dr,sum(IFNULL(cr,0)) pl_cr from trial_balance_detail  where vou_date<'${vou_date_from}'group by coa_id) as periodl on tbd.coa_id=periodl.pl_coaid
               group by tbd.coa_id order by ct_code,n_code,coa_code;`;
 
       console.log(sql);
